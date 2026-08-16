@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>മാലീ സിവാക | Meelad Fest 2k26 - Fast Portal</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Anek+Malayalam:wght@600;700&display=swap" rel="stylesheet">
+  <title>മാലീ സിവാക | Meelad Fest 2k26</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Anek+Malayalam:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
@@ -26,14 +26,14 @@
     
     .app-wrapper { width: 100vw; min-height: 100vh; padding: 12px; display: flex; flex-direction: column; }
 
-    /* FULL-SCREEN HERO HEADER */
+    /* HEADER BANNER */
     .top-header {
       position: relative;
       width: 100%;
-      height: 130px;
+      height: 140px;
       border-radius: 12px;
       overflow: hidden;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       box-shadow: 0 8px 30px rgba(0,0,0,0.6);
       display: flex;
       flex-direction: column;
@@ -69,21 +69,23 @@
     }
     .icon-btn:hover { background: rgba(255,255,255,0.22); color: var(--gold); }
 
+    .title-banner { text-align: center; margin-top: 10px; }
     .main-fest-title {
-      font-size: 28px;
+      font-size: 32px;
       font-weight: 800;
       color: var(--gold);
       letter-spacing: 1px;
       font-family: 'Anek Malayalam', sans-serif;
       text-shadow: 0 2px 10px rgba(245, 158, 11, 0.3);
+      line-height: 1.2;
     }
     .sub-fest-title { 
-      font-size: 13px; 
+      font-size: 14px; 
       font-weight: 700; 
       color: #38bdf8; 
       letter-spacing: 3px;
       text-transform: uppercase;
-      margin-top: 2px;
+      margin-top: 4px;
     }
 
     /* NAVIGATION DRAWER */
@@ -154,14 +156,14 @@
     <span class="close-btn" onclick="closeNav()">&times;</span>
     <a href="javascript:void(0)" onclick="showView('dashboardView')"><i class="fa-solid fa-chart-line"></i> Category Standings</a>
     <a href="javascript:void(0)" onclick="showView('pointTableView')"><i class="fa-solid fa-trophy"></i> Point Table & Search</a>
-    <a href="javascript:void(0)" onclick="showView('officialView')"><i class="fa-solid fa-user-shield"></i> Official Portal (Data Entry)</a>
+    <a href="javascript:void(0)" onclick="showView('officialView')"><i class="fa-solid fa-user-shield"></i> Official Portal (Admin Entry)</a>
     <a href="javascript:void(0)" onclick="showView('judgesView')"><i class="fa-solid fa-scale-balanced"></i> Judges Slips & PDFs</a>
     <a href="javascript:void(0)" onclick="showView('teamView')"><i class="fa-solid fa-users"></i> Team Directory</a>
   </div>
 
   <div class="app-wrapper">
 
-    <!-- FULL-WIDTH HEADER -->
+    <!-- FULL-WIDTH HEADER BANNER -->
     <div class="top-header">
       <div class="header-controls">
         <div class="icon-btn" onclick="openNav()"><i class="fa-solid fa-bars"></i> Menu</div>
@@ -169,7 +171,7 @@
       </div>
       <div class="title-banner">
         <div class="main-fest-title">മാലീ സിവാക</div>
-        <div class="sub-fest-title">Meelad Fest 2k26 • Live Result Portal</div>
+        <div class="sub-fest-title">Meelad Fest 2k26</div>
       </div>
     </div>
 
@@ -216,14 +218,14 @@
       <div id="studentResultBox" style="margin-top:10px;"></div>
     </div>
 
-    <!-- 3. OFFICIAL PORTAL (DIRECT DATA ENTRY & EDITING) -->
+    <!-- 3. OFFICIAL PORTAL (ADMIN DATA ENTRY) -->
     <div id="officialView" class="view-panel">
-      <h3 style="margin-bottom: 4px; color: var(--gold);"><i class="fa-solid fa-user-shield"></i> Official Data Entry Portal</h3>
-      <p style="font-size:12px; color:var(--text-muted); margin-bottom:15px;">Admin access to insert marks, manage teams, and modify scores directly.</p>
+      <h3 style="margin-bottom: 4px; color: var(--gold);"><i class="fa-solid fa-user-shield"></i> Official Admin Portal</h3>
+      <p style="font-size:12px; color:var(--text-muted); margin-bottom:15px;">Admin access to enter program items, marks, and manage categories.</p>
 
       <div id="officialAuth">
-        <input type="text" id="officialUser" placeholder="Admin Username (ADMIN)">
-        <input type="password" id="officialPass" placeholder="Admin Password (ADMIN123)">
+        <input type="text" id="officialUser" placeholder="Admin Username">
+        <input type="password" id="officialPass" placeholder="Admin Password">
         <button class="btn" onclick="authOfficial()"><i class="fa-solid fa-right-to-bracket"></i> Login as Admin</button>
         <div id="officialLoginErr" style="color:#ef4444; font-size:12px; margin-top:8px;"></div>
       </div>
@@ -238,9 +240,9 @@
           </div>
         </div>
 
-        <!-- NEW ENTRY / EDIT ENTRY FORM -->
+        <!-- NEW ENTRY / EDIT FORM -->
         <div class="report-box">
-          <h4 id="formTitle" style="color:var(--gold); margin-bottom:10px;"><i class="fa-solid fa-plus-circle"></i> Add Participant / Program Entry</h4>
+          <h4 id="formTitle" style="color:var(--gold); margin-bottom:10px;"><i class="fa-solid fa-plus-circle"></i> Add Program Entry / Participant</h4>
           <input type="hidden" id="entryEditIndex" value="-1">
           
           <div class="form-grid">
@@ -252,13 +254,17 @@
               <option value="SUB-JUNIOR">SUB-JUNIOR</option>
               <option value="GENERAL">GENERAL</option>
             </select>
-            <input type="text" id="entryTeam" placeholder="Team Name">
+            <select id="entryTeam">
+              <option value="Qurthuba">Qurthuba (ഖുർത്തുബ)</option>
+              <option value="Qusdiya">Qusdiya (ഖുദ്‌സിയ)</option>
+              <option value="Qahira">Qahira (ഖാഹിറ)</option>
+            </select>
           </div>
 
           <div class="form-grid">
-            <input type="text" id="entryProgram" placeholder="Item / Program Name">
-            <input type="number" id="entryMark" placeholder="Mark / Points (e.g. 10)">
-            <input type="text" id="entryGrade" placeholder="Grade (A, B, C...)">
+            <input type="text" id="entryProgram" placeholder="Item / Program Name (e.g. Qira'at, Quiz)">
+            <input type="number" id="entryMark" placeholder="Mark / Score (e.g. 10)">
+            <input type="text" id="entryGrade" placeholder="Grade (A+, A, B, C...)">
             <input type="text" id="entryPlace" placeholder="Place (1st, 2nd, 3rd, or -)">
           </div>
 
@@ -268,7 +274,7 @@
           </div>
         </div>
 
-        <!-- DATA SEARCH & TABLE -->
+        <!-- SEARCH & MANAGE TABLE -->
         <div class="search-row">
           <select id="offCatFilter" onchange="renderOfficialTable()">
             <option value="">All Categories</option>
@@ -277,7 +283,13 @@
             <option value="SUB-JUNIOR">SUB-JUNIOR</option>
             <option value="GENERAL">GENERAL</option>
           </select>
-          <input type="text" id="offSearch" onkeyup="renderOfficialTable()" placeholder="🔍 Search any name, team, item...">
+          <select id="offTeamFilter" onchange="renderOfficialTable()">
+            <option value="">All Teams</option>
+            <option value="Qurthuba">Qurthuba</option>
+            <option value="Qusdiya">Qusdiya</option>
+            <option value="Qahira">Qahira</option>
+          </select>
+          <input type="text" id="offSearch" onkeyup="renderOfficialTable()" placeholder="🔍 Search participant, reg no, item...">
         </div>
 
         <div id="officialProgramsTable" class="table-responsive"></div>
@@ -287,7 +299,7 @@
     <!-- 4. JUDGES & PDF TOOLS -->
     <div id="judgesView" class="view-panel">
       <h3 style="margin-bottom: 4px; color: var(--gold);"><i class="fa-solid fa-print"></i> Judges Slip & PDF Generator</h3>
-      <p style="font-size:12px; color:var(--text-muted); margin-bottom:15px;">Generate evaluation slips and roster reports for print.</p>
+      <p style="font-size:12px; color:var(--text-muted); margin-bottom:15px;">Generate printable evaluation slips and category-wise rosters.</p>
       
       <div class="report-box">
         <h4 style="margin-bottom:8px; color:#38bdf8;"><i class="fa-solid fa-file-pdf"></i> Team Rosters & Categories</h4>
@@ -305,7 +317,7 @@
       </div>
 
       <div class="report-box">
-        <h4 style="margin-bottom:8px; color:#38bdf8;"><i class="fa-solid fa-clipboard-check"></i> 4-in-1 Evaluation Slips</h4>
+        <h4 style="margin-bottom:8px; color:#38bdf8;"><i class="fa-solid fa-clipboard-check"></i> 4-in-1 Judges Evaluation Slips</h4>
         <label style="font-size: 13px; font-weight: 600; display:block; margin-bottom: 6px;">Competition Item:</label>
         <input type="text" id="judgeItem" placeholder="e.g. Qur'an Recitation">
 
@@ -313,10 +325,10 @@
       </div>
     </div>
 
-    <!-- 5. TEAM PORTAL & DIRECTORY -->
+    <!-- 5. TEAM DIRECTORY -->
     <div id="teamView" class="view-panel">
       <h3 style="margin-bottom: 4px; color: var(--gold);"><i class="fa-solid fa-address-book"></i> Student Directory</h3>
-      <p style="font-size:12px; color:var(--text-muted); margin-bottom:15px;">Search entries and export category-wise tables.</p>
+      <p style="font-size:12px; color:var(--text-muted); margin-bottom:15px;">Search entries across Qurthuba, Qusdiya, and Qahira.</p>
 
       <div class="search-row">
         <input type="text" id="searchReg" onkeyup="filterStudents()" placeholder="🔍 By Reg No...">
@@ -328,6 +340,12 @@
           <option value="SUB-JUNIOR">SUB-JUNIOR</option>
           <option value="GENERAL">GENERAL</option>
         </select>
+        <select id="searchTeam" onchange="filterStudents()">
+          <option value="">All Teams</option>
+          <option value="Qurthuba">Qurthuba</option>
+          <option value="Qusdiya">Qusdiya</option>
+          <option value="Qahira">Qahira</option>
+        </select>
       </div>
 
       <button class="btn btn-pdf" onclick="exportFilteredPDF()"><i class="fa-solid fa-file-pdf"></i> Export Filtered List as PDF</button>
@@ -337,15 +355,15 @@
   </div>
 
   <script>
-    // DEFAULT INITIAL SAMPLE DATA (Will be overwritten by your Local Storage)
+    // INITIAL SAMPLE DATA FOR THE 3 TEAMS
     var defaultData = [
-      { regNo: "101", name: "Ahmad", category: "SENIOR", team: "TEAM A", program: "Qur'an Recitation", mark: 10, grade: "A+", place: "1st" },
-      { regNo: "102", name: "Bilal", category: "SENIOR", team: "TEAM B", program: "Qur'an Recitation", mark: 7, grade: "A", place: "2nd" },
-      { regNo: "103", name: "Zaid", category: "JUNIOR", team: "TEAM A", program: "Islamic Quiz", mark: 8, grade: "A", place: "1st" },
-      { regNo: "104", name: "Umar", category: "SUB-JUNIOR", team: "TEAM C", program: "Madih Song", mark: 5, grade: "B", place: "3rd" }
+      { regNo: "101", name: "Ahmad", category: "SENIOR", team: "Qurthuba", program: "Qur'an Recitation", mark: 10, grade: "A+", place: "1st" },
+      { regNo: "102", name: "Bilal", category: "SENIOR", team: "Qusdiya", program: "Qur'an Recitation", mark: 7, grade: "A", place: "2nd" },
+      { regNo: "103", name: "Zaid", category: "JUNIOR", team: "Qahira", program: "Islamic Quiz", mark: 8, grade: "A", place: "1st" },
+      { regNo: "104", name: "Umar", category: "SUB-JUNIOR", team: "Qurthuba", program: "Madih Song", mark: 5, grade: "B", place: "3rd" }
     ];
 
-    // Load from LocalStorage if available
+    // Load from LocalStorage if exists
     var festRecords = JSON.parse(localStorage.getItem('MEELAD_FEST_DATA')) || defaultData;
 
     function saveLocal() {
@@ -392,7 +410,6 @@
 
     window.onload = function() {
       refreshAllViews();
-      filterStudents();
       setInterval(rotateQuote, 8000);
       setInterval(rotateAnnouncedResult, 5000);
     };
@@ -403,30 +420,31 @@
       filterStudents();
     }
 
-    /* ENGINE TO CALCULATE TOTALS AND ROTATE CATEGORIES INSTANTLY */
+    /* ENGINE FOR TEAM POINTS & CATEGORY ROTATION */
     function buildDashboardAndLeaderboard() {
       var categoryOrder = ["SENIOR", "JUNIOR", "SUB-JUNIOR", "GENERAL"];
       var categoryGroups = [];
 
       categoryOrder.forEach(function(cat) {
         var catRecords = festRecords.filter(r => r.category === cat);
-        var teamsInCat = [...new Set(catRecords.map(r => r.team))].filter(Boolean);
+        var teamsInCat = ["Qurthuba", "Qusdiya", "Qahira"];
 
         teamsInCat.forEach(function(teamName) {
           var teamItems = catRecords.filter(r => r.team === teamName);
-          var totalPoints = teamItems.reduce((sum, item) => sum + Number(item.mark || 0), 0);
-
-          categoryGroups.push({
-            category: cat,
-            team: teamName,
-            totalPoints: totalPoints,
-            items: teamItems
-          });
+          if (teamItems.length > 0) {
+            var totalPoints = teamItems.reduce((sum, item) => sum + Number(item.mark || 0), 0);
+            categoryGroups.push({
+              category: cat,
+              team: teamName,
+              totalPoints: totalPoints,
+              items: teamItems
+            });
+          }
         });
       });
 
-      var allTeams = [...new Set(festRecords.map(r => r.team))].filter(Boolean);
-      var teamSummaries = allTeams.map(function(teamName) {
+      var teamsList = ["Qurthuba", "Qusdiya", "Qahira"];
+      var teamSummaries = teamsList.map(function(teamName) {
         var summary = { team: teamName, SENIOR: 0, JUNIOR: 0, SUB_JUNIOR: 0, GENERAL: 0, TOTAL: 0 };
         festRecords.filter(r => r.team === teamName).forEach(function(r) {
           var m = Number(r.mark || 0);
@@ -440,7 +458,7 @@
       });
       teamSummaries.sort((a, b) => b.TOTAL - a.TOTAL);
 
-      // Build Carousel
+      // Category Carousel Slides
       carouselSlides = [];
       if (categoryGroups.length === 0) {
         carouselSlides.push({ title: "Waiting for Data", content: "<p style='color:#94a3b8;'>Add participants to see category carousels.</p>" });
@@ -478,7 +496,7 @@
 
         var summaryHtml = `
           <div style="background:#0b1329; padding:14px; border-radius:8px; margin-bottom:12px; border-left: 5px solid #10b981;">
-            <div style="font-size:18px; color:#10b981; font-weight:bold;">🏆 OVERALL CATEGORY STANDINGS</div>
+            <div style="font-size:18px; color:#10b981; font-weight:bold;">🏆 OVERALL TEAM STANDINGS</div>
           </div>
           <div class="table-responsive">
             <table>
@@ -507,9 +525,9 @@
           <td><b style="color:#38bdf8; font-size:15px;">${s.team}</b></td>
           <td style="font-weight:bold; font-size:16px; color:#10b981;">${s.TOTAL} pts</td>
         </tr>`).join('');
-      document.getElementById('teamPointsTable').innerHTML = `<table><thead><tr><th>Rank</th><th>Team</th><th>Total Score</th></tr></thead><tbody>${leaderboardHtml || '<tr><td colspan="3">No points recorded</td></tr>'}</tbody></table>`;
+      document.getElementById('teamPointsTable').innerHTML = `<table><thead><tr><th>Rank</th><th>Team</th><th>Total Score</th></tr></thead><tbody>${leaderboardHtml}</tbody></table>`;
 
-      // Render Announced Winner Card
+      // Live Announced Results
       liveAnnouncedResults = festRecords.filter(r => r.place && r.place !== '-' && r.place !== '').map(r => ({
         program: r.program, category: r.category, winner: r.name + ' (' + r.team + ') - ' + r.place
       }));
@@ -555,11 +573,12 @@
       resultIndex = (resultIndex + 1) % liveAnnouncedResults.length;
     }
 
-    /* AUTH & OFFICIAL PORTAL EDITING */
+    /* AUTHENTICATION: ADMIN & *mmo#1956 */
     function authOfficial() {
       let u = document.getElementById('officialUser').value.trim();
       let p = document.getElementById('officialPass').value.trim();
-      if (u === "ADMIN" && p === "ADMIN123") {
+      if (u === "ADMIN" && p === "*mmo#1956") {
+        document.getElementById('officialLoginErr').innerText = "";
         document.getElementById('officialAuth').style.display = "none";
         document.getElementById('officialContent').style.display = "block";
         renderOfficialTable();
@@ -578,14 +597,14 @@
       let regNo = document.getElementById('entryRegNo').value.trim();
       let name = document.getElementById('entryName').value.trim();
       let category = document.getElementById('entryCategory').value;
-      let team = document.getElementById('entryTeam').value.trim();
+      let team = document.getElementById('entryTeam').value;
       let program = document.getElementById('entryProgram').value.trim();
       let mark = Number(document.getElementById('entryMark').value) || 0;
       let grade = document.getElementById('entryGrade').value.trim();
       let place = document.getElementById('entryPlace').value.trim();
 
-      if (!regNo || !name || !team || !program) {
-        alert("Please fill in Reg No, Name, Team, and Program.");
+      if (!regNo || !name || !program) {
+        alert("Please fill in Reg No, Participant Name, and Program Item.");
         return;
       }
 
@@ -630,24 +649,25 @@
       document.getElementById('entryEditIndex').value = "-1";
       document.getElementById('entryRegNo').value = "";
       document.getElementById('entryName').value = "";
-      document.getElementById('entryTeam').value = "";
       document.getElementById('entryProgram').value = "";
       document.getElementById('entryMark').value = "";
       document.getElementById('entryGrade').value = "";
       document.getElementById('entryPlace').value = "";
 
-      document.getElementById('formTitle').innerHTML = `<i class="fa-solid fa-plus-circle"></i> Add Participant / Program Entry`;
+      document.getElementById('formTitle').innerHTML = `<i class="fa-solid fa-plus-circle"></i> Add Program Entry / Participant`;
       document.getElementById('saveEntryBtn').innerHTML = `<i class="fa-solid fa-save"></i> Save Entry`;
       document.getElementById('cancelEditBtn').style.display = "none";
     }
 
     function renderOfficialTable() {
-      let cat = document.getElementById('offCatFilter').value.toUpperCase().trim();
+      let cat = document.getElementById('offCatFilter') ? document.getElementById('offCatFilter').value.toUpperCase().trim() : '';
+      let team = document.getElementById('offTeamFilter') ? document.getElementById('offTeamFilter').value : '';
       let q = (document.getElementById('offSearch') ? document.getElementById('offSearch').value : '').toLowerCase().trim();
 
       let filtered = festRecords.map((r, i) => ({ ...r, originalIndex: i })).filter(p => {
         return (!cat || p.category === cat) &&
-               (!q || p.name.toLowerCase().includes(q) || p.team.toLowerCase().includes(q) || p.program.toLowerCase().includes(q) || String(p.regNo).includes(q));
+               (!team || p.team === team) &&
+               (!q || p.name.toLowerCase().includes(q) || p.program.toLowerCase().includes(q) || String(p.regNo).includes(q));
       });
 
       let container = document.getElementById('officialProgramsTable');
@@ -656,7 +676,7 @@
         return;
       }
 
-      let html = `<table><thead><tr><th>Reg No</th><th>Name</th><th>Category</th><th>Team</th><th>Item</th><th>Mark</th><th>Actions</th></tr></thead><tbody>`;
+      let html = `<table><thead><tr><th>Reg No</th><th>Name</th><th>Category</th><th>Team</th><th>Item</th><th>Mark</th><th>Place</th><th>Actions</th></tr></thead><tbody>`;
       html += filtered.map(i => `<tr>
         <td><b>${i.regNo}</b></td>
         <td>${i.name}</td>
@@ -664,6 +684,7 @@
         <td><b>${i.team}</b></td>
         <td>${i.program}</td>
         <td style="color:#f59e0b; font-weight:bold;">${i.mark}</td>
+        <td><b style="color:#38bdf8;">${i.place || '-'}</b></td>
         <td>
           <button onclick="editEntry(${i.originalIndex})" style="padding:4px 8px; font-size:11px; background:#0284c7; color:#fff; border:none; border-radius:4px; cursor:pointer;"><i class="fa-solid fa-edit"></i></button>
           <button onclick="deleteEntry(${i.originalIndex})" style="padding:4px 8px; font-size:11px; background:#dc2626; color:#fff; border:none; border-radius:4px; cursor:pointer; margin-left:4px;"><i class="fa-solid fa-trash"></i></button>
@@ -692,10 +713,10 @@
             saveLocal();
             alert("Data successfully restored!");
           } else {
-            alert("Invalid JSON format.");
+            alert("Invalid format.");
           }
         } catch (err) {
-          alert("Error parsing file.");
+          alert("Error reading file.");
         }
       };
       reader.readAsText(evt.target.files[0]);
@@ -714,16 +735,18 @@
       }
     }
 
-    /* TEAM DIRECTORY */
+    /* DIRECTORY SEARCH */
     function filterStudents() {
       let regQuery = (document.getElementById('searchReg') ? document.getElementById('searchReg').value : '').toLowerCase().trim();
       let nameQuery = (document.getElementById('searchName') ? document.getElementById('searchName').value : '').toLowerCase().trim();
       let catQuery = (document.getElementById('searchCategory') ? document.getElementById('searchCategory').value : '').toUpperCase().trim();
+      let teamQuery = (document.getElementById('searchTeam') ? document.getElementById('searchTeam').value : '').trim();
 
       let list = festRecords.filter(s => {
         return (!regQuery || String(s.regNo).toLowerCase().includes(regQuery)) &&
                (!nameQuery || String(s.name).toLowerCase().includes(nameQuery)) &&
-               (!catQuery || String(s.category).toUpperCase() === catQuery);
+               (!catQuery || String(s.category).toUpperCase() === catQuery) &&
+               (!teamQuery || s.team === teamQuery);
       });
 
       let container = document.getElementById('teamMembersTable');
@@ -747,7 +770,8 @@
     }
     function exportFilteredPDF() {
       var cat = document.getElementById('searchCategory').value;
-      var list = (!cat) ? festRecords : festRecords.filter(s => s.category === cat);
+      var team = document.getElementById('searchTeam').value;
+      var list = festRecords.filter(s => (!cat || s.category === cat) && (!team || s.team === team));
       generateLocalPDF(list, "Student Search Export");
     }
 

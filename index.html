@@ -1,190 +1,781 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Meelad Fest 2026</title>
-  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>മാലീ സിവാക | Meelad Fest 2k26</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Anek+Malayalam:wght@600;700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --primary: #064e3b;
-      --primary-light: #047857;
-      --gold: #d97706;
-      --gold-light: #fbbf24;
-      --bg: #f8fafc;
-      --card-bg: #ffffff;
-      --text: #1e293b;
-      --text-muted: #64748b;
-    }
+    * { box-sizing: border-box; font-family: 'Poppins', sans-serif; margin: 0; padding: 0; }
+    body { background: #0f172a; color: #f8fafc; overflow-x: hidden; }
+    .container { padding: 12px; width: 100%; max-width: 1100px; margin: 0 auto; }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-    body { background-color: var(--bg); color: var(--text); line-height: 1.6; }
-
-    /* Header & Hero */
-    header {
-      background: linear-gradient(135deg, var(--primary) 0%, #022c22 100%);
-      color: white;
-      text-align: center;
-      padding: 4rem 1.5rem 3rem;
+    /* BANNER HEADER */
+    .top-header {
       position: relative;
-    }
-    .arabic-title { font-family: 'Amiri', serif; font-size: 2.5rem; color: var(--gold-light); margin-bottom: 0.5rem; }
-    h1 { font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; }
-    p.tagline { font-size: 1.1rem; color: #cbd5e1; max-width: 600px; margin: 0 auto 1.5rem; }
-    .badge {
-      display: inline-block;
-      background: rgba(251, 191, 36, 0.15);
-      border: 1px solid var(--gold-light);
-      color: var(--gold-light);
-      padding: 0.35rem 1rem;
-      border-radius: 999px;
-      font-size: 0.9rem;
-      font-weight: 600;
-    }
-
-    /* Container & Sections */
-    .container { max-width: 1000px; margin: -2rem auto 3rem; padding: 0 1rem; position: relative; }
-    .card {
-      background: var(--card-bg);
+      width: 100%;
+      height: 160px;
       border-radius: 12px;
-      padding: 2rem;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
-      margin-bottom: 2rem;
-    }
-    h2 {
-      font-size: 1.6rem;
-      color: var(--primary);
-      margin-bottom: 1.25rem;
-      border-bottom: 2px solid #e2e8f0;
-      padding-bottom: 0.5rem;
+      overflow: hidden;
+      margin-bottom: 15px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.5);
       display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 0.5rem;
+      justify-content: center;
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      border: 1px solid rgba(255,255,255,0.08);
     }
 
-    /* Schedule / Timeline */
-    .schedule-item {
-      display: flex;
-      gap: 1.5rem;
-      padding: 1rem 0;
-      border-bottom: 1px solid #f1f5f9;
+    .menu-icon { 
+      position: absolute; 
+      left: 15px; 
+      top: 15px; 
+      font-size: 22px; 
+      color: #fff; 
+      cursor: pointer; 
+      user-select: none; 
+      z-index: 10;
+      background: rgba(255,255,255,0.1);
+      padding: 4px 10px;
+      border-radius: 6px;
     }
-    .schedule-item:last-child { border-bottom: none; }
-    .time {
+    
+    .title-banner { position: relative; z-index: 2; text-align: center; }
+    .main-fest-title {
+      font-size: 26px;
       font-weight: 700;
-      color: var(--gold);
-      min-width: 100px;
+      color: #f59e0b;
+      letter-spacing: 1px;
+      font-family: 'Anek Malayalam', sans-serif;
+    }
+    .sub-fest-title { 
+      font-size: 13px; 
+      font-weight: 600; 
+      color: #38bdf8; 
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 4px;
     }
 
-    /* Competitions Grid */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1rem;
-    }
-    .grid-item {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      padding: 1.25rem;
-      border-radius: 8px;
-      border-left: 4px solid var(--primary-light);
-    }
-    .grid-item h3 { font-size: 1.1rem; color: var(--primary); margin-bottom: 0.25rem; }
-    .grid-item p { font-size: 0.85rem; color: var(--text-muted); }
+    /* SIDE NAVIGATION DRAWER */
+    .side-drawer { height: 100%; width: 0; position: fixed; z-index: 1000; top: 0; left: 0; background: #1e293b; overflow-x: hidden; transition: 0.3s; padding-top: 60px; }
+    .side-drawer a { padding: 14px 24px; text-decoration: none; font-size: 15px; color: #e0e0e0; display: block; font-weight: 600; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .side-drawer a:hover { background: #334155; color: #f59e0b; }
+    .side-drawer .close-btn { position: absolute; top: 10px; right: 20px; font-size: 30px; color: #fff; cursor: pointer; }
+    .overlay { position: fixed; display: none; width: 100%; height: 100%; top: 0; left: 0; background: rgba(0,0,0,0.6); z-index: 999; }
 
-    /* Action Buttons */
-    .cta-container { text-align: center; margin-top: 1.5rem; }
-    .btn {
-      display: inline-block;
-      background: var(--gold);
-      color: white;
-      text-decoration: none;
-      padding: 0.75rem 1.75rem;
-      border-radius: 8px;
-      font-weight: 600;
-      transition: background 0.2s;
-    }
-    .btn:hover { background: #b45309; }
+    /* VIEW PANELS */
+    .view-panel { display: none; background: #1e293b; border-radius: 10px; padding: 20px; border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 4px 15px rgba(0,0,0,0.3); margin-bottom: 15px; }
+    .view-panel.active { display: block !important; }
 
-    /* Responsive Iframe Container */
-    .sheet-wrapper {
-      position: relative;
-      width: 100%;
-      overflow-x: auto;
-      border: 1px solid #e2e8f0;
-      border-radius: 8px;
-    }
-    .sheet-wrapper iframe {
-      width: 100%;
-      height: 550px;
-      border: none;
-      display: block;
-    }
+    /* CAROUSEL HEADER */
+    .carousel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px; }
+    .badge-timer { background: #0284c7; color: #fff; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; }
 
-    footer { text-align: center; padding: 2rem 1rem; color: var(--text-muted); font-size: 0.9rem; }
+    /* DASHBOARD CARDS */
+    .dashboard-split { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; }
+    .dashboard-card {
+      flex: 1; min-width: 280px;
+      background: #0f172a;
+      color: #fff; padding: 18px; border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.05);
+      display: flex; flex-direction: column; justify-content: center; min-height: 120px;
+    }
+    .dashboard-card h4 { font-size: 13px; color: #f59e0b; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .quote-text { font-size: 13px; font-style: italic; line-height: 1.4; margin-bottom: 6px; }
+    .quote-translation { font-size: 12px; color: #94a3b8; line-height: 1.3; font-family: 'Anek Malayalam', sans-serif; }
+    
+    .result-program { font-size: 15px; font-weight: bold; color: #fff; }
+    .result-cat { font-size: 12px; color: #f59e0b; margin-bottom: 4px; }
+    .result-winner { font-size: 13px; color: #e0e0e0; }
+
+    .search-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 15px; }
+    .search-row input, .search-row select { flex: 1; min-width: 140px; }
+
+    /* TABLES */
+    .table-responsive { width: 100%; overflow-x: auto; margin-top: 10px; }
+    table { width: 100%; border-collapse: collapse; overflow: hidden; border-radius: 8px; }
+    th, td { border: 1px solid rgba(255,255,255,0.08); padding: 10px; font-size: 13px; text-align: left; }
+    th { background: #334155; color: #f8fafc; font-weight: 600; }
+    tr:nth-child(even) { background: rgba(255,255,255,0.02); }
+
+    /* FORM ELEMENTS */
+    input, select, textarea { width: 100%; padding: 10px; margin-bottom: 12px; background: #0f172a; border: 1px solid #334155; color: #fff; border-radius: 6px; font-size: 13px; }
+    button.btn { width: 100%; padding: 11px; background: #0284c7; color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; margin-bottom: 8px; transition: 0.2s; }
+    button.btn:hover { background: #0369a1; }
+    button.btn-pdf { background: #dc2626; color: white; }
+    button.btn-pdf:hover { background: #b91c1c; }
+    .badge { display: inline-block; padding: 4px 10px; background: #0284c7; color: #fff; border-radius: 12px; font-size: 12px; font-weight: 600; margin-bottom: 10px; }
+    .report-box { background: #0f172a; padding: 15px; border-radius: 6px; margin-bottom: 15px; border: 1px solid #334155; }
   </style>
 </head>
 <body>
 
-  <header>
-    <div class="arabic-title">مَوْلِدُ النَّبِيّ ﷺ</div>
-    <h1>Meelad Fest 2026</h1>
-    <p class="tagline">Celebrating the life and teachings of the Holy Prophet Muhammad ﷺ with knowledge, devotion, and harmony.</p>
-    <div class="badge">📅 Grand Celebrations | 📍 Fest Venue</div>
-  </header>
+  <div id="drawerOverlay" class="overlay" onclick="closeNav()"></div>
 
-  <div class="container">
-    
-    <!-- Live Google Sheet Section -->
-    <div class="card">
-      <h2>📋 Live Details &amp; Results</h2>
-      <p style="color: var(--text-muted); margin-bottom: 1rem; font-size: 0.95rem;">
-        Check the live schedule, program lineup, and competition details below:
-      </p>
-      <div class="sheet-wrapper">
-        <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSecjx5quikm1nv2utFy6BCAvEiv68g-ES6IuOtSmiX3HUdkl974ThUZLea02DqV7nfu0MFufUqPbjw/pubhtml?widget=true&amp;headers=false"></iframe>
-      </div>
-    </div>
-
-    <!-- Competitions Section -->
-    <div class="card">
-      <h2>Competitions &amp; Events</h2>
-      <div class="grid">
-        <div class="grid-item">
-          <h3>Qirat Competition</h3>
-          <p>Tajweed-focused Quranic recitation for Juniors &amp; Seniors.</p>
-        </div>
-        <div class="grid-item">
-          <h3>Elocution</h3>
-          <p>Topics on the Prophet's character, mercy, and ethics.</p>
-        </div>
-        <div class="grid-item">
-          <h3>Naat / Madih Songs</h3>
-          <p>Solo and group traditional praise performances.</p>
-        </div>
-        <div class="grid-item">
-          <h3>Islamic Quiz</h3>
-          <p>Questions covering Islamic history and general knowledge.</p>
-        </div>
-      </div>
-      <div class="cta-container">
-        <a href="https://forms.google.com" target="_blank" class="btn">Register for Competitions</a>
-      </div>
-    </div>
-
-    <!-- Contact Details -->
-    <div class="card">
-      <h2>Contact &amp; Information</h2>
-      <p>For inquiries, volunteering, or program details:</p>
-      <p style="margin-top: 0.5rem;">📞 <strong>Phone:</strong> Contact Organizing Committee</p>
-      <p>✉️ <strong>Email:</strong> info@meeladfest.org</p>
-    </div>
-
+  <!-- NAVIGATION SIDE DRAWER -->
+  <div id="sideNav" class="side-drawer">
+    <span class="close-btn" onclick="closeNav()">&times;</span>
+    <a href="javascript:void(0)" onclick="showView('dashboardView')">📊 Dynamic Category Standings</a>
+    <a href="javascript:void(0)" onclick="showView('officialView')">👔 Official Portal</a>
+    <a href="javascript:void(0)" onclick="showView('judgesView')">⚖️ Judges Slips & Reports</a>
+    <a href="javascript:void(0)" onclick="showView('pointTableView')">🏆 Point Table & Search</a>
+    <a href="javascript:void(0)" onclick="showView('teamView')">🔒 Team Portal & Directory</a>
   </div>
 
-  <footer>
-    <p>&copy; 2026 Meelad Fest Committee. All rights reserved.</p>
-  </footer>
+  <div class="container">
+    <!-- BANNER HEADER -->
+    <div class="top-header">
+      <div class="menu-icon" onclick="openNav()">☰</div>
+      <div class="title-banner">
+        <div class="main-fest-title">മാലീ സിവാക</div>
+        <div class="sub-fest-title">Meelad Fest 2k26</div>
+      </div>
+    </div>
 
+    <!-- 1. DYNAMIC CATEGORY ROTATIONAL DASHBOARD -->
+    <div id="dashboardView" class="view-panel active">
+      <div class="dashboard-split">
+        <div class="dashboard-card">
+          <h4>💬 Prophetic Wisdom</h4>
+          <div id="quoteDisplay">
+            <div class="quote-text">"The best among you are those who have the best manners and character."</div>
+            <div class="quote-translation"><b>തർജ്ജമ:</b> നിങ്ങളിൽ ഏറ്റവും ഉത്തമർ അത്യുത്തമമായ സ്വഭാവഗുണമുള്ളവരാണ്.</div>
+          </div>
+        </div>
+
+        <div class="dashboard-card">
+          <h4>📢 Announced Results</h4>
+          <div id="announcedDisplay">
+            <div class="result-program">Loading live results...</div>
+          </div>
+        </div>
+      </div>
+
+      <hr style="margin:15px 0; border:0; border-top:1px solid rgba(255,255,255,0.08);">
+
+      <!-- Dynamic 30-Second Category Rotator Container -->
+      <div class="carousel-header">
+        <h3 id="displayHeaderTitle" style="color: #f59e0b;">Category Marksheet Carousel</h3>
+        <span class="badge-timer" id="rotatorTimerBadge">Next Update: 30s</span>
+      </div>
+
+      <div id="carouselCardContainer">
+        <p style="color: #94a3b8;">Loading category results from official sheet...</p>
+      </div>
+
+      <hr style="margin:25px 0 15px 0; border:0; border-top:1px solid rgba(255,255,255,0.08);">
+      <h3>💡 Suggestions & Feedback</h3>
+      <p style="font-size:12px; color:#94a3b8; margin-bottom:10px;">Send suggestions directly to the organizing committee.</p>
+      
+      <input type="email" id="sugEmail" placeholder="Your Email (Optional)">
+      <textarea id="sugText" rows="3" placeholder="Write your suggestion or feedback here..."></textarea>
+      <button class="btn" onclick="submitFeedback()">Send Feedback</button>
+      <div id="sugStatus" style="font-size:12px; font-weight:bold; margin-top:5px;"></div>
+    </div>
+
+    <!-- 2. OFFICIAL PORTAL VIEW -->
+    <div id="officialView" class="view-panel">
+      <h3>👔 Official Portal (Program Management)</h3>
+      <p style="font-size:12px; color:#94a3b8; margin-bottom:12px;">Admin credentials required to view full sheet entries.</p>
+
+      <div id="officialAuth">
+        <input type="text" id="officialUser" placeholder="Admin Username">
+        <input type="password" id="officialPass" placeholder="Admin Password">
+        <button class="btn" onclick="authOfficial()">Login as Admin</button>
+        <div id="officialLoginErr" style="color:#ef4444; font-size:12px; margin-top:8px;"></div>
+      </div>
+
+      <div id="officialContent" style="display:none;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+          <span class="badge">🔑 Official Admin Synchronized Sheet</span>
+          <button onclick="logoutOfficial()" style="padding:4px 10px; font-size:11px; background:#ef4444; color:#fff; border:none; border-radius:4px; cursor:pointer;">Logout</button>
+        </div>
+
+        <div class="search-row">
+          <select id="offCatFilter" onchange="filterOfficialPrograms()">
+            <option value="">All Categories</option>
+            <option value="SENIOR">SENIOR</option>
+            <option value="JUNIOR">JUNIOR</option>
+            <option value="SUB-JUNIOR">SUB-JUNIOR</option>
+            <option value="GENERAL">GENERAL</option>
+          </select>
+          <input type="text" id="offTeamFilter" onkeyup="filterOfficialPrograms()" placeholder="🔍 Filter by Team...">
+          <input type="text" id="offNameFilter" onkeyup="filterOfficialPrograms()" placeholder="🔍 Filter by Name...">
+          <input type="text" id="offItemFilter" onkeyup="filterOfficialPrograms()" placeholder="🔍 Filter by Item...">
+        </div>
+
+        <div id="officialProgramsTable" class="table-responsive" style="margin-top:15px;"></div>
+      </div>
+    </div>
+
+    <!-- 3. JUDGES & PDF TOOLS -->
+    <div id="judgesView" class="view-panel">
+      <h3>⚖️ Judges Slip & Report PDF Generator</h3>
+      <p style="font-size:12px; color:#94a3b8; margin-bottom:12px;">Admin credentials required to generate printable forms.</p>
+      
+      <div id="judgesAuth">
+        <input type="text" id="judgeUser" placeholder="Admin Username">
+        <input type="password" id="judgePass" placeholder="Admin Password">
+        <button class="btn" onclick="authJudges()">Login as Admin</button>
+      </div>
+
+      <div id="judgesControl" style="display:none;">
+        <div class="report-box">
+          <h4 style="margin-bottom:8px; color:#38bdf8;">📋 Roster Reports</h4>
+          <label><b>Select Category:</b></label>
+          <select id="reportCatSelect">
+            <option value="ALL">ALL CATEGORIES (Full Roster)</option>
+            <option value="SENIOR">SENIOR Only</option>
+            <option value="JUNIOR">JUNIOR Only</option>
+            <option value="SUB-JUNIOR">SUB-JUNIOR Only</option>
+            <option value="GENERAL">GENERAL Only</option>
+          </select>
+
+          <button class="btn btn-pdf" onclick="generateFullListPDF()">📄 Generate Full Team Roster PDF</button>
+          <button class="btn btn-pdf" style="background:#0284c7;" onclick="generateCategoryListPDF()">📑 Generate Category-Wise PDF</button>
+        </div>
+
+        <div class="report-box">
+          <h4 style="margin-bottom:8px; color:#38bdf8;">⚖️ Judges Evaluation Slips</h4>
+          <label><b>Competition Item:</b></label>
+          <input type="text" id="judgeItem" placeholder="e.g. Qur'an Recitation">
+
+          <button class="btn btn-pdf" style="background:#059669;" onclick="printJudgesSlip()">🖨️ Print Single-Page Judges Slips PDF</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. POINT TABLE & SEARCH -->
+    <div id="pointTableView" class="view-panel">
+      <h3>🏆 Team Leaderboard</h3>
+      <div id="teamPointsTable" class="table-responsive"></div>
+      <hr style="margin:20px 0; border:0; border-top:1px solid rgba(255,255,255,0.08);">
+      <h3>🔍 Lookup Student Score</h3>
+      <input type="text" id="studentRegNo" placeholder="Enter Registration No (e.g. 101)">
+      <button class="btn" onclick="lookupResult()">Search Score</button>
+      <div id="studentResultBox" style="margin-top:10px;"></div>
+    </div>
+
+    <!-- 5. TEAM PORTAL & DIRECTORY -->
+    <div id="teamView" class="view-panel">
+      <h3>👥 Student Directory & Search</h3>
+      <p style="font-size:12px; color:#94a3b8; margin-bottom:12px;">Login to access student list.</p>
+
+      <div id="teamLoginForm">
+        <input type="text" id="teamUser" placeholder="Username (e.g. ADMIN, TEAM_A)">
+        <input type="password" id="teamPass" placeholder="Password">
+        <button class="btn" onclick="loginTeamPortal()">Login</button>
+        <div id="loginError" style="color:#ef4444; font-size:12px; margin-top:8px;"></div>
+      </div>
+
+      <div id="teamDataContent" style="display:none;">
+        <div class="badge" id="userRoleBadge">Logged in</div>
+        <button onclick="logoutTeamPortal()" style="float:right; padding:4px 10px; font-size:11px; background:#ef4444; color:#fff; border:none; border-radius:4px; cursor:pointer;">Logout</button>
+
+        <div class="search-row">
+          <input type="text" id="searchReg" onkeyup="filterStudents()" placeholder="🔍 By Reg No...">
+          <input type="text" id="searchName" onkeyup="filterStudents()" placeholder="🔍 By Name...">
+          <select id="searchCategory" onchange="filterStudents()">
+            <option value="">All Categories</option>
+            <option value="SENIOR">SENIOR</option>
+            <option value="JUNIOR">JUNIOR</option>
+            <option value="SUB-JUNIOR">SUB-JUNIOR</option>
+            <option value="GENERAL">GENERAL</option>
+          </select>
+        </div>
+
+        <button class="btn btn-pdf" onclick="exportFilteredPDF()">🖨️ Export Filtered List as PDF</button>
+        <div id="teamMembersTable" class="table-responsive" style="margin-top:15px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // PASTE YOUR DEPLOYED GOOGLE APPS SCRIPT WEB APP URL HERE:
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx_YOUR_DEPLOYED_SCRIPT_ID/exec";
+
+    var carouselSlides = [];
+    var currentSlideIndex = 0;
+    var countdown = 30;
+    var timerInterval = null;
+
+    var currentStudentsList = [];
+    var filteredStudentsList = [];
+    var masterOfficialData = [];
+    var filteredOfficialData = [];
+    var liveAnnouncedResults = [];
+    var resultIndex = 0;
+    var quoteIndex = 0;
+    var cachedRawData = [];
+
+    var prophetQuotes = [
+      { text: "The best among you are those who have the best manners and character.", translation: "നിങ്ങളിൽ ഏറ്റവും ഉത്തമർ അത്യുത്തമമായ സ്വഭാവഗുണമുള്ളവരാണ്." },
+      { text: "None of you truly believes until he wishes for his brother what he wishes for himself.", translation: "തനിക്ക് ഇഷ്ടപ്പെടുന്നത് തന്റെ സഹോദരനും ഇഷ്ടപ്പെടുന്നതുവരെ നിങ്ങളിലൊരാളും പൂർണ്ണവിശ്വാസിയാവുകയില്ല." },
+      { text: "A good word is a charity.", translation: "നല്ല വാക്ക് പറയുന്നതും ഒരു ധർമ്മമാണ് (സദഖ്)." }
+    ];
+
+    function openNav() { document.getElementById("sideNav").style.width = "250px"; document.getElementById("drawerOverlay").style.display = "block"; }
+    function closeNav() { document.getElementById("sideNav").style.width = "0"; document.getElementById("drawerOverlay").style.display = "none"; }
+    
+    function showView(viewId) {
+      closeNav();
+      var panels = document.getElementsByClassName('view-panel');
+      for (var i = 0; i < panels.length; i++) { panels[i].classList.remove('active'); }
+      var target = document.getElementById(viewId);
+      if (target) { target.classList.add('active'); }
+    }
+
+    window.onload = function() {
+      loadDashboardData();
+      fetch(SCRIPT_URL + "?action=getResultsData")
+        .then(res => res.json())
+        .then(data => renderLiveResults(data))
+        .catch(err => console.error("Error loading live results:", err));
+
+      setInterval(rotateQuote, 8000);
+      setInterval(rotateAnnouncedResult, 5000);
+    };
+
+    function loadDashboardData() {
+      fetch(SCRIPT_URL + "?action=getDashboardCategoryData")
+        .then(res => res.json())
+        .then(data => {
+          cachedRawData = data.rawData || [];
+          buildCarouselSlides(data);
+          startCarousel();
+        })
+        .catch(err => {
+          document.getElementById('carouselCardContainer').innerHTML = "<p style='color:#ef4444;'>Failed to connect to Google Sheet API. Please check your Web App URL.</p>";
+        });
+    }
+
+    function buildCarouselSlides(data) {
+      carouselSlides = [];
+
+      if (!data.categoryGroups || data.categoryGroups.length === 0) {
+        carouselSlides.push({
+          title: "No Results Found",
+          content: "<p style='color:#94a3b8;'>No marks recorded in sheet yet.</p>"
+        });
+        return;
+      }
+
+      data.categoryGroups.forEach(function(group) {
+        var html = `
+          <div style="background:#0f172a; padding:12px; border-radius:6px; margin-bottom:12px; border-left: 4px solid #f59e0b;">
+            <div style="font-size:13px; color:#94a3b8;">CATEGORY: <b style="color:#fff;">${group.category}</b></div>
+            <div style="font-size:18px; color:#38bdf8; font-weight:bold;">TEAM: ${group.team}</div>
+            <div style="font-size:13px; color:#10b981;">Category Points: <b>${group.totalPoints} pts</b></div>
+          </div>
+          <div class="table-responsive">
+            <table>
+              <thead>
+                <tr>
+                  <th>Reg No</th>
+                  <th>Name</th>
+                  <th>Program Item</th>
+                  <th>Mark</th>
+                  <th>Grade</th>
+                  <th>Place</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${group.items.map(function(i) {
+                  return `<tr>
+                    <td><b>${i.regNo}</b></td>
+                    <td>${i.name}</td>
+                    <td>${i.program}</td>
+                    <td style="color:#f59e0b; font-weight:bold;">${i.mark}</td>
+                    <td>${i.grade}</td>
+                    <td>${i.place}</td>
+                  </tr>`;
+                }).join('')}
+              </tbody>
+            </table>
+          </div>
+        `;
+        carouselSlides.push({
+          title: `${group.category} CATEGORY — ${group.team}`,
+          content: html
+        });
+      });
+
+      var summaryHtml = `
+        <div style="background:#0f172a; padding:12px; border-radius:6px; margin-bottom:12px; border-left: 4px solid #10b981;">
+          <div style="font-size:18px; color:#10b981; font-weight:bold;">🏆 OVERALL TEAM CATEGORY STANDINGS</div>
+        </div>
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Team Name</th>
+                <th>Senior</th>
+                <th>Junior</th>
+                <th>Sub-Junior</th>
+                <th>General</th>
+                <th>Total Score</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${data.teamSummaries.map(function(s) {
+                return `<tr>
+                  <td><b style="color:#38bdf8;">${s.team}</b></td>
+                  <td>${s.SENIOR}</td>
+                  <td>${s.JUNIOR}</td>
+                  <td>${s.SUB_JUNIOR}</td>
+                  <td>${s.GENERAL}</td>
+                  <td style="color:#f59e0b; font-weight:bold;">${s.TOTAL} pts</td>
+                </tr>`;
+              }).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+      carouselSlides.push({
+        title: "Final Category Standings",
+        content: summaryHtml
+      });
+    }
+
+    function startCarousel() {
+      if (carouselSlides.length === 0) return;
+      renderCurrentSlide();
+      
+      if (timerInterval) clearInterval(timerInterval);
+      countdown = 30;
+      
+      timerInterval = setInterval(function() {
+        countdown--;
+        document.getElementById('rotatorTimerBadge').innerText = "Next Update: " + countdown + "s";
+        
+        if (countdown <= 0) {
+          countdown = 30;
+          currentSlideIndex = (currentSlideIndex + 1) % carouselSlides.length;
+          renderCurrentSlide();
+        }
+      }, 1000);
+    }
+
+    function renderCurrentSlide() {
+      var slide = carouselSlides[currentSlideIndex];
+      document.getElementById('displayHeaderTitle').innerText = slide.title;
+      document.getElementById('carouselCardContainer').innerHTML = slide.content;
+    }
+
+    function rotateQuote() {
+      quoteIndex = (quoteIndex + 1) % prophetQuotes.length;
+      var q = prophetQuotes[quoteIndex];
+      document.getElementById('quoteDisplay').innerHTML = `
+        <div class="quote-text">"${q.text}"</div>
+        <div class="quote-translation"><b>തർജ്ജമ:</b> ${q.translation}</div>
+      `;
+    }
+
+    function rotateAnnouncedResult() {
+      if (!liveAnnouncedResults || liveAnnouncedResults.length === 0) return;
+      var res = liveAnnouncedResults[resultIndex];
+      document.getElementById('announcedDisplay').innerHTML = `
+        <div class="result-program">🏆 ${res.program}</div>
+        <div class="result-cat">Category: ${res.category}</div>
+        <div class="result-winner">🥇 Winner: <b>${res.winner}</b></div>
+      `;
+      resultIndex = (resultIndex + 1) % liveAnnouncedResults.length;
+    }
+
+    function renderLiveResults(data) {
+      if (!data || !data.teamScores) return;
+      let scores = data.teamScores.map(s => `<tr><td><b>${s.team}</b></td><td>${s.score} pts</td></tr>`).join('');
+      document.getElementById('teamPointsTable').innerHTML = '<table><thead><tr><th>Team</th><th>Score</th></tr></thead><tbody>' + (scores || '<tr><td colspan="2">No data</td></tr>') + '</tbody></table>';
+
+      if (data.announcedResults && data.announcedResults.length > 0) {
+        liveAnnouncedResults = data.announcedResults;
+        rotateAnnouncedResult();
+      } else {
+        document.getElementById('announcedDisplay').innerHTML = '<div class="result-program" style="font-size:13px; font-weight:normal;">No results announced yet.</div>';
+      }
+    }
+
+    function authOfficial() {
+      let u = document.getElementById('officialUser').value.trim();
+      let p = document.getElementById('officialPass').value.trim();
+      let err = document.getElementById('officialLoginErr');
+
+      fetch(`${SCRIPT_URL}?action=getOfficialProgramsData&user=${encodeURIComponent(u)}&pass=${encodeURIComponent(p)}`)
+        .then(res => res.json())
+        .then(res => {
+          if (res.success && res.role === "ADMIN") {
+            err.innerText = "";
+            document.getElementById('officialAuth').style.display = "none";
+            document.getElementById('officialContent').style.display = "block";
+            masterOfficialData = res.programs;
+            filterOfficialPrograms();
+          } else {
+            err.innerText = "Access Denied: Requires Admin Privileges.";
+          }
+        });
+    }
+
+    function logoutOfficial() {
+      document.getElementById('officialAuth').style.display = "block";
+      document.getElementById('officialContent').style.display = "none";
+    }
+
+    function filterOfficialPrograms() {
+      let cat = document.getElementById('offCatFilter').value.toUpperCase().trim();
+      let team = document.getElementById('offTeamFilter').value.toLowerCase().trim();
+      let name = document.getElementById('offNameFilter').value.toLowerCase().trim();
+      let item = document.getElementById('offItemFilter').value.toLowerCase().trim();
+
+      filteredOfficialData = masterOfficialData.filter(p => {
+        return (!cat || String(p.category).toUpperCase() === cat) &&
+               (!team || String(p.team).toLowerCase().includes(team)) &&
+               (!name || String(p.name).toLowerCase().includes(name)) &&
+               (!item || String(p.program).toLowerCase().includes(item));
+      });
+
+      renderOfficialTable(filteredOfficialData);
+    }
+
+    function renderOfficialTable(data) {
+      let container = document.getElementById('officialProgramsTable');
+      if (!data || data.length === 0) {
+        container.innerHTML = "<p style='font-size:13px;'>No matching entries found.</p>";
+        return;
+      }
+
+      let html = '<table><thead><tr><th>Category</th><th>Item</th><th>Participant</th><th>Team</th><th>Mark</th></tr></thead><tbody>';
+      html += data.map(i => `<tr><td><span class="badge">${i.category}</span></td><td><b>${i.program}</b></td><td>${i.name}</td><td><b>${i.team}</b></td><td><b>${i.mark}</b></td></tr>`).join('');
+      html += '</tbody></table>';
+      container.innerHTML = html;
+    }
+
+    function authJudges() {
+      let u = document.getElementById('judgeUser').value, p = document.getElementById('judgePass').value;
+      fetch(`${SCRIPT_URL}?action=authenticateUser&user=${encodeURIComponent(u)}&pass=${encodeURIComponent(p)}`)
+        .then(res => res.json())
+        .then(res => {
+          if (res.success && res.role === "ADMIN") {
+            document.getElementById('judgesAuth').style.display = "none";
+            document.getElementById('judgesControl').style.display = "block";
+          } else {
+            alert("Access Denied.");
+          }
+        });
+    }
+
+    function generateFullListPDF() {
+      generateLocalStudentPDF(cachedRawData, "Full Team Roster Report");
+    }
+
+    function generateCategoryListPDF() {
+      var selectedCat = document.getElementById('reportCatSelect').value;
+      var list = cachedRawData;
+      if (selectedCat !== "ALL") {
+        list = cachedRawData.filter(s => s.category === selectedCat);
+      }
+      generateLocalStudentPDF(list, "Category Report - " + selectedCat);
+    }
+
+    function generateLocalStudentPDF(studentsList, title) {
+      var win = window.open('', '_blank');
+      var html = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>${title}</title>
+          <style>
+            body { font-family: sans-serif; padding: 20px; color: #111; }
+            h2 { text-align: center; color: #203a43; margin-bottom: 20px; }
+            table { width: 100%; border-collapse: collapse; }
+            th, td { border: 1px solid #ccc; padding: 8px; text-align: left; font-size: 12px; }
+            th { background: #f1f5f9; }
+          </style>
+        </head>
+        <body>
+          <h2>${title}</h2>
+          <table>
+            <thead>
+              <tr><th>Reg No</th><th>Name</th><th>Category</th><th>Team</th><th>Item</th><th>Mark</th></tr>
+            </thead>
+            <tbody>
+              ${studentsList.map(s => `<tr><td><b>${s.regNo}</b></td><td>${s.name}</td><td>${s.category}</td><td><b>${s.team}</b></td><td>${s.program}</td><td>${s.mark}</td></tr>`).join('')}
+            </tbody>
+          </table>
+          <script>window.print();<\/script>
+        </body>
+        </html>
+      `;
+      win.document.write(html);
+      win.document.close();
+    }
+
+    function printJudgesSlip() {
+      let c = document.getElementById('reportCatSelect').value;
+      let i = document.getElementById('judgeItem').value;
+      var codeLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
+      var win = window.open('', '_blank');
+      var html = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>Judges Slips</title>
+          <style>
+            @page { size: A4 portrait; margin: 10mm; }
+            * { box-sizing: border-box; }
+            body { font-family: sans-serif; color: #111; margin: 0; padding: 0; background: #fff; }
+            .a4-slip-page { width: 100%; height: 270mm; border: 3px double #203a43; padding: 15mm 12mm; page-break-after: always; display: flex; flex-direction: column; justify-content: space-between; margin-bottom: 20px; }
+            .a4-slip-page:last-child { page-break-after: avoid; }
+            .header-title { text-align: center; margin-bottom: 4px; color: #203a43; font-size: 20px; text-transform: uppercase; }
+            .header-subtitle { text-align: center; font-size: 12px; color: #555; margin-bottom: 20px; }
+            .info-table, .score-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+            .info-table td { padding: 6px 8px; font-size: 13px; }
+            .score-table th, .score-table td { border: 1px solid #333; padding: 10px 8px; text-align: center; font-size: 13px; }
+            .score-table th { background-color: #f1f5f9; font-weight: 600; }
+            .signature-section { margin-top: 30px; display: flex; justify-content: space-between; font-weight: bold; font-size: 13px; }
+          </style>
+        </head>
+        <body>
+      `;
+
+      for (var k = 1; k <= 4; k++) { 
+        html += `
+          <div class="a4-slip-page">
+            <div>
+              <h2 class="header-title">MEELAD FEST JUDGES EVALUATION SLIP</h2>
+              <p class="header-subtitle">Judge Code / Slip No: #${k}</p>
+              <table class="info-table">
+                <tr>
+                  <td><b>Category:</b> ${c || 'GENERAL'}</td>
+                  <td><b>Item Name:</b> ${i || '------------------'}</td>
+                </tr>
+                <tr>
+                  <td><b>Date:</b> ${new Date().toLocaleDateString()}</td>
+                  <td><b>Stage / Code:</b> __________</td>
+                </tr>
+              </table>
+              <table class="score-table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Code Letter</th>
+                    <th style="width: 20%;">Score</th>
+                    <th style="width: 20%;">Grade</th>
+                    <th style="width: 40%;">Remark</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${codeLetters.map(function(letter) {
+                    return `<tr><td style="font-weight: bold; height: 30px;">${letter}</td><td></td><td></td><td></td></tr>`;
+                  }).join('')}
+                </tbody>
+              </table>
+            </div>
+            <div class="signature-section">
+              <div>Judge Name: _______________________</div>
+              <div>Signature: _______________________</div>
+            </div>
+          </div>
+        `;
+      }
+
+      html += `<script>window.print();<\/script></body></html>`;
+      win.document.write(html);
+      win.document.close();
+    }
+
+    function loginTeamPortal() {
+      let u = document.getElementById('teamUser').value.trim();
+      let p = document.getElementById('teamPass').value.trim();
+      fetch(`${SCRIPT_URL}?action=getSecuredStudentsData&user=${encodeURIComponent(u)}&pass=${encodeURIComponent(p)}`)
+        .then(res => res.json())
+        .then(res => {
+          if (res.success) {
+            document.getElementById('teamLoginForm').style.display = "none";
+            document.getElementById('teamDataContent').style.display = "block";
+            document.getElementById('userRoleBadge').innerText = res.role === "ADMIN" ? "Admin View" : "Team: " + res.team;
+            currentStudentsList = res.students;
+            filterStudents();
+          } else {
+            document.getElementById('loginError').innerText = res.message;
+          }
+        });
+    }
+
+    function logoutTeamPortal() {
+      document.getElementById('teamLoginForm').style.display = "block";
+      document.getElementById('teamDataContent').style.display = "none";
+    }
+
+    function filterStudents() {
+      let regQuery = document.getElementById('searchReg').value.toLowerCase().trim();
+      let nameQuery = document.getElementById('searchName').value.toLowerCase().trim();
+      let catQuery = document.getElementById('searchCategory').value.toUpperCase().trim();
+
+      filteredStudentsList = currentStudentsList.filter(s => {
+        return (!regQuery || String(s.regNo).toLowerCase().includes(regQuery)) &&
+               (!nameQuery || String(s.name).toLowerCase().includes(nameQuery)) &&
+               (!catQuery || String(s.category).toUpperCase() === catQuery);
+      });
+
+      renderStudentTable(filteredStudentsList);
+    }
+
+    function renderStudentTable(students) {
+      let container = document.getElementById('teamMembersTable');
+      if (!students || students.length === 0) {
+        container.innerHTML = "<p style='font-size:13px;'>No matching records found.</p>";
+        return;
+      }
+
+      let html = '<table><thead><tr><th>Reg No</th><th>Name</th><th>Category</th><th>Team</th></tr></thead><tbody>';
+      html += students.map(m => `<tr><td><b>${m.regNo}</b></td><td>${m.name}</td><td>${m.category}</td><td><b>${m.team}</b></td></tr>`).join('');
+      html += '</tbody></table>';
+      container.innerHTML = html;
+    }
+
+    function exportFilteredPDF() {
+      generateLocalStudentPDF(filteredStudentsList, "Student Search Report");
+    }
+
+    function submitFeedback() {
+      let email = document.getElementById('sugEmail').value.trim();
+      let text = document.getElementById('sugText').value.trim();
+      let status = document.getElementById('sugStatus');
+
+      if (!text) { status.style.color = "#ef4444"; status.innerText = "Please write feedback first."; return; }
+
+      fetch(`${SCRIPT_URL}?action=sendSuggestion`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ email: email, text: text })
+      })
+      .then(res => res.json())
+      .then(res => {
+        status.style.color = res.success ? "#10b981" : "#ef4444";
+        status.innerText = res.message;
+        if (res.success) { document.getElementById('sugEmail').value = ""; document.getElementById('sugText').value = ""; }
+      })
+      .catch(() => {
+        status.style.color = "#ef4444";
+        status.innerText = "Feedback submission failed.";
+      });
+    }
+
+    function lookupResult() {
+      let reg = document.getElementById('studentRegNo').value.trim();
+      if (!reg) return;
+      fetch(`${SCRIPT_URL}?action=lookupStudentResult&regNo=${encodeURIComponent(reg)}`)
+        .then(res => res.json())
+        .then(res => {
+          let box = document.getElementById('studentResultBox');
+          if (res.success) {
+            box.innerHTML = res.results.map(r => `<div style="padding:8px; border-bottom:1px solid #334155;"><b>${r.name}</b> (${r.team})<br>Item: ${r.program} | Mark: <b>${r.mark}</b></div>`).join('');
+          } else {
+            box.innerHTML = `<p style="color:#ef4444; font-size:13px;">${res.message}</p>`;
+          }
+        });
+    }
+  </script>
 </body>
 </html>

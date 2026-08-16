@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>മാലീ സിവാക | Meelad Fest 2k26 - Live Portal</title>
+  <title>മാലീ സിവാക | Meelad Fest 2k26 - Live Score & Result Portal</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Anek+Malayalam:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
@@ -25,7 +25,7 @@
     html, body { width: 100vw; min-height: 100vh; background: var(--bg-main); color: var(--text); overflow-x: hidden; }
     
     /* 100% FULL-WIDTH APP CONTAINER */
-    .app-wrapper { width: 100vw; min-height: 100vh; padding: 10px 16px; display: flex; flex-direction: column; }
+    .app-wrapper { width: 100vw; min-height: 100vh; padding: 12px; display: flex; flex-direction: column; }
 
     /* FULL-SCREEN HERO HEADER */
     .top-header {
@@ -56,7 +56,7 @@
     }
 
     .icon-btn { 
-      font-size: 16px; 
+      font-size: 14px; 
       color: #fff; 
       cursor: pointer; 
       background: rgba(255,255,255,0.12);
@@ -94,7 +94,7 @@
     .side-drawer .close-btn { position: absolute; top: 12px; right: 20px; font-size: 28px; color: #fff; cursor: pointer; }
     .overlay { position: fixed; display: none; width: 100vw; height: 100vh; top: 0; left: 0; background: rgba(0,0,0,0.7); z-index: 999; backdrop-filter: blur(2px); }
 
-    /* VIEW PANELS (FULL WIDTH) */
+    /* VIEW PANELS */
     .view-panel { display: none; background: var(--panel-bg); border-radius: 12px; padding: 20px; border: 1px solid var(--border); box-shadow: 0 4px 20px rgba(0,0,0,0.4); margin-bottom: 15px; width: 100%; }
     .view-panel.active { display: block !important; }
 
@@ -104,33 +104,30 @@
       background: var(--card-bg);
       color: #fff; padding: 18px; border-radius: 10px;
       border: 1px solid var(--border);
-      display: flex; flex-direction: column; justify-content: center; min-height: 120px;
+      display: flex; flex-direction: column; justify-content: center; min-height: 110px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
     .dashboard-card h4 { font-size: 13px; color: var(--gold); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 6px; }
     .quote-text { font-size: 13px; font-style: italic; line-height: 1.4; margin-bottom: 6px; }
     .quote-translation { font-size: 12px; color: var(--text-muted); line-height: 1.4; font-family: 'Anek Malayalam', sans-serif; }
-    
-    .result-program { font-size: 16px; font-weight: bold; color: #38bdf8; }
-    .result-cat { font-size: 12px; color: var(--gold); margin: 3px 0; }
-    .result-winner { font-size: 13px; color: #f1f5f9; }
 
-    /* CAROUSEL HEADER */
-    .carousel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px; }
-    .badge-timer { background: var(--primary); color: #fff; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
-    .live-pulse { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; display: inline-block; box-shadow: 0 0 8px #22c55e; }
-
-    /* FULL SCREEN TABLES */
-    .table-responsive { width: 100%; overflow-x: auto; margin-top: 10px; border-radius: 8px; border: 1px solid var(--border); }
-    table { width: 100%; border-collapse: collapse; text-align: left; }
-    th, td { border-bottom: 1px solid var(--border); padding: 12px 14px; font-size: 13.5px; }
-    th { background: #1e293b; color: #f8fafc; font-weight: 600; text-transform: uppercase; font-size: 12px; letter-spacing: 0.5px; }
-    tr:nth-child(even) { background: rgba(255,255,255,0.02); }
-    tr:hover { background: rgba(255,255,255,0.04); }
+    /* FULLSCREEN RESPONSIVE IFRAME CONTAINER */
+    .sheet-wrapper {
+      position: relative;
+      width: 100%;
+      height: 75vh;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #fff;
+    }
+    .sheet-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
 
     /* CONTROLS & FORMS */
-    .search-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 15px; }
-    .search-row input, .search-row select { flex: 1; min-width: 150px; }
     input, select, textarea { width: 100%; padding: 11px 14px; margin-bottom: 12px; background: var(--card-bg); border: 1px solid #334155; color: #fff; border-radius: 8px; font-size: 13.5px; outline: none; }
     input:focus, select:focus, textarea:focus { border-color: var(--primary); }
     button.btn { width: 100%; padding: 12px; background: var(--primary); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px; margin-bottom: 8px; transition: background 0.2s; }
@@ -148,11 +145,9 @@
   <!-- NAVIGATION SIDE DRAWER -->
   <div id="sideNav" class="side-drawer">
     <span class="close-btn" onclick="closeNav()">&times;</span>
-    <a href="javascript:void(0)" onclick="showView('dashboardView')"><i class="fa-solid fa-chart-line"></i> Category Standings</a>
-    <a href="javascript:void(0)" onclick="showView('pointTableView')"><i class="fa-solid fa-trophy"></i> Point Table & Search</a>
-    <a href="javascript:void(0)" onclick="showView('officialView')"><i class="fa-solid fa-user-tie"></i> Official Portal</a>
-    <a href="javascript:void(0)" onclick="showView('judgesView')"><i class="fa-solid fa-scale-balanced"></i> Judges Slips & PDFs</a>
-    <a href="javascript:void(0)" onclick="showView('teamView')"><i class="fa-solid fa-users"></i> Team Directory</a>
+    <a href="javascript:void(0)" onclick="showView('dashboardView')"><i class="fa-solid fa-table-list"></i> Live Result Sheet</a>
+    <a href="javascript:void(0)" onclick="showView('judgesView')"><i class="fa-solid fa-scale-balanced"></i> Judges Slips & Printables</a>
+    <a href="javascript:void(0)" onclick="showView('contactView')"><i class="fa-solid fa-comment-dots"></i> Feedback & Contact</a>
   </div>
 
   <div class="app-wrapper">
@@ -169,7 +164,7 @@
       </div>
     </div>
 
-    <!-- 1. DYNAMIC CATEGORY ROTATIONAL DASHBOARD -->
+    <!-- 1. LIVE GOOGLE SHEET DASHBOARD -->
     <div id="dashboardView" class="view-panel active">
       <div class="dashboard-split">
         <div class="dashboard-card">
@@ -181,179 +176,78 @@
         </div>
 
         <div class="dashboard-card">
-          <h4><i class="fa-solid fa-bullhorn"></i> Live Announced Results</h4>
-          <div id="announcedDisplay">
-            <div class="result-program"><i class="fa-solid fa-spinner fa-spin"></i> Fetching live marks from Google Sheet...</div>
+          <h4><i class="fa-solid fa-bullhorn"></i> Live Updates</h4>
+          <div style="font-size: 13.5px; color: #38bdf8; font-weight: 600;">
+            <i class="fa-solid fa-rotate fa-spin" style="margin-right: 6px;"></i> Connected to official Google Sheet
+          </div>
+          <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">
+            Results and category marks update live below as judges score.
           </div>
         </div>
       </div>
 
-      <hr style="margin:16px 0; border:0; border-top:1px solid var(--border);">
-
-      <!-- Dynamic 30-Second Category Rotator Container -->
-      <div class="carousel-header">
-        <h3 id="displayHeaderTitle" style="color: var(--gold); font-size: 1.25rem;">Category Marksheet Carousel</h3>
-        <span class="badge-timer" id="rotatorTimerBadge"><span class="live-pulse"></span> Auto-Sync: 30s</span>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <h3 style="color: var(--gold); font-size: 1.15rem;"><i class="fa-solid fa-trophy"></i> Live Category Marksheet</h3>
+        <button onclick="refreshSheet()" style="padding: 6px 12px; background: #334155; color: #fff; border: none; border-radius: 6px; font-size: 12px; cursor: pointer;">
+          <i class="fa-solid fa-arrows-rotate"></i> Reload Sheet
+        </button>
       </div>
 
-      <div id="carouselCardContainer">
-        <p style="color: var(--text-muted);"><i class="fa-solid fa-circle-notch fa-spin"></i> Loading live category marks...</p>
-      </div>
-
-      <hr style="margin:25px 0 15px 0; border:0; border-top:1px solid var(--border);">
-      <h3 style="font-size: 1.1rem; margin-bottom: 4px;"><i class="fa-solid fa-comment-dots"></i> Suggestions & Feedback</h3>
-      <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">Share quick updates or feedback directly with organizers.</p>
-      
-      <input type="email" id="sugEmail" placeholder="Your Email (Optional)">
-      <textarea id="sugText" rows="3" placeholder="Type your suggestion or feedback here..."></textarea>
-      <button class="btn" onclick="submitFeedback()"><i class="fa-solid fa-paper-plane"></i> Send Feedback</button>
-      <div id="sugStatus" style="font-size:12px; font-weight:bold; margin-top:5px;"></div>
-    </div>
-
-    <!-- 2. POINT TABLE & STUDENT LOOKUP -->
-    <div id="pointTableView" class="view-panel">
-      <h3 style="margin-bottom: 12px; color: var(--gold);"><i class="fa-solid fa-trophy"></i> Grand Team Leaderboard</h3>
-      <div id="teamPointsTable" class="table-responsive"></div>
-      <hr style="margin:20px 0; border:0; border-top:1px solid var(--border);">
-      <h3 style="margin-bottom: 6px;"><i class="fa-solid fa-magnifying-glass"></i> Student Result Lookup</h3>
-      <p style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">Enter student registration number to check individual score.</p>
-      <input type="text" id="studentRegNo" placeholder="Enter Registration No (e.g. 101)">
-      <button class="btn" onclick="lookupResult()"><i class="fa-solid fa-search"></i> Search Score</button>
-      <div id="studentResultBox" style="margin-top:10px;"></div>
-    </div>
-
-    <!-- 3. OFFICIAL PORTAL VIEW -->
-    <div id="officialView" class="view-panel">
-      <h3 style="margin-bottom: 4px; color: var(--gold);"><i class="fa-solid fa-user-shield"></i> Official Admin Portal</h3>
-      <p style="font-size:12px; color:var(--text-muted); margin-bottom:15px;">Admin credentials required to view full synchronized entries.</p>
-
-      <div id="officialAuth">
-        <input type="text" id="officialUser" placeholder="Admin Username">
-        <input type="password" id="officialPass" placeholder="Admin Password">
-        <button class="btn" onclick="authOfficial()"><i class="fa-solid fa-right-to-bracket"></i> Login as Admin</button>
-        <div id="officialLoginErr" style="color:#ef4444; font-size:12px; margin-top:8px;"></div>
-      </div>
-
-      <div id="officialContent" style="display:none;">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-          <span class="badge">🔑 Live Admin Synchronized Sheet</span>
-          <button onclick="logoutOfficial()" style="padding:6px 12px; font-size:12px; background:#ef4444; color:#fff; border:none; border-radius:6px; cursor:pointer;">Logout</button>
-        </div>
-
-        <div class="search-row">
-          <select id="offCatFilter" onchange="filterOfficialPrograms()">
-            <option value="">All Categories</option>
-            <option value="SENIOR">SENIOR</option>
-            <option value="JUNIOR">JUNIOR</option>
-            <option value="SUB-JUNIOR">SUB-JUNIOR</option>
-            <option value="GENERAL">GENERAL</option>
-          </select>
-          <input type="text" id="offTeamFilter" onkeyup="filterOfficialPrograms()" placeholder="🔍 Filter by Team...">
-          <input type="text" id="offNameFilter" onkeyup="filterOfficialPrograms()" placeholder="🔍 Filter by Name...">
-          <input type="text" id="offItemFilter" onkeyup="filterOfficialPrograms()" placeholder="🔍 Filter by Item...">
-        </div>
-
-        <div id="officialProgramsTable" class="table-responsive"></div>
+      <!-- FULLSCREEN RESPONSIVE GOOGLE SHEET IFRAME -->
+      <div class="sheet-wrapper">
+        <iframe id="liveSheetIframe" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSecjx5quikm1nv2utFy6BCAvEiv68g-ES6IuOtSmiX3HUdkl974ThUZLea02DqV7nfu0MFufUqPbjw/pubhtml?widget=true&amp;headers=false"></iframe>
       </div>
     </div>
 
-    <!-- 4. JUDGES & PDF TOOLS -->
+    <!-- 2. JUDGES & PDF GENERATION TOOLS -->
     <div id="judgesView" class="view-panel">
-      <h3 style="margin-bottom: 4px; color: var(--gold);"><i class="fa-solid fa-print"></i> Judges Slip & Report Generator</h3>
-      <p style="font-size:12px; color:var(--text-muted); margin-bottom:15px;">Generate evaluation slips and roster reports for print.</p>
-      
-      <div id="judgesAuth">
-        <input type="text" id="judgeUser" placeholder="Admin Username">
-        <input type="password" id="judgePass" placeholder="Admin Password">
-        <button class="btn" onclick="authJudges()"><i class="fa-solid fa-lock"></i> Unlock Generator</button>
-      </div>
+      <h3 style="margin-bottom: 4px; color: var(--gold);"><i class="fa-solid fa-print"></i> Judges Slip Generator</h3>
+      <p style="font-size:12px; color:var(--text-muted); margin-bottom:15px;">Generate single-page 4-in-1 printable evaluation slips for stage judges.</p>
 
-      <div id="judgesControl" style="display:none;">
-        <div class="report-box">
-          <h4 style="margin-bottom:8px; color:#38bdf8;"><i class="fa-solid fa-file-pdf"></i> Team Rosters & Categories</h4>
-          <label style="font-size: 13px; font-weight: 600; display:block; margin-bottom: 6px;">Select Category:</label>
-          <select id="reportCatSelect">
-            <option value="ALL">ALL CATEGORIES (Full Roster)</option>
-            <option value="SENIOR">SENIOR Only</option>
-            <option value="JUNIOR">JUNIOR Only</option>
-            <option value="SUB-JUNIOR">SUB-JUNIOR Only</option>
-            <option value="GENERAL">GENERAL Only</option>
-          </select>
+      <div class="report-box">
+        <h4 style="margin-bottom:8px; color:#38bdf8;"><i class="fa-solid fa-clipboard-check"></i> Evaluation Slip Print Setup</h4>
+        
+        <label style="font-size: 13px; font-weight: 600; display:block; margin-bottom: 6px;">Select Category:</label>
+        <select id="judgeCatSelect">
+          <option value="GENERAL">GENERAL</option>
+          <option value="SENIOR">SENIOR</option>
+          <option value="JUNIOR">JUNIOR</option>
+          <option value="SUB-JUNIOR">SUB-JUNIOR</option>
+        </select>
 
-          <button class="btn btn-pdf" onclick="generateFullListPDF()"><i class="fa-solid fa-file-arrow-down"></i> Generate Full Team Roster PDF</button>
-          <button class="btn btn-pdf" style="background:#0284c7;" onclick="generateCategoryListPDF()"><i class="fa-solid fa-list-check"></i> Generate Category-Wise PDF</button>
-        </div>
+        <label style="font-size: 13px; font-weight: 600; display:block; margin-bottom: 6px;">Competition Item:</label>
+        <input type="text" id="judgeItem" placeholder="e.g. Qur'an Recitation / Madih Song">
 
-        <div class="report-box">
-          <h4 style="margin-bottom:8px; color:#38bdf8;"><i class="fa-solid fa-clipboard-check"></i> Evaluation Slips (4 per page)</h4>
-          <label style="font-size: 13px; font-weight: 600; display:block; margin-bottom: 6px;">Competition Item:</label>
-          <input type="text" id="judgeItem" placeholder="e.g. Qur'an Recitation">
-
-          <button class="btn btn-pdf" style="background:#059669;" onclick="printJudgesSlip()"><i class="fa-solid fa-print"></i> Print Judges Slips PDF</button>
-        </div>
+        <button class="btn btn-pdf" style="background:#059669;" onclick="printJudgesSlip()"><i class="fa-solid fa-print"></i> Print Judges Slips PDF</button>
       </div>
     </div>
 
-    <!-- 5. TEAM PORTAL & DIRECTORY -->
-    <div id="teamView" class="view-panel">
-      <h3 style="margin-bottom: 4px; color: var(--gold);"><i class="fa-solid fa-address-book"></i> Student Directory & Search</h3>
-      <p style="font-size:12px; color:var(--text-muted); margin-bottom:15px;">Login to view categorized student registrations.</p>
-
-      <div id="teamLoginForm">
-        <input type="text" id="teamUser" placeholder="Username (e.g. ADMIN, TEAM_A)">
-        <input type="password" id="teamPass" placeholder="Password">
-        <button class="btn" onclick="loginTeamPortal()"><i class="fa-solid fa-right-to-bracket"></i> Login</button>
-        <div id="loginError" style="color:#ef4444; font-size:12px; margin-top:8px;"></div>
-      </div>
-
-      <div id="teamDataContent" style="display:none;">
-        <div class="badge" id="userRoleBadge">Logged in</div>
-        <button onclick="logoutTeamPortal()" style="float:right; padding:6px 12px; font-size:12px; background:#ef4444; color:#fff; border:none; border-radius:6px; cursor:pointer;">Logout</button>
-
-        <div class="search-row" style="margin-top: 15px;">
-          <input type="text" id="searchReg" onkeyup="filterStudents()" placeholder="🔍 By Reg No...">
-          <input type="text" id="searchName" onkeyup="filterStudents()" placeholder="🔍 By Name...">
-          <select id="searchCategory" onchange="filterStudents()">
-            <option value="">All Categories</option>
-            <option value="SENIOR">SENIOR</option>
-            <option value="JUNIOR">JUNIOR</option>
-            <option value="SUB-JUNIOR">SUB-JUNIOR</option>
-            <option value="GENERAL">GENERAL</option>
-          </select>
-        </div>
-
-        <button class="btn btn-pdf" onclick="exportFilteredPDF()"><i class="fa-solid fa-file-pdf"></i> Export Filtered List as PDF</button>
-        <div id="teamMembersTable" class="table-responsive"></div>
+    <!-- 3. FEEDBACK & CONTACT -->
+    <div id="contactView" class="view-panel">
+      <h3 style="margin-bottom: 4px; color: var(--gold);"><i class="fa-solid fa-envelope"></i> Organizing Committee</h3>
+      <p style="font-size:12px; color:var(--text-muted); margin-bottom:15px;">For inquiries, disputes, or assistance during the fest.</p>
+      
+      <div class="report-box">
+        <p style="font-size: 14px; margin-bottom: 8px;">📞 <b>General Desk:</b> Contact Fest Coordinators</p>
+        <p style="font-size: 14px; margin-bottom: 12px;">✉️ <b>Email:</b> meeladfest2026@gmail.com</p>
+        <hr style="margin: 12px 0; border: 0; border-top: 1px solid var(--border);" />
+        <h4 style="margin-bottom: 6px; color: var(--gold);">Feedback:</h4>
+        <textarea rows="3" placeholder="Write any suggestions or remarks here..."></textarea>
+        <button class="btn" onclick="alert('Feedback recorded. Thank you!')"><i class="fa-solid fa-paper-plane"></i> Send Feedback</button>
       </div>
     </div>
 
   </div>
 
   <script>
-    // 🔗 LIVE GOOGLE SHEET APPS SCRIPT URL
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwy4YqYd8W0UeU3b1nKqY-wNl5m6q7r8s9t0/exec";
-
-    var carouselSlides = [];
-    var currentSlideIndex = 0;
-    var countdown = 30;
-    var timerInterval = null;
-
-    var currentStudentsList = [];
-    var filteredStudentsList = [];
-    var masterOfficialData = [];
-    var filteredOfficialData = [];
-    var liveAnnouncedResults = [];
-    var resultIndex = 0;
-    var quoteIndex = 0;
-    var cachedRawData = [];
-
     var prophetQuotes = [
       { text: "The best among you are those who have the best manners and character.", translation: "നിങ്ങളിൽ ഏറ്റവും ഉത്തമർ അത്യുത്തമമായ സ്വഭാവഗുണമുള്ളവരാണ്." },
       { text: "None of you truly believes until he wishes for his brother what he wishes for himself.", translation: "തനിക്ക് ഇഷ്ടപ്പെടുന്നത് തന്റെ സഹോദരനും ഇഷ്ടപ്പെടുന്നതുവരെ നിങ്ങളിലൊരാളും പൂർണ്ണവിശ്വാസിയാവുകയില്ല." },
       { text: "A good word is a charity.", translation: "നല്ല വാക്ക് പറയുന്നതും ഒരു ധർമ്മമാണ് (സദഖ്)." }
     ];
+    var quoteIndex = 0;
 
-    // FULL SCREEN TOGGLE LOGIC
+    // FULL SCREEN TOGGLE
     function toggleFullScreen() {
       if (!document.fullscreenElement) {
         document.documentElement.requestFullscreen().catch(err => {
@@ -379,151 +273,9 @@
       if (target) { target.classList.add('active'); }
     }
 
-    window.onload = function() {
-      fetchLiveSheetData();
-      
-      // Auto-poll Google Sheet every 20 seconds for fresh scores
-      setInterval(fetchLiveSheetData, 20000);
-      setInterval(rotateQuote, 8000);
-      setInterval(rotateAnnouncedResult, 5000);
-    };
-
-    function fetchLiveSheetData() {
-      // 1. Fetch Carousel & Full Data
-      fetch(SCRIPT_URL + "?action=getDashboardCategoryData")
-        .then(res => res.json())
-        .then(data => {
-          if (data && data.rawData) {
-            cachedRawData = data.rawData;
-            buildCarouselSlides(data);
-            if (!timerInterval) startCarousel();
-          }
-        })
-        .catch(err => console.error("Sheet Sync Error:", err));
-
-      // 2. Fetch Leaderboard & Announced Live Results
-      fetch(SCRIPT_URL + "?action=getResultsData")
-        .then(res => res.json())
-        .then(data => renderLiveResults(data))
-        .catch(err => console.error("Live Results Sync Error:", err));
-    }
-
-    function buildCarouselSlides(data) {
-      carouselSlides = [];
-
-      if (!data.categoryGroups || data.categoryGroups.length === 0) {
-        carouselSlides.push({
-          title: "Waiting for Results",
-          content: "<p style='color:#94a3b8; padding: 12px;'>Marks are being updated in Google Sheet. Stay tuned...</p>"
-        });
-        return;
-      }
-
-      data.categoryGroups.forEach(function(group) {
-        var html = `
-          <div style="background:#0b1329; padding:14px; border-radius:8px; margin-bottom:12px; border-left: 5px solid #f59e0b; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap;">
-            <div>
-              <div style="font-size:12px; color:#94a3b8; text-transform:uppercase;">CATEGORY: <b style="color:#fff;">${group.category}</b></div>
-              <div style="font-size:20px; color:#38bdf8; font-weight:bold;">TEAM: ${group.team}</div>
-            </div>
-            <div style="font-size:14px; color:#10b981; background:rgba(16,185,129,0.1); padding:6px 12px; border-radius:6px; font-weight:bold;">
-              Total Points: ${group.totalPoints} pts
-            </div>
-          </div>
-          <div class="table-responsive">
-            <table>
-              <thead>
-                <tr>
-                  <th>Reg No</th>
-                  <th>Name</th>
-                  <th>Item / Program</th>
-                  <th>Mark</th>
-                  <th>Grade</th>
-                  <th>Place</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${group.items.map(function(i) {
-                  return `<tr>
-                    <td><b>${i.regNo}</b></td>
-                    <td>${i.name}</td>
-                    <td>${i.program}</td>
-                    <td style="color:#f59e0b; font-weight:bold; font-size:15px;">${i.mark}</td>
-                    <td><span class="badge" style="background:#334155;">${i.grade}</span></td>
-                    <td><b style="color:#38bdf8;">${i.place}</b></td>
-                  </tr>`;
-                }).join('')}
-              </tbody>
-            </table>
-          </div>
-        `;
-        carouselSlides.push({
-          title: `${group.category} CATEGORY — ${group.team}`,
-          content: html
-        });
-      });
-
-      var summaryHtml = `
-        <div style="background:#0b1329; padding:14px; border-radius:8px; margin-bottom:12px; border-left: 5px solid #10b981;">
-          <div style="font-size:18px; color:#10b981; font-weight:bold;">🏆 OVERALL CATEGORY AGGREGATE STANDINGS</div>
-        </div>
-        <div class="table-responsive">
-          <table>
-            <thead>
-              <tr>
-                <th>Team Name</th>
-                <th>Senior</th>
-                <th>Junior</th>
-                <th>Sub-Junior</th>
-                <th>General</th>
-                <th>Total Score</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${data.teamSummaries.map(function(s) {
-                return `<tr>
-                  <td><b style="color:#38bdf8; font-size:15px;">${s.team}</b></td>
-                  <td>${s.SENIOR}</td>
-                  <td>${s.JUNIOR}</td>
-                  <td>${s.SUB_JUNIOR}</td>
-                  <td>${s.GENERAL}</td>
-                  <td style="color:#f59e0b; font-weight:bold; font-size:16px;">${s.TOTAL} pts</td>
-                </tr>`;
-              }).join('')}
-            </tbody>
-          </table>
-        </div>
-      `;
-      carouselSlides.push({
-        title: "Final Category Leaderboard",
-        content: summaryHtml
-      });
-
-      renderCurrentSlide();
-    }
-
-    function startCarousel() {
-      if (carouselSlides.length === 0) return;
-      renderCurrentSlide();
-      
-      countdown = 30;
-      timerInterval = setInterval(function() {
-        countdown--;
-        document.getElementById('rotatorTimerBadge').innerHTML = `<span class="live-pulse"></span> Next Update: ${countdown}s`;
-        
-        if (countdown <= 0) {
-          countdown = 30;
-          currentSlideIndex = (currentSlideIndex + 1) % carouselSlides.length;
-          renderCurrentSlide();
-        }
-      }, 1000);
-    }
-
-    function renderCurrentSlide() {
-      if (!carouselSlides[currentSlideIndex]) return;
-      var slide = carouselSlides[currentSlideIndex];
-      document.getElementById('displayHeaderTitle').innerText = slide.title;
-      document.getElementById('carouselCardContainer').innerHTML = slide.content;
+    function refreshSheet() {
+      var iframe = document.getElementById('liveSheetIframe');
+      iframe.src = iframe.src;
     }
 
     function rotateQuote() {
@@ -535,162 +287,11 @@
       `;
     }
 
-    function rotateAnnouncedResult() {
-      if (!liveAnnouncedResults || liveAnnouncedResults.length === 0) return;
-      var res = liveAnnouncedResults[resultIndex];
-      document.getElementById('announcedDisplay').innerHTML = `
-        <div class="result-program"><i class="fa-solid fa-award"></i> ${res.program}</div>
-        <div class="result-cat">Category: <b>${res.category}</b></div>
-        <div class="result-winner">🥇 Position: <b>${res.winner}</b></div>
-      `;
-      resultIndex = (resultIndex + 1) % liveAnnouncedResults.length;
-    }
+    setInterval(rotateQuote, 8000);
 
-    function renderLiveResults(data) {
-      if (!data || !data.teamScores) return;
-      let scores = data.teamScores.map((s, idx) => `
-        <tr>
-          <td><b style="color:#f59e0b;">#${idx+1}</b></td>
-          <td><b style="color:#38bdf8; font-size:15px;">${s.team}</b></td>
-          <td style="font-weight:bold; font-size:16px; color:#10b981;">${s.score} pts</td>
-        </tr>`).join('');
-      
-      document.getElementById('teamPointsTable').innerHTML = `
-        <table>
-          <thead>
-            <tr>
-              <th style="width: 10%;">Rank</th>
-              <th>Team Name</th>
-              <th>Total Points</th>
-            </tr>
-          </thead>
-          <tbody>${scores || '<tr><td colspan="3">No points entered yet.</td></tr>'}</tbody>
-        </table>
-      `;
-
-      if (data.announcedResults && data.announcedResults.length > 0) {
-        liveAnnouncedResults = data.announcedResults;
-      } else {
-        document.getElementById('announcedDisplay').innerHTML = '<div class="result-program" style="font-size:13px; font-weight:normal; color:#94a3b8;">No position results published yet.</div>';
-      }
-    }
-
-    function authOfficial() {
-      let u = document.getElementById('officialUser').value.trim();
-      let p = document.getElementById('officialPass').value.trim();
-      let err = document.getElementById('officialLoginErr');
-
-      fetch(`${SCRIPT_URL}?action=getOfficialProgramsData&user=${encodeURIComponent(u)}&pass=${encodeURIComponent(p)}`)
-        .then(res => res.json())
-        .then(res => {
-          if (res.success && res.role === "ADMIN") {
-            err.innerText = "";
-            document.getElementById('officialAuth').style.display = "none";
-            document.getElementById('officialContent').style.display = "block";
-            masterOfficialData = res.programs;
-            filterOfficialPrograms();
-          } else {
-            err.innerText = "Access Denied: Requires Admin Privileges.";
-          }
-        });
-    }
-
-    function logoutOfficial() {
-      document.getElementById('officialAuth').style.display = "block";
-      document.getElementById('officialContent').style.display = "none";
-    }
-
-    function filterOfficialPrograms() {
-      let cat = document.getElementById('offCatFilter').value.toUpperCase().trim();
-      let team = document.getElementById('offTeamFilter').value.toLowerCase().trim();
-      let name = document.getElementById('offNameFilter').value.toLowerCase().trim();
-      let item = document.getElementById('offItemFilter').value.toLowerCase().trim();
-
-      filteredOfficialData = masterOfficialData.filter(p => {
-        return (!cat || String(p.category).toUpperCase() === cat) &&
-               (!team || String(p.team).toLowerCase().includes(team)) &&
-               (!name || String(p.name).toLowerCase().includes(name)) &&
-               (!item || String(p.program).toLowerCase().includes(item));
-      });
-
-      renderOfficialTable(filteredOfficialData);
-    }
-
-    function renderOfficialTable(data) {
-      let container = document.getElementById('officialProgramsTable');
-      if (!data || data.length === 0) {
-        container.innerHTML = "<p style='font-size:13px; padding:12px;'>No matching entries found.</p>";
-        return;
-      }
-
-      let html = '<table><thead><tr><th>Category</th><th>Item</th><th>Participant</th><th>Team</th><th>Mark</th></tr></thead><tbody>';
-      html += data.map(i => `<tr><td><span class="badge">${i.category}</span></td><td><b>${i.program}</b></td><td>${i.name}</td><td><b>${i.team}</b></td><td style="color:#f59e0b; font-weight:bold;">${i.mark}</td></tr>`).join('');
-      html += '</tbody></table>';
-      container.innerHTML = html;
-    }
-
-    function authJudges() {
-      let u = document.getElementById('judgeUser').value, p = document.getElementById('judgePass').value;
-      fetch(`${SCRIPT_URL}?action=authenticateUser&user=${encodeURIComponent(u)}&pass=${encodeURIComponent(p)}`)
-        .then(res => res.json())
-        .then(res => {
-          if (res.success && res.role === "ADMIN") {
-            document.getElementById('judgesAuth').style.display = "none";
-            document.getElementById('judgesControl').style.display = "block";
-          } else {
-            alert("Access Denied: Invalid Admin Credentials.");
-          }
-        });
-    }
-
-    function generateFullListPDF() {
-      generateLocalStudentPDF(cachedRawData, "Full Team Roster Report");
-    }
-
-    function generateCategoryListPDF() {
-      var selectedCat = document.getElementById('reportCatSelect').value;
-      var list = cachedRawData;
-      if (selectedCat !== "ALL") {
-        list = cachedRawData.filter(s => s.category === selectedCat);
-      }
-      generateLocalStudentPDF(list, "Category Report - " + selectedCat);
-    }
-
-    function generateLocalStudentPDF(studentsList, title) {
-      var win = window.open('', '_blank');
-      var html = `
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <title>${title}</title>
-          <style>
-            body { font-family: sans-serif; padding: 25px; color: #111; }
-            h2 { text-align: center; color: #0f172a; margin-bottom: 15px; }
-            table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-            th, td { border: 1px solid #cbd5e1; padding: 9px; text-align: left; font-size: 12px; }
-            th { background: #f1f5f9; font-weight: bold; }
-          </style>
-        </head>
-        <body>
-          <h2>${title}</h2>
-          <table>
-            <thead>
-              <tr><th>Reg No</th><th>Name</th><th>Category</th><th>Team</th><th>Item</th><th>Mark</th></tr>
-            </thead>
-            <tbody>
-              ${studentsList.map(s => `<tr><td><b>${s.regNo}</b></td><td>${s.name}</td><td>${s.category}</td><td><b>${s.team}</b></td><td>${s.program}</td><td>${s.mark}</td></tr>`).join('')}
-            </tbody>
-          </table>
-          <script>window.print();<\/script>
-        </body>
-        </html>
-      `;
-      win.document.write(html);
-      win.document.close();
-    }
-
+    // PRINT JUDGES SLIP IN CLEAN A4 PDF FORMAT
     function printJudgesSlip() {
-      let c = document.getElementById('reportCatSelect').value;
+      let c = document.getElementById('judgeCatSelect').value;
       let i = document.getElementById('judgeItem').value;
       var codeLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
       var win = window.open('', '_blank');
@@ -698,7 +299,7 @@
         <!DOCTYPE html>
         <html>
         <head>
-          <title>Judges Slips</title>
+          <title>Judges Slips - Meelad Fest</title>
           <style>
             @page { size: A4 portrait; margin: 8mm; }
             * { box-sizing: border-box; font-family: sans-serif; }
@@ -760,99 +361,6 @@
       html += `<script>window.print();<\/script></body></html>`;
       win.document.write(html);
       win.document.close();
-    }
-
-    function loginTeamPortal() {
-      let u = document.getElementById('teamUser').value.trim();
-      let p = document.getElementById('teamPass').value.trim();
-      fetch(`${SCRIPT_URL}?action=getSecuredStudentsData&user=${encodeURIComponent(u)}&pass=${encodeURIComponent(p)}`)
-        .then(res => res.json())
-        .then(res => {
-          if (res.success) {
-            document.getElementById('teamLoginForm').style.display = "none";
-            document.getElementById('teamDataContent').style.display = "block";
-            document.getElementById('userRoleBadge').innerText = res.role === "ADMIN" ? "Admin View" : "Team: " + res.team;
-            currentStudentsList = res.students;
-            filterStudents();
-          } else {
-            document.getElementById('loginError').innerText = res.message;
-          }
-        });
-    }
-
-    function logoutTeamPortal() {
-      document.getElementById('teamLoginForm').style.display = "block";
-      document.getElementById('teamDataContent').style.display = "none";
-    }
-
-    function filterStudents() {
-      let regQuery = document.getElementById('searchReg').value.toLowerCase().trim();
-      let nameQuery = document.getElementById('searchName').value.toLowerCase().trim();
-      let catQuery = document.getElementById('searchCategory').value.toUpperCase().trim();
-
-      filteredStudentsList = currentStudentsList.filter(s => {
-        return (!regQuery || String(s.regNo).toLowerCase().includes(regQuery)) &&
-               (!nameQuery || String(s.name).toLowerCase().includes(nameQuery)) &&
-               (!catQuery || String(s.category).toUpperCase() === catQuery);
-      });
-
-      renderStudentTable(filteredStudentsList);
-    }
-
-    function renderStudentTable(students) {
-      let container = document.getElementById('teamMembersTable');
-      if (!students || students.length === 0) {
-        container.innerHTML = "<p style='font-size:13px; padding:12px;'>No matching records found.</p>";
-        return;
-      }
-
-      let html = '<table><thead><tr><th>Reg No</th><th>Name</th><th>Category</th><th>Team</th></tr></thead><tbody>';
-      html += students.map(m => `<tr><td><b>${m.regNo}</b></td><td>${m.name}</td><td>${m.category}</td><td><b>${m.team}</b></td></tr>`).join('');
-      html += '</tbody></table>';
-      container.innerHTML = html;
-    }
-
-    function exportFilteredPDF() {
-      generateLocalStudentPDF(filteredStudentsList, "Student Search Report");
-    }
-
-    function submitFeedback() {
-      let email = document.getElementById('sugEmail').value.trim();
-      let text = document.getElementById('sugText').value.trim();
-      let status = document.getElementById('sugStatus');
-
-      if (!text) { status.style.color = "#ef4444"; status.innerText = "Please write feedback first."; return; }
-
-      fetch(`${SCRIPT_URL}?action=sendSuggestion`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({ email: email, text: text })
-      })
-      .then(res => res.json())
-      .then(res => {
-        status.style.color = res.success ? "#10b981" : "#ef4444";
-        status.innerText = res.message;
-        if (res.success) { document.getElementById('sugEmail').value = ""; document.getElementById('sugText').value = ""; }
-      })
-      .catch(() => {
-        status.style.color = "#ef4444";
-        status.innerText = "Feedback submission failed.";
-      });
-    }
-
-    function lookupResult() {
-      let reg = document.getElementById('studentRegNo').value.trim();
-      if (!reg) return;
-      fetch(`${SCRIPT_URL}?action=lookupStudentResult&regNo=${encodeURIComponent(reg)}`)
-        .then(res => res.json())
-        .then(res => {
-          let box = document.getElementById('studentResultBox');
-          if (res.success) {
-            box.innerHTML = res.results.map(r => `<div style="padding:10px; border-bottom:1px solid #334155; background:rgba(255,255,255,0.03); border-radius:6px; margin-bottom:6px;"><b>${r.name}</b> (${r.team})<br><span style="color:#94a3b8;">Item: ${r.program}</span> | Mark: <b style="color:#f59e0b;">${r.mark}</b> | Place: <b style="color:#38bdf8;">${r.place}</b></div>`).join('');
-          } else {
-            box.innerHTML = `<p style="color:#ef4444; font-size:13px;">${res.message}</p>`;
-          }
-        });
     }
   </script>
 </body>

@@ -308,7 +308,7 @@
           <button class="tab-btn" onclick="openOfficialSubTab('tabPointTable')"><i class="fa-solid fa-trophy"></i> Point Table</button>
         </div>
 
-        <!-- SUB TAB 1: PROGRAMS (GENERAL AS PROGRAM TYPE) -->
+        <!-- SUB TAB 1: PROGRAMS -->
         <div id="tabPrograms" class="official-tab-content active">
           <div class="report-box">
             <h4 style="color:var(--navy-dark); margin-bottom:10px;"><i class="fa-solid fa-plus-circle text-emerald-600"></i> Add Competition Program</h4>
@@ -347,39 +347,42 @@
           <div id="programsListTable" class="table-responsive"></div>
         </div>
 
-        <!-- SUB TAB 2: CANDIDATES (UNIFORM MMO REG NUMBERING) -->
+        <!-- SUB TAB 2: CANDIDATES (BULK MULTI-ENTRY SETUP) -->
         <div id="tabCandidates" class="official-tab-content">
           <div class="report-box">
-            <h4 style="color:var(--navy-dark); margin-bottom:10px;"><i class="fa-solid fa-user-plus text-emerald-600"></i> Add Candidate / Member</h4>
+            <h4 style="color:var(--navy-dark); margin-bottom:6px;"><i class="fa-solid fa-users text-emerald-600"></i> Add Multiple Candidates / Members</h4>
+            <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">Select the Team and Category first, then add all member names in sequence below.</p>
+            
             <div class="form-grid">
               <div>
-                <label style="font-size:12px; color:var(--text-muted);">Category:</label>
-                <select id="candCategory" onchange="autoGenerateRegNo()">
+                <label style="font-size:12px; font-weight:700; color:var(--navy-dark);">1. Select Category:</label>
+                <select id="candCategory" onchange="refreshCandidateRowsReg()">
                   <option value="SENIOR">Senior (S)</option>
                   <option value="JUNIOR">Junior (J)</option>
                   <option value="SUB-JUNIOR">Sub-Junior (SJ)</option>
                 </select>
               </div>
               <div>
-                <label style="font-size:12px; color:var(--text-muted);">Team:</label>
-                <select id="candTeam" onchange="autoGenerateRegNo()">
+                <label style="font-size:12px; font-weight:700; color:var(--navy-dark);">2. Select Team:</label>
+                <select id="candTeam" onchange="refreshCandidateRowsReg()">
                   <option value="Qahira">Qahira (ഖാഹിറ) - A (Blue)</option>
                   <option value="Qusdiya">Qusdiya (ഖുദ്‌സിയ) - B (Green)</option>
                   <option value="Qurthuba">Qurthuba (ഖുർത്തുബ) - C (Red)</option>
                 </select>
               </div>
-              <div>
-                <label style="font-size:12px; color:var(--text-muted);">Generated Reg No:</label>
-                <input type="text" id="candRegNo" placeholder="Auto Reg No" style="background:#f1f5f9; font-weight:bold; color:var(--navy-main);" readonly>
-              </div>
-              <div>
-                <label style="font-size:12px; color:var(--text-muted);">Candidate Name:</label>
-                <input type="text" id="candName" placeholder="Full Name">
-              </div>
             </div>
-            <div style="display:flex; gap:10px;">
-              <button class="btn btn-success" onclick="saveCandidate()"><i class="fa-solid fa-save"></i> Add Candidate</button>
-              <button class="btn" style="background:var(--navy-main);" onclick="printTeamListPDF()"><i class="fa-solid fa-print"></i> Print Full Team List</button>
+
+            <div style="background:#fff; border:1px solid var(--border-color); border-radius:10px; padding:12px; margin-bottom:14px;">
+              <label style="font-size:12.5px; font-weight:700; color:var(--navy-main); margin-bottom:8px; display:block;">Candidate Names & Auto Reg Numbers:</label>
+              <div id="candidateRowsContainer">
+                <!-- Dynamically generated rows appear here -->
+              </div>
+              <button class="btn" type="button" onclick="addCandidateRow()" style="background:#e2e8f0; color:var(--navy-dark); font-size:12.5px; padding:8px 12px; width:auto;"><i class="fa-solid fa-plus"></i> + Add More Member</button>
+            </div>
+
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <button class="btn btn-success" style="flex:1; min-width:200px;" onclick="saveBatchCandidates()"><i class="fa-solid fa-save"></i> Save All Members</button>
+              <button class="btn" style="background:var(--navy-main); flex:1; min-width:200px;" onclick="printTeamListPDF()"><i class="fa-solid fa-print"></i> Print Full Team List</button>
             </div>
           </div>
 
@@ -429,7 +432,7 @@
                 <select id="resItemSelect"></select>
               </div>
               <div>
-                <label style="font-size:12px; color:var(--text-muted);">Participant / Team:</label>
+                <label style="font-size:12px; color:var(--text-muted);">Participant / Squad:</label>
                 <select id="resCandidateSelect"></select>
               </div>
               <div>
@@ -583,7 +586,7 @@
       document.getElementById(tabId).classList.add('active');
       event.currentTarget.classList.add('active');
 
-      if (tabId === 'tabCandidates') autoGenerateRegNo();
+      if (tabId === 'tabCandidates') initCandidateRows();
       if (tabId === 'tabJudges') updateJudgeProgramDropdown();
       if (tabId === 'tabResult') { updateResultProgramDropdown(); }
     }
@@ -648,10 +651,10 @@
       renderResultsAdminTable();
       buildPointTables();
       filterStudents();
-      autoGenerateRegNo();
+      refreshCandidateRowsReg();
     }
 
-    /* 1. PROGRAMS LOGIC */
+    /* 1. PROGRAMS */
     function toggleCategorySelect() {
       var type = document.getElementById('progType').value;
       var catWrapper = document.getElementById('progCatWrapper');
@@ -729,8 +732,7 @@
       container.innerHTML = html;
     }
 
-    /* 2. CANDIDATES LOGIC WITH UNIFORM REG NUMBERING */
-    // Qahira -> A, Qusdiya -> B, Qurthuba -> C
+    /* 2. MULTIPLE CANDIDATES BULK ENTRY LOGIC */
     function getTeamCode(teamName) {
       if (teamName === "Qahira") return "A";
       if (teamName === "Qusdiya") return "B";
@@ -745,42 +747,89 @@
       return "S";
     }
 
-    function autoGenerateRegNo() {
-      var cat = document.getElementById('candCategory') ? document.getElementById('candCategory').value : "SENIOR";
-      var team = document.getElementById('candTeam') ? document.getElementById('candTeam').value : "Qahira";
-      
-      var catCode = getCategoryCode(cat);
-      var teamCode = getTeamCode(team);
-      var prefix = "MMO" + catCode + teamCode;
-
-      // Filter existing members of same category & team to calculate next 01, 02...
-      var existingCount = festCandidates.filter(c => c.category === cat && c.team === team).length;
-      var nextNum = String(existingCount + 1).padStart(2, '0');
-
-      var finalReg = prefix + nextNum;
-      if (document.getElementById('candRegNo')) {
-        document.getElementById('candRegNo').value = finalReg;
+    function initCandidateRows() {
+      var container = document.getElementById('candidateRowsContainer');
+      if (container.children.length === 0) {
+        container.innerHTML = "";
+        addCandidateRow();
+      } else {
+        refreshCandidateRowsReg();
       }
-      return finalReg;
     }
 
-    function saveCandidate() {
-      var reg = document.getElementById('candRegNo').value.trim() || autoGenerateRegNo();
-      var name = document.getElementById('candName').value.trim();
+    function addCandidateRow() {
+      var container = document.getElementById('candidateRowsContainer');
+      var div = document.createElement('div');
+      div.className = 'cand-multi-row';
+      div.style.cssText = 'display:flex; gap:10px; margin-bottom:8px; align-items:center;';
+      div.innerHTML = `
+        <input type="text" class="cand-row-reg" readonly style="width:130px; font-weight:700; color:var(--navy-main); background:#f8fafc; margin:0;" placeholder="Reg No">
+        <input type="text" class="cand-row-name" style="flex:1; margin:0;" placeholder="Participant Name">
+        <button type="button" onclick="removeCandidateRow(this)" style="padding:10px 14px; background:#ef4444; color:#fff; border:none; border-radius:6px; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
+      `;
+      container.appendChild(div);
+      refreshCandidateRowsReg();
+    }
+
+    function removeCandidateRow(btn) {
+      var container = document.getElementById('candidateRowsContainer');
+      if (container.children.length > 1) {
+        btn.parentElement.remove();
+        refreshCandidateRowsReg();
+      } else {
+        btn.parentElement.querySelector('.cand-row-name').value = "";
+      }
+    }
+
+    function refreshCandidateRowsReg() {
+      var cat = document.getElementById('candCategory') ? document.getElementById('candCategory').value : "SENIOR";
+      var team = document.getElementById('candTeam') ? document.getElementById('candTeam').value : "Qahira";
+      var prefix = "MMO" + getCategoryCode(cat) + getTeamCode(team);
+
+      // Count existing candidates already registered under this category & team
+      var existingCount = festCandidates.filter(c => c.category === cat && c.team === team).length;
+      var rows = document.querySelectorAll('.cand-multi-row');
+
+      rows.forEach((row, idx) => {
+        var numStr = String(existingCount + idx + 1).padStart(2, '0');
+        var regInput = row.querySelector('.cand-row-reg');
+        if (regInput) regInput.value = prefix + numStr;
+      });
+    }
+
+    function saveBatchCandidates() {
       var cat = document.getElementById('candCategory').value;
       var team = document.getElementById('candTeam').value;
+      var rows = document.querySelectorAll('.cand-multi-row');
+      var addedList = [];
 
-      if (!name) {
-        alert("Please enter Candidate Name.");
+      rows.forEach(row => {
+        var reg = row.querySelector('.cand-row-reg').value.trim();
+        var name = row.querySelector('.cand-row-name').value.trim();
+        if (name) {
+          addedList.push({
+            id: Date.now() + Math.random(),
+            regNo: reg,
+            name: name,
+            category: cat,
+            team: team
+          });
+        }
+      });
+
+      if (addedList.length === 0) {
+        alert("Please enter at least one participant name.");
         return;
       }
 
-      festCandidates.push({ id: Date.now(), regNo: reg, name: name, category: cat, team: team });
+      // Add to array
+      festCandidates = festCandidates.concat(addedList);
       saveAllData();
 
-      document.getElementById('candName').value = "";
-      autoGenerateRegNo();
-      alert(`Candidate registered successfully with Reg No: ${reg}`);
+      // Reset entry rows
+      document.getElementById('candidateRowsContainer').innerHTML = "";
+      addCandidateRow();
+      alert(`${addedList.length} member(s) registered successfully under ${team} (${cat})!`);
     }
 
     function deleteCandidate(id) {
@@ -1122,7 +1171,7 @@
       win.document.close();
     }
 
-    /* 6. POINT TABLE LOGIC */
+    /* 6. POINT TABLE */
     function addManualCategoryScore() {
       var cat = document.getElementById('ptCategory').value;
       var team = document.getElementById('ptTeam').value;

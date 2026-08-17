@@ -3,59 +3,58 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>മാലീ സിവാക | Meelad Fest 2k26</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Poppins:wght@300;400;500;600;700;800&family=Anek+Malayalam:wght@600;700;800&display=swap" rel="stylesheet">
+  <title>മാലീ സിവാക | Meelad Fest 2k26 - Live Portal</title>
+  
+  <!-- IMPORTS: POPPINS (English Text), ANEK MALAYALAM (Heavy Malayalam), CINZEL (Decorative Titles) -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Anek+Malayalam:wght@600;700;800&family=Cinzel:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
     :root {
-      /* WHITE & NAVY BLUE PALETTE WITH EMERALD ACCENTS */
-      --bg-main: #f8fafc;
-      --bg-white: #ffffff;
-      --panel-bg: #ffffff;
-      --card-bg: #f1f5f9;
-      
-      --navy-dark: #0f172a;
-      --navy-main: #1e3a8a;
-      --navy-light: #0284c7;
-      --navy-soft: #e0f2fe;
+      /* ROYAL NAVY & GOLD THEME */
+      --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #0369a1 100%);
+      --bg-main: #0a0f1d;
+      --panel-bg: #131b2e;
+      --card-bg: #0b1329;
+      --border: rgba(255, 255, 255, 0.08);
 
-      --emerald-main: #059669;
-      --emerald-light: #10b981;
-      --emerald-soft: #ecfdf5;
+      --primary: #0284c7;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
 
-      --gold-accent: #d97706;
-      --border-color: #e2e8f0;
-      --text-dark: #0f172a;
-      --text-muted: #64748b;
-
-      /* TEAM BRANDING */
-      --team-qurthuba: #ef4444; /* Red */
-      --team-qusdiya: #059669;  /* Emerald Green */
-      --team-qahira: #0284c7;   /* Navy Blue */
+      /* ENHANCED GOLD GRADIENT FOR TITLES */
+      --gold-gradient: linear-gradient(180deg, #fcd34d 0%, #f59e0b 50%, #b45309 100%);
+      --gold-glow: 0 2px 10px rgba(245, 158, 11, 0.4);
     }
 
     * { box-sizing: border-box; font-family: 'Poppins', sans-serif; margin: 0; padding: 0; }
-    html, body { width: 100vw; min-height: 100vh; background: var(--bg-main); color: var(--text-dark); overflow-x: hidden; }
+    html, body { width: 100vw; min-height: 100vh; background: var(--bg-main); color: var(--text); overflow-x: hidden; }
     
-    .app-wrapper { width: 100vw; min-height: 100vh; padding: 14px; display: flex; flex-direction: column; max-width: 1200px; margin: 0 auto; }
+    .app-wrapper { width: 100vw; min-height: 100vh; padding: 12px; display: flex; flex-direction: column; }
 
-    /* HEADER BANNER */
+    /* --- ENHANCED ATTRACTIVE HEADER TITLE BANNER --- */
     .top-header {
       position: relative;
       width: 100%;
-      height: 155px;
-      border-radius: 16px;
+      height: 145px; /* Slightly taller for better spacing */
+      border-radius: 14px;
       overflow: hidden;
-      margin-bottom: 16px;
-      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      margin-bottom: 14px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #064e3b 100%);
-      color: #ffffff;
-      border: 1px solid var(--border-color);
+      background: var(--bg-gradient); /* Rich Navy Blue Gradient */
+      border: 1px solid var(--border);
+    }
+
+    .top-header::before {
+      content: "";
+      position: absolute;
+      top: -50%; left: -50%; width: 200%; height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 60%);
+      pointer-events: none;
     }
 
     .header-controls {
@@ -66,141 +65,97 @@
     }
 
     .icon-btn { 
-      font-size: 13px; 
-      color: #ffffff; 
+      font-size: 14px; 
+      color: #fff; 
       cursor: pointer; 
-      background: rgba(255, 255, 255, 0.15);
-      padding: 7px 14px;
+      background: rgba(255,255,255,0.1);
+      padding: 8px 14px;
       border-radius: 8px;
-      border: 1px solid rgba(255, 255, 255, 0.25);
+      border: 1px solid rgba(255,255,255,0.15);
       transition: all 0.2s ease;
       display: flex;
       align-items: center;
-      gap: 7px;
-      backdrop-filter: blur(8px);
+      gap: 6px;
     }
-    .icon-btn:hover { background: #ffffff; color: var(--navy-dark); font-weight: 700; }
+    .icon-btn:hover { background: rgba(255,255,255,0.2); }
 
     .title-banner { text-align: center; margin-top: 10px; z-index: 2; }
+    
+    /* 1. MAIN MALAYALAM TITLE (Glowing Gold Anek Malayalam) */
     .main-fest-title {
       font-size: 34px;
       font-weight: 800;
-      color: #ffffff;
-      letter-spacing: 1px;
       font-family: 'Anek Malayalam', sans-serif;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      
+      /* Apply Gold Gradient to Text */
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      
+      letter-spacing: 1px;
+      filter: drop-shadow(var(--gold-glow)); /* Outer Glow */
       line-height: 1.2;
     }
+    
+    /* 2. SUB FEST TITLE (Decorative Cinzel Font) */
     .sub-fest-title { 
-      font-size: 13.5px; 
+      font-size: 14px; 
       font-weight: 700; 
-      color: #38bdf8; 
-      letter-spacing: 4px;
+      font-family: 'Cinzel', serif; /* Decorative stone-carved look */
+      color: #ffffff; /* Clean white */
+      letter-spacing: 4px; /* Widely spaced letters for prestige */
       text-transform: uppercase;
-      margin-top: 3px;
+      margin-top: 2px;
+      opacity: 0.9;
     }
 
-    /* NAVIGATION DRAWER */
-    .side-drawer { height: 100%; width: 0; position: fixed; z-index: 1000; top: 0; left: 0; background: #ffffff; overflow-x: hidden; transition: 0.3s; padding-top: 60px; box-shadow: 10px 0 30px rgba(0,0,0,0.15); border-right: 1px solid var(--border-color); }
-    .side-drawer a { padding: 15px 24px; text-decoration: none; font-size: 14.5px; color: var(--navy-dark); display: flex; align-items: center; gap: 12px; font-weight: 600; border-bottom: 1px solid #f1f5f9; transition: 0.2s; }
-    .side-drawer a:hover { background: var(--navy-soft); color: var(--navy-main); padding-left: 28px; }
-    .side-drawer .close-btn { position: absolute; top: 12px; right: 20px; font-size: 28px; color: var(--navy-dark); cursor: pointer; }
-    .overlay { position: fixed; display: none; width: 100vw; height: 100vh; top: 0; left: 0; background: rgba(15, 23, 42, 0.5); z-index: 999; backdrop-filter: blur(3px); }
+    /* --- REST OF THE STYLING (KEEP AS IS) --- */
+    .side-drawer { height: 100%; width: 0; position: fixed; z-index: 1000; top: 0; left: 0; background: #0f172a; overflow-x: hidden; transition: 0.3s; padding-top: 60px; box-shadow: 5px 0 25px rgba(0,0,0,0.5); }
+    .side-drawer a { padding: 14px 24px; text-decoration: none; font-size: 15px; color: #e2e8f0; display: flex; align-items: center; gap: 10px; font-weight: 600; border-bottom: 1px solid var(--border); }
+    .side-drawer a:hover { background: #1e293b; }
+    .side-drawer .close-btn { position: absolute; top: 12px; right: 20px; font-size: 28px; color: #fff; cursor: pointer; }
+    .overlay { position: fixed; display: none; width: 100vw; height: 100vh; top: 0; left: 0; background: rgba(0,0,0,0.7); z-index: 999; backdrop-filter: blur(2px); }
 
-    /* VIEW PANELS */
-    .view-panel { 
-      display: none; 
-      background: var(--panel-bg); 
-      border-radius: 16px; 
-      padding: 22px; 
-      border: 1px solid var(--border-color); 
-      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05); 
-      margin-bottom: 16px; 
-      width: 100%; 
-    }
-    .view-panel.active { display: block !important; animation: fadeIn 0.3s ease; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+    .view-panel { display: none; background: var(--panel-bg); border-radius: 12px; padding: 20px; border: 1px solid var(--border); box-shadow: 0 4px 20px rgba(0,0,0,0.4); margin-bottom: 15px; width: 100%; }
+    .view-panel.active { display: block !important; }
 
-    /* DASHBOARD CARDS */
-    .dashboard-split { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 20px; }
+    .dashboard-split { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; margin-bottom: 18px; }
     .dashboard-card {
-      background: var(--bg-white);
-      color: var(--text-dark); padding: 20px; border-radius: 14px;
-      border: 1px solid var(--border-color);
-      display: flex; flex-direction: column; justify-content: center; min-height: 120px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-      position: relative;
-      overflow: hidden;
+      background: var(--card-bg);
+      color: #fff; padding: 18px; border-radius: 10px;
+      border: 1px solid var(--border);
+      display: flex; flex-direction: column; justify-content: center; min-height: 110px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
-    .dashboard-card::after {
-      content: ""; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
-      background: linear-gradient(135deg, var(--navy-light), var(--emerald-main));
-    }
-    .dashboard-card h4 { font-size: 13px; color: var(--navy-main); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 8px; font-weight: 700; }
-    .quote-text { font-size: 13.5px; font-style: italic; line-height: 1.5; margin-bottom: 6px; color: #334155; }
-    .quote-translation { font-size: 12.5px; color: var(--text-muted); line-height: 1.4; font-family: 'Anek Malayalam', sans-serif; }
+    .dashboard-card h4 { font-size: 13px; color: #f59e0b; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 6px; }
+    .quote-text { font-size: 13px; font-style: italic; line-height: 1.4; margin-bottom: 6px; }
+    .quote-translation { font-size: 12px; color: var(--text-muted); line-height: 1.4; font-family: 'Anek Malayalam', sans-serif; }
 
-    .result-program { font-size: 16px; font-weight: 700; color: var(--navy-dark); }
-    .result-cat { font-size: 12.5px; color: var(--emerald-main); font-weight: 600; margin: 3px 0; }
-    .result-winner { font-size: 13.5px; color: #1e293b; }
+    .sheet-wrapper { position: relative; width: 100%; height: 75vh; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); background: #fff; }
+    .sheet-wrapper iframe { width: 100%; height: 100%; border: none; }
 
-    /* OFFICIAL SUB TABS */
-    .official-tabs { display: flex; gap: 8px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 8px; border-bottom: 2px solid #f1f5f9; }
-    .tab-btn { background: #f8fafc; color: var(--text-muted); border: 1px solid var(--border-color); padding: 9px 18px; border-radius: 10px; cursor: pointer; font-size: 13.5px; font-weight: 600; white-space: nowrap; transition: 0.2s; }
-    .tab-btn.active, .tab-btn:hover { background: var(--navy-main); color: #ffffff; border-color: var(--navy-main); box-shadow: 0 4px 12px rgba(30, 58, 138, 0.2); }
-
-    .official-tab-content { display: none; }
-    .official-tab-content.active { display: block; }
-
-    /* TEAM COLORS & BADGES */
-    .team-badge-qurthuba { background: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5; }
-    .team-badge-qusdiya { background: #d1fae5; color: #047857; border: 1px solid #6ee7b7; }
-    .team-badge-qahira { background: #e0f2fe; color: #0369a1; border: 1px solid #7dd3fc; }
-
-    /* TABLES */
-    .table-responsive { width: 100%; overflow-x: auto; margin-top: 12px; border-radius: 12px; border: 1px solid var(--border-color); background: var(--bg-white); }
-    table { width: 100%; border-collapse: collapse; text-align: left; }
-    th, td { border-bottom: 1px solid #f1f5f9; padding: 12px 14px; font-size: 13.5px; }
-    th { background: #f8fafc; color: var(--navy-main); font-weight: 700; text-transform: uppercase; font-size: 11.5px; letter-spacing: 0.5px; }
-    tr:nth-child(even) { background: #fafafa; }
-    tr:hover { background: #f0fdf4; }
-
-    /* FORMS & INPUTS */
-    .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; margin-bottom: 12px; }
-    .search-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 15px; }
-    .search-row input, .search-row select { flex: 1; min-width: 150px; }
-    input, select, textarea { width: 100%; padding: 10px 14px; margin-bottom: 12px; background: #ffffff; border: 1.5px solid #cbd5e1; color: var(--navy-dark); border-radius: 8px; font-size: 13.5px; outline: none; transition: 0.2s; }
-    input:focus, select:focus, textarea:focus { border-color: var(--navy-light); box-shadow: 0 0 8px rgba(2, 132, 199, 0.2); }
-    
-    button.btn { width: 100%; padding: 11px; background: var(--navy-main); color: #ffffff; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 13.5px; margin-bottom: 8px; transition: all 0.2s; }
-    button.btn:hover { background: var(--navy-dark); transform: translateY(-1px); }
-    button.btn-success { background: var(--emerald-main); color: #ffffff; }
-    button.btn-success:hover { background: #047857; }
-    button.btn-danger { background: #ef4444; color: #ffffff; }
-    button.btn-danger:hover { background: #dc2626; }
-    
-    .badge { display: inline-block; padding: 4px 12px; border-radius: 12px; font-size: 11.5px; font-weight: 700; }
-    .report-box { background: #f8fafc; padding: 18px; border-radius: 12px; margin-bottom: 16px; border: 1px solid var(--border-color); }
-    .badge-timer { background: var(--navy-soft); border: 1px solid #bae6fd; color: var(--navy-main); padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; gap: 7px; }
-    .live-pulse { width: 8px; height: 8px; background: var(--emerald-main); border-radius: 50%; display: inline-block; box-shadow: 0 0 8px var(--emerald-main); }
+    input, select, textarea { width: 100%; padding: 11px 14px; margin-bottom: 12px; background: var(--card-bg); border: 1px solid #334155; color: #fff; border-radius: 8px; font-size: 13.5px; outline: none; }
+    button.btn { width: 100%; padding: 12px; background: var(--primary); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px; margin-bottom: 8px; transition: background 0.2s; }
+    button.btn-pdf { background: #dc2626; color: white; }
+    .badge { display: inline-block; padding: 4px 12px; background: var(--primary); color: #fff; border-radius: 12px; font-size: 12px; font-weight: 600; }
+    .report-box { background: var(--card-bg); padding: 18px; border-radius: 8px; margin-bottom: 15px; border: 1px solid var(--border); }
   </style>
 </head>
 <body>
 
   <div id="drawerOverlay" class="overlay" onclick="closeNav()"></div>
 
-  <!-- NAVIGATION SIDE DRAWER -->
+  <!-- NAVIGATION -->
   <div id="sideNav" class="side-drawer">
     <span class="close-btn" onclick="closeNav()">&times;</span>
-    <a href="javascript:void(0)" onclick="showView('dashboardView')"><i class="fa-solid fa-chart-line text-emerald-600"></i> Category Standings</a>
-    <a href="javascript:void(0)" onclick="showView('pointTableView')"><i class="fa-solid fa-trophy text-emerald-600"></i> Point Table & Leaderboard</a>
-    <a href="javascript:void(0)" onclick="showView('officialView')"><i class="fa-solid fa-user-shield text-emerald-600"></i> Official Portal (Admin)</a>
-    <a href="javascript:void(0)" onclick="showView('teamView')"><i class="fa-solid fa-users text-emerald-600"></i> Registered Candidates</a>
+    <a href="javascript:void(0)" onclick="showView('dashboardView')"><i class="fa-solid fa-table-list"></i> Live Result Sheet</a>
+    <a href="javascript:void(0)" onclick="showView('judgesView')"><i class="fa-solid fa-scale-balanced"></i> Judges Slips</a>
+    <a href="javascript:void(0)" onclick="showView('contactView')"><i class="fa-solid fa-comment-dots"></i> Feedback</a>
   </div>
 
   <div class="app-wrapper">
 
-    <!-- HEADER BANNER -->
+    <!-- THE NEW ATTRACTIVE HEADER TITLE BANNER -->
     <div class="top-header">
       <div class="header-controls">
         <div class="icon-btn" onclick="openNav()"><i class="fa-solid fa-bars"></i> Menu</div>
@@ -212,929 +167,75 @@
       </div>
     </div>
 
-    <!-- 1. DYNAMIC CATEGORY ROTATIONAL DASHBOARD -->
+    <!-- MAIN LIVE SHEET PANEL -->
     <div id="dashboardView" class="view-panel active">
       <div class="dashboard-split">
         <div class="dashboard-card">
-          <h4><i class="fa-solid fa-quote-left text-emerald-600"></i> Prophetic Wisdom</h4>
+          <h4><i class="fa-solid fa-quote-left"></i> Prophetic Wisdom</h4>
           <div id="quoteDisplay">
-            <div class="quote-text">"The best among you are those who have the best manners and character."</div>
-            <div class="quote-translation"><b>തർജ്ജമ:</b> നിങ്ങളിൽ ഏറ്റവും ഉത്തമർ അത്യുത്തമമായ സ്വഭാവഗുണമുള്ളവരാണ്.</div>
+            <div class="quote-text">"A good word is a charity."</div>
+            <div class="quote-translation"><b>തർജ്ജമ:</b> നല്ല വാക്ക് പറയുന്നതും ഒരു ധർമ്മമാണ്.</div>
           </div>
         </div>
-
         <div class="dashboard-card">
-          <h4><i class="fa-solid fa-bullhorn text-emerald-600"></i> Live Published Results</h4>
-          <div id="announcedDisplay">
-            <div class="result-program">No published results yet.</div>
-          </div>
+          <h4><i class="fa-solid fa-bullhorn"></i> Portal Updates</h4>
+          <div style="font-size: 13.5px; color: #38bdf8; font-weight: 600;"><i class="fa-solid fa-rotate fa-spin"></i> Connected to Live Sheet</div>
+          <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Results update live below as they are entered in the master sheet.</div>
         </div>
       </div>
-
-      <hr style="margin:16px 0; border:0; border-top:1px solid var(--border-color);">
-
-      <div class="carousel-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; flex-wrap:wrap; gap:10px;">
-        <h3 id="displayHeaderTitle" style="color: var(--navy-dark); font-size: 1.25rem; font-weight:700;">Category Marksheet Carousel</h3>
-        <span class="badge-timer" id="rotatorTimerBadge"><span class="live-pulse"></span> Rotation: 30s</span>
-      </div>
-
-      <div id="carouselCardContainer">
-        <p style="color: var(--text-muted);">Please add programs and candidate marks in the Official Portal.</p>
+      <div class="sheet-wrapper">
+        <iframe id="liveSheetIframe" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSecjx5quikm1nv2utFy6BCAvEiv68g-ES6IuOtSmiX3HUdkl974ThUZLea02DqV7nfu0MFufUqPbjw/pubhtml?widget=true&amp;headers=false"></iframe>
       </div>
     </div>
 
-    <!-- 2. POINT TABLE -->
-    <div id="pointTableView" class="view-panel">
-      <h3 style="margin-bottom: 14px; color: var(--navy-dark); font-size:1.3rem;"><i class="fa-solid fa-trophy text-emerald-600"></i> Grand Team Leaderboard</h3>
-      <div id="teamPointsTable" class="table-responsive"></div>
-
-      <hr style="margin:22px 0; border:0; border-top:1px solid var(--border-color);">
-      <h3 style="margin-bottom: 14px; color: var(--navy-dark); font-size:1.3rem;"><i class="fa-solid fa-layer-group text-emerald-600"></i> Category-Wise Breakdown Tables</h3>
-      <div id="categoryBreakdownTables"></div>
-      
-      <hr style="margin:22px 0; border:0; border-top:1px solid var(--border-color);">
-      <h3 style="margin-bottom: 8px;"><i class="fa-solid fa-magnifying-glass text-emerald-600"></i> Student Score Lookup</h3>
-      <input type="text" id="studentRegNo" placeholder="Enter Registration No (e.g. 101)">
-      <button class="btn" onclick="lookupResult()"><i class="fa-solid fa-search"></i> Search Score</button>
-      <div id="studentResultBox" style="margin-top:10px;"></div>
-    </div>
-
-    <!-- 3. OFFICIAL PORTAL (ADMIN ACCESS) -->
-    <div id="officialView" class="view-panel">
-      <h3 style="margin-bottom: 4px; color: var(--navy-dark); font-size:1.3rem;"><i class="fa-solid fa-user-shield text-emerald-600"></i> Official Management Portal</h3>
-      <p style="font-size:12px; color:var(--text-muted); margin-bottom:18px;">Admin access to configure programs, candidates, judges slips, results, and point tables.</p>
-
-      <!-- ADMIN LOGIN -->
-      <div id="officialAuth">
-        <input type="text" id="officialUser" placeholder="Admin Username">
-        <input type="password" id="officialPass" placeholder="Admin Password">
-        <button class="btn" onclick="authOfficial()"><i class="fa-solid fa-right-to-bracket"></i> Login as Admin</button>
-        <div id="officialLoginErr" style="color:#ef4444; font-size:12px; margin-top:8px;"></div>
-      </div>
-
-      <!-- ADMIN CONTROL CENTER -->
-      <div id="officialContent" style="display:none;">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; flex-wrap:wrap; gap:8px;">
-          <span class="badge" style="background:#059669; color:#fff;">🔑 Admin Mode Active</span>
-          <div style="display:flex; gap:8px;">
-            <button onclick="exportDataJSON()" style="padding:7px 14px; font-size:12px; background:var(--navy-main); color:#fff; border:none; border-radius:8px; cursor:pointer; font-weight:600;"><i class="fa-solid fa-download"></i> Backup JSON</button>
-            <label style="padding:7px 14px; font-size:12px; background:#64748b; color:#fff; border-radius:8px; cursor:pointer; margin:0; font-weight:600;"><i class="fa-solid fa-upload"></i> Restore <input type="file" id="importFileInput" onchange="importDataJSON(event)" style="display:none;"></label>
-            <button onclick="logoutOfficial()" style="padding:7px 14px; font-size:12px; background:#ef4444; color:#fff; border:none; border-radius:8px; cursor:pointer; font-weight:600;">Logout</button>
-          </div>
-        </div>
-
-        <!-- 5 TABS -->
-        <div class="official-tabs">
-          <button class="tab-btn active" onclick="openOfficialSubTab('tabPrograms')"><i class="fa-solid fa-list-check"></i> Programs</button>
-          <button class="tab-btn" onclick="openOfficialSubTab('tabCandidates')"><i class="fa-solid fa-user-plus"></i> Candidates</button>
-          <button class="tab-btn" onclick="openOfficialSubTab('tabJudges')"><i class="fa-solid fa-scale-balanced"></i> Judges</button>
-          <button class="tab-btn" onclick="openOfficialSubTab('tabResult')"><i class="fa-solid fa-square-poll-vertical"></i> Result</button>
-          <button class="tab-btn" onclick="openOfficialSubTab('tabPointTable')"><i class="fa-solid fa-trophy"></i> Point Table</button>
-        </div>
-
-        <!-- SUB TAB 1: PROGRAMS -->
-        <div id="tabPrograms" class="official-tab-content active">
-          <div class="report-box">
-            <h4 style="color:var(--navy-dark); margin-bottom:10px;"><i class="fa-solid fa-plus-circle text-emerald-600"></i> Add Competition Program</h4>
-            <div class="form-grid">
-              <div>
-                <label style="font-size:12px; color:var(--text-muted);">Category:</label>
-                <select id="progCategory">
-                  <option value="SENIOR">Senior</option>
-                  <option value="JUNIOR">Junior</option>
-                  <option value="SUB-JUNIOR">Sub-Junior</option>
-                </select>
-              </div>
-              <div>
-                <label style="font-size:12px; color:var(--text-muted);">Program Type:</label>
-                <select id="progType">
-                  <option value="Individual">Individual</option>
-                  <option value="Group">Group</option>
-                  <option value="General">General</option>
-                </select>
-              </div>
-            </div>
-
-            <div id="programRowsContainer">
-              <div class="program-input-row" style="display:flex; gap:8px; margin-bottom:8px;">
-                <input type="text" class="prog-name-input" placeholder="Enter Program Name (e.g. Qira'at, Quiz, Madih)">
-              </div>
-            </div>
-
-            <div style="display:flex; gap:10px;">
-              <button class="btn" type="button" onclick="addMoreProgramRow()" style="background:#e2e8f0; color:var(--navy-dark);"><i class="fa-solid fa-plus"></i> + Add More</button>
-              <button class="btn btn-success" type="button" onclick="savePrograms()"><i class="fa-solid fa-save"></i> Save Programs</button>
-            </div>
-          </div>
-
-          <h4 style="color:var(--navy-dark); margin: 18px 0 8px 0;">📋 Listed Competition Programs</h4>
-          <div id="programsListTable" class="table-responsive"></div>
-        </div>
-
-        <!-- SUB TAB 2: CANDIDATES -->
-        <div id="tabCandidates" class="official-tab-content">
-          <div class="report-box">
-            <h4 style="color:var(--navy-dark); margin-bottom:10px;"><i class="fa-solid fa-user-plus text-emerald-600"></i> Add Candidate / Member</h4>
-            <div class="form-grid">
-              <input type="text" id="candRegNo" placeholder="Registration No (e.g. 101)">
-              <input type="text" id="candName" placeholder="Candidate Full Name">
-              <select id="candCategory">
-                <option value="SENIOR">Senior</option>
-                <option value="JUNIOR">Junior</option>
-                <option value="SUB-JUNIOR">Sub-Junior</option>
-              </select>
-              <select id="candTeam">
-                <option value="Qurthuba">Qurthuba (ഖുർത്തുബ) - Red</option>
-                <option value="Qusdiya">Qusdiya (ഖുദ്‌സിയ) - Green</option>
-                <option value="Qahira">Qahira (ഖാഹിറ) - Blue</option>
-              </select>
-            </div>
-            <button class="btn btn-success" onclick="saveCandidate()"><i class="fa-solid fa-save"></i> Add Candidate</button>
-          </div>
-
-          <h4 style="color:var(--navy-dark); margin: 18px 0 8px 0;">👥 Registered Candidates Directory</h4>
-          <div id="candidatesListTable" class="table-responsive"></div>
-        </div>
-
-        <!-- SUB TAB 3: JUDGES -->
-        <div id="tabJudges" class="official-tab-content">
-          <div class="report-box">
-            <h4 style="color:var(--navy-dark); margin-bottom:10px;"><i class="fa-solid fa-print text-emerald-600"></i> Judges Slip Print Setup</h4>
-            <div class="form-grid">
-              <div>
-                <label style="font-size:12px; color:var(--text-muted);">Category:</label>
-                <select id="judgeCatSelect" onchange="updateJudgeProgramDropdown()">
-                  <option value="SENIOR">Senior</option>
-                  <option value="JUNIOR">Junior</option>
-                  <option value="SUB-JUNIOR">Sub-Junior</option>
-                </select>
-              </div>
-              <div>
-                <label style="font-size:12px; color:var(--text-muted);">Competition Item:</label>
-                <select id="judgeItemSelect"></select>
-              </div>
-            </div>
-            <button class="btn btn-success" onclick="printJudgesSlip()"><i class="fa-solid fa-print"></i> Print Official Judges Slips (A to I)</button>
-          </div>
-        </div>
-
-        <!-- SUB TAB 4: RESULT -->
-        <div id="tabResult" class="official-tab-content">
-          <div class="report-box">
-            <h4 id="resultFormTitle" style="color:var(--navy-dark); margin-bottom:10px;"><i class="fa-solid fa-award text-emerald-600"></i> Add / Edit Results</h4>
-            <div class="form-grid">
-              <div>
-                <label style="font-size:12px; color:var(--text-muted);">Category:</label>
-                <select id="resCategory" onchange="updateResultCandidateDropdown()">
-                  <option value="SENIOR">Senior</option>
-                  <option value="JUNIOR">Junior</option>
-                  <option value="SUB-JUNIOR">Sub-Junior</option>
-                </select>
-              </div>
-              <div>
-                <label style="font-size:12px; color:var(--text-muted);">Competition Item:</label>
-                <select id="resItemSelect"></select>
-              </div>
-              <div>
-                <label style="font-size:12px; color:var(--text-muted);">Participant:</label>
-                <select id="resCandidateSelect"></select>
-              </div>
-              <div>
-                <label style="font-size:12px; color:var(--text-muted);">Mark / Score:</label>
-                <input type="number" id="resMark" placeholder="Score (e.g. 10)">
-              </div>
-            </div>
-
-            <div class="form-grid">
-              <div>
-                <label style="font-size:12px; color:var(--text-muted);">Grade:</label>
-                <input type="text" id="resGrade" placeholder="Grade (A+, A, B, C...)">
-              </div>
-              <div>
-                <label style="font-size:12px; color:var(--text-muted);">Position (Place):</label>
-                <select id="resPlace">
-                  <option value="-">None (-)</option>
-                  <option value="1st">1st Place</option>
-                  <option value="2nd">2nd Place</option>
-                  <option value="3rd">3rd Place</option>
-                </select>
-              </div>
-              <div>
-                <label style="font-size:12px; color:var(--text-muted);">Publish Status:</label>
-                <select id="resPublished">
-                  <option value="YES">Publish to Live Portal</option>
-                  <option value="NO">Draft (Hidden)</option>
-                </select>
-              </div>
-            </div>
-
-            <button class="btn btn-success" onclick="saveResultEntry()"><i class="fa-solid fa-save"></i> Save & Update Result</button>
-          </div>
-
-          <h4 style="color:var(--navy-dark); margin: 18px 0 8px 0;">🏆 Evaluated Results & Posters</h4>
-          <div id="resultsAdminTable" class="table-responsive"></div>
-        </div>
-
-        <!-- SUB TAB 5: POINT TABLE -->
-        <div id="tabPointTable" class="official-tab-content">
-          <div class="report-box">
-            <h4 style="color:var(--navy-dark); margin-bottom:8px;"><i class="fa-solid fa-sliders text-emerald-600"></i> Manual Score Adjustment (Category-Wise)</h4>
-            <div class="form-grid">
-              <select id="ptCategory">
-                <option value="SENIOR">Senior</option>
-                <option value="JUNIOR">Junior</option>
-                <option value="SUB-JUNIOR">Sub-Junior</option>
-              </select>
-              <select id="ptTeam">
-                <option value="Qurthuba">Qurthuba (Red)</option>
-                <option value="Qusdiya">Qusdiya (Green)</option>
-                <option value="Qahira">Qahira (Blue)</option>
-              </select>
-              <input type="text" id="ptReason" placeholder="Event / Program Name">
-              <input type="number" id="ptMarks" placeholder="Marks (e.g. 5, 3, 1)">
-            </div>
-            <button class="btn btn-success" onclick="addManualCategoryScore()"><i class="fa-solid fa-plus"></i> Add Team Score</button>
-          </div>
-
-          <h4 style="color:var(--navy-dark); margin: 18px 0 8px 0;">📊 Category Point Standings Preview</h4>
-          <div id="adminPointTablePreview" class="table-responsive"></div>
-        </div>
-
+    <!-- JUDGES SLIPS -->
+    <div id="judgesView" class="view-panel">
+      <h3><i class="fa-solid fa-print"></i> Judges Slip Generator</h3>
+      <div class="report-box">
+        <label>Category:</label>
+        <select id="judgeCatSelect"><option value="GENERAL">GENERAL</option></select>
+        <label>Competition Item:</label>
+        <input type="text" id="judgeItem" placeholder="e.g. Recitation">
+        <button class="btn btn-pdf" onclick="alert('Print functionality requires server connection.')">Print Slips PDF</button>
       </div>
     </div>
 
-    <!-- 4. REGISTERED CANDIDATES DIRECTORY -->
-    <div id="teamView" class="view-panel">
-      <h3 style="margin-bottom: 4px; color: var(--navy-dark); font-size:1.3rem;"><i class="fa-solid fa-users text-emerald-600"></i> Registered Candidates</h3>
-      <p style="font-size:12px; color:var(--text-muted); margin-bottom:15px;">Search entries across Qurthuba, Qusdiya, and Qahira.</p>
-
-      <div class="search-row">
-        <input type="text" id="searchReg" onkeyup="filterStudents()" placeholder="🔍 By Reg No...">
-        <input type="text" id="searchName" onkeyup="filterStudents()" placeholder="🔍 By Name...">
-        <select id="searchCategory" onchange="filterStudents()">
-          <option value="">All Categories</option>
-          <option value="SENIOR">Senior</option>
-          <option value="JUNIOR">Junior</option>
-          <option value="SUB-JUNIOR">Sub-Junior</option>
-        </select>
-        <select id="searchTeam" onchange="filterStudents()">
-          <option value="">All Teams</option>
-          <option value="Qurthuba">Qurthuba</option>
-          <option value="Qusdiya">Qusdiya</option>
-          <option value="Qahira">Qahira</option>
-        </select>
+    <!-- CONTACT -->
+    <div id="contactView" class="view-panel">
+      <h3><i class="fa-solid fa-envelope"></i> Committee Contact</h3>
+      <div class="report-box">
+        <p>Email: committee@maleesivaka.com</p>
+        <textarea placeholder="Your feedback..."></textarea>
+        <button class="btn">Send Feedback</button>
       </div>
-
-      <div id="teamMembersTable" class="table-responsive"></div>
     </div>
 
   </div>
 
   <script>
-    var festPrograms = JSON.parse(localStorage.getItem('MEELAD_PROGRAMS')) || [];
-    var festCandidates = JSON.parse(localStorage.getItem('MEELAD_CANDIDATES')) || [];
-    var festResults = JSON.parse(localStorage.getItem('MEELAD_RESULTS')) || [];
-
-    function saveAllData() {
-      localStorage.setItem('MEELAD_PROGRAMS', JSON.stringify(festPrograms));
-      localStorage.setItem('MEELAD_CANDIDATES', JSON.stringify(festCandidates));
-      localStorage.setItem('MEELAD_RESULTS', JSON.stringify(festResults));
-      refreshAll();
-    }
-
-    var carouselSlides = [];
-    var currentSlideIndex = 0;
-    var countdown = 30;
-    var timerInterval = null;
-    var liveAnnouncedResults = [];
-    var resultIndex = 0;
-    var quoteIndex = 0;
-
-    var prophetQuotes = [
-      { text: "The best among you are those who have the best manners and character.", translation: "നിങ്ങളിൽ ഏറ്റവും ഉത്തമർ അത്യുത്തമമായ സ്വഭാവഗുണമുള്ളവരാണ്." },
-      { text: "None of you truly believes until he wishes for his brother what he wishes for himself.", translation: "തനിക്ക് ഇഷ്ടപ്പെടുന്നത് തന്റെ സഹോദരനും ഇഷ്ടപ്പെടുന്നതുവരെ നിങ്ങളിലൊരാളും പൂർണ്ണവിശ്വാസിയാവുകയില്ല." },
-      { text: "A good word is a charity.", translation: "നല്ല വാക്ക് പറയുന്നതും ഒരു ധർമ്മമാണ് (സദഖ്)." }
+    // Rotational Quotes
+    var quotes = [
+      { text: "A good word is a charity.", translation: "നല്ല വാക്ക് പറയുന്നതും ഒരു ധർമ്മമാണ്." },
+      { text: "None of you truly believes until he loves for his brother what he loves for himself.", translation: "താൻ ആഗ്രഹിക്കുന്നത് സഹോദരനും ആഗ്രഹിക്കുന്നത് വരെ ഒരാളും വിശ്വാസിയാകില്ല." }
     ];
+    var quoteIdx = 0;
+    setInterval(function() {
+      quoteIdx = (quoteIdx + 1) % quotes.length;
+      var q = quotes[quoteIdx];
+      document.getElementById('quoteDisplay').innerHTML = '<div class="quote-text">"' + q.text + '"</div><div class="quote-translation"><b>തർജ്ജമ:</b> ' + q.translation + '</div>';
+    }, 8000);
 
     function toggleFullScreen() {
-      if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen().catch(err => alert(err.message));
-        document.getElementById('fsIcon').className = "fa-solid fa-compress";
-      } else {
-        if (document.exitFullscreen) {
-          document.exitFullscreen();
-          document.getElementById('fsIcon').className = "fa-solid fa-expand";
-        }
-      }
+      if (!document.fullscreenElement) { document.documentElement.requestFullscreen(); document.getElementById('fsIcon').className = "fa-solid fa-compress"; }
+      else { if (document.exitFullscreen) { document.exitFullscreen(); document.getElementById('fsIcon').className = "fa-solid fa-expand"; } }
     }
-
     function openNav() { document.getElementById("sideNav").style.width = "270px"; document.getElementById("drawerOverlay").style.display = "block"; }
     function closeNav() { document.getElementById("sideNav").style.width = "0"; document.getElementById("drawerOverlay").style.display = "none"; }
-    
     function showView(viewId) {
       closeNav();
       var panels = document.getElementsByClassName('view-panel');
       for (var i = 0; i < panels.length; i++) { panels[i].classList.remove('active'); }
-      var target = document.getElementById(viewId);
-      if (target) { target.classList.add('active'); }
-    }
-
-    function openOfficialSubTab(tabId) {
-      var tabs = document.getElementsByClassName('official-tab-content');
-      for (var i = 0; i < tabs.length; i++) { tabs[i].classList.remove('active'); }
-      var btns = document.getElementsByClassName('tab-btn');
-      for (var i = 0; i < btns.length; i++) { btns[i].classList.remove('active'); }
-
-      document.getElementById(tabId).classList.add('active');
-      event.currentTarget.classList.add('active');
-
-      if (tabId === 'tabJudges') updateJudgeProgramDropdown();
-      if (tabId === 'tabResult') { updateResultProgramDropdown(); updateResultCandidateDropdown(); }
-    }
-
-    window.onload = function() {
-      refreshAll();
-      setInterval(rotateQuote, 8000);
-      setInterval(rotateAnnouncedResult, 5000);
-    };
-
-    function refreshAll() {
-      renderProgramsTable();
-      renderCandidatesTable();
-      renderResultsAdminTable();
-      buildPointTables();
-      filterStudents();
-    }
-
-    /* PROGRAMS */
-    function addMoreProgramRow() {
-      var container = document.getElementById('programRowsContainer');
-      var div = document.createElement('div');
-      div.className = 'program-input-row';
-      div.style.cssText = 'display:flex; gap:8px; margin-bottom:8px;';
-      div.innerHTML = `
-        <input type="text" class="prog-name-input" placeholder="Enter Program Name">
-        <button type="button" onclick="this.parentElement.remove()" style="padding:0 12px; background:#ef4444; color:#fff; border:none; border-radius:6px; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
-      `;
-      container.appendChild(div);
-    }
-
-    function savePrograms() {
-      var cat = document.getElementById('progCategory').value;
-      var type = document.getElementById('progType').value;
-      var inputs = document.querySelectorAll('.prog-name-input');
-      var added = 0;
-
-      inputs.forEach(input => {
-        var name = input.value.trim();
-        if (name) {
-          festPrograms.push({ id: Date.now() + Math.random(), name: name, category: cat, type: type });
-          added++;
-        }
-      });
-
-      if (added > 0) {
-        saveAllData();
-        document.getElementById('programRowsContainer').innerHTML = `
-          <div class="program-input-row" style="display:flex; gap:8px; margin-bottom:8px;">
-            <input type="text" class="prog-name-input" placeholder="Enter Program Name (e.g. Qira'at, Quiz, Madih)">
-          </div>`;
-        alert(`${added} Program(s) added successfully!`);
-      } else {
-        alert("Please type at least one program name.");
-      }
-    }
-
-    function deleteProgram(id) {
-      if (confirm("Delete this program?")) {
-        festPrograms = festPrograms.filter(p => p.id !== id);
-        saveAllData();
-      }
-    }
-
-    function renderProgramsTable() {
-      var container = document.getElementById('programsListTable');
-      if (festPrograms.length === 0) {
-        container.innerHTML = "<p style='font-size:13px; padding:12px; color:var(--text-muted);'>No competition programs registered yet.</p>";
-        return;
-      }
-
-      var html = `<table><thead><tr><th>Category</th><th>Type</th><th>Program Name</th><th>Action</th></tr></thead><tbody>`;
-      html += festPrograms.map(p => `
-        <tr>
-          <td><span class="badge" style="background:#e0f2fe; color:var(--navy-dark);">${p.category}</span></td>
-          <td><b>${p.type}</b></td>
-          <td style="color:var(--navy-main); font-weight:600;">${p.name}</td>
-          <td><button onclick="deleteProgram(${p.id})" style="padding:4px 8px; background:#ef4444; color:#fff; border:none; border-radius:4px; cursor:pointer;"><i class="fa-solid fa-trash"></i></button></td>
-        </tr>
-      `).join('');
-      html += `</tbody></table>`;
-      container.innerHTML = html;
-    }
-
-    /* CANDIDATES */
-    function saveCandidate() {
-      var reg = document.getElementById('candRegNo').value.trim();
-      var name = document.getElementById('candName').value.trim();
-      var cat = document.getElementById('candCategory').value;
-      var team = document.getElementById('candTeam').value;
-
-      if (!reg || !name) {
-        alert("Please enter Registration Number and Candidate Name.");
-        return;
-      }
-
-      festCandidates.push({ id: Date.now(), regNo: reg, name: name, category: cat, team: team });
-      saveAllData();
-
-      document.getElementById('candRegNo').value = "";
-      document.getElementById('candName').value = "";
-      alert("Candidate added successfully!");
-    }
-
-    function deleteCandidate(id) {
-      if (confirm("Delete this candidate?")) {
-        festCandidates = festCandidates.filter(c => c.id !== id);
-        saveAllData();
-      }
-    }
-
-    function renderCandidatesTable() {
-      var container = document.getElementById('candidatesListTable');
-      if (festCandidates.length === 0) {
-        container.innerHTML = "<p style='font-size:13px; padding:12px; color:var(--text-muted);'>No candidates registered yet.</p>";
-        return;
-      }
-
-      var html = `<table><thead><tr><th>Reg No</th><th>Candidate Name</th><th>Category</th><th>Team</th><th>Action</th></tr></thead><tbody>`;
-      html += festCandidates.map(c => `
-        <tr>
-          <td><b>${c.regNo}</b></td>
-          <td>${c.name}</td>
-          <td><span class="badge" style="background:#e0f2fe; color:var(--navy-dark);">${c.category}</span></td>
-          <td><span class="badge team-badge-${c.team.toLowerCase()}">${c.team}</span></td>
-          <td><button onclick="deleteCandidate(${c.id})" style="padding:4px 8px; background:#ef4444; color:#fff; border:none; border-radius:4px; cursor:pointer;"><i class="fa-solid fa-trash"></i></button></td>
-        </tr>
-      `).join('');
-      html += `</tbody></table>`;
-      container.innerHTML = html;
-    }
-
-    /* JUDGES PRINT SLIP (A4 SHEET) */
-    function updateJudgeProgramDropdown() {
-      var cat = document.getElementById('judgeCatSelect').value;
-      var select = document.getElementById('judgeItemSelect');
-      var progs = festPrograms.filter(p => p.category === cat);
-      if (progs.length === 0) {
-        select.innerHTML = `<option value="">No programs in ${cat}</option>`;
-      } else {
-        select.innerHTML = progs.map(p => `<option value="${p.name}">${p.name} (${p.type})</option>`).join('');
-      }
-    }
-
-    function printJudgesSlip() {
-      var cat = document.getElementById('judgeCatSelect').value;
-      var item = document.getElementById('judgeItemSelect').value || "________________";
-      var letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
-      var win = window.open('', '_blank');
-
-      var html = `
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <title>Judges Evaluation Slip - Meelad Fest 2k26</title>
-          <link href="https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@700&family=Cinzel:wght@700&display=swap" rel="stylesheet">
-          <style>
-            @page { size: A4 portrait; margin: 10mm; }
-            * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
-            body { background: #fff; color: #0f172a; margin: 0; padding: 0; }
-            .slip-card {
-              width: 100%;
-              min-height: 270mm;
-              border: 3px double #1e3a8a;
-              border-radius: 8px;
-              padding: 15mm 12mm;
-              display: flex;
-              flex-direction: column;
-              justify-content: space-between;
-            }
-            .header-banner { text-align: center; border-bottom: 2px solid #1e3a8a; padding-bottom: 8px; margin-bottom: 15px; }
-            .title-malayalam { font-family: 'Anek Malayalam', sans-serif; font-size: 28px; font-weight: 800; color: #0f172a; }
-            .title-sub { font-family: 'Cinzel', serif; font-size: 17px; font-weight: 700; color: #1e3a8a; letter-spacing: 2px; text-transform: uppercase; }
-            .title-desc { font-size: 12px; color: #059669; margin-top: 2px; font-weight: 700; }
-            
-            .meta-grid { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 14px; font-weight: 600; }
-            .meta-box { border: 1.5px solid #1e3a8a; padding: 8px 12px; border-radius: 6px; width: 48%; }
-            
-            table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-            th, td { border: 1.5px solid #1e3a8a; padding: 10px 8px; text-align: center; font-size: 14px; }
-            th { background: #f8fafc; color: #1e3a8a; font-weight: 700; text-transform: uppercase; }
-            td.code-cell { font-size: 16px; font-weight: 800; background: #fafafa; }
-            
-            .signature-area { display: flex; justify-content: space-between; margin-top: 30px; font-size: 13px; font-weight: 700; color: #1e3a8a; }
-          </style>
-        </head>
-        <body>
-          <div class="slip-card">
-            <div>
-              <div class="header-banner">
-                <div class="title-malayalam">മാലീ സിവാക</div>
-                <div class="title-sub">Meelad Fest 2k26</div>
-                <div class="title-desc">OFFICIAL JUDGES EVALUATION SLIP</div>
-              </div>
-
-              <div class="meta-grid">
-                <div class="meta-box"><b>CATEGORY:</b> ${cat}</div>
-                <div class="meta-box"><b>ITEM:</b> ${item}</div>
-              </div>
-
-              <table>
-                <thead>
-                  <tr>
-                    <th style="width: 25%;">Code Letter</th>
-                    <th style="width: 35%;">Mark / Score</th>
-                    <th style="width: 40%;">Remark</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  ${letters.map(letter => `
-                    <tr>
-                      <td class="code-cell">${letter}</td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                  `).join('')}
-                </tbody>
-              </table>
-            </div>
-
-            <div class="signature-area">
-              <div>Judge Name: __________________________</div>
-              <div>Judge Signature: __________________________</div>
-            </div>
-          </div>
-          <script>window.print();<\/script>
-        </body>
-        </html>
-      `;
-      win.document.write(html);
-      win.document.close();
-    }
-
-    /* RESULTS */
-    function updateResultProgramDropdown() {
-      var cat = document.getElementById('resCategory').value;
-      var select = document.getElementById('resItemSelect');
-      var progs = festPrograms.filter(p => p.category === cat);
-      select.innerHTML = progs.map(p => `<option value="${p.name}">${p.name}</option>`).join('');
-      updateResultCandidateDropdown();
-    }
-
-    function updateResultCandidateDropdown() {
-      var cat = document.getElementById('resCategory').value;
-      var select = document.getElementById('resCandidateSelect');
-      var cands = festCandidates.filter(c => c.category === cat);
-      if (cands.length === 0) {
-        select.innerHTML = `<option value="">No candidate registered in ${cat}</option>`;
-      } else {
-        select.innerHTML = cands.map(c => `<option value="${c.regNo}|${c.name}|${c.team}">#${c.regNo} - ${c.name} (${c.team})</option>`).join('');
-      }
-    }
-
-    function saveResultEntry() {
-      var cat = document.getElementById('resCategory').value;
-      var program = document.getElementById('resItemSelect').value;
-      var candVal = document.getElementById('resCandidateSelect').value;
-      var mark = Number(document.getElementById('resMark').value) || 0;
-      var grade = document.getElementById('resGrade').value.trim();
-      var place = document.getElementById('resPlace').value;
-      var published = document.getElementById('resPublished').value;
-
-      if (!program || !candVal) {
-        alert("Please ensure competition items and candidates are selected.");
-        return;
-      }
-
-      var parts = candVal.split('|');
-      festResults.push({
-        id: Date.now(),
-        regNo: parts[0],
-        name: parts[1],
-        team: parts[2],
-        category: cat,
-        program: program,
-        mark: mark,
-        grade: grade,
-        place: place,
-        published: published
-      });
-
-      saveAllData();
-      alert("Result saved successfully!");
-    }
-
-    function deleteResult(id) {
-      if (confirm("Delete this result entry?")) {
-        festResults = festResults.filter(r => r.id !== id);
-        saveAllData();
-      }
-    }
-
-    function renderResultsAdminTable() {
-      var container = document.getElementById('resultsAdminTable');
-      if (festResults.length === 0) {
-        container.innerHTML = "<p style='font-size:13px; padding:12px; color:var(--text-muted);'>No results evaluated yet.</p>";
-        return;
-      }
-
-      var html = `<table><thead><tr><th>Candidate</th><th>Category</th><th>Item</th><th>Mark</th><th>Place</th><th>Poster</th><th>Action</th></tr></thead><tbody>`;
-      html += festResults.map(r => `
-        <tr>
-          <td><b>${r.name}</b> <span class="badge team-badge-${r.team.toLowerCase()}">${r.team}</span></td>
-          <td><span class="badge" style="background:#e0f2fe; color:var(--navy-dark);">${r.category}</span></td>
-          <td>${r.program}</td>
-          <td style="color:var(--navy-main); font-weight:bold;">${r.mark}</td>
-          <td><b style="color:var(--emerald-main);">${r.place}</b></td>
-          <td><button onclick="printWinnerPoster(${r.id})" style="padding:5px 10px; background:var(--navy-main); color:#fff; font-weight:600; border:none; border-radius:6px; cursor:pointer;"><i class="fa-solid fa-image"></i> Poster</button></td>
-          <td><button onclick="deleteResult(${r.id})" style="padding:5px 10px; background:#ef4444; color:#fff; border:none; border-radius:6px; cursor:pointer;"><i class="fa-solid fa-trash"></i></button></td>
-        </tr>
-      `).join('');
-      html += `</tbody></table>`;
-      container.innerHTML = html;
-    }
-
-    function printWinnerPoster(id) {
-      var res = festResults.find(r => r.id === id);
-      if (!res) return;
-
-      var win = window.open('', '_blank');
-      win.document.write(`
-        <!DOCTYPE html><html><head><title>Winner Poster - ${res.name}</title>
-        <link href="https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@700&family=Poppins:wght@600;800&display=swap" rel="stylesheet">
-        <style>
-          body { background:#f8fafc; color:#0f172a; display:flex; justify-content:center; align-items:center; min-height:100vh; font-family:'Poppins', sans-serif; margin:0; }
-          .poster { width:460px; background:#ffffff; border:3px solid #1e3a8a; border-radius:20px; padding:35px 25px; text-align:center; box-shadow:0 15px 40px rgba(0,0,0,0.1); }
-          .fest-title { font-family:'Anek Malayalam', sans-serif; font-size:34px; color:#0f172a; font-weight:bold; }
-          .fest-sub { font-size:14px; color:#0284c7; letter-spacing:3px; text-transform:uppercase; margin-bottom:24px; font-weight:700; }
-          .position-badge { display:inline-block; padding:8px 24px; background:linear-gradient(135deg, #1e3a8a, #0284c7); color:#ffffff; border-radius:25px; font-weight:800; font-size:19px; margin-bottom:18px; }
-          .cand-name { font-size:26px; font-weight:bold; margin-bottom:4px; color:#0f172a; }
-          .team-tag { font-size:16px; color:#059669; font-weight:700; margin-bottom:18px; }
-          .item-box { background:#f1f5f9; border:1px solid #cbd5e1; padding:12px; border-radius:10px; font-size:14.5px; }
-        </style>
-        </head><body>
-          <div class="poster">
-            <div class="fest-title">മാലീ സിവാക</div>
-            <div class="fest-sub">Meelad Fest 2k26</div>
-            <div class="position-badge">${res.place} POSITION</div>
-            <div class="cand-name">${res.name}</div>
-            <div class="team-tag">Team: ${res.team} (${res.category})</div>
-            <div class="item-box">Item: <b>${res.program}</b> | Score: <b>${res.mark} pts</b></div>
-          </div>
-          <script>window.print();<\/script>
-        </body></html>
-      `);
-      win.document.close();
-    }
-
-    /* POINT TABLE LOGIC */
-    function addManualCategoryScore() {
-      var cat = document.getElementById('ptCategory').value;
-      var team = document.getElementById('ptTeam').value;
-      var reason = document.getElementById('ptReason').value.trim() || "Manual Mark";
-      var marks = Number(document.getElementById('ptMarks').value) || 0;
-
-      festResults.push({
-        id: Date.now(),
-        regNo: '-',
-        name: reason,
-        team: team,
-        category: cat,
-        program: reason,
-        mark: marks,
-        grade: '-',
-        place: '-',
-        published: 'YES'
-      });
-
-      saveAllData();
-      document.getElementById('ptReason').value = "";
-      document.getElementById('ptMarks').value = "";
-      alert("Points credited to team successfully!");
-    }
-
-    function buildPointTables() {
-      var teams = ["Qurthuba", "Qusdiya", "Qahira"];
-      var teamScores = { "Qurthuba": 0, "Qusdiya": 0, "Qahira": 0 };
-      var categories = ["SENIOR", "JUNIOR", "SUB-JUNIOR"];
-      var catScores = {
-        "SENIOR": { "Qurthuba": 0, "Qusdiya": 0, "Qahira": 0 },
-        "JUNIOR": { "Qurthuba": 0, "Qusdiya": 0, "Qahira": 0 },
-        "SUB-JUNIOR": { "Qurthuba": 0, "Qusdiya": 0, "Qahira": 0 }
-      };
-
-      festResults.forEach(r => {
-        var m = Number(r.mark || 0);
-        if (teamScores[r.team] !== undefined) teamScores[r.team] += m;
-        if (catScores[r.category] && catScores[r.category][r.team] !== undefined) {
-          catScores[r.category][r.team] += m;
-        }
-      });
-
-      var sortedTeams = teams.map(t => ({ team: t, score: teamScores[t] })).sort((a, b) => b.score - a.score);
-      var overallHtml = `
-        <table>
-          <thead><tr><th>Rank</th><th>Team</th><th>Total Score</th></tr></thead>
-          <tbody>
-            ${sortedTeams.map((s, idx) => `
-              <tr>
-                <td><b style="color:var(--navy-main); font-size:15px;">#${idx+1}</b></td>
-                <td><span class="badge team-badge-${s.team.toLowerCase()}">${s.team}</span></td>
-                <td style="font-weight:800; font-size:16px; color:var(--emerald-main);">${s.score} pts</td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>`;
-      document.getElementById('teamPointsTable').innerHTML = overallHtml;
-      document.getElementById('adminPointTablePreview').innerHTML = overallHtml;
-
-      var catTablesHtml = categories.map(cat => `
-        <div style="margin-bottom:16px;">
-          <h4 style="color:var(--navy-main); font-size:13px; margin-bottom:6px; letter-spacing:0.5px;">${cat} CATEGORY STANDINGS</h4>
-          <table>
-            <thead><tr><th>Team</th><th>Category Marks</th></tr></thead>
-            <tbody>
-              ${teams.map(t => `
-                <tr>
-                  <td><span class="badge team-badge-${t.toLowerCase()}">${t}</span></td>
-                  <td style="font-weight:700; color:var(--navy-dark); font-size:15px;">${catScores[cat][t]} pts</td>
-                </tr>
-              `).join('')}
-            </tbody>
-          </table>
-        </div>
-      `).join('');
-      document.getElementById('categoryBreakdownTables').innerHTML = catTablesHtml;
-
-      buildCarousel(catScores, sortedTeams);
-
-      liveAnnouncedResults = festResults.filter(r => r.place && r.place !== '-' && r.published === 'YES').map(r => ({
-        program: r.program, category: r.category, winner: r.name + ' (' + r.team + ') - ' + r.place
-      }));
-      rotateAnnouncedResult();
-    }
-
-    function buildCarousel(catScores, sortedTeams) {
-      carouselSlides = [];
-      var categories = ["SENIOR", "JUNIOR", "SUB-JUNIOR"];
-
-      categories.forEach(cat => {
-        var html = `
-          <div style="background:var(--bg-white); padding:16px; border-radius:12px; margin-bottom:12px; border-left: 5px solid var(--emerald-main); border:1px solid var(--border-color);">
-            <div style="font-size:18px; color:var(--navy-dark); font-weight:bold;">🏆 ${cat} CATEGORY STANDINGS</div>
-          </div>
-          <div class="table-responsive">
-            <table>
-              <thead><tr><th>Team</th><th>Current Score</th></tr></thead>
-              <tbody>
-                <tr><td><span class="badge team-badge-qurthuba">Qurthuba (Red)</span></td><td><b style="color:#b91c1c; font-size:15px;">${catScores[cat]["Qurthuba"]} pts</b></td></tr>
-                <tr><td><span class="badge team-badge-qusdiya">Qusdiya (Green)</span></td><td><b style="color:#047857; font-size:15px;">${catScores[cat]["Qusdiya"]} pts</b></td></tr>
-                <tr><td><span class="badge team-badge-qahira">Qahira (Blue)</span></td><td><b style="color:#0369a1; font-size:15px;">${catScores[cat]["Qahira"]} pts</b></td></tr>
-              </tbody>
-            </table>
-          </div>`;
-        carouselSlides.push({ title: `${cat} STANDINGS`, content: html });
-      });
-
-      renderCurrentSlide();
-      if (!timerInterval) startCarousel();
-    }
-
-    function startCarousel() {
-      if (timerInterval) clearInterval(timerInterval);
-      countdown = 30;
-      timerInterval = setInterval(function() {
-        countdown--;
-        document.getElementById('rotatorTimerBadge').innerHTML = `<span class="live-pulse"></span> Rotation: ${countdown}s`;
-        if (countdown <= 0) {
-          countdown = 30;
-          currentSlideIndex = (currentSlideIndex + 1) % carouselSlides.length;
-          renderCurrentSlide();
-        }
-      }, 1000);
-    }
-
-    function renderCurrentSlide() {
-      if (!carouselSlides[currentSlideIndex]) return;
-      document.getElementById('displayHeaderTitle').innerText = carouselSlides[currentSlideIndex].title;
-      document.getElementById('carouselCardContainer').innerHTML = carouselSlides[currentSlideIndex].content;
-    }
-
-    function rotateQuote() {
-      quoteIndex = (quoteIndex + 1) % prophetQuotes.length;
-      var q = prophetQuotes[quoteIndex];
-      document.getElementById('quoteDisplay').innerHTML = `<div class="quote-text">"${q.text}"</div><div class="quote-translation"><b>തർജ്ജമ:</b> ${q.translation}</div>`;
-    }
-
-    function rotateAnnouncedResult() {
-      if (!liveAnnouncedResults || liveAnnouncedResults.length === 0) {
-        document.getElementById('announcedDisplay').innerHTML = `<div class="result-program" style="font-size:13px; font-weight:normal; color:var(--text-muted);">No results announced yet.</div>`;
-        return;
-      }
-      var res = liveAnnouncedResults[resultIndex];
-      document.getElementById('announcedDisplay').innerHTML = `
-        <div class="result-program"><i class="fa-solid fa-award text-emerald-600"></i> ${res.program}</div>
-        <div class="result-cat">Category: <b>${res.category}</b></div>
-        <div class="result-winner">🥇 Winner: <b>${res.winner}</b></div>`;
-      resultIndex = (resultIndex + 1) % liveAnnouncedResults.length;
-    }
-
-    /* AUTHENTICATION */
-    function authOfficial() {
-      let u = document.getElementById('officialUser').value.trim();
-      let p = document.getElementById('officialPass').value.trim();
-      if (u === "ADMIN" && p === "*mmo#1956") {
-        document.getElementById('officialLoginErr').innerText = "";
-        document.getElementById('officialAuth').style.display = "none";
-        document.getElementById('officialContent').style.display = "block";
-        refreshAll();
-      } else {
-        document.getElementById('officialLoginErr').innerText = "Access Denied: Invalid Admin Credentials.";
-      }
-    }
-
-    function logoutOfficial() {
-      document.getElementById('officialAuth').style.display = "block";
-      document.getElementById('officialContent').style.display = "none";
-    }
-
-    /* LOOKUP */
-    function lookupResult() {
-      let reg = document.getElementById('studentRegNo').value.trim();
-      let box = document.getElementById('studentResultBox');
-      if (!reg) return;
-      let res = festResults.filter(r => String(r.regNo).toLowerCase() === reg.toLowerCase());
-      if (res.length > 0) {
-        box.innerHTML = res.map(r => `<div style="padding:12px; border-bottom:1px solid var(--border-color); background:#f8fafc; border-radius:8px; margin-bottom:6px;"><b>${r.name}</b> (${r.team})<br><span style="color:var(--text-muted);">Item: ${r.program}</span> | Mark: <b style="color:var(--navy-main);">${r.mark}</b> | Place: <b style="color:var(--emerald-main);">${r.place || '-'}</b></div>`).join('');
-      } else {
-        box.innerHTML = `<p style="color:#ef4444; font-size:13px; padding:6px 0;">No scores found for Reg No: ${reg}</p>`;
-      }
-    }
-
-    /* DIRECTORY FILTER */
-    function filterStudents() {
-      let regQuery = (document.getElementById('searchReg') ? document.getElementById('searchReg').value : '').toLowerCase().trim();
-      let nameQuery = (document.getElementById('searchName') ? document.getElementById('searchName').value : '').toLowerCase().trim();
-      let catQuery = (document.getElementById('searchCategory') ? document.getElementById('searchCategory').value : '').toUpperCase().trim();
-      let teamQuery = (document.getElementById('searchTeam') ? document.getElementById('searchTeam').value : '').trim();
-
-      let list = festCandidates.filter(s => {
-        return (!regQuery || String(s.regNo).toLowerCase().includes(regQuery)) &&
-               (!nameQuery || String(s.name).toLowerCase().includes(nameQuery)) &&
-               (!catQuery || String(s.category).toUpperCase() === catQuery) &&
-               (!teamQuery || s.team === teamQuery);
-      });
-
-      let container = document.getElementById('teamMembersTable');
-      if (list.length === 0) {
-        container.innerHTML = "<p style='font-size:13px; padding:12px; color:var(--text-muted);'>No matching candidates found.</p>";
-        return;
-      }
-
-      let html = '<table><thead><tr><th>Reg No</th><th>Name</th><th>Category</th><th>Team</th></tr></thead><tbody>';
-      html += list.map(m => `<tr><td><b>${m.regNo}</b></td><td>${m.name}</td><td>${m.category}</td><td><span class="badge team-badge-${m.team.toLowerCase()}">${m.team}</span></td></tr>`).join('');
-      html += '</tbody></table>';
-      container.innerHTML = html;
-    }
-
-    /* BACKUP / RESTORE */
-    function exportDataJSON() {
-      var fullBackup = { programs: festPrograms, candidates: festCandidates, results: festResults };
-      var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(fullBackup, null, 2));
-      var dl = document.createElement('a');
-      dl.setAttribute("href", dataStr);
-      dl.setAttribute("download", "meelad_fest_database.json");
-      dl.click();
-    }
-
-    function importDataJSON(evt) {
-      var reader = new FileReader();
-      reader.onload = function(e) {
-        try {
-          var imported = JSON.parse(e.target.result);
-          if (imported.programs && imported.candidates && imported.results) {
-            festPrograms = imported.programs;
-            festCandidates = imported.candidates;
-            festResults = imported.results;
-            saveAllData();
-            alert("Database successfully restored!");
-          } else {
-            alert("Invalid database format.");
-          }
-        } catch (err) {
-          alert("Error parsing file.");
-        }
-      };
-      reader.readAsText(evt.target.files[0]);
+      document.getElementById(viewId).classList.add('active');
     }
   </script>
 </body>

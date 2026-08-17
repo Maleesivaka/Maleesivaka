@@ -36,9 +36,9 @@
       --text-dark: #0f172a;
       --text-muted: #64748b;
 
-      --team-qurthuba: #ef4444; /* Red */
-      --team-qusdiya: #059669;  /* Green */
-      --team-qahira: #0284c7;   /* Blue */
+      --team-qurthuba: #ef4444; /* Red - Team C */
+      --team-qusdiya: #059669;  /* Green - Team B */
+      --team-qahira: #0284c7;   /* Blue - Team A */
     }
 
     * { box-sizing: border-box; font-family: 'Poppins', sans-serif; margin: 0; padding: 0; }
@@ -274,7 +274,7 @@
       
       <hr style="margin:22px 0; border:0; border-top:1px solid var(--border-color);">
       <h3 style="margin-bottom: 8px;"><i class="fa-solid fa-magnifying-glass text-emerald-600"></i> Student Score Lookup</h3>
-      <input type="text" id="studentRegNo" placeholder="Enter Registration No (e.g. 101)">
+      <input type="text" id="studentRegNo" placeholder="Enter Registration No (e.g. MMOSA01)">
       <button class="btn" onclick="lookupResult()"><i class="fa-solid fa-search"></i> Search Score</button>
       <div id="studentResultBox" style="margin-top:10px;"></div>
     </div>
@@ -308,12 +308,20 @@
           <button class="tab-btn" onclick="openOfficialSubTab('tabPointTable')"><i class="fa-solid fa-trophy"></i> Point Table</button>
         </div>
 
-        <!-- SUB TAB 1: PROGRAMS -->
+        <!-- SUB TAB 1: PROGRAMS (GENERAL AS PROGRAM TYPE) -->
         <div id="tabPrograms" class="official-tab-content active">
           <div class="report-box">
             <h4 style="color:var(--navy-dark); margin-bottom:10px;"><i class="fa-solid fa-plus-circle text-emerald-600"></i> Add Competition Program</h4>
             <div class="form-grid">
               <div>
+                <label style="font-size:12px; color:var(--text-muted);">Program Type:</label>
+                <select id="progType" onchange="toggleCategorySelect()">
+                  <option value="Individual">Individual (വ്യക്തിഗതം)</option>
+                  <option value="Group">Group (ഗ്രൂപ്പ് ഇനം)</option>
+                  <option value="General">General (ഓൾ ടീം / ജനറൽ ഗ്രൂപ്പ്)</option>
+                </select>
+              </div>
+              <div id="progCatWrapper">
                 <label style="font-size:12px; color:var(--text-muted);">Category:</label>
                 <select id="progCategory">
                   <option value="SENIOR">Senior</option>
@@ -321,19 +329,11 @@
                   <option value="SUB-JUNIOR">Sub-Junior</option>
                 </select>
               </div>
-              <div>
-                <label style="font-size:12px; color:var(--text-muted);">Program Type:</label>
-                <select id="progType">
-                  <option value="Individual">Individual</option>
-                  <option value="Group">Group</option>
-                  <option value="General">General</option>
-                </select>
-              </div>
             </div>
 
             <div id="programRowsContainer">
               <div class="program-input-row" style="display:flex; gap:8px; margin-bottom:8px;">
-                <input type="text" class="prog-name-input" placeholder="Enter Program Name (e.g. Qira'at, Quiz, Madih)">
+                <input type="text" class="prog-name-input" placeholder="Enter Program Name (e.g. Qira'at, Quiz, Madih, Duff)">
               </div>
             </div>
 
@@ -347,25 +347,40 @@
           <div id="programsListTable" class="table-responsive"></div>
         </div>
 
-        <!-- SUB TAB 2: CANDIDATES -->
+        <!-- SUB TAB 2: CANDIDATES (UNIFORM MMO REG NUMBERING) -->
         <div id="tabCandidates" class="official-tab-content">
           <div class="report-box">
             <h4 style="color:var(--navy-dark); margin-bottom:10px;"><i class="fa-solid fa-user-plus text-emerald-600"></i> Add Candidate / Member</h4>
             <div class="form-grid">
-              <input type="text" id="candRegNo" placeholder="Registration No (e.g. 101)">
-              <input type="text" id="candName" placeholder="Candidate Full Name">
-              <select id="candCategory">
-                <option value="SENIOR">Senior</option>
-                <option value="JUNIOR">Junior</option>
-                <option value="SUB-JUNIOR">Sub-Junior</option>
-              </select>
-              <select id="candTeam">
-                <option value="Qurthuba">Qurthuba (Red)</option>
-                <option value="Qusdiya">Qusdiya (Green)</option>
-                <option value="Qahira">Qahira (Blue)</option>
-              </select>
+              <div>
+                <label style="font-size:12px; color:var(--text-muted);">Category:</label>
+                <select id="candCategory" onchange="autoGenerateRegNo()">
+                  <option value="SENIOR">Senior (S)</option>
+                  <option value="JUNIOR">Junior (J)</option>
+                  <option value="SUB-JUNIOR">Sub-Junior (SJ)</option>
+                </select>
+              </div>
+              <div>
+                <label style="font-size:12px; color:var(--text-muted);">Team:</label>
+                <select id="candTeam" onchange="autoGenerateRegNo()">
+                  <option value="Qahira">Qahira (ഖാഹിറ) - A (Blue)</option>
+                  <option value="Qusdiya">Qusdiya (ഖുദ്‌സിയ) - B (Green)</option>
+                  <option value="Qurthuba">Qurthuba (ഖുർത്തുബ) - C (Red)</option>
+                </select>
+              </div>
+              <div>
+                <label style="font-size:12px; color:var(--text-muted);">Generated Reg No:</label>
+                <input type="text" id="candRegNo" placeholder="Auto Reg No" style="background:#f1f5f9; font-weight:bold; color:var(--navy-main);" readonly>
+              </div>
+              <div>
+                <label style="font-size:12px; color:var(--text-muted);">Candidate Name:</label>
+                <input type="text" id="candName" placeholder="Full Name">
+              </div>
             </div>
-            <button class="btn btn-success" onclick="saveCandidate()"><i class="fa-solid fa-save"></i> Add Candidate</button>
+            <div style="display:flex; gap:10px;">
+              <button class="btn btn-success" onclick="saveCandidate()"><i class="fa-solid fa-save"></i> Add Candidate</button>
+              <button class="btn" style="background:var(--navy-main);" onclick="printTeamListPDF()"><i class="fa-solid fa-print"></i> Print Full Team List</button>
+            </div>
           </div>
 
           <h4 style="color:var(--navy-dark); margin: 18px 0 8px 0;">👥 Registered Candidates Directory</h4>
@@ -378,11 +393,12 @@
             <h4 style="color:var(--navy-dark); margin-bottom:10px;"><i class="fa-solid fa-print text-emerald-600"></i> Judges Slip Print Setup</h4>
             <div class="form-grid">
               <div>
-                <label style="font-size:12px; color:var(--text-muted);">Category:</label>
+                <label style="font-size:12px; color:var(--text-muted);">Category / Scope:</label>
                 <select id="judgeCatSelect" onchange="updateJudgeProgramDropdown()">
                   <option value="SENIOR">Senior</option>
                   <option value="JUNIOR">Junior</option>
                   <option value="SUB-JUNIOR">Sub-Junior</option>
+                  <option value="GENERAL">General (All Teams)</option>
                 </select>
               </div>
               <div>
@@ -400,11 +416,12 @@
             <h4 id="resultFormTitle" style="color:var(--navy-dark); margin-bottom:10px;"><i class="fa-solid fa-award text-emerald-600"></i> Add / Edit Results</h4>
             <div class="form-grid">
               <div>
-                <label style="font-size:12px; color:var(--text-muted);">Category:</label>
-                <select id="resCategory" onchange="updateResultCandidateDropdown()">
+                <label style="font-size:12px; color:var(--text-muted);">Category / Scope:</label>
+                <select id="resCategory" onchange="updateResultProgramDropdown()">
                   <option value="SENIOR">Senior</option>
                   <option value="JUNIOR">Junior</option>
                   <option value="SUB-JUNIOR">Sub-Junior</option>
+                  <option value="GENERAL">General (Open Group)</option>
                 </select>
               </div>
               <div>
@@ -412,7 +429,7 @@
                 <select id="resItemSelect"></select>
               </div>
               <div>
-                <label style="font-size:12px; color:var(--text-muted);">Participant:</label>
+                <label style="font-size:12px; color:var(--text-muted);">Participant / Team:</label>
                 <select id="resCandidateSelect"></select>
               </div>
               <div>
@@ -460,6 +477,7 @@
                 <option value="SENIOR">Senior</option>
                 <option value="JUNIOR">Junior</option>
                 <option value="SUB-JUNIOR">Sub-Junior</option>
+                <option value="GENERAL">General</option>
               </select>
               <select id="ptTeam">
                 <option value="Qurthuba">Qurthuba (Red)</option>
@@ -481,11 +499,16 @@
 
     <!-- 4. REGISTERED CANDIDATES DIRECTORY -->
     <div id="teamView" class="view-panel">
-      <h3 style="margin-bottom: 4px; color: var(--navy-dark); font-size:1.3rem;"><i class="fa-solid fa-users text-emerald-600"></i> Registered Candidates</h3>
-      <p style="font-size:12px; color:var(--text-muted); margin-bottom:15px;">Search entries across Qurthuba, Qusdiya, and Qahira.</p>
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:12px;">
+        <div>
+          <h3 style="color: var(--navy-dark); font-size:1.3rem;"><i class="fa-solid fa-users text-emerald-600"></i> Registered Candidates</h3>
+          <p style="font-size:12px; color:var(--text-muted);">Search entries across Qurthuba, Qusdiya, and Qahira.</p>
+        </div>
+        <button class="btn" style="width:auto; padding:8px 16px; background:var(--navy-main);" onclick="printTeamListPDF()"><i class="fa-solid fa-print"></i> Print Team List PDF</button>
+      </div>
 
       <div class="search-row">
-        <input type="text" id="searchReg" onkeyup="filterStudents()" placeholder="🔍 By Reg No...">
+        <input type="text" id="searchReg" onkeyup="filterStudents()" placeholder="🔍 By Reg No (e.g. MMOSA01)...">
         <input type="text" id="searchName" onkeyup="filterStudents()" placeholder="🔍 By Name...">
         <select id="searchCategory" onchange="filterStudents()">
           <option value="">All Categories</option>
@@ -495,9 +518,9 @@
         </select>
         <select id="searchTeam" onchange="filterStudents()">
           <option value="">All Teams</option>
-          <option value="Qurthuba">Qurthuba</option>
-          <option value="Qusdiya">Qusdiya</option>
-          <option value="Qahira">Qahira</option>
+          <option value="Qurthuba">Qurthuba (Red)</option>
+          <option value="Qusdiya">Qusdiya (Green)</option>
+          <option value="Qahira">Qahira (Blue)</option>
         </select>
       </div>
 
@@ -508,7 +531,6 @@
 
   <!-- ==================== JAVASCRIPT ==================== -->
   <script>
-    // 🔗 YOUR CONNECTED APPS SCRIPT WEB APP BACKEND:
     const CLOUD_API_URL = "https://script.google.com/macros/s/AKfycbxlzA-KafoIAqSPCr-bONTTBt4l2bo7ZKNIxvf-8e7KPogsRtGFAe-9U79-pbaITSAl7w/exec";
 
     var festPrograms = JSON.parse(localStorage.getItem('MEELAD_PROGRAMS')) || [];
@@ -561,18 +583,18 @@
       document.getElementById(tabId).classList.add('active');
       event.currentTarget.classList.add('active');
 
+      if (tabId === 'tabCandidates') autoGenerateRegNo();
       if (tabId === 'tabJudges') updateJudgeProgramDropdown();
-      if (tabId === 'tabResult') { updateResultProgramDropdown(); updateResultCandidateDropdown(); }
+      if (tabId === 'tabResult') { updateResultProgramDropdown(); }
     }
 
     window.onload = function() {
       fetchCloudData();
-      setInterval(fetchCloudData, 20000); // Auto-sync across all devices every 20s
+      setInterval(fetchCloudData, 20000);
       setInterval(rotateQuote, 8000);
       setInterval(rotateAnnouncedResult, 5000);
     };
 
-    // FETCH DATA FROM GOOGLE SHEETS CLOUD
     function fetchCloudData() {
       fetch(CLOUD_API_URL)
         .then(res => res.json())
@@ -594,7 +616,6 @@
         });
     }
 
-    // PUSH LOCAL UPDATES TO GOOGLE SHEETS CLOUD
     function syncToCloud() {
       localStorage.setItem('MEELAD_PROGRAMS', JSON.stringify(festPrograms));
       localStorage.setItem('MEELAD_CANDIDATES', JSON.stringify(festCandidates));
@@ -613,8 +634,8 @@
         body: JSON.stringify(payload)
       })
       .then(res => res.json())
-      .then(res => alert(res.message || "Synchronized across all phones and laptops!"))
-      .catch(err => alert("Saved locally. Network sync will retry automatically."));
+      .then(res => alert(res.message || "Synchronized across all devices!"))
+      .catch(err => alert("Saved locally. Background network sync will retry."));
     }
 
     function saveAllData() {
@@ -627,9 +648,22 @@
       renderResultsAdminTable();
       buildPointTables();
       filterStudents();
+      autoGenerateRegNo();
     }
 
-    /* PROGRAMS */
+    /* 1. PROGRAMS LOGIC */
+    function toggleCategorySelect() {
+      var type = document.getElementById('progType').value;
+      var catWrapper = document.getElementById('progCatWrapper');
+      if (type === 'General') {
+        catWrapper.style.opacity = '0.5';
+        document.getElementById('progCategory').disabled = true;
+      } else {
+        catWrapper.style.opacity = '1';
+        document.getElementById('progCategory').disabled = false;
+      }
+    }
+
     function addMoreProgramRow() {
       var container = document.getElementById('programRowsContainer');
       var div = document.createElement('div');
@@ -643,8 +677,8 @@
     }
 
     function savePrograms() {
-      var cat = document.getElementById('progCategory').value;
       var type = document.getElementById('progType').value;
+      var cat = (type === 'General') ? 'GENERAL' : document.getElementById('progCategory').value;
       var inputs = document.querySelectorAll('.prog-name-input');
       var added = 0;
 
@@ -660,8 +694,9 @@
         saveAllData();
         document.getElementById('programRowsContainer').innerHTML = `
           <div class="program-input-row" style="display:flex; gap:8px; margin-bottom:8px;">
-            <input type="text" class="prog-name-input" placeholder="Enter Program Name (e.g. Qira'at, Quiz, Madih)">
+            <input type="text" class="prog-name-input" placeholder="Enter Program Name (e.g. Qira'at, Quiz, Madih, Duff)">
           </div>`;
+        alert(`${added} Program(s) added successfully!`);
       } else {
         alert("Please type at least one program name.");
       }
@@ -681,11 +716,11 @@
         return;
       }
 
-      var html = `<table><thead><tr><th>Category</th><th>Type</th><th>Program Name</th><th>Action</th></tr></thead><tbody>`;
+      var html = `<table><thead><tr><th>Type</th><th>Category Scope</th><th>Program Name</th><th>Action</th></tr></thead><tbody>`;
       html += festPrograms.map(p => `
         <tr>
-          <td><span class="badge" style="background:#e0f2fe; color:var(--navy-dark);">${p.category}</span></td>
           <td><b>${p.type}</b></td>
+          <td><span class="badge" style="background:#e0f2fe; color:var(--navy-dark);">${p.category}</span></td>
           <td style="color:var(--navy-main); font-weight:600;">${p.name}</td>
           <td><button onclick="deleteProgram(${p.id})" style="padding:4px 8px; background:#ef4444; color:#fff; border:none; border-radius:4px; cursor:pointer;"><i class="fa-solid fa-trash"></i></button></td>
         </tr>
@@ -694,23 +729,58 @@
       container.innerHTML = html;
     }
 
-    /* CANDIDATES */
+    /* 2. CANDIDATES LOGIC WITH UNIFORM REG NUMBERING */
+    // Qahira -> A, Qusdiya -> B, Qurthuba -> C
+    function getTeamCode(teamName) {
+      if (teamName === "Qahira") return "A";
+      if (teamName === "Qusdiya") return "B";
+      if (teamName === "Qurthuba") return "C";
+      return "A";
+    }
+
+    function getCategoryCode(catName) {
+      if (catName === "SENIOR") return "S";
+      if (catName === "JUNIOR") return "J";
+      if (catName === "SUB-JUNIOR") return "SJ";
+      return "S";
+    }
+
+    function autoGenerateRegNo() {
+      var cat = document.getElementById('candCategory') ? document.getElementById('candCategory').value : "SENIOR";
+      var team = document.getElementById('candTeam') ? document.getElementById('candTeam').value : "Qahira";
+      
+      var catCode = getCategoryCode(cat);
+      var teamCode = getTeamCode(team);
+      var prefix = "MMO" + catCode + teamCode;
+
+      // Filter existing members of same category & team to calculate next 01, 02...
+      var existingCount = festCandidates.filter(c => c.category === cat && c.team === team).length;
+      var nextNum = String(existingCount + 1).padStart(2, '0');
+
+      var finalReg = prefix + nextNum;
+      if (document.getElementById('candRegNo')) {
+        document.getElementById('candRegNo').value = finalReg;
+      }
+      return finalReg;
+    }
+
     function saveCandidate() {
-      var reg = document.getElementById('candRegNo').value.trim();
+      var reg = document.getElementById('candRegNo').value.trim() || autoGenerateRegNo();
       var name = document.getElementById('candName').value.trim();
       var cat = document.getElementById('candCategory').value;
       var team = document.getElementById('candTeam').value;
 
-      if (!reg || !name) {
-        alert("Please enter Registration Number and Candidate Name.");
+      if (!name) {
+        alert("Please enter Candidate Name.");
         return;
       }
 
       festCandidates.push({ id: Date.now(), regNo: reg, name: name, category: cat, team: team });
       saveAllData();
 
-      document.getElementById('candRegNo').value = "";
       document.getElementById('candName').value = "";
+      autoGenerateRegNo();
+      alert(`Candidate registered successfully with Reg No: ${reg}`);
     }
 
     function deleteCandidate(id) {
@@ -730,7 +800,7 @@
       var html = `<table><thead><tr><th>Reg No</th><th>Candidate Name</th><th>Category</th><th>Team</th><th>Action</th></tr></thead><tbody>`;
       html += festCandidates.map(c => `
         <tr>
-          <td><b>${c.regNo}</b></td>
+          <td><b style="color:var(--navy-main);">${c.regNo}</b></td>
           <td>${c.name}</td>
           <td><span class="badge" style="background:#e0f2fe; color:var(--navy-dark);">${c.category}</span></td>
           <td><span class="badge team-badge-${c.team.toLowerCase()}">${c.team}</span></td>
@@ -741,13 +811,85 @@
       container.innerHTML = html;
     }
 
-    /* JUDGES PRINT SLIP */
+    /* 3. PRINT TEAM LIST PDF */
+    function printTeamListPDF() {
+      var teams = ["Qahira", "Qusdiya", "Qurthuba"];
+      var categories = ["SENIOR", "JUNIOR", "SUB-JUNIOR"];
+
+      var win = window.open('', '_blank');
+      var bodyContent = "";
+
+      teams.forEach(team => {
+        bodyContent += `
+          <div style="page-break-after:always; margin-bottom:30px;">
+            <div style="text-align:center; border-bottom:2px solid #1e3a8a; padding-bottom:8px; margin-bottom:15px;">
+              <h2 style="margin:0; font-size:24px; color:#0f172a;">മാലീ സിവാക | Meelad Fest 2k26</h2>
+              <h3 style="margin:4px 0 0 0; color:#0284c7; text-transform:uppercase;">OFFICIAL TEAM ROSTER: ${team.toUpperCase()}</h3>
+            </div>
+        `;
+
+        categories.forEach(cat => {
+          var members = festCandidates.filter(c => c.team === team && c.category === cat);
+          bodyContent += `
+            <h4 style="background:#f1f5f9; padding:6px 10px; margin:12px 0 6px 0; border-left:4px solid #1e3a8a;">${cat} CATEGORY</h4>
+            <table style="width:100%; border-collapse:collapse; margin-bottom:15px;">
+              <thead>
+                <tr style="background:#f8fafc;">
+                  <th style="border:1px solid #cbd5e1; padding:6px; width:10%;">Sl No</th>
+                  <th style="border:1px solid #cbd5e1; padding:6px; width:25%;">Reg No</th>
+                  <th style="border:1px solid #cbd5e1; padding:6px; width:65%;">Candidate Name</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${members.length > 0 ? members.map((m, idx) => `
+                  <tr>
+                    <td style="border:1px solid #cbd5e1; padding:6px; text-align:center;">${idx+1}</td>
+                    <td style="border:1px solid #cbd5e1; padding:6px; font-weight:bold;">${m.regNo}</td>
+                    <td style="border:1px solid #cbd5e1; padding:6px;">${m.name}</td>
+                  </tr>
+                `).join('') : `<tr><td colspan="3" style="border:1px solid #cbd5e1; padding:6px; text-align:center; color:#94a3b8;">No participants registered</td></tr>`}
+              </tbody>
+            </table>
+          `;
+        });
+
+        bodyContent += `
+            <div style="display:flex; justify-content:space-between; margin-top:30px; font-weight:bold; font-size:12px;">
+              <div>Team Leader Sign: _________________</div>
+              <div>Convener Sign: _________________</div>
+            </div>
+          </div>
+        `;
+      });
+
+      var html = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>Official Team Lists - Meelad Fest 2k26</title>
+          <style>
+            @page { size: A4 portrait; margin: 12mm; }
+            * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
+            body { background: #fff; color: #0f172a; margin: 0; padding: 0; }
+          </style>
+        </head>
+        <body>
+          ${bodyContent}
+          <script>window.print();<\/script>
+        </body>
+        </html>
+      `;
+      win.document.write(html);
+      win.document.close();
+    }
+
+    /* 4. JUDGES PRINT SLIP */
     function updateJudgeProgramDropdown() {
       var cat = document.getElementById('judgeCatSelect').value;
       var select = document.getElementById('judgeItemSelect');
-      var progs = festPrograms.filter(p => p.category === cat);
+      var progs = (cat === 'GENERAL') ? festPrograms.filter(p => p.type === 'General' || p.category === 'GENERAL') : festPrograms.filter(p => p.category === cat);
       if (progs.length === 0) {
-        select.innerHTML = `<option value="">No programs in ${cat}</option>`;
+        select.innerHTML = `<option value="">No programs registered in ${cat}</option>`;
       } else {
         select.innerHTML = progs.map(p => `<option value="${p.name}">${p.name} (${p.type})</option>`).join('');
       }
@@ -812,7 +954,7 @@
               </div>
 
               <div class="meta-grid">
-                <div class="meta-box"><b>CATEGORY:</b> ${cat}</div>
+                <div class="meta-box"><b>CATEGORY / SCOPE:</b> ${cat}</div>
                 <div class="meta-box"><b>ITEM:</b> ${item}</div>
               </div>
 
@@ -849,23 +991,32 @@
       win.document.close();
     }
 
-    /* RESULTS */
+    /* 5. RESULTS LOGIC */
     function updateResultProgramDropdown() {
       var cat = document.getElementById('resCategory').value;
       var select = document.getElementById('resItemSelect');
-      var progs = festPrograms.filter(p => p.category === cat);
-      select.innerHTML = progs.map(p => `<option value="${p.name}">${p.name}</option>`).join('');
+      var progs = (cat === 'GENERAL') ? festPrograms.filter(p => p.type === 'General' || p.category === 'GENERAL') : festPrograms.filter(p => p.category === cat);
+      select.innerHTML = progs.map(p => `<option value="${p.name}">${p.name} (${p.type})</option>`).join('');
       updateResultCandidateDropdown();
     }
 
     function updateResultCandidateDropdown() {
       var cat = document.getElementById('resCategory').value;
       var select = document.getElementById('resCandidateSelect');
-      var cands = festCandidates.filter(c => c.category === cat);
-      if (cands.length === 0) {
-        select.innerHTML = `<option value="">No candidate registered in ${cat}</option>`;
+      
+      if (cat === 'GENERAL') {
+        select.innerHTML = `
+          <option value="TEAM|Qahira (Team A)|Qahira">Team Qahira (All Categories)</option>
+          <option value="TEAM|Qusdiya (Team B)|Qusdiya">Team Qusdiya (All Categories)</option>
+          <option value="TEAM|Qurthuba (Team C)|Qurthuba">Team Qurthuba (All Categories)</option>
+        `;
       } else {
-        select.innerHTML = cands.map(c => `<option value="${c.regNo}|${c.name}|${c.team}">#${c.regNo} - ${c.name} (${c.team})</option>`).join('');
+        var cands = festCandidates.filter(c => c.category === cat);
+        if (cands.length === 0) {
+          select.innerHTML = `<option value="">No candidate registered in ${cat}</option>`;
+        } else {
+          select.innerHTML = cands.map(c => `<option value="${c.regNo}|${c.name}|${c.team}">#${c.regNo} - ${c.name} (${c.team})</option>`).join('');
+        }
       }
     }
 
@@ -898,6 +1049,7 @@
       });
 
       saveAllData();
+      alert("Result saved successfully!");
     }
 
     function deleteResult(id) {
@@ -914,7 +1066,7 @@
         return;
       }
 
-      var html = `<table><thead><tr><th>Candidate</th><th>Category</th><th>Item</th><th>Mark</th><th>Place</th><th>Poster</th><th>Action</th></tr></thead><tbody>`;
+      var html = `<table><thead><tr><th>Candidate / Squad</th><th>Category</th><th>Item</th><th>Mark</th><th>Place</th><th>Poster</th><th>Action</th></tr></thead><tbody>`;
       html += festResults.map(r => `
         <tr>
           <td><b>${r.name}</b> <span class="badge team-badge-${r.team.toLowerCase()}">${r.team}</span></td>
@@ -970,7 +1122,7 @@
       win.document.close();
     }
 
-    /* POINT TABLE LOGIC */
+    /* 6. POINT TABLE LOGIC */
     function addManualCategoryScore() {
       var cat = document.getElementById('ptCategory').value;
       var team = document.getElementById('ptTeam').value;
@@ -998,11 +1150,12 @@
     function buildPointTables() {
       var teams = ["Qurthuba", "Qusdiya", "Qahira"];
       var teamScores = { "Qurthuba": 0, "Qusdiya": 0, "Qahira": 0 };
-      var categories = ["SENIOR", "JUNIOR", "SUB-JUNIOR"];
+      var categories = ["SENIOR", "JUNIOR", "SUB-JUNIOR", "GENERAL"];
       var catScores = {
         "SENIOR": { "Qurthuba": 0, "Qusdiya": 0, "Qahira": 0 },
         "JUNIOR": { "Qurthuba": 0, "Qusdiya": 0, "Qahira": 0 },
-        "SUB-JUNIOR": { "Qurthuba": 0, "Qusdiya": 0, "Qahira": 0 }
+        "SUB-JUNIOR": { "Qurthuba": 0, "Qusdiya": 0, "Qahira": 0 },
+        "GENERAL": { "Qurthuba": 0, "Qusdiya": 0, "Qahira": 0 }
       };
 
       festResults.forEach(r => {
@@ -1032,9 +1185,9 @@
 
       var catTablesHtml = categories.map(cat => `
         <div style="margin-bottom:16px;">
-          <h4 style="color:var(--navy-main); font-size:13px; margin-bottom:6px; letter-spacing:0.5px;">${cat} CATEGORY STANDINGS</h4>
+          <h4 style="color:var(--navy-main); font-size:13px; margin-bottom:6px; letter-spacing:0.5px;">${cat} STANDINGS</h4>
           <table>
-            <thead><tr><th>Team</th><th>Category Marks</th></tr></thead>
+            <thead><tr><th>Team</th><th>Score</th></tr></thead>
             <tbody>
               ${teams.map(t => `
                 <tr>
@@ -1058,12 +1211,12 @@
 
     function buildCarousel(catScores, sortedTeams) {
       carouselSlides = [];
-      var categories = ["SENIOR", "JUNIOR", "SUB-JUNIOR"];
+      var categories = ["SENIOR", "JUNIOR", "SUB-JUNIOR", "GENERAL"];
 
       categories.forEach(cat => {
         var html = `
           <div style="background:var(--bg-white); padding:16px; border-radius:12px; margin-bottom:12px; border-left: 5px solid var(--emerald-main); border:1px solid var(--border-color);">
-            <div style="font-size:18px; color:var(--navy-dark); font-weight:bold;">🏆 ${cat} CATEGORY STANDINGS</div>
+            <div style="font-size:18px; color:var(--navy-dark); font-weight:bold;">🏆 ${cat} STANDINGS</div>
           </div>
           <div class="table-responsive">
             <table>
@@ -1174,7 +1327,7 @@
       }
 
       let html = '<table><thead><tr><th>Reg No</th><th>Name</th><th>Category</th><th>Team</th></tr></thead><tbody>';
-      html += list.map(m => `<tr><td><b>${m.regNo}</b></td><td>${m.name}</td><td>${m.category}</td><td><span class="badge team-badge-${m.team.toLowerCase()}">${m.team}</span></td></tr>`).join('');
+      html += list.map(m => `<tr><td><b style="color:var(--navy-main);">${m.regNo}</b></td><td>${m.name}</td><td>${m.category}</td><td><span class="badge team-badge-${m.team.toLowerCase()}">${m.team}</span></td></tr>`).join('');
       html += '</tbody></table>';
       container.innerHTML = html;
     }

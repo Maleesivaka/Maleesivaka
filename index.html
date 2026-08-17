@@ -83,7 +83,7 @@
 
     .title-banner { text-align: center; margin-top: 15px; z-index: 2; display: flex; flex-direction: column; align-items: center; }
     
-    /* CUSTOM TYPOGRAPHY IMAGE STYLING */
+    /* CUSTOM TYPOGRAPHY IMAGE & FALLBACK */
     .header-logo-img {
       max-height: 85px;
       width: auto;
@@ -93,6 +93,17 @@
     }
     .header-logo-img:hover {
       transform: scale(1.03);
+    }
+
+    .custom-fest-heading {
+      font-family: 'Anek Malayalam', sans-serif;
+      font-size: 38px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: 1px;
+      text-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), 0 0 20px rgba(56, 189, 248, 0.3);
+      margin: 0;
+      line-height: 1.2;
     }
 
     .sub-fest-title { 
@@ -205,15 +216,23 @@
 
   <div class="app-wrapper">
 
-    <!-- TOP HEADER WITH TYPOGRAPHY LOGO IMAGE -->
+    <!-- TOP HEADER WITH TYPOGRAPHY DISPLAY & AUTOMATIC FALLBACK -->
     <div class="top-header">
       <div class="header-controls">
         <div class="icon-btn" onclick="openNav()"><i class="fa-solid fa-bars"></i> Menu</div>
         <div class="icon-btn" onclick="toggleFullScreen()"><i class="fa-solid fa-expand" id="fsIcon"></i> Full Screen</div>
       </div>
       <div class="title-banner">
-        <!-- Logo Image fallback with text -->
-        <img src="title-logo.png" alt="മാലീ സിവാക" class="header-logo-img" onerror="this.outerHTML='<h1 style=\'font-family:Anek Malayalam;font-size:32px;font-weight:800;color:#ffffff;\'>മാലീ സിവാക</h1>'">
+        <!-- Tries to display title-logo.png; if not found, immediately falls back to styled typography text -->
+        <img src="title-logo.png" 
+             alt="മാലീ സിവാക" 
+             class="header-logo-img" 
+             onerror="this.style.display='none'; document.getElementById('fallbackTitle').style.display='block';">
+        
+        <div id="fallbackTitle" style="display:none;">
+          <h1 class="custom-fest-heading">മാലീ സിവാക</h1>
+        </div>
+
         <div class="sub-fest-title">Meelad Fest 2k26</div>
       </div>
     </div>

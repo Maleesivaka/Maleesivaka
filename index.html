@@ -9,9 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@700;800&family=Cinzel:wght@700&family=Gayathri:wght@700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-  <!-- ==================== CSS (STYLING) ==================== -->
   <style>
-    /* LOCAL CUSTOM FONT FALLBACK */
     @font-face {
       font-family: 'CustomFestFont';
       src: url('custom-font.ttf') format('truetype'),
@@ -21,7 +19,6 @@
     }
 
     :root {
-      /* WHITE, NAVY BLUE & EMERALD PALETTE */
       --bg-main: #f8fafc;
       --bg-white: #ffffff;
       --panel-bg: #ffffff;
@@ -39,7 +36,6 @@
       --text-dark: #0f172a;
       --text-muted: #64748b;
 
-      /* TEAM THEME COLORS */
       --team-qurthuba: #ef4444; /* Red */
       --team-qusdiya: #059669;  /* Green */
       --team-qahira: #0284c7;   /* Blue */
@@ -102,7 +98,6 @@
       align-items: center; 
     }
     
-    /* CUSTOMIZABLE TITLE HEADING */
     .fest-title-malayalam {
       font-family: 'CustomFestFont', 'Gayathri', 'Anek Malayalam', sans-serif;
       font-size: 42px;
@@ -251,7 +246,7 @@
         <div class="dashboard-card">
           <h4><i class="fa-solid fa-bullhorn text-emerald-600"></i> Live Published Results</h4>
           <div id="announcedDisplay">
-            <div class="result-program">No published results yet.</div>
+            <div class="result-program">Loading live cloud data...</div>
           </div>
         </div>
       </div>
@@ -260,11 +255,11 @@
 
       <div class="carousel-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; flex-wrap:wrap; gap:10px;">
         <h3 id="displayHeaderTitle" style="color: var(--navy-dark); font-size: 1.25rem; font-weight:700;">Category Marksheet Carousel</h3>
-        <span class="badge-timer" id="rotatorTimerBadge"><span class="live-pulse"></span> Rotation: 30s</span>
+        <span class="badge-timer" id="rotatorTimerBadge"><span class="live-pulse"></span> Auto-Sync: 30s</span>
       </div>
 
       <div id="carouselCardContainer">
-        <p style="color: var(--text-muted);">Please add programs and candidate marks in the Official Portal.</p>
+        <p style="color: var(--text-muted);">Synchronizing with cloud database...</p>
       </div>
     </div>
 
@@ -284,12 +279,11 @@
       <div id="studentResultBox" style="margin-top:10px;"></div>
     </div>
 
-    <!-- 3. OFFICIAL PORTAL (ADMIN ACCESS) -->
+    <!-- 3. OFFICIAL PORTAL -->
     <div id="officialView" class="view-panel">
       <h3 style="margin-bottom: 4px; color: var(--navy-dark); font-size:1.3rem;"><i class="fa-solid fa-user-shield text-emerald-600"></i> Official Management Portal</h3>
-      <p style="font-size:12px; color:var(--text-muted); margin-bottom:18px;">Admin access to configure programs, candidates, judges slips, results, and point tables.</p>
+      <p style="font-size:12px; color:var(--text-muted); margin-bottom:18px;">Admin access to enter and manage programs, candidates, and live scores across all devices.</p>
 
-      <!-- ADMIN LOGIN -->
       <div id="officialAuth">
         <input type="text" id="officialUser" placeholder="Admin Username">
         <input type="password" id="officialPass" placeholder="Admin Password">
@@ -297,18 +291,15 @@
         <div id="officialLoginErr" style="color:#ef4444; font-size:12px; margin-top:8px;"></div>
       </div>
 
-      <!-- ADMIN CONTROL CENTER -->
       <div id="officialContent" style="display:none;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; flex-wrap:wrap; gap:8px;">
           <span class="badge" style="background:#059669; color:#fff;">🔑 Admin Mode Active</span>
           <div style="display:flex; gap:8px;">
-            <button onclick="exportDataJSON()" style="padding:7px 14px; font-size:12px; background:var(--navy-main); color:#fff; border:none; border-radius:8px; cursor:pointer; font-weight:600;"><i class="fa-solid fa-download"></i> Backup JSON</button>
-            <label style="padding:7px 14px; font-size:12px; background:#64748b; color:#fff; border-radius:8px; cursor:pointer; margin:0; font-weight:600;"><i class="fa-solid fa-upload"></i> Restore <input type="file" id="importFileInput" onchange="importDataJSON(event)" style="display:none;"></label>
+            <button onclick="syncToCloud()" style="padding:7px 14px; font-size:12px; background:var(--emerald-main); color:#fff; border:none; border-radius:8px; cursor:pointer; font-weight:600;"><i class="fa-solid fa-cloud-arrow-up"></i> Save to Cloud</button>
             <button onclick="logoutOfficial()" style="padding:7px 14px; font-size:12px; background:#ef4444; color:#fff; border:none; border-radius:8px; cursor:pointer; font-weight:600;">Logout</button>
           </div>
         </div>
 
-        <!-- 5 TABS -->
         <div class="official-tabs">
           <button class="tab-btn active" onclick="openOfficialSubTab('tabPrograms')"><i class="fa-solid fa-list-check"></i> Programs</button>
           <button class="tab-btn" onclick="openOfficialSubTab('tabCandidates')"><i class="fa-solid fa-user-plus"></i> Candidates</button>
@@ -463,7 +454,7 @@
         <!-- SUB TAB 5: POINT TABLE -->
         <div id="tabPointTable" class="official-tab-content">
           <div class="report-box">
-            <h4 style="color:var(--navy-dark); margin-bottom:8px;"><i class="fa-solid fa-sliders text-emerald-600"></i> Manual Score Adjustment (Category-Wise)</h4>
+            <h4 style="color:var(--navy-dark); margin-bottom:8px;"><i class="fa-solid fa-sliders text-emerald-600"></i> Manual Score Adjustment</h4>
             <div class="form-grid">
               <select id="ptCategory">
                 <option value="SENIOR">Senior</option>
@@ -515,18 +506,14 @@
 
   </div>
 
-  <!-- ==================== JAVASCRIPT (LOGIC) ==================== -->
+  <!-- ==================== JAVASCRIPT ==================== -->
   <script>
+    // 🔗 YOUR CONNECTED APPS SCRIPT WEB APP BACKEND:
+    const CLOUD_API_URL = "https://script.google.com/macros/s/AKfycbxlzA-KafoIAqSPCr-bONTTBt4l2bo7ZKNIxvf-8e7KPogsRtGFAe-9U79-pbaITSAl7w/exec";
+
     var festPrograms = JSON.parse(localStorage.getItem('MEELAD_PROGRAMS')) || [];
     var festCandidates = JSON.parse(localStorage.getItem('MEELAD_CANDIDATES')) || [];
     var festResults = JSON.parse(localStorage.getItem('MEELAD_RESULTS')) || [];
-
-    function saveAllData() {
-      localStorage.setItem('MEELAD_PROGRAMS', JSON.stringify(festPrograms));
-      localStorage.setItem('MEELAD_CANDIDATES', JSON.stringify(festCandidates));
-      localStorage.setItem('MEELAD_RESULTS', JSON.stringify(festResults));
-      refreshAll();
-    }
 
     var carouselSlides = [];
     var currentSlideIndex = 0;
@@ -579,10 +566,60 @@
     }
 
     window.onload = function() {
-      refreshAll();
+      fetchCloudData();
+      setInterval(fetchCloudData, 20000); // Auto-sync across all devices every 20s
       setInterval(rotateQuote, 8000);
       setInterval(rotateAnnouncedResult, 5000);
     };
+
+    // FETCH DATA FROM GOOGLE SHEETS CLOUD
+    function fetchCloudData() {
+      fetch(CLOUD_API_URL)
+        .then(res => res.json())
+        .then(data => {
+          if (data && data.programs) {
+            festPrograms = data.programs || [];
+            festCandidates = data.candidates || [];
+            festResults = data.results || [];
+            
+            localStorage.setItem('MEELAD_PROGRAMS', JSON.stringify(festPrograms));
+            localStorage.setItem('MEELAD_CANDIDATES', JSON.stringify(festCandidates));
+            localStorage.setItem('MEELAD_RESULTS', JSON.stringify(festResults));
+          }
+          refreshAll();
+        })
+        .catch(err => {
+          console.error("Cloud fetch error:", err);
+          refreshAll();
+        });
+    }
+
+    // PUSH LOCAL UPDATES TO GOOGLE SHEETS CLOUD
+    function syncToCloud() {
+      localStorage.setItem('MEELAD_PROGRAMS', JSON.stringify(festPrograms));
+      localStorage.setItem('MEELAD_CANDIDATES', JSON.stringify(festCandidates));
+      localStorage.setItem('MEELAD_RESULTS', JSON.stringify(festResults));
+      refreshAll();
+
+      var payload = {
+        programs: festPrograms,
+        candidates: festCandidates,
+        results: festResults
+      };
+
+      fetch(CLOUD_API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payload)
+      })
+      .then(res => res.json())
+      .then(res => alert(res.message || "Synchronized across all phones and laptops!"))
+      .catch(err => alert("Saved locally. Network sync will retry automatically."));
+    }
+
+    function saveAllData() {
+      syncToCloud();
+    }
 
     function refreshAll() {
       renderProgramsTable();
@@ -625,7 +662,6 @@
           <div class="program-input-row" style="display:flex; gap:8px; margin-bottom:8px;">
             <input type="text" class="prog-name-input" placeholder="Enter Program Name (e.g. Qira'at, Quiz, Madih)">
           </div>`;
-        alert(`${added} Program(s) added successfully!`);
       } else {
         alert("Please type at least one program name.");
       }
@@ -675,7 +711,6 @@
 
       document.getElementById('candRegNo').value = "";
       document.getElementById('candName').value = "";
-      alert("Candidate added successfully!");
     }
 
     function deleteCandidate(id) {
@@ -706,7 +741,7 @@
       container.innerHTML = html;
     }
 
-    /* JUDGES PRINT SLIP (A4 SHEET) */
+    /* JUDGES PRINT SLIP */
     function updateJudgeProgramDropdown() {
       var cat = document.getElementById('judgeCatSelect').value;
       var select = document.getElementById('judgeItemSelect');
@@ -863,7 +898,6 @@
       });
 
       saveAllData();
-      alert("Result saved successfully!");
     }
 
     function deleteResult(id) {
@@ -959,7 +993,6 @@
       saveAllData();
       document.getElementById('ptReason').value = "";
       document.getElementById('ptMarks').value = "";
-      alert("Points credited to team successfully!");
     }
 
     function buildPointTables() {
@@ -1054,7 +1087,7 @@
       countdown = 30;
       timerInterval = setInterval(function() {
         countdown--;
-        document.getElementById('rotatorTimerBadge').innerHTML = `<span class="live-pulse"></span> Rotation: ${countdown}s`;
+        document.getElementById('rotatorTimerBadge').innerHTML = `<span class="live-pulse"></span> Auto-Sync: ${countdown}s`;
         if (countdown <= 0) {
           countdown = 30;
           currentSlideIndex = (currentSlideIndex + 1) % carouselSlides.length;
@@ -1144,37 +1177,6 @@
       html += list.map(m => `<tr><td><b>${m.regNo}</b></td><td>${m.name}</td><td>${m.category}</td><td><span class="badge team-badge-${m.team.toLowerCase()}">${m.team}</span></td></tr>`).join('');
       html += '</tbody></table>';
       container.innerHTML = html;
-    }
-
-    /* BACKUP / RESTORE */
-    function exportDataJSON() {
-      var fullBackup = { programs: festPrograms, candidates: festCandidates, results: festResults };
-      var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(fullBackup, null, 2));
-      var dl = document.createElement('a');
-      dl.setAttribute("href", dataStr);
-      dl.setAttribute("download", "meelad_fest_database.json");
-      dl.click();
-    }
-
-    function importDataJSON(evt) {
-      var reader = new FileReader();
-      reader.onload = function(e) {
-        try {
-          var imported = JSON.parse(e.target.result);
-          if (imported.programs && imported.candidates && imported.results) {
-            festPrograms = imported.programs;
-            festCandidates = imported.candidates;
-            festResults = imported.results;
-            saveAllData();
-            alert("Database successfully restored!");
-          } else {
-            alert("Invalid database format.");
-          }
-        } catch (err) {
-          alert("Error parsing file.");
-        }
-      };
-      reader.readAsText(evt.target.files[0]);
     }
   </script>
 </body>

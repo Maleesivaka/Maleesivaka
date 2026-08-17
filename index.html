@@ -347,11 +347,11 @@
           <div id="programsListTable" class="table-responsive"></div>
         </div>
 
-        <!-- SUB TAB 2: CANDIDATES (BULK MULTI-ENTRY SETUP) -->
+        <!-- SUB TAB 2: CANDIDATES (BULK MULTIPLE ENTRY INTERFACE) -->
         <div id="tabCandidates" class="official-tab-content">
           <div class="report-box">
             <h4 style="color:var(--navy-dark); margin-bottom:6px;"><i class="fa-solid fa-users text-emerald-600"></i> Add Multiple Candidates / Members</h4>
-            <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">Select the Team and Category first, then add all member names in sequence below.</p>
+            <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">Select Category & Team, enter or paste member names below, and click Save All.</p>
             
             <div class="form-grid">
               <div>
@@ -372,12 +372,16 @@
               </div>
             </div>
 
-            <div style="background:#fff; border:1px solid var(--border-color); border-radius:10px; padding:12px; margin-bottom:14px;">
-              <label style="font-size:12.5px; font-weight:700; color:var(--navy-main); margin-bottom:8px; display:block;">Candidate Names & Auto Reg Numbers:</label>
-              <div id="candidateRowsContainer">
-                <!-- Dynamically generated rows appear here -->
+            <!-- ROW-BY-ROW MULTI-MEMBER INPUTS -->
+            <div style="background:#fff; border:1.5px solid var(--border-color); border-radius:10px; padding:14px; margin-bottom:14px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                <label style="font-size:12.5px; font-weight:700; color:var(--navy-main);">Enter Candidate Names (Auto-Numbered):</label>
+                <button type="button" onclick="addCandidateRow()" style="background:#e0f2fe; color:var(--navy-main); font-weight:600; border:1px solid #bae6fd; border-radius:6px; padding:4px 10px; font-size:12px; cursor:pointer;"><i class="fa-solid fa-plus"></i> + Add More Member</button>
               </div>
-              <button class="btn" type="button" onclick="addCandidateRow()" style="background:#e2e8f0; color:var(--navy-dark); font-size:12.5px; padding:8px 12px; width:auto;"><i class="fa-solid fa-plus"></i> + Add More Member</button>
+
+              <div id="candidateRowsContainer">
+                <!-- Multi-candidate rows are injected here -->
+              </div>
             </div>
 
             <div style="display:flex; gap:10px; flex-wrap:wrap;">
@@ -593,6 +597,7 @@
 
     window.onload = function() {
       fetchCloudData();
+      initCandidateRows();
       setInterval(fetchCloudData, 20000);
       setInterval(rotateQuote, 8000);
       setInterval(rotateAnnouncedResult, 5000);
@@ -749,9 +754,12 @@
 
     function initCandidateRows() {
       var container = document.getElementById('candidateRowsContainer');
+      if (!container) return;
       if (container.children.length === 0) {
         container.innerHTML = "";
-        addCandidateRow();
+        for (var i = 0; i < 3; i++) {
+          addCandidateRow();
+        }
       } else {
         refreshCandidateRowsReg();
       }
@@ -759,12 +767,13 @@
 
     function addCandidateRow() {
       var container = document.getElementById('candidateRowsContainer');
+      if (!container) return;
       var div = document.createElement('div');
       div.className = 'cand-multi-row';
       div.style.cssText = 'display:flex; gap:10px; margin-bottom:8px; align-items:center;';
       div.innerHTML = `
         <input type="text" class="cand-row-reg" readonly style="width:130px; font-weight:700; color:var(--navy-main); background:#f8fafc; margin:0;" placeholder="Reg No">
-        <input type="text" class="cand-row-name" style="flex:1; margin:0;" placeholder="Participant Name">
+        <input type="text" class="cand-row-name" style="flex:1; margin:0;" placeholder="Enter Member Name">
         <button type="button" onclick="removeCandidateRow(this)" style="padding:10px 14px; background:#ef4444; color:#fff; border:none; border-radius:6px; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
       `;
       container.appendChild(div);
@@ -786,7 +795,6 @@
       var team = document.getElementById('candTeam') ? document.getElementById('candTeam').value : "Qahira";
       var prefix = "MMO" + getCategoryCode(cat) + getTeamCode(team);
 
-      // Count existing candidates already registered under this category & team
       var existingCount = festCandidates.filter(c => c.category === cat && c.team === team).length;
       var rows = document.querySelectorAll('.cand-multi-row');
 
@@ -822,14 +830,14 @@
         return;
       }
 
-      // Add to array
       festCandidates = festCandidates.concat(addedList);
       saveAllData();
 
-      // Reset entry rows
       document.getElementById('candidateRowsContainer').innerHTML = "";
-      addCandidateRow();
-      alert(`${addedList.length} member(s) registered successfully under ${team} (${cat})!`);
+      for (var k = 0; k < 3; k++) {
+        addCandidateRow();
+      }
+      alert(`Successfully saved ${addedList.length} candidate(s) under ${team} (${cat})!`);
     }
 
     function deleteCandidate(id) {
@@ -841,6 +849,7 @@
 
     function renderCandidatesTable() {
       var container = document.getElementById('candidatesListTable');
+      if (!container) return;
       if (festCandidates.length === 0) {
         container.innerHTML = "<p style='font-size:13px; padding:12px; color:var(--text-muted);'>No candidates registered yet.</p>";
         return;
@@ -1370,6 +1379,7 @@
       });
 
       let container = document.getElementById('teamMembersTable');
+      if (!container) return;
       if (list.length === 0) {
         container.innerHTML = "<p style='font-size:13px; padding:12px; color:var(--text-muted);'>No matching candidates found.</p>";
         return;

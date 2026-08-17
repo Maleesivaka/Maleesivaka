@@ -4,10 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>മാലീ സിവാക | Meelad Fest 2k26</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Poppins:wght@300;400;500;600;700;800&family=Anek+Malayalam:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Poppins:wght@300;400;500;600;700;800&family=Anek+Malayalam:wght@700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
+    /* LOCAL / CUSTOM FONT DECLARATION */
+    @font-face {
+      font-family: 'ML-TTRavivarma';
+      src: local('ML-TTRavivarma Bold'), local('ML-TTRavivarma'), url('ML-TTRavivarma.ttf') format('truetype');
+      font-weight: bold;
+      font-style: normal;
+    }
+
     :root {
       /* WHITE, NAVY BLUE & EMERALD PALETTE */
       --bg-main: #f8fafc;
@@ -22,7 +30,6 @@
 
       --emerald-main: #059669;
       --emerald-light: #10b981;
-      --emerald-soft: #ecfdf5;
 
       --border-color: #e2e8f0;
       --text-dark: #0f172a;
@@ -39,23 +46,28 @@
     
     .app-wrapper { width: 100vw; min-height: 100vh; padding: 14px; display: flex; flex-direction: column; max-width: 1200px; margin: 0 auto; }
 
-    /* HEADER BANNER */
+    /* HEADER BANNER WITH BACKGROUND IMAGE COVER */
     .top-header {
       position: relative;
       width: 100%;
-      min-height: 165px;
+      min-height: 180px;
       border-radius: 16px;
       overflow: hidden;
       margin-bottom: 16px;
-      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 55%, #064e3b 100%);
+      
+      /* Set title-logo.png as Full Length & Width Background Image */
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 58, 138, 0.8) 55%, rgba(6, 78, 59, 0.85) 100%), 
+                  url('title-logo.png') center/cover no-repeat;
+      background-size: cover;
+      background-position: center;
       color: #ffffff;
       border: 1px solid var(--border-color);
-      padding: 20px 10px;
+      padding: 25px 12px;
     }
 
     .header-controls {
@@ -69,10 +81,10 @@
       font-size: 13px; 
       color: #ffffff; 
       cursor: pointer; 
-      background: rgba(255, 255, 255, 0.15);
+      background: rgba(15, 23, 42, 0.55);
       padding: 7px 14px;
       border-radius: 8px;
-      border: 1px solid rgba(255, 255, 255, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.3);
       transition: all 0.2s ease;
       display: flex;
       align-items: center;
@@ -81,39 +93,36 @@
     }
     .icon-btn:hover { background: #ffffff; color: var(--navy-dark); font-weight: 700; }
 
-    .title-banner { text-align: center; margin-top: 15px; z-index: 2; display: flex; flex-direction: column; align-items: center; }
+    .title-banner { 
+      text-align: center; 
+      margin-top: 15px; 
+      z-index: 2; 
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+    }
     
-    /* CUSTOM TYPOGRAPHY IMAGE & FALLBACK */
-    .header-logo-img {
-      max-height: 85px;
-      width: auto;
-      object-fit: contain;
-      filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.5));
-      transition: transform 0.25s ease;
-    }
-    .header-logo-img:hover {
-      transform: scale(1.03);
-    }
-
-    .custom-fest-heading {
-      font-family: 'Anek Malayalam', sans-serif;
-      font-size: 38px;
+    /* MEELAD FEST NAME IN ML-TTRAVIVARMA BOLD */
+    .fest-title-malayalam {
+      font-family: 'ML-TTRavivarma', 'Anek Malayalam', sans-serif;
+      font-size: 42px;
       font-weight: 800;
       color: #ffffff;
-      letter-spacing: 1px;
-      text-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), 0 0 20px rgba(56, 189, 248, 0.3);
-      margin: 0;
+      letter-spacing: 1.5px;
       line-height: 1.2;
+      text-shadow: 0 4px 18px rgba(0, 0, 0, 0.8), 0 0 25px rgba(56, 189, 248, 0.6);
+      margin: 0;
     }
 
     .sub-fest-title { 
-      font-size: 13.5px; 
+      font-size: 14px; 
       font-weight: 700; 
       color: #38bdf8; 
       letter-spacing: 4px;
       text-transform: uppercase;
       margin-top: 6px;
       font-family: 'Cinzel', serif;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
     }
 
     /* NAVIGATION DRAWER */
@@ -216,23 +225,14 @@
 
   <div class="app-wrapper">
 
-    <!-- TOP HEADER WITH TYPOGRAPHY DISPLAY & AUTOMATIC FALLBACK -->
+    <!-- TOP HEADER WITH BACKGROUND IMAGE & ML-TTRAVIVARMA FONT -->
     <div class="top-header">
       <div class="header-controls">
         <div class="icon-btn" onclick="openNav()"><i class="fa-solid fa-bars"></i> Menu</div>
         <div class="icon-btn" onclick="toggleFullScreen()"><i class="fa-solid fa-expand" id="fsIcon"></i> Full Screen</div>
       </div>
       <div class="title-banner">
-        <!-- Tries to display title-logo.png; if not found, immediately falls back to styled typography text -->
-        <img src="title-logo.png" 
-             alt="മാലീ സിവാക" 
-             class="header-logo-img" 
-             onerror="this.style.display='none'; document.getElementById('fallbackTitle').style.display='block';">
-        
-        <div id="fallbackTitle" style="display:none;">
-          <h1 class="custom-fest-heading">മാലീ സിവാക</h1>
-        </div>
-
+        <h1 class="fest-title-malayalam">മാലീ സിവാക</h1>
         <div class="sub-fest-title">Meelad Fest 2k26</div>
       </div>
     </div>
@@ -730,6 +730,12 @@
           <title>Judges Evaluation Slip - Meelad Fest 2k26</title>
           <link href="https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@700&family=Cinzel:wght@700&display=swap" rel="stylesheet">
           <style>
+            @font-face {
+              font-family: 'ML-TTRavivarma';
+              src: local('ML-TTRavivarma Bold'), local('ML-TTRavivarma'), url('ML-TTRavivarma.ttf') format('truetype');
+              font-weight: bold;
+              font-style: normal;
+            }
             @page { size: A4 portrait; margin: 10mm; }
             * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
             body { background: #fff; color: #0f172a; margin: 0; padding: 0; }
@@ -744,7 +750,7 @@
               justify-content: space-between;
             }
             .header-banner { text-align: center; border-bottom: 2px solid #1e3a8a; padding-bottom: 8px; margin-bottom: 15px; }
-            .title-malayalam { font-family: 'Anek Malayalam', sans-serif; font-size: 28px; font-weight: 800; color: #0f172a; }
+            .title-malayalam { font-family: 'ML-TTRavivarma', 'Anek Malayalam', sans-serif; font-size: 28px; font-weight: 800; color: #0f172a; }
             .title-sub { font-family: 'Cinzel', serif; font-size: 17px; font-weight: 700; color: #1e3a8a; letter-spacing: 2px; text-transform: uppercase; }
             .title-desc { font-size: 12px; color: #059669; margin-top: 2px; font-weight: 700; }
             
@@ -897,9 +903,15 @@
         <!DOCTYPE html><html><head><title>Winner Poster - ${res.name}</title>
         <link href="https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@700&family=Poppins:wght@600;800&display=swap" rel="stylesheet">
         <style>
+          @font-face {
+            font-family: 'ML-TTRavivarma';
+            src: local('ML-TTRavivarma Bold'), local('ML-TTRavivarma'), url('ML-TTRavivarma.ttf') format('truetype');
+            font-weight: bold;
+            font-style: normal;
+          }
           body { background:#f8fafc; color:#0f172a; display:flex; justify-content:center; align-items:center; min-height:100vh; font-family:'Poppins', sans-serif; margin:0; }
           .poster { width:460px; background:#ffffff; border:3px solid #1e3a8a; border-radius:20px; padding:35px 25px; text-align:center; box-shadow:0 15px 40px rgba(0,0,0,0.1); }
-          .fest-title { font-family:'Anek Malayalam', sans-serif; font-size:34px; color:#0f172a; font-weight:bold; }
+          .fest-title { font-family:'ML-TTRavivarma', 'Anek Malayalam', sans-serif; font-size:34px; color:#0f172a; font-weight:bold; }
           .fest-sub { font-size:14px; color:#0284c7; letter-spacing:3px; text-transform:uppercase; margin-bottom:24px; font-weight:700; }
           .position-badge { display:inline-block; padding:8px 24px; background:linear-gradient(135deg, #1e3a8a, #0284c7); color:#ffffff; border-radius:25px; font-weight:800; font-size:19px; margin-bottom:18px; }
           .cand-name { font-size:26px; font-weight:bold; margin-bottom:4px; color:#0f172a; }

@@ -347,11 +347,11 @@
           <div id="programsListTable" class="table-responsive"></div>
         </div>
 
-        <!-- SUB TAB 2: CANDIDATES (BULK MULTIPLE ENTRY INTERFACE) -->
+        <!-- SUB TAB 2: CANDIDATES (BULK MULTI-ENTRY INTERFACE) -->
         <div id="tabCandidates" class="official-tab-content">
           <div class="report-box">
             <h4 style="color:var(--navy-dark); margin-bottom:6px;"><i class="fa-solid fa-users text-emerald-600"></i> Add Multiple Candidates / Members</h4>
-            <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">Select Category & Team, enter or paste member names below, and click Save All.</p>
+            <p style="font-size:12px; color:var(--text-muted); margin-bottom:14px;">Select the Category and Team below. The registration numbers will automatically update. Type all candidate names and click <b>Save All Members</b>.</p>
             
             <div class="form-grid">
               <div>
@@ -372,15 +372,15 @@
               </div>
             </div>
 
-            <!-- ROW-BY-ROW MULTI-MEMBER INPUTS -->
-            <div style="background:#fff; border:1.5px solid var(--border-color); border-radius:10px; padding:14px; margin-bottom:14px;">
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-                <label style="font-size:12.5px; font-weight:700; color:var(--navy-main);">Enter Candidate Names (Auto-Numbered):</label>
-                <button type="button" onclick="addCandidateRow()" style="background:#e0f2fe; color:var(--navy-main); font-weight:600; border:1px solid #bae6fd; border-radius:6px; padding:4px 10px; font-size:12px; cursor:pointer;"><i class="fa-solid fa-plus"></i> + Add More Member</button>
+            <!-- ROW BUILDER -->
+            <div style="background:#ffffff; border:1.5px solid var(--border-color); border-radius:12px; padding:14px; margin-bottom:14px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                <label style="font-size:13px; font-weight:700; color:var(--navy-main);">Candidate Names & Auto Reg Numbers:</label>
+                <button type="button" onclick="addCandidateRow()" style="background:#e0f2fe; color:var(--navy-main); font-weight:700; border:1px solid #bae6fd; border-radius:6px; padding:5px 12px; font-size:12.5px; cursor:pointer;"><i class="fa-solid fa-plus"></i> + Add More Member</button>
               </div>
 
               <div id="candidateRowsContainer">
-                <!-- Multi-candidate rows are injected here -->
+                <!-- Dynamically generated rows appear here -->
               </div>
             </div>
 
@@ -773,7 +773,7 @@
       div.style.cssText = 'display:flex; gap:10px; margin-bottom:8px; align-items:center;';
       div.innerHTML = `
         <input type="text" class="cand-row-reg" readonly style="width:130px; font-weight:700; color:var(--navy-main); background:#f8fafc; margin:0;" placeholder="Reg No">
-        <input type="text" class="cand-row-name" style="flex:1; margin:0;" placeholder="Enter Member Name">
+        <input type="text" class="cand-row-name" onkeyup="refreshCandidateRowsReg()" style="flex:1; margin:0;" placeholder="Enter Member Name">
         <button type="button" onclick="removeCandidateRow(this)" style="padding:10px 14px; background:#ef4444; color:#fff; border:none; border-radius:6px; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
       `;
       container.appendChild(div);

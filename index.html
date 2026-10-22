@@ -208,6 +208,91 @@
     .report-box { background: #f8fafc; padding: 18px; border-radius: 12px; margin-bottom: 16px; border: 1px solid var(--border-color); }
     .badge-timer { background: var(--navy-soft); border: 1px solid #bae6fd; color: var(--navy-main); padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; gap: 7px; }
     .live-pulse { width: 8px; height: 8px; background: var(--emerald-main); border-radius: 50%; display: inline-block; box-shadow: 0 0 8px var(--emerald-main); }
+
+    /* POSTER GENERATOR MODAL & STUDIO */
+    .poster-modal {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(15, 23, 42, 0.85);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 14px;
+      backdrop-filter: blur(5px);
+    }
+    .poster-modal-dialog {
+      background: #ffffff;
+      width: 100%;
+      max-width: 1000px;
+      max-height: 92vh;
+      border-radius: 16px;
+      overflow-y: auto;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .poster-modal-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      background: #ffffff;
+      z-index: 10;
+    }
+    .poster-modal-body {
+      padding: 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 820px) {
+      .poster-modal-body { grid-template-columns: 1fr; }
+    }
+    .model-selector-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .model-btn {
+      padding: 8px 6px;
+      font-size: 12px;
+      font-weight: 700;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 8px;
+      background: #f8fafc;
+      color: var(--navy-dark);
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s ease;
+    }
+    .model-btn.active {
+      border-color: var(--navy-main);
+      background: var(--navy-main);
+      color: #ffffff;
+      box-shadow: 0 4px 10px rgba(30, 58, 138, 0.25);
+    }
+    .preview-stage {
+      background: #0f172a;
+      border-radius: 12px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    #posterCanvas {
+      max-width: 100%;
+      height: auto;
+      max-height: 480px;
+      border-radius: 8px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    }
   </style>
 </head>
 <body>
@@ -235,6 +320,7 @@
       </div>
     </div>
 
+    <!-- 1. DASHBOARD VIEW -->
     <div id="dashboardView" class="view-panel active">
       <div class="dashboard-split">
         <div class="dashboard-card">
@@ -282,6 +368,7 @@
       <div id="studentProgramMatrixContainer" class="table-responsive"></div>
     </div>
 
+    <!-- 2. POINT TABLE & LOOKUP VIEW -->
     <div id="pointTableView" class="view-panel">
       <h3 style="margin-bottom: 14px; color: var(--navy-dark); font-size:1.3rem;"><i class="fa-solid fa-trophy text-emerald-600"></i> Grand Team Leaderboard</h3>
       <div id="teamPointsTable" class="table-responsive"></div>
@@ -297,6 +384,7 @@
       <div id="studentResultBox" style="margin-top:10px;"></div>
     </div>
 
+    <!-- 3. OFFICIAL ADMIN PORTAL VIEW -->
     <div id="officialView" class="view-panel">
       <h3 style="margin-bottom: 4px; color: var(--navy-dark); font-size:1.3rem;"><i class="fa-solid fa-user-shield text-emerald-600"></i> Official Management Portal</h3>
       <p style="font-size:12px; color:var(--text-muted); margin-bottom:18px;">Admin access to enter and manage programs, candidates, and live scores across all devices.</p>
@@ -393,8 +481,7 @@
                 <button type="button" onclick="addCandidateRow()" style="background:#e0f2fe; color:var(--navy-main); font-weight:700; border:1px solid #bae6fd; border-radius:6px; padding:5px 12px; font-size:12.5px; cursor:pointer;"><i class="fa-solid fa-plus"></i> + Add More Member</button>
               </div>
 
-              <div id="candidateRowsContainer">
-                </div>
+              <div id="candidateRowsContainer"></div>
             </div>
 
             <div style="display:flex; gap:10px; flex-wrap:wrap;">
@@ -514,6 +601,7 @@
       </div>
     </div>
 
+    <!-- 4. TEAM VIEW -->
     <div id="teamView" class="view-panel">
       <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:12px;">
         <div>
@@ -545,6 +633,83 @@
 
   </div>
 
+  <!-- 5. CONGRATULATORY POSTER STUDIO MODAL (5 MODELS + LIVE EDIT + DOWNLOAD) -->
+  <div id="posterStudioModal" class="poster-modal">
+    <div class="poster-modal-dialog">
+      <div class="poster-modal-header">
+        <h3 style="color:var(--navy-dark); font-size:16px; display:flex; align-items:center; gap:8px;">
+          <i class="fa-solid fa-wand-magic-sparkles text-emerald-600"></i> Meelad Fest Poster Studio
+        </h3>
+        <span style="font-size:26px; cursor:pointer; color:var(--text-muted);" onclick="closePosterStudio()">&times;</span>
+      </div>
+
+      <div class="poster-modal-body">
+        <!-- Controls Column -->
+        <div>
+          <label style="font-size:12px; font-weight:700; color:var(--navy-main); margin-bottom:6px; display:block;">Select Design Model:</label>
+          <div class="model-selector-bar">
+            <button class="model-btn active" onclick="setPosterModel(1)">Model 1<br><small>Royal Blue</small></button>
+            <button class="model-btn" onclick="setPosterModel(2)">Model 2<br><small>Emerald</small></button>
+            <button class="model-btn" onclick="setPosterModel(3)">Model 3<br><small>Burgundy</small></button>
+            <button class="model-btn" onclick="setPosterModel(4)">Model 4<br><small>Midnight</small></button>
+            <button class="model-btn" onclick="setPosterModel(5)">Model 5<br><small>Golden Fest</small></button>
+          </div>
+
+          <label style="font-size:12px; font-weight:600; color:var(--text-muted);">Candidate Name:</label>
+          <input type="text" id="pmCandidateName" oninput="drawPosterPreview()" placeholder="Student Name">
+
+          <div style="display:flex; gap:10px;">
+            <div style="flex:1;">
+              <label style="font-size:12px; font-weight:600; color:var(--text-muted);">Position / Place:</label>
+              <select id="pmPosition" onchange="drawPosterPreview()">
+                <option value="FIRST PLACE">1st Place</option>
+                <option value="SECOND PLACE">2nd Place</option>
+                <option value="THIRD PLACE">3rd Place</option>
+                <option value="SPECIAL JURY">Special Jury</option>
+                <option value="A GRADE">A Grade</option>
+              </select>
+            </div>
+            <div style="flex:1;">
+              <label style="font-size:12px; font-weight:600; color:var(--text-muted);">Team:</label>
+              <select id="pmTeam" onchange="drawPosterPreview()">
+                <option value="Qahira">Qahira (Blue)</option>
+                <option value="Qusdiya">Qusdiya (Green)</option>
+                <option value="Qurthuba">Qurthuba (Red)</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:10px;">
+            <div style="flex:1;">
+              <label style="font-size:12px; font-weight:600; color:var(--text-muted);">Category:</label>
+              <input type="text" id="pmCategory" oninput="drawPosterPreview()" placeholder="Senior / Junior">
+            </div>
+            <div style="flex:1;">
+              <label style="font-size:12px; font-weight:600; color:var(--text-muted);">Program / Item:</label>
+              <input type="text" id="pmProgram" oninput="drawPosterPreview()" placeholder="e.g. Qira'at, Quiz">
+            </div>
+          </div>
+
+          <label style="font-size:12px; font-weight:600; color:var(--text-muted);">Festival Title / Subtext:</label>
+          <input type="text" id="pmSubHeader" oninput="drawPosterPreview()" value="Meelad Fest 2k26 • MMO">
+
+          <label style="font-size:12px; font-weight:600; color:var(--text-muted);">Congratulatory Greeting:</label>
+          <input type="text" id="pmGreeting" oninput="drawPosterPreview()" value="MUBARAK! HEARTY CONGRATULATIONS">
+
+          <button class="btn btn-success" style="padding:13px; font-size:14px; margin-top:8px;" onclick="downloadPosterImage()">
+            <i class="fa-solid fa-download"></i> Download Poster (High-Res PNG)
+          </button>
+        </div>
+
+        <!-- Preview Column -->
+        <div class="preview-stage">
+          <canvas id="posterCanvas" width="1080" height="1350"></canvas>
+          <span style="color:#94a3b8; font-size:11px; margin-top:8px;">1080 × 1350 px (HD 4:5 Instagram & WhatsApp Status Ready)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
     const CLOUD_API_URL = "https://script.google.com/macros/s/AKfycbxlzA-KafoIAqSPCr-bONTTBt4l2bo7ZKNIxvf-8e7KPogsRtGFAe-9U79-pbaITSAl7w/exec";
 
@@ -559,6 +724,17 @@
     var liveAnnouncedResults = [];
     var resultIndex = 0;
     var quoteIndex = 0;
+
+    var selectedPosterModel = 1;
+
+    // Optional background asset paths on GitHub (e.g. assets/template1.png)
+    const customTemplateImages = {
+      1: "assets/template1.png",
+      2: "assets/template2.png",
+      3: "assets/template3.png",
+      4: "assets/template4.png",
+      5: "assets/template5.png"
+    };
 
     var prophetQuotes = [
       { text: "The best among you are those who have the best manners and character.", translation: "നിങ്ങളിൽ ഏറ്റവും ഉത്തമർ അത്യുത്തമമായ സ്വഭാവഗുണമുള്ളവരാണ്." },
@@ -1141,7 +1317,11 @@
           <td>${r.program}</td>
           <td style="color:var(--navy-main); font-weight:bold;">${r.mark}</td>
           <td><b style="color:var(--emerald-main);">${r.place}</b></td>
-          <td><button onclick="printWinnerPoster(${r.id})" style="padding:5px 10px; background:var(--navy-main); color:#fff; font-weight:600; border:none; border-radius:6px; cursor:pointer;"><i class="fa-solid fa-image"></i> Poster</button></td>
+          <td>
+            <button onclick="openPosterStudioWithData('${encodeURIComponent(r.name)}', '${encodeURIComponent(r.team)}', '${encodeURIComponent(r.category)}', '${encodeURIComponent(r.program)}', '${encodeURIComponent(r.place || 'WINNER')}')" style="padding:6px 12px; background:var(--navy-main); color:#fff; font-weight:600; border:none; border-radius:6px; cursor:pointer;">
+              <i class="fa-solid fa-wand-magic-sparkles"></i> Poster
+            </button>
+          </td>
           <td><button onclick="deleteResult(${r.id})" style="padding:5px 10px; background:#ef4444; color:#fff; border:none; border-radius:6px; cursor:pointer;"><i class="fa-solid fa-trash"></i></button></td>
         </tr>
       `).join('');
@@ -1149,47 +1329,240 @@
       container.innerHTML = html;
     }
 
-    function printWinnerPoster(id) {
-      var res = festResults.find(r => r.id === id);
-      if (!res) return;
+    /* 6. CONGRATULATORY POSTER STUDIO IMPLEMENTATION (5 MODELS) */
+    function openPosterStudioWithData(nameEnc, teamEnc, catEnc, progEnc, posEnc) {
+      document.getElementById('pmCandidateName').value = decodeURIComponent(nameEnc);
+      document.getElementById('pmTeam').value = decodeURIComponent(teamEnc);
+      document.getElementById('pmCategory').value = decodeURIComponent(catEnc);
+      document.getElementById('pmProgram').value = decodeURIComponent(progEnc);
 
-      var win = window.open('', '_blank');
-      win.document.write(`
-        <!DOCTYPE html><html><head><title>Winner Poster - ${res.name}</title>
-        <link href="https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@700&family=Gayathri:wght@700&family=Poppins:wght@600;800&display=swap" rel="stylesheet">
-        <style>
-          @font-face {
-            font-family: 'CustomFestFont';
-            src: url('custom-font.ttf') format('truetype'),
-                 url('ML-TTRavivarma.ttf') format('truetype');
-            font-weight: bold;
-            font-style: normal;
-          }
-          body { background:#f8fafc; color:#0f172a; display:flex; justify-content:center; align-items:center; min-height:100vh; font-family:'Poppins', sans-serif; margin:0; }
-          .poster { width:460px; background:#ffffff; border:3px solid #1e3a8a; border-radius:20px; padding:35px 25px; text-align:center; box-shadow:0 15px 40px rgba(0,0,0,0.1); }
-          .fest-title { font-family:'CustomFestFont', 'Gayathri', 'Anek Malayalam', sans-serif; font-size:34px; color:#0f172a; font-weight:bold; }
-          .fest-sub { font-size:14px; color:#0284c7; letter-spacing:3px; text-transform:uppercase; margin-bottom:24px; font-weight:700; }
-          .position-badge { display:inline-block; padding:8px 24px; background:linear-gradient(135deg, #1e3a8a, #0284c7); color:#ffffff; border-radius:25px; font-weight:800; font-size:19px; margin-bottom:18px; }
-          .cand-name { font-size:26px; font-weight:bold; margin-bottom:4px; color:#0f172a; }
-          .team-tag { font-size:16px; color:#059669; font-weight:700; margin-bottom:18px; }
-          .item-box { background:#f1f5f9; border:1px solid #cbd5e1; padding:12px; border-radius:10px; font-size:14.5px; }
-        </style>
-        </head><body>
-          <div class="poster">
-            <div class="fest-title">മാലീ സിവാക</div>
-            <div class="fest-sub">Meelad Fest 2k26</div>
-            <div class="position-badge">${res.place} POSITION</div>
-            <div class="cand-name">${res.name}</div>
-            <div class="team-tag">Team: ${res.team} (${res.category})</div>
-            <div class="item-box">Item: <b>${res.program}</b> | Score: <b>${res.mark} pts</b></div>
-          </div>
-          <script>window.print();<\/script>
-        </body></html>
-      `);
-      win.document.close();
+      var pos = decodeURIComponent(posEnc);
+      if (pos.includes('1')) document.getElementById('pmPosition').value = 'FIRST PLACE';
+      else if (pos.includes('2')) document.getElementById('pmPosition').value = 'SECOND PLACE';
+      else if (pos.includes('3')) document.getElementById('pmPosition').value = 'THIRD PLACE';
+      else document.getElementById('pmPosition').value = 'FIRST PLACE';
+
+      document.getElementById('posterStudioModal').style.display = 'flex';
+      drawPosterPreview();
     }
 
-    /* 6. POINT TABLE */
+    function closePosterStudio() {
+      document.getElementById('posterStudioModal').style.display = 'none';
+    }
+
+    function setPosterModel(modelNum) {
+      selectedPosterModel = modelNum;
+      var btns = document.querySelectorAll('.model-btn');
+      btns.forEach((btn, idx) => {
+        btn.classList.toggle('active', (idx + 1) === modelNum);
+      });
+      drawPosterPreview();
+    }
+
+    function drawPosterPreview() {
+      var canvas = document.getElementById('posterCanvas');
+      var ctx = canvas.getContext('2d');
+
+      var name = document.getElementById('pmCandidateName').value || "Candidate Name";
+      var team = document.getElementById('pmTeam').value || "Qahira";
+      var cat = document.getElementById('pmCategory').value || "Senior";
+      var prog = document.getElementById('pmProgram').value || "Competition Program";
+      var pos = document.getElementById('pmPosition').value || "FIRST PLACE";
+      var subHeader = document.getElementById('pmSubHeader').value || "Meelad Fest 2k26 • MMO";
+      var greeting = document.getElementById('pmGreeting').value || "MUBARAK! HEARTY CONGRATULATIONS";
+
+      var bgImg = new Image();
+      bgImg.src = customTemplateImages[selectedPosterModel];
+
+      bgImg.onload = function() {
+        ctx.drawImage(bgImg, 0, 0, canvas.width, canvas.height);
+        renderPosterTypography(ctx, canvas, name, team, cat, prog, pos, subHeader, greeting);
+      };
+
+      bgImg.onerror = function() {
+        renderBuiltInModelGraphic(ctx, canvas, selectedPosterModel, name, team, cat, prog, pos, subHeader, greeting);
+      };
+    }
+
+    function renderBuiltInModelGraphic(ctx, canvas, model, name, team, cat, prog, pos, subHeader, greeting) {
+      var w = canvas.width;
+      var h = canvas.height;
+
+      // 5 Procedural Background Models
+      if (model === 1) {
+        // Model 1: Royal Blue & Golden Arch
+        var grad = ctx.createLinearGradient(0, 0, 0, h);
+        grad.addColorStop(0, '#0a192f');
+        grad.addColorStop(0.5, '#1e3a8a');
+        grad.addColorStop(1, '#020c1b');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, w, h);
+
+        // Arch Border
+        ctx.strokeStyle = '#f59e0b';
+        ctx.lineWidth = 10;
+        ctx.strokeRect(50, 50, w - 100, h - 100);
+
+        ctx.strokeStyle = 'rgba(245, 158, 11, 0.4)';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(65, 65, w - 130, h - 130);
+
+      } else if (model === 2) {
+        // Model 2: Emerald Mosque Glow
+        var grad = ctx.createLinearGradient(0, 0, w, h);
+        grad.addColorStop(0, '#022c22');
+        grad.addColorStop(0.5, '#065f46');
+        grad.addColorStop(1, '#047857');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, w, h);
+
+        ctx.strokeStyle = '#34d399';
+        ctx.lineWidth = 8;
+        ctx.strokeRect(50, 50, w - 100, h - 100);
+
+      } else if (model === 3) {
+        // Model 3: Burgundy / Qurthuba Ruby
+        var grad = ctx.createLinearGradient(0, 0, 0, h);
+        grad.addColorStop(0, '#450a0a');
+        grad.addColorStop(0.5, '#7f1d1d');
+        grad.addColorStop(1, '#1c0505');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, w, h);
+
+        ctx.strokeStyle = '#fbbf24';
+        ctx.lineWidth = 8;
+        ctx.strokeRect(50, 50, w - 100, h - 100);
+
+      } else if (model === 4) {
+        // Model 4: Midnight & Cyan Minimalist
+        var grad = ctx.createRadialGradient(w/2, h/2, 100, w/2, h/2, 700);
+        grad.addColorStop(0, '#0f172a');
+        grad.addColorStop(0.6, '#0284c7');
+        grad.addColorStop(1, '#031b33');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, w, h);
+
+        ctx.strokeStyle = '#38bdf8';
+        ctx.lineWidth = 6;
+        ctx.strokeRect(50, 50, w - 100, h - 100);
+
+      } else {
+        // Model 5: Golden Stage Fest
+        var grad = ctx.createLinearGradient(0, 0, 0, h);
+        grad.addColorStop(0, '#1c1917');
+        grad.addColorStop(0.45, '#451a03');
+        grad.addColorStop(1, '#0c0a09');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, w, h);
+
+        ctx.strokeStyle = '#fbbf24';
+        ctx.lineWidth = 14;
+        ctx.strokeRect(40, 40, w - 80, h - 80);
+
+        ctx.strokeStyle = '#fef3c7';
+        ctx.lineWidth = 4;
+        ctx.strokeRect(60, 60, w - 120, h - 120);
+      }
+
+      renderPosterTypography(ctx, canvas, name, team, cat, prog, pos, subHeader, greeting);
+    }
+
+    function renderPosterTypography(ctx, canvas, name, team, cat, prog, pos, subHeader, greeting) {
+      var w = canvas.width;
+
+      ctx.textAlign = 'center';
+
+      // 1. Header Festival Title
+      ctx.fillStyle = '#ffffff';
+      ctx.font = "800 64px 'Gayathri', 'Anek Malayalam', sans-serif";
+      ctx.fillText("മാലീ സിവാക", w / 2, 190);
+
+      // Subheader
+      ctx.fillStyle = '#38bdf8';
+      ctx.font = "700 24px 'Cinzel', serif";
+      ctx.letterSpacing = "4px";
+      ctx.fillText(subHeader.toUpperCase(), w / 2, 240);
+
+      // 2. Hearty Congratulations ribbon
+      ctx.fillStyle = '#f59e0b';
+      ctx.font = "700 26px 'Poppins', sans-serif";
+      ctx.letterSpacing = "2px";
+      ctx.fillText(greeting, w / 2, 360);
+
+      // 3. Position Capsule
+      var pillWidth = 560;
+      var pillHeight = 76;
+      var pillX = (w - pillWidth) / 2;
+      var pillY = 410;
+
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath();
+      ctx.roundRect(pillX, pillY, pillWidth, pillHeight, 38);
+      ctx.fill();
+
+      ctx.fillStyle = '#0f172a';
+      ctx.font = "800 36px 'Poppins', sans-serif";
+      ctx.fillText("★  " + pos.toUpperCase() + "  ★", w / 2, pillY + 52);
+
+      // 4. Candidate Name
+      ctx.fillStyle = '#ffffff';
+      ctx.font = "800 70px 'Poppins', sans-serif";
+      
+      // Auto size adjustment for long candidate names
+      if (name.length > 18) {
+        ctx.font = "800 52px 'Poppins', sans-serif";
+      }
+      ctx.fillText(name, w / 2, 620);
+
+      // 5. Team Badge
+      ctx.fillStyle = '#fcd34d';
+      ctx.font = "700 34px 'Poppins', sans-serif";
+      ctx.fillText("TEAM " + team.toUpperCase() + " (" + cat.toUpperCase() + ")", w / 2, 690);
+
+      // 6. Program Card Box
+      var boxW = 860;
+      var boxH = 170;
+      var boxX = (w - boxW) / 2;
+      var boxY = 790;
+
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.roundRect(boxX, boxY, boxW, boxH, 16);
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.fillStyle = '#94a3b8';
+      ctx.font = "600 22px 'Poppins', sans-serif";
+      ctx.fillText("COMPETITION ITEM", w / 2, boxY + 55);
+
+      ctx.fillStyle = '#ffffff';
+      ctx.font = "800 44px 'Poppins', sans-serif";
+      ctx.fillText(prog, w / 2, boxY + 120);
+
+      // 7. Footer Official Endorsement
+      ctx.fillStyle = '#e2e8f0';
+      ctx.font = "500 22px 'Poppins', sans-serif";
+      ctx.fillText("MMO Orphanage • Fest Organizing Committee", w / 2, 1160);
+
+      ctx.fillStyle = '#64748b';
+      ctx.font = "500 17px 'Poppins', sans-serif";
+      ctx.fillText("Official Result Publication", w / 2, 1200);
+    }
+
+    function downloadPosterImage() {
+      var canvas = document.getElementById('posterCanvas');
+      var name = document.getElementById('pmCandidateName').value.trim() || 'Winner';
+      var prog = document.getElementById('pmProgram').value.trim() || 'Result';
+
+      var link = document.createElement('a');
+      link.download = `MeeladFest_${name.replace(/\s+/g, '_')}_${prog.replace(/\s+/g, '_')}_Poster.png`;
+      link.href = canvas.toDataURL('image/png', 1.0);
+      link.click();
+    }
+
+    /* 7. POINT TABLE */
     function addManualCategoryScore() {
       var cat = document.getElementById('ptCategory').value;
       var team = document.getElementById('ptTeam').value;
@@ -1271,7 +1644,8 @@
       buildCarousel(catScores, sortedTeams);
 
       liveAnnouncedResults = festResults.filter(r => r.place && r.place !== '-' && r.published === 'YES').map(r => ({
-        program: r.program, category: r.category, winner: r.name + ' (' + r.team + ') - ' + r.place
+        program: r.program, category: r.category, winner: r.name + ' (' + r.team + ') - ' + r.place,
+        rawObj: r
       }));
       rotateAnnouncedResult();
     }
@@ -1334,14 +1708,22 @@
         return;
       }
       var res = liveAnnouncedResults[resultIndex];
+      var rObj = res.rawObj || {};
       document.getElementById('announcedDisplay').innerHTML = `
-        <div class="result-program"><i class="fa-solid fa-award text-emerald-600"></i> ${res.program}</div>
-        <div class="result-cat">Category: <b>${res.category}</b></div>
-        <div class="result-winner">🥇 Winner: <b>${res.winner}</b></div>`;
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+          <div>
+            <div class="result-program"><i class="fa-solid fa-award text-emerald-600"></i> ${res.program}</div>
+            <div class="result-cat">Category: <b>${res.category}</b></div>
+            <div class="result-winner">🥇 Winner: <b>${res.winner}</b></div>
+          </div>
+          <button onclick="openPosterStudioWithData('${encodeURIComponent(rObj.name || '')}', '${encodeURIComponent(rObj.team || '')}', '${encodeURIComponent(rObj.category || '')}', '${encodeURIComponent(rObj.program || '')}', '${encodeURIComponent(rObj.place || '')}')" style="background:#e0f2fe; color:var(--navy-main); font-weight:700; border:1px solid #bae6fd; border-radius:6px; padding:6px 12px; font-size:12px; cursor:pointer;">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> Poster
+          </button>
+        </div>`;
       resultIndex = (resultIndex + 1) % liveAnnouncedResults.length;
     }
 
-    /* 7. DETAILED STUDENT × PROGRAM MATRIX TABLE RENDERER */
+    /* 8. DETAILED STUDENT × PROGRAM MATRIX TABLE RENDERER */
     function renderStudentProgramMatrix() {
       var container = document.getElementById('studentProgramMatrixContainer');
       if (!container) return;
@@ -1353,12 +1735,10 @@
         candidates = candidates.filter(c => c.category === filterCat);
       }
 
-      // Collect all evaluated programs or programs registered
       var programList = [];
       festPrograms.forEach(p => {
         if (!programList.includes(p.name)) programList.push(p.name);
       });
-      // Also include any program with results that might have been custom entered
       festResults.forEach(r => {
         if (r.program && !programList.includes(r.program)) programList.push(r.program);
       });
@@ -1373,7 +1753,6 @@
         return;
       }
 
-      // Map results for quick lookup: [regNo + '___' + programName] -> score
       var resultMap = {};
       festResults.forEach(r => {
         if (r.published === 'YES' || r.published === undefined) {
@@ -1427,7 +1806,7 @@
       container.innerHTML = html;
     }
 
-    /* AUTHENTICATION */
+    /* 9. AUTHENTICATION */
     function authOfficial() {
       let u = document.getElementById('officialUser').value.trim();
       let p = document.getElementById('officialPass').value.trim();
@@ -1446,20 +1825,29 @@
       document.getElementById('officialContent').style.display = "none";
     }
 
-    /* LOOKUP */
+    /* 10. LOOKUP */
     function lookupResult() {
       let reg = document.getElementById('studentRegNo').value.trim();
       let box = document.getElementById('studentResultBox');
       if (!reg) return;
       let res = festResults.filter(r => String(r.regNo).toLowerCase() === reg.toLowerCase());
       if (res.length > 0) {
-        box.innerHTML = res.map(r => `<div style="padding:12px; border-bottom:1px solid var(--border-color); background:#f8fafc; border-radius:8px; margin-bottom:6px;"><b>${r.name}</b> (${r.team})<br><span style="color:var(--text-muted);">Item: ${r.program}</span> | Mark: <b style="color:var(--navy-main);">${r.mark}</b> | Place: <b style="color:var(--emerald-main);">${r.place || '-'}</b></div>`).join('');
+        box.innerHTML = res.map(r => `
+          <div style="padding:14px; border:1px solid var(--border-color); background:#f8fafc; border-radius:10px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+            <div>
+              <b>${r.name}</b> <span class="badge team-badge-${(r.team||'').toLowerCase()}">${r.team}</span><br>
+              <span style="color:var(--text-muted); font-size:12.5px;">Item: <b>${r.program}</b> (${r.category})</span> | Mark: <b style="color:var(--navy-main);">${r.mark}</b> | Place: <b style="color:var(--emerald-main);">${r.place || '-'}</b>
+            </div>
+            <button onclick="openPosterStudioWithData('${encodeURIComponent(r.name)}', '${encodeURIComponent(r.team)}', '${encodeURIComponent(r.category)}', '${encodeURIComponent(r.program)}', '${encodeURIComponent(r.place || 'WINNER')}')" style="background:var(--navy-main); color:#fff; font-size:12.5px; font-weight:600; padding:6px 12px; border:none; border-radius:6px; cursor:pointer;">
+              <i class="fa-solid fa-wand-magic-sparkles"></i> Poster
+            </button>
+          </div>`).join('');
       } else {
         box.innerHTML = `<p style="color:#ef4444; font-size:13px; padding:6px 0;">No scores found for Reg No: ${reg}</p>`;
       }
     }
 
-    /* DIRECTORY FILTER */
+    /* 11. DIRECTORY FILTER */
     function filterStudents() {
       let regQuery = (document.getElementById('searchReg') ? document.getElementById('searchReg').value : '').toLowerCase().trim();
       let nameQuery = (document.getElementById('searchName') ? document.getElementById('searchName').value : '').toLowerCase().trim();

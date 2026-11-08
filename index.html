@@ -668,7 +668,7 @@
               <select id="pmPosition" onchange="drawPosterPreview()">
                 <option value="FIRST PLACE">1st Place</option>
                 <option value="SECOND PLACE">2nd Place</option>
-                <option value="THIRD PLACE">3nd Place</option>
+                <option value="THIRD PLACE">3rd Place</option>
                 <option value="SPECIAL JURY">Special Jury</option>
                 <option value="A GRADE">A Grade</option>
               </select>
@@ -1280,4 +1280,542 @@
             th, td { border: 1px solid #94a3b8; padding: 6px 8px; font-size: 12.5px; text-align: left; }
             th { background: #f1f5f9; color: #0f172a; font-weight: 700; text-transform: uppercase; font-size: 11px; }
             .declaration-box { font-size: 11px; color: #475569; margin-top: auto; padding-top: 10px; font-style: italic; }
-            .sign-footer { display: flex; justify-content: space-between; margin-top: 24px; padding-top: 8px; font-size: 12.5px; font-weight: 7
+            .sign-footer { display: flex; justify-content: space-between; margin-top: 24px; padding-top: 8px; font-size: 12.5px; font-weight: 700; color: #1e3a8a; }
+          </style>
+        </head>
+        <body>
+          ${bodyContent}
+          <script>window.print();<\/script>
+        </body>
+        </html>
+      `;
+      win.document.write(html);
+      win.document.close();
+    }
+
+    /* 4. JUDGES PRINT SLIP */
+    function updateJudgeProgramDropdown() {
+      var cat = document.getElementById('judgeCatSelect').value;
+      var select = document.getElementById('judgeItemSelect');
+      var progs = (cat === 'GENERAL') ? festPrograms.filter(p => p.type === 'General' || p.category === 'GENERAL') : festPrograms.filter(p => p.category === cat);
+      if (progs.length === 0) {
+        select.innerHTML = `<option value="">No programs registered in ${cat}</option>`;
+      } else {
+        select.innerHTML = progs.map(p => `<option value="${p.name}">${p.name} (${p.type})</option>`).join('');
+      }
+    }
+
+    function printJudgesSlip() {
+      var cat = document.getElementById('judgeCatSelect').value;
+      var item = document.getElementById('judgeItemSelect').value || "________________";
+      var letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
+      var win = window.open('', '_blank');
+
+      var html = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>Judges Evaluation Slip - Meelad Fest 2k26</title>
+          <link href="https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@700&family=Cinzel:wght@700&family=Gayathri:wght@700&display=swap" rel="stylesheet">
+          <style>
+            @font-face {
+              font-family: 'CustomFestFont';
+              src: url('custom-font.ttf') format('truetype'),
+                   url('ML-TTRavivarma.ttf') format('truetype');
+              font-weight: bold;
+              font-style: normal;
+            }
+            @page { size: A4 portrait; margin: 10mm; }
+            * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
+            body { background: #fff; color: #0f172a; margin: 0; padding: 0; }
+            .slip-card {
+              width: 100%;
+              min-height: 270mm;
+              border: 3px double #1e3a8a;
+              border-radius: 8px;
+              padding: 15mm 12mm;
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+            }
+            .header-banner { text-align: center; border-bottom: 2px solid #1e3a8a; padding-bottom: 8px; margin-bottom: 15px; }
+            .title-malayalam { font-family: 'CustomFestFont', 'Gayathri', 'Anek Malayalam', sans-serif; font-size: 28px; font-weight: 800; color: #0f172a; }
+            .title-sub { font-family: 'Cinzel', serif; font-size: 17px; font-weight: 700; color: #1e3a8a; letter-spacing: 2px; text-transform: uppercase; }
+            .title-desc { font-size: 12px; color: #059669; margin-top: 2px; font-weight: 700; }
+            
+            .meta-grid { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 14px; font-weight: 600; }
+            .meta-box { border: 1.5px solid #1e3a8a; padding: 8px 12px; border-radius: 6px; width: 48%; }
+            
+            table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+            th, td { border: 1.5px solid #1e3a8a; padding: 10px 8px; text-align: center; font-size: 14px; }
+            th { background: #f8fafc; color: #1e3a8a; font-weight: 700; text-transform: uppercase; }
+            td.code-cell { font-size: 16px; font-weight: 800; background: #fafafa; }
+            
+            .signature-area { display: flex; justify-content: space-between; margin-top: 30px; font-size: 13px; font-weight: 700; color: #1e3a8a; }
+          </style>
+        </head>
+        <body>
+          <div class="slip-card">
+            <div>
+              <div class="header-banner">
+                <div class="title-malayalam">മാലീ സിവാക</div>
+                <div class="title-sub">Meelad Fest 2k26</div>
+                <div class="title-desc">OFFICIAL JUDGES EVALUATION SLIP</div>
+              </div>
+
+              <div class="meta-grid">
+                <div class="meta-box"><b>CATEGORY / SCOPE:</b> ${cat}</div>
+                <div class="meta-box"><b>ITEM:</b> ${item}</div>
+              </div>
+
+              <table>
+                <thead>
+                  <tr>
+                    <th style="width: 25%;">Code Letter</th>
+                    <th style="width: 35%;">Mark / Score</th>
+                    <th style="width: 40%;">Remark</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${letters.map(letter => `
+                    <tr>
+                      <td class="code-cell">${letter}</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+
+            <div class="signature-area">
+              <div>Judge Name: __________________________</div>
+              <div>Judge Signature: __________________________</div>
+            </div>
+          </div>
+          <script>window.print();<\/script>
+        </body>
+        </html>
+      `;
+      win.document.write(html);
+      win.document.close();
+    }
+
+    /* 5. RESULTS LOGIC */
+    function updateResultProgramDropdown() {
+      var cat = document.getElementById('resCategory').value;
+      var select = document.getElementById('resItemSelect');
+      var progs = (cat === 'GENERAL') ? festPrograms.filter(p => p.type === 'General' || p.category === 'GENERAL') : festPrograms.filter(p => p.category === cat);
+      select.innerHTML = progs.map(p => `<option value="${p.name}">${p.name} (${p.type})</option>`).join('');
+      updateResultCandidateDropdown();
+    }
+
+    function updateResultCandidateDropdown() {
+      var cat = document.getElementById('resCategory').value;
+      var select = document.getElementById('resCandidateSelect');
+      
+      if (cat === 'GENERAL') {
+        select.innerHTML = `
+          <option value="TEAM|Qahira (Team A)|Qahira">Team Qahira (All Categories)</option>
+          <option value="TEAM|Qusdiya (Team B)|Qusdiya">Team Qusdiya (All Categories)</option>
+          <option value="TEAM|Qurthuba (Team C)|Qurthuba">Team Qurthuba (All Categories)</option>
+        `;
+      } else {
+        var cands = festCandidates.filter(c => c.category === cat);
+        if (cands.length === 0) {
+          select.innerHTML = `<option value="">No candidate registered in ${cat}</option>`;
+        } else {
+          select.innerHTML = cands.map(c => `<option value="${c.regNo}|${c.name}|${c.team}">#${c.regNo} - ${c.name} (${c.team})</option>`).join('');
+        }
+      }
+    }
+
+    function saveResultEntry() {
+      var cat = document.getElementById('resCategory').value;
+      var program = document.getElementById('resItemSelect').value;
+      var candVal = document.getElementById('resCandidateSelect').value;
+      var mark = Number(document.getElementById('resMark').value) || 0;
+      var grade = document.getElementById('resGrade').value.trim();
+      var place = document.getElementById('resPlace').value;
+      var published = document.getElementById('resPublished').value;
+
+      if (!program || !candVal) {
+        alert("Please ensure competition items and candidates are selected.");
+        return;
+      }
+
+      var parts = candVal.split('|');
+      festResults.push({
+        id: Date.now(),
+        regNo: parts[0],
+        name: parts[1],
+        team: parts[2],
+        category: cat,
+        program: program,
+        mark: mark,
+        grade: grade,
+        place: place,
+        published: published
+      });
+
+      saveAllData();
+      alert("Result saved successfully!");
+    }
+
+    function deleteResult(id) {
+      if (confirm("Delete this result entry?")) {
+        festResults = festResults.filter(r => r.id !== id);
+        saveAllData();
+      }
+    }
+
+    function renderResultsAdminTable() {
+      var container = document.getElementById('resultsAdminTable');
+      if (festResults.length === 0) {
+        container.innerHTML = "<p style='font-size:13px; padding:12px; color:var(--text-muted);'>No results evaluated yet.</p>";
+        return;
+      }
+
+      var html = `<table><thead><tr><th>Candidate / Squad</th><th>Category</th><th>Item</th><th>Mark</th><th>Place</th><th>Poster</th><th>Action</th></tr></thead><tbody>`;
+      html += festResults.map(r => `
+        <tr>
+          <td><b>${r.name}</b> <span class="badge team-badge-${r.team.toLowerCase()}">${r.team}</span></td>
+          <td><span class="badge" style="background:#e0f2fe; color:var(--navy-dark);">${r.category}</span></td>
+          <td>${r.program}</td>
+          <td style="color:var(--navy-main); font-weight:bold;">${r.mark}</td>
+          <td><b style="color:var(--emerald-main);">${r.place}</b></td>
+          <td>
+            <button onclick="openPosterStudioWithData('${encodeURIComponent(r.name)}', '${encodeURIComponent(r.team)}', '${encodeURIComponent(r.category)}', '${encodeURIComponent(r.program)}', '${encodeURIComponent(r.place || 'WINNER')}')" style="padding:6px 12px; background:var(--navy-main); color:#fff; font-weight:600; border:none; border-radius:6px; cursor:pointer;">
+              <i class="fa-solid fa-wand-magic-sparkles"></i> Poster
+            </button>
+          </td>
+          <td><button onclick="deleteResult(${r.id})" style="padding:5px 10px; background:#ef4444; color:#fff; border:none; border-radius:6px; cursor:pointer;"><i class="fa-solid fa-trash"></i></button></td>
+        </tr>
+      `).join('');
+      html += `</tbody></table>`;
+      container.innerHTML = html;
+    }
+
+    /* 6. CONGRATULATORY POSTER STUDIO IMPLEMENTATION (5 MODELS) */
+    function openPosterStudioWithData(nameEnc, teamEnc, catEnc, progEnc, posEnc) {
+      document.getElementById('pmCandidateName').value = decodeURIComponent(nameEnc);
+      document.getElementById('pmTeam').value = decodeURIComponent(teamEnc);
+      document.getElementById('pmCategory').value = decodeURIComponent(catEnc);
+      document.getElementById('pmProgram').value = decodeURIComponent(progEnc);
+
+      var pos = decodeURIComponent(posEnc);
+      if (pos.includes('1')) document.getElementById('pmPosition').value = 'FIRST PLACE';
+      else if (pos.includes('2')) document.getElementById('pmPosition').value = 'SECOND PLACE';
+      else if (pos.includes('3')) document.getElementById('pmPosition').value = 'THIRD PLACE';
+      else document.getElementById('pmPosition').value = 'FIRST PLACE';
+
+      document.getElementById('posterStudioModal').style.display = 'flex';
+      drawPosterPreview();
+    }
+
+    function closePosterStudio() {
+      document.getElementById('posterStudioModal').style.display = 'none';
+    }
+
+    function setPosterModel(modelNum) {
+      selectedPosterModel = modelNum;
+      var btns = document.querySelectorAll('.model-btn');
+      btns.forEach((btn, idx) => {
+        btn.classList.toggle('active', (idx + 1) === modelNum);
+      });
+      drawPosterPreview();
+    }
+
+    function drawPosterPreview() {
+      var canvas = document.getElementById('posterCanvas');
+      var ctx = canvas.getContext('2d');
+
+      var name = document.getElementById('pmCandidateName').value || "Candidate Name";
+      var team = document.getElementById('pmTeam').value || "Qahira";
+      var cat = document.getElementById('pmCategory').value || "Senior";
+      var prog = document.getElementById('pmProgram').value || "Competition Program";
+      var pos = document.getElementById('pmPosition').value || "FIRST PLACE";
+      var subHeader = document.getElementById('pmSubHeader').value || "Meelad Fest 2k26 • MMO";
+      var greeting = document.getElementById('pmGreeting').value || "MUBARAK! HEARTY CONGRATULATIONS";
+
+      var bgImg = new Image();
+      bgImg.src = customTemplateImages[selectedPosterModel];
+
+      bgImg.onload = function() {
+        ctx.drawImage(bgImg, 0, 0, canvas.width, canvas.height);
+        renderPosterTypography(ctx, canvas, name, team, cat, prog, pos, subHeader, greeting);
+      };
+
+      bgImg.onerror = function() {
+        renderBuiltInModelGraphic(ctx, canvas, selectedPosterModel, name, team, cat, prog, pos, subHeader, greeting);
+      };
+    }
+
+    function renderBuiltInModelGraphic(ctx, canvas, model, name, team, cat, prog, pos, subHeader, greeting) {
+      var w = canvas.width;
+      var h = canvas.height;
+
+      // 5 Procedural Background Models
+      if (model === 1) {
+        // Model 1: Royal Blue & Golden Arch
+        var grad = ctx.createLinearGradient(0, 0, 0, h);
+        grad.addColorStop(0, '#0a192f');
+        grad.addColorStop(0.5, '#1e3a8a');
+        grad.addColorStop(1, '#020c1b');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, w, h);
+
+        // Arch Border
+        ctx.strokeStyle = '#f59e0b';
+        ctx.lineWidth = 10;
+        ctx.strokeRect(50, 50, w - 100, h - 100);
+
+        ctx.strokeStyle = 'rgba(245, 158, 11, 0.4)';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(65, 65, w - 130, h - 130);
+
+      } else if (model === 2) {
+        // Model 2: Emerald Mosque Glow
+        var grad = ctx.createLinearGradient(0, 0, w, h);
+        grad.addColorStop(0, '#022c22');
+        grad.addColorStop(0.5, '#065f46');
+        grad.addColorStop(1, '#047857');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, w, h);
+
+        ctx.strokeStyle = '#34d399';
+        ctx.lineWidth = 8;
+        ctx.strokeRect(50, 50, w - 100, h - 100);
+
+      } else if (model === 3) {
+        // Model 3: Burgundy / Qurthuba Ruby
+        var grad = ctx.createLinearGradient(0, 0, 0, h);
+        grad.addColorStop(0, '#450a0a');
+        grad.addColorStop(0.5, '#7f1d1d');
+        grad.addColorStop(1, '#1c0505');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, w, h);
+
+        ctx.strokeStyle = '#fbbf24';
+        ctx.lineWidth = 8;
+        ctx.strokeRect(50, 50, w - 100, h - 100);
+
+      } else if (model === 4) {
+        // Model 4: Midnight & Cyan Minimalist
+        var grad = ctx.createRadialGradient(w/2, h/2, 100, w/2, h/2, 700);
+        grad.addColorStop(0, '#0f172a');
+        grad.addColorStop(0.6, '#0284c7');
+        grad.addColorStop(1, '#031b33');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, w, h);
+
+        ctx.strokeStyle = '#38bdf8';
+        ctx.lineWidth = 6;
+        ctx.strokeRect(50, 50, w - 100, h - 100);
+
+      } else {
+        // Model 5: Golden Stage Fest
+        var grad = ctx.createLinearGradient(0, 0, 0, h);
+        grad.addColorStop(0, '#1c1917');
+        grad.addColorStop(0.45, '#451a03');
+        grad.addColorStop(1, '#0c0a09');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, w, h);
+
+        ctx.strokeStyle = '#fbbf24';
+        ctx.lineWidth = 14;
+        ctx.strokeRect(40, 40, w - 80, h - 80);
+
+        ctx.strokeStyle = '#fef3c7';
+        ctx.lineWidth = 4;
+        ctx.strokeRect(60, 60, w - 120, h - 120);
+      }
+
+      renderPosterTypography(ctx, canvas, name, team, cat, prog, pos, subHeader, greeting);
+    }
+
+    function renderPosterTypography(ctx, canvas, name, team, cat, prog, pos, subHeader, greeting) {
+      var w = canvas.width;
+
+      ctx.textAlign = 'center';
+
+      // 1. Header Festival Title
+      ctx.fillStyle = '#ffffff';
+      ctx.font = "800 64px 'Gayathri', 'Anek Malayalam', sans-serif";
+      ctx.fillText("മാലീ സിവാക", w / 2, 190);
+
+      // Subheader
+      ctx.fillStyle = '#38bdf8';
+      ctx.font = "700 24px 'Cinzel', serif";
+      ctx.letterSpacing = "4px";
+      ctx.fillText(subHeader.toUpperCase(), w / 2, 240);
+
+      // 2. Hearty Congratulations ribbon
+      ctx.fillStyle = '#f59e0b';
+      ctx.font = "700 26px 'Poppins', sans-serif";
+      ctx.letterSpacing = "2px";
+      ctx.fillText(greeting, w / 2, 360);
+
+      // 3. Position Capsule
+      var pillWidth = 560;
+      var pillHeight = 76;
+      var pillX = (w - pillWidth) / 2;
+      var pillY = 410;
+
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath();
+      ctx.roundRect(pillX, pillY, pillWidth, pillHeight, 38);
+      ctx.fill();
+
+      ctx.fillStyle = '#0f172a';
+      ctx.font = "800 36px 'Poppins', sans-serif";
+      ctx.fillText("★  " + pos.toUpperCase() + "  ★", w / 2, pillY + 52);
+
+      // 4. Candidate Name
+      ctx.fillStyle = '#ffffff';
+      ctx.font = "800 70px 'Poppins', sans-serif";
+      
+      // Auto size adjustment for long candidate names
+      if (name.length > 18) {
+        ctx.font = "800 52px 'Poppins', sans-serif";
+      }
+      ctx.fillText(name, w / 2, 620);
+
+      // 5. Team Badge
+      ctx.fillStyle = '#fcd34d';
+      ctx.font = "700 34px 'Poppins', sans-serif";
+      ctx.fillText("TEAM " + team.toUpperCase() + " (" + cat.toUpperCase() + ")", w / 2, 690);
+
+      // 6. Program Card Box
+      var boxW = 860;
+      var boxH = 170;
+      var boxX = (w - boxW) / 2;
+      var boxY = 790;
+
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.roundRect(boxX, boxY, boxW, boxH, 16);
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.fillStyle = '#94a3b8';
+      ctx.font = "600 22px 'Poppins', sans-serif";
+      ctx.fillText("COMPETITION ITEM", w / 2, boxY + 55);
+
+      ctx.fillStyle = '#ffffff';
+      ctx.font = "800 44px 'Poppins', sans-serif";
+      ctx.fillText(prog, w / 2, boxY + 120);
+
+      // 7. Footer Official Endorsement
+      ctx.fillStyle = '#e2e8f0';
+      ctx.font = "500 22px 'Poppins', sans-serif";
+      ctx.fillText("MMO Orphanage • Fest Organizing Committee", w / 2, 1160);
+
+      ctx.fillStyle = '#64748b';
+      ctx.font = "500 17px 'Poppins', sans-serif";
+      ctx.fillText("Official Result Publication", w / 2, 1200);
+    }
+
+    function downloadPosterImage() {
+      var canvas = document.getElementById('posterCanvas');
+      var name = document.getElementById('pmCandidateName').value.trim() || 'Winner';
+      var prog = document.getElementById('pmProgram').value.trim() || 'Result';
+
+      var link = document.createElement('a');
+      link.download = `MeeladFest_${name.replace(/\s+/g, '_')}_${prog.replace(/\s+/g, '_')}_Poster.png`;
+      link.href = canvas.toDataURL('image/png', 1.0);
+      link.click();
+    }
+
+    /* 7. POINT TABLE */
+    function addManualCategoryScore() {
+      var cat = document.getElementById('ptCategory').value;
+      var team = document.getElementById('ptTeam').value;
+      var reason = document.getElementById('ptReason').value.trim() || "Manual Mark";
+      var marks = Number(document.getElementById('ptMarks').value) || 0;
+
+      festResults.push({
+        id: Date.now(),
+        regNo: '-',
+        name: reason,
+        team: team,
+        category: cat,
+        program: reason,
+        mark: marks,
+        grade: '-',
+        place: '-',
+        published: 'YES'
+      });
+
+      saveAllData();
+      document.getElementById('ptReason').value = "";
+      document.getElementById('ptMarks').value = "";
+    }
+
+    function buildPointTables() {
+      var teams = ["Qurthuba", "Qusdiya", "Qahira"];
+      var teamScores = { "Qurthuba": 0, "Qusdiya": 0, "Qahira": 0 };
+      var categories = ["SENIOR", "JUNIOR", "SUB-JUNIOR", "GENERAL"];
+      var catScores = {
+        "SENIOR": { "Qurthuba": 0, "Qusdiya": 0, "Qahira": 0 },
+        "JUNIOR": { "Qurthuba": 0, "Qusdiya": 0, "Qahira": 0 },
+        "SUB-JUNIOR": { "Qurthuba": 0, "Qusdiya": 0, "Qahira": 0 },
+        "GENERAL": { "Qurthuba": 0, "Qusdiya": 0, "Qahira": 0 }
+      };
+
+      festResults.forEach(r => {
+        var m = Number(r.mark || 0);
+        if (teamScores[r.team] !== undefined) teamScores[r.team] += m;
+        if (catScores[r.category] && catScores[r.category][r.team] !== undefined) {
+          catScores[r.category][r.team] += m;
+        }
+      });
+
+      var sortedTeams = teams.map(t => ({ team: t, score: teamScores[t] })).sort((a, b) => b.score - a.score);
+      var overallHtml = `
+        <table>
+          <thead><tr><th>Rank</th><th>Team</th><th>Total Score</th></tr></thead>
+          <tbody>
+            ${sortedTeams.map((s, idx) => `
+              <tr>
+                <td><b style="color:var(--navy-main); font-size:15px;">#${idx+1}</b></td>
+                <td><span class="badge team-badge-${s.team.toLowerCase()}">${s.team}</span></td>
+                <td style="font-weight:800; font-size:16px; color:var(--emerald-main);">${s.score} pts</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>`;
+      document.getElementById('teamPointsTable').innerHTML = overallHtml;
+      document.getElementById('adminPointTablePreview').innerHTML = overallHtml;
+
+      var catTablesHtml = categories.map(cat => `
+        <div style="margin-bottom:16px;">
+          <h4 style="color:var(--navy-main); font-size:13px; margin-bottom:6px; letter-spacing:0.5px;">${cat} STANDINGS</h4>
+          <table>
+            <thead><tr><th>Team</th><th>Score</th></tr></thead>
+            <tbody>
+              ${teams.map(t => `
+                <tr>
+                  <td><span class="badge team-badge-${t.toLowerCase()}">${t}</span></td>
+                  <td style="font-weight:700; color:var(--navy-dark); font-size:15px;">${catScores[cat][t]} pts</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      `).join('');
+      document.getElementById('categoryBreakdownTables').innerHTML = catTablesHtml;
+
+      buildCarousel(catScores, sortedTeams);
+
+      liveAnnouncedResults = festResults.filter(r => r.place && r.place !== '-' && r.published === 'YES').map(r => ({
+        program: r.program, category: r.category, winner: r.name + ' (' + r.team + ') - ' + r.place,
+        rawObj: r
+      }));
+      rotateAnnouncedResult();
+    }
+
+    function buildCarousel(catScores, sortedTeams) {
+      carouselSlides

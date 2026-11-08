@@ -1,0 +1,124 @@
+/* Meelad Fest 2k26 visual upgrade. Link this file after your existing styles. */
+@import url('https://fonts.googleapis.com/css2?family=Marcellus&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --bg-main: #f6f3ea;
+  --navy-dark: #062a24;
+  --navy-main: #0b5d4b;
+  --navy-light: #0e8a6d;
+  --navy-soft: #e3f3ec;
+  --emerald-main: #0b7a5f;
+  --gold: #c9a24b;
+  --gold-soft: #f4e8c8;
+  --border-color: #e6dfcc;
+  --text-muted: #6b6f64;
+  --star: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 72 72'%3E%3Cpath d='M36 6l6.2 13.1L56 14.6l-4.5 13.9L66 36l-14.5 7.5L56 57.4l-13.8-4.5L36 66l-6.2-13.1L16 57.4l4.5-13.9L6 36l14.5-7.5L16 14.6l13.8 4.5z' fill='none' stroke='%23c9a24b' stroke-opacity='.22' stroke-width='1.2'/%3E%3C/svg%3E");
+}
+
+* { font-family: 'Plus Jakarta Sans', 'Poppins', sans-serif; }
+html, body {
+  background-color: var(--bg-main);
+  background-image: var(--star);
+  background-size: 72px 72px;
+}
+
+/* ---------- Header: the one bold moment ---------- */
+.top-header {
+  min-height: 230px;
+  border: 0;
+  border-radius: 22px;
+  background:
+    var(--star),
+    radial-gradient(circle at 50% 120%, rgba(201,162,75,.35), transparent 55%),
+    linear-gradient(160deg, #04211c 0%, #0b5d4b 60%, #083d33 100%),
+    url('title-logo.png') center/cover no-repeat;
+  background-size: 72px 72px, auto, auto, cover;
+  box-shadow: 0 18px 40px rgba(6,42,36,.28), inset 0 0 0 1.5px rgba(201,162,75,.55), inset 0 0 0 6px rgba(6,42,36,.6), inset 0 0 0 7px rgba(201,162,75,.3);
+}
+.fest-title-malayalam {
+  font-size: clamp(40px, 9vw, 68px);
+  color: #fff6dc;
+  text-shadow: 0 3px 0 rgba(0,0,0,.35), 0 0 30px rgba(201,162,75,.55);
+}
+.sub-fest-title {
+  font-family: 'Marcellus', serif;
+  color: var(--gold);
+  font-size: clamp(13px, 3.4vw, 18px);
+  letter-spacing: 6px;
+  padding: 6px 18px;
+  border-top: 1px solid rgba(201,162,75,.6);
+  border-bottom: 1px solid rgba(201,162,75,.6);
+  margin-top: 12px;
+}
+.icon-btn { border-color: rgba(201,162,75,.6); background: rgba(4,33,28,.6); }
+.icon-btn:hover { background: var(--gold); color: #062a24; }
+
+/* ---------- Drawer ---------- */
+.side-drawer { background: #062a24; border-right: 2px solid var(--gold); }
+.side-drawer a { color: #f4e8c8; border-bottom: 1px solid rgba(201,162,75,.18); }
+.side-drawer a:hover { background: rgba(201,162,75,.15); color: #fff; }
+.side-drawer .close-btn { color: var(--gold); }
+
+/* ---------- Panels & cards ---------- */
+.view-panel {
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  background: rgba(255,255,255,.92);
+  box-shadow: 0 10px 30px rgba(6,42,36,.07);
+}
+.dashboard-card {
+  border-radius: 18px;
+  border: 1px solid var(--border-color);
+  background: linear-gradient(180deg, #fff, #fbf8ef);
+}
+.dashboard-card::after { width: 5px; background: linear-gradient(var(--gold), var(--navy-light)); }
+.dashboard-card h4 { color: var(--gold); font-family: 'Marcellus', serif; letter-spacing: 2px; }
+.quote-text { font-family: 'Marcellus', serif; font-size: 16px; color: var(--navy-dark); }
+h3 { font-family: 'Marcellus', serif; letter-spacing: .3px; }
+
+/* ---------- Tabs & buttons ---------- */
+.tab-btn { background: #fff; border-radius: 999px; }
+.tab-btn.active, .tab-btn:hover {
+  background: var(--navy-main);
+  border-color: var(--gold);
+  box-shadow: 0 6px 14px rgba(11,93,75,.28);
+}
+button.btn { background: linear-gradient(135deg, var(--navy-main), var(--navy-light)); border-radius: 10px; letter-spacing: .2px; }
+button.btn:hover { background: linear-gradient(135deg, var(--navy-dark), var(--navy-main)); box-shadow: 0 8px 18px rgba(6,42,36,.25); }
+button.btn-success { background: linear-gradient(135deg, #b8902f, var(--gold)); color: #1d1500; }
+button.btn-success:hover { background: linear-gradient(135deg, #a07d24, #b8902f); }
+button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+
+/* ---------- Inputs ---------- */
+input, select, textarea { border: 1.5px solid #d9d2bb; background: #fffdf8; border-radius: 10px; }
+input:focus, select:focus, textarea:focus { border-color: var(--gold); box-shadow: 0 0 0 4px rgba(201,162,75,.2); }
+.report-box { background: #fbf8ef; border: 1px dashed #d9c98f; border-radius: 16px; }
+
+/* ---------- Tables ---------- */
+.table-responsive { border-radius: 14px; border: 1px solid var(--border-color); box-shadow: 0 4px 14px rgba(6,42,36,.05); }
+th { background: var(--navy-dark); color: var(--gold-soft); border-bottom: 2px solid var(--gold); }
+tr:nth-child(even) { background: #fbf8ef; }
+tr:hover { background: var(--navy-soft); }
+.matrix-table th, .matrix-table td { border-color: #eee7d2; }
+.matrix-table th.sticky-col { background: var(--navy-dark); }
+.matrix-table td.sticky-col { background: #fff; }
+
+/* ---------- Badges: team colours made richer ---------- */
+.badge { border-radius: 999px; padding: 4px 12px; letter-spacing: .3px; }
+.team-badge-qurthuba { background: #ef4444; color: #fff; border: 0; }
+.team-badge-qusdiya  { background: #059669; color: #fff; border: 0; }
+.team-badge-qahira   { background: #0284c7; color: #fff; border: 0; }
+.badge-timer { background: var(--gold-soft); border-color: var(--gold); color: var(--navy-dark); }
+.live-pulse { animation: pulse 1.6s ease-out infinite; }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(11,122,95,.6); } 100% { box-shadow: 0 0 0 10px rgba(11,122,95,0); } }
+
+/* ---------- Poster studio ---------- */
+.poster-modal-dialog { border-radius: 20px; border: 2px solid var(--gold); }
+.model-btn.active { background: var(--navy-main); border-color: var(--gold); }
+.preview-stage { background: #04211c; }
+
+@media (max-width: 600px) {
+  .app-wrapper { padding: 10px; }
+  .view-panel { padding: 16px; }
+}
+@media (prefers-reduced-motion: reduce) { .live-pulse, .view-panel.active { animation: none; } }

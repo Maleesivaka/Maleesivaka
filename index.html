@@ -1,121 +1,372 @@
-/* Meelad Fest 2k26 — Tick-mark Entry Form
-   Load AFTER your main <script>:  <script src="entry-form.js"></script>
-   Replaces printEntryFormPDF() and adds a "Non-Stage" program type.
-   Rules: Individual items = max 3 participants per team. Group / Non-Stage / General = no limit. */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>മാലീ സിവാക | Meelad Fest 2k26</title>
+  <link href="https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@700;800&family=Cinzel:wght@700&family=Gayathri:wght@700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="enhance.css">
+</head>
+<body>
 
-(function () {
-  // Add "Non-Stage" to the program type dropdown
-  var pt = document.getElementById('progType');
-  if (pt && !pt.querySelector('option[value="Non-Stage"]')) {
-    pt.insertAdjacentHTML('beforeend', '<option value="Non-Stage">Non-Stage (നോൺ സ്റ്റേജ്)</option>');
-  }
-})();
+<div id="drawerOverlay" class="overlay" onclick="closeNav()"></div>
+<div id="sideNav" class="side-drawer">
+  <span class="close-btn" onclick="closeNav()">&times;</span>
+  <a href="javascript:void(0)" onclick="showView('dashboardView')"><i class="fa-solid fa-chart-line"></i> Category Standings</a>
+  <a href="javascript:void(0)" onclick="showView('pointTableView')"><i class="fa-solid fa-trophy"></i> Point Table &amp; Leaderboard</a>
+  <a href="javascript:void(0)" onclick="showView('officialView')"><i class="fa-solid fa-user-shield"></i> Official Portal (Admin)</a>
+  <a href="javascript:void(0)" onclick="showView('teamView')"><i class="fa-solid fa-users"></i> Registered Candidates</a>
+</div>
 
-function printEntryFormPDF() {
-  var teams = ["Qahira", "Qusdiya", "Qurthuba"];
-  var categories = ["SENIOR", "JUNIOR", "SUB-JUNIOR"];
-  var MAX_INDIVIDUAL = 3;
-  var COLS_PER_PAGE = 16;
+<div class="app-wrapper">
+  <div class="top-header">
+    <div class="header-controls">
+      <div class="icon-btn" onclick="openNav()"><i class="fa-solid fa-bars"></i> Menu</div>
+      <div class="icon-btn" onclick="toggleFullScreen()"><i class="fa-solid fa-expand" id="fsIcon"></i> Full Screen</div>
+    </div>
+    <div class="title-banner">
+      <h1 class="fest-title-malayalam">മാലീ സിവാക</h1>
+      <div class="sub-fest-title">Meelad Fest 2k26</div>
+    </div>
+  </div>
 
-  var selTeam = document.getElementById('searchTeam') ? document.getElementById('searchTeam').value : "";
-  var selCat = document.getElementById('searchCategory') ? document.getElementById('searchCategory').value : "";
-  var printTeams = selTeam ? [selTeam] : teams;
-  var printCats = selCat ? [selCat] : categories;
+  <!-- 1. DASHBOARD -->
+  <div id="dashboardView" class="view-panel active">
+    <div class="dashboard-split">
+      <div class="dashboard-card">
+        <h4><i class="fa-solid fa-quote-left"></i> Prophetic Wisdom</h4>
+        <div id="quoteDisplay">
+          <div class="quote-text">"The best among you are those who have the best manners and character."</div>
+          <div class="quote-translation"><b>തർജ്ജമ:</b> നിങ്ങളിൽ ഏറ്റവും ഉത്തമർ അത്യുത്തമമായ സ്വഭാവഗുണമുള്ളവരാണ്.</div>
+        </div>
+      </div>
+      <div class="dashboard-card">
+        <h4><i class="fa-solid fa-bullhorn"></i> Live Published Results</h4>
+        <div id="announcedDisplay"><div class="result-program">Loading live cloud data...</div></div>
+      </div>
+    </div>
+    <hr style="margin:16px 0;border:0;border-top:1px solid var(--border-color);">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;flex-wrap:wrap;gap:10px;">
+      <h3 id="displayHeaderTitle" style="color:var(--navy-dark);font-size:1.25rem;font-weight:700;">Category Marksheet Carousel</h3>
+      <span class="badge-timer" id="rotatorTimerBadge"><span class="live-pulse"></span> Auto-Sync: 30s</span>
+    </div>
+    <div id="carouselCardContainer"><p style="color:var(--text-muted);">Synchronizing with cloud database...</p></div>
+    <hr style="margin:26px 0 18px 0;border:0;border-top:2px solid var(--border-color);">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+      <div>
+        <h3 style="color:var(--navy-dark);font-size:1.25rem;font-weight:700;"><i class="fa-solid fa-table-cells"></i> Detailed Student Marksheet Matrix</h3>
+        <p style="font-size:12px;color:var(--text-muted);">Candidate-wise marks scored across announced competition items.</p>
+      </div>
+      <select id="matrixCatFilter" onchange="renderStudentProgramMatrix()" style="margin:0;padding:6px 12px;width:auto;font-size:12px;font-weight:600;">
+        <option value="ALL">All Categories</option>
+        <option value="SENIOR">Senior</option>
+        <option value="JUNIOR">Junior</option>
+        <option value="SUB-JUNIOR">Sub-Junior</option>
+      </select>
+    </div>
+    <div id="studentProgramMatrixContainer" class="table-responsive"></div>
+  </div>
 
-  var teamColor = { Qahira: "#0284c7", Qusdiya: "#059669", Qurthuba: "#ef4444" };
-  var box = '<span class="box"></span>';
-  var pages = "";
+  <!-- 2. POINT TABLE -->
+  <div id="pointTableView" class="view-panel">
+    <h3 style="margin-bottom:14px;color:var(--navy-dark);font-size:1.3rem;"><i class="fa-solid fa-trophy"></i> Grand Team Leaderboard</h3>
+    <div id="teamPointsTable" class="table-responsive"></div>
+    <hr style="margin:22px 0;border:0;border-top:1px solid var(--border-color);">
+    <h3 style="margin-bottom:14px;color:var(--navy-dark);font-size:1.3rem;"><i class="fa-solid fa-layer-group"></i> Category-Wise Breakdown Tables</h3>
+    <div id="categoryBreakdownTables"></div>
+    <hr style="margin:22px 0;border:0;border-top:1px solid var(--border-color);">
+    <h3 style="margin-bottom:8px;"><i class="fa-solid fa-magnifying-glass"></i> Student Score Lookup</h3>
+    <input type="text" id="studentRegNo" placeholder="Enter Registration No (e.g. MMOSA01)">
+    <button class="btn" onclick="lookupResult()"><i class="fa-solid fa-search"></i> Search Score</button>
+    <div id="studentResultBox" style="margin-top:10px;"></div>
+  </div>
 
-  printTeams.forEach(function (team) {
-    printCats.forEach(function (cat) {
-      var members = festCandidates.filter(function (c) { return c.team === team && c.category === cat; });
+  <!-- 3. ADMIN PORTAL -->
+  <div id="officialView" class="view-panel">
+    <h3 style="margin-bottom:4px;color:var(--navy-dark);font-size:1.3rem;"><i class="fa-solid fa-user-shield"></i> Official Management Portal</h3>
+    <p style="font-size:12px;color:var(--text-muted);margin-bottom:18px;">Admin access to enter and manage programs, candidates, and live scores across all devices.</p>
 
-      var inCat = festPrograms.filter(function (p) { return p.category === cat; });
-      var gen = festPrograms.filter(function (p) { return p.type === 'General' || p.category === 'GENERAL'; });
-      var progs = []
-        .concat(inCat.filter(function (p) { return p.type === 'Individual'; }).map(function (p) { p._g = 'INDIVIDUAL (MAX 3)'; return p; }))
-        .concat(inCat.filter(function (p) { return p.type === 'Group'; }).map(function (p) { p._g = 'GROUP'; return p; }))
-        .concat(inCat.filter(function (p) { return p.type === 'Non-Stage'; }).map(function (p) { p._g = 'NON-STAGE'; return p; }))
-        .concat(gen.map(function (p) { p._g = 'GENERAL'; return p; }));
+    <div id="officialAuth">
+      <input type="text" id="officialUser" placeholder="Admin Username">
+      <input type="password" id="officialPass" placeholder="Admin Password">
+      <button class="btn" onclick="authOfficial()"><i class="fa-solid fa-right-to-bracket"></i> Login as Admin</button>
+      <div id="officialLoginErr" style="color:#ef4444;font-size:12px;margin-top:8px;"></div>
+    </div>
 
-      var rowsCount = Math.max(members.length, 10);
-      var chunks = [];
-      for (var i = 0; i < progs.length; i += COLS_PER_PAGE) chunks.push(progs.slice(i, i + COLS_PER_PAGE));
-      if (chunks.length === 0) chunks.push([]);
+    <div id="officialContent" style="display:none;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:8px;">
+        <span class="badge" style="background:#059669;color:#fff;">🔑 Admin Mode Active</span>
+        <div style="display:flex;gap:8px;">
+          <button onclick="syncToCloud()" style="padding:7px 14px;font-size:12px;background:var(--emerald-main);color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:600;"><i class="fa-solid fa-cloud-arrow-up"></i> Save to Cloud</button>
+          <button onclick="logoutOfficial()" style="padding:7px 14px;font-size:12px;background:#ef4444;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:600;">Logout</button>
+        </div>
+      </div>
 
-      chunks.forEach(function (chunk, ci) {
-        // group header cells
-        var groupHead = "", last = null, span = 0;
-        chunk.forEach(function (p, idx) {
-          if (p._g !== last) {
-            if (last !== null) groupHead += '<th colspan="' + span + '" class="grp">' + last + '</th>';
-            last = p._g; span = 0;
-          }
-          span++;
-          if (idx === chunk.length - 1) groupHead += '<th colspan="' + span + '" class="grp">' + last + '</th>';
-        });
+      <div class="official-tabs">
+        <button class="tab-btn active" onclick="openOfficialSubTab('tabPrograms')"><i class="fa-solid fa-list-check"></i> Programs</button>
+        <button class="tab-btn" onclick="openOfficialSubTab('tabCandidates')"><i class="fa-solid fa-user-plus"></i> Candidates</button>
+        <button class="tab-btn" onclick="openOfficialSubTab('tabJudges')"><i class="fa-solid fa-scale-balanced"></i> Judges</button>
+        <button class="tab-btn" onclick="openOfficialSubTab('tabResult')"><i class="fa-solid fa-square-poll-vertical"></i> Result</button>
+        <button class="tab-btn" onclick="openOfficialSubTab('tabPointTable')"><i class="fa-solid fa-trophy"></i> Point Table</button>
+      </div>
 
-        var progHead = chunk.map(function (p) {
-          return '<th class="vt"><div>' + p.name + '</div></th>';
-        }).join('');
+      <div id="tabPrograms" class="official-tab-content active">
+        <div class="report-box">
+          <h4 style="color:var(--navy-dark);margin-bottom:10px;"><i class="fa-solid fa-plus-circle"></i> Add Competition Program</h4>
+          <div class="form-grid">
+            <div>
+              <label style="font-size:12px;color:var(--text-muted);">Program Type:</label>
+              <select id="progType" onchange="toggleCategorySelect()">
+                <option value="Individual">Individual (വ്യക്തിഗതം)</option>
+                <option value="Group">Group (ഗ്രൂപ്പ് ഇനം)</option>
+                <option value="Non-Stage">Non-Stage (നോൺ സ്റ്റേജ്)</option>
+                <option value="General">General (ഓൾ ടീം / ജനറൽ ഗ്രൂപ്പ്)</option>
+              </select>
+            </div>
+            <div id="progCatWrapper">
+              <label style="font-size:12px;color:var(--text-muted);">Category:</label>
+              <select id="progCategory">
+                <option value="SENIOR">Senior</option>
+                <option value="JUNIOR">Junior</option>
+                <option value="SUB-JUNIOR">Sub-Junior</option>
+              </select>
+            </div>
+          </div>
+          <div id="programRowsContainer">
+            <div class="program-input-row" style="display:flex;gap:8px;margin-bottom:8px;">
+              <input type="text" class="prog-name-input" placeholder="Enter Program Name (e.g. Qira'at, Quiz, Madih, Duff)">
+            </div>
+          </div>
+          <div style="display:flex;gap:10px;">
+            <button class="btn" type="button" onclick="addMoreProgramRow()" style="background:#e2e8f0;color:var(--navy-dark);"><i class="fa-solid fa-plus"></i> + Add More</button>
+            <button class="btn btn-success" type="button" onclick="savePrograms()"><i class="fa-solid fa-save"></i> Save Programs</button>
+          </div>
+        </div>
+        <h4 style="color:var(--navy-dark);margin:18px 0 8px 0;">📋 Listed Competition Programs</h4>
+        <div id="programsListTable" class="table-responsive"></div>
+      </div>
 
-        var body = "";
-        for (var r = 0; r < rowsCount; r++) {
-          var m = members[r];
-          body += '<tr><td class="c">' + (r + 1) + '</td><td class="reg">' + (m ? m.regNo : '') + '</td><td class="nm">' + (m ? m.name : '') + '</td>' +
-            chunk.map(function () { return '<td class="c">' + box + '</td>'; }).join('') +
-            '<td class="c tot"></td></tr>';
-        }
+      <div id="tabCandidates" class="official-tab-content">
+        <div class="report-box">
+          <h4 style="color:var(--navy-dark);margin-bottom:6px;"><i class="fa-solid fa-users"></i> Add Multiple Candidates / Members</h4>
+          <p style="font-size:12px;color:var(--text-muted);margin-bottom:14px;">Select the Category and Team below. The registration numbers will automatically update. Type all candidate names and click <b>Save All Members</b>.</p>
+          <div class="form-grid">
+            <div>
+              <label style="font-size:12px;font-weight:700;color:var(--navy-dark);">1. Select Category:</label>
+              <select id="candCategory" onchange="refreshCandidateRowsReg()">
+                <option value="SENIOR">Senior (S)</option>
+                <option value="JUNIOR">Junior (J)</option>
+                <option value="SUB-JUNIOR">Sub-Junior (SJ)</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size:12px;font-weight:700;color:var(--navy-dark);">2. Select Team:</label>
+              <select id="candTeam" onchange="refreshCandidateRowsReg()">
+                <option value="Qahira">Qahira (ഖാഹിറ) - A (Blue)</option>
+                <option value="Qusdiya">Qusdiya (ഖുദ്‌സിയ) - B (Green)</option>
+                <option value="Qurthuba">Qurthuba (ഖുർത്തുബ) - C (Red)</option>
+              </select>
+            </div>
+          </div>
+          <div style="background:#fff;border:1.5px solid var(--border-color);border-radius:12px;padding:14px;margin-bottom:14px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+              <label style="font-size:13px;font-weight:700;color:var(--navy-main);">Candidate Names &amp; Auto Reg Numbers:</label>
+              <button type="button" onclick="addCandidateRow()" style="background:#e0f2fe;color:var(--navy-main);font-weight:700;border:1px solid #bae6fd;border-radius:6px;padding:5px 12px;font-size:12.5px;cursor:pointer;"><i class="fa-solid fa-plus"></i> + Add More Member</button>
+            </div>
+            <div id="candidateRowsContainer"></div>
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <button class="btn btn-success" style="flex:1;min-width:180px;" onclick="saveBatchCandidates()"><i class="fa-solid fa-save"></i> Save All Members</button>
+            <button class="btn" style="background:var(--navy-main);flex:1;min-width:180px;" onclick="printTeamListPDF()"><i class="fa-solid fa-print"></i> Print Full Team List</button>
+            <button class="btn" style="background:#0284c7;flex:1;min-width:180px;" onclick="printEntryFormPDF()"><i class="fa-solid fa-file-signature"></i> Print Entry Form</button>
+          </div>
+        </div>
+        <h4 style="color:var(--navy-dark);margin:18px 0 8px 0;">👥 Registered Candidates Directory</h4>
+        <div id="candidatesListTable" class="table-responsive"></div>
+      </div>
 
-        var countRow = '<tr class="cnt"><td colspan="3" class="nm"><b>Total ticks per item</b></td>' +
-          chunk.map(function (p) {
-            return p.type === 'Individual'
-              ? '<td class="c lim"></td>'
-              : '<td class="c" style="color:#94a3b8;">–</td>';
-          }).join('') + '<td></td></tr>';
+      <div id="tabJudges" class="official-tab-content">
+        <div class="report-box">
+          <h4 style="color:var(--navy-dark);margin-bottom:10px;"><i class="fa-solid fa-print"></i> Judges Slip Print Setup</h4>
+          <div class="form-grid">
+            <div>
+              <label style="font-size:12px;color:var(--text-muted);">Category / Scope:</label>
+              <select id="judgeCatSelect" onchange="updateJudgeProgramDropdown()">
+                <option value="SENIOR">Senior</option>
+                <option value="JUNIOR">Junior</option>
+                <option value="SUB-JUNIOR">Sub-Junior</option>
+                <option value="GENERAL">General (All Teams)</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size:12px;color:var(--text-muted);">Competition Item:</label>
+              <select id="judgeItemSelect"></select>
+            </div>
+          </div>
+          <button class="btn btn-success" onclick="printJudgesSlip()"><i class="fa-solid fa-print"></i> Print Official Judges Slips (A to I)</button>
+        </div>
+      </div>
 
-        pages += '<div class="page">' +
-          '<div class="hdr"><div class="ml">മാലീ സിവാക</div><div class="sub">Meelad Fest 2k26</div>' +
-          '<div class="badge" style="background:' + (teamColor[team] || '#1e3a8a') + '">OFFICIAL ENTRY FORM — TICK TO REGISTER</div></div>' +
-          '<div class="meta"><div><b>TEAM:</b> ' + team.toUpperCase() + '</div><div><b>CATEGORY:</b> ' + cat + '</div>' +
-          '<div><b>DATE:</b> ____ / ____ / 2026</div><div><b>SHEET:</b> ' + (ci + 1) + ' / ' + chunks.length + '</div></div>' +
-          '<div class="rules"><b>How to fill:</b> Put a tick (✓) in the box for every item a candidate will take part in. ' +
-          '<b>Individual items: at most ' + MAX_INDIVIDUAL + ' candidates per team.</b> Group, Non-Stage and General items have no limit. ' +
-          'Write the total ticks of each Individual item in the last row — it must not exceed ' + MAX_INDIVIDUAL + '.</div>' +
-          (chunk.length === 0 ? '<p style="color:#b91c1c;padding:12px;">No programs have been added for this category yet.</p>' :
-          '<table><thead><tr><th rowspan="2" style="width:7mm">#</th><th rowspan="2" style="width:24mm">Reg No</th><th rowspan="2" style="width:52mm">Candidate Name</th>' +
-          groupHead + '<th rowspan="2" style="width:12mm">Total</th></tr><tr>' + progHead + '</tr></thead><tbody>' + body + countRow + '</tbody></table>') +
-          '<div class="sign"><div>Team Captain Sign: ____________________</div><div>Fest Convener Sign: ____________________</div></div>' +
-          '</div>';
-      });
-    });
-  });
+      <div id="tabResult" class="official-tab-content">
+        <div class="report-box">
+          <h4 id="resultFormTitle" style="color:var(--navy-dark);margin-bottom:10px;"><i class="fa-solid fa-award"></i> Add / Edit Results</h4>
+          <div class="form-grid">
+            <div>
+              <label style="font-size:12px;color:var(--text-muted);">Category / Scope:</label>
+              <select id="resCategory" onchange="updateResultProgramDropdown()">
+                <option value="SENIOR">Senior</option>
+                <option value="JUNIOR">Junior</option>
+                <option value="SUB-JUNIOR">Sub-Junior</option>
+                <option value="GENERAL">General (Open Group)</option>
+              </select>
+            </div>
+            <div><label style="font-size:12px;color:var(--text-muted);">Competition Item:</label><select id="resItemSelect"></select></div>
+            <div><label style="font-size:12px;color:var(--text-muted);">Participant / Squad:</label><select id="resCandidateSelect"></select></div>
+            <div><label style="font-size:12px;color:var(--text-muted);">Mark / Score:</label><input type="number" id="resMark" placeholder="Score (e.g. 10)"></div>
+          </div>
+          <div class="form-grid">
+            <div><label style="font-size:12px;color:var(--text-muted);">Grade:</label><input type="text" id="resGrade" placeholder="Grade (A+, A, B, C...)"></div>
+            <div>
+              <label style="font-size:12px;color:var(--text-muted);">Position (Place):</label>
+              <select id="resPlace">
+                <option value="-">None (-)</option>
+                <option value="1st">1st Place</option>
+                <option value="2nd">2nd Place</option>
+                <option value="3rd">3rd Place</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size:12px;color:var(--text-muted);">Publish Status:</label>
+              <select id="resPublished">
+                <option value="YES">Publish to Live Portal</option>
+                <option value="NO">Draft (Hidden)</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn btn-success" onclick="saveResultEntry()"><i class="fa-solid fa-save"></i> Save &amp; Update Result</button>
+        </div>
+        <h4 style="color:var(--navy-dark);margin:18px 0 8px 0;">🏆 Evaluated Results &amp; Posters</h4>
+        <div id="resultsAdminTable" class="table-responsive"></div>
+      </div>
 
-  var win = window.open('', '_blank');
-  var html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Entry Form - Meelad Fest 2k26</title>' +
-    '<link href="https://fonts.googleapis.com/css2?family=Gayathri:wght@700&family=Marcellus&display=swap" rel="stylesheet">' +
-    '<style>' +
-    '@page{size:A4 landscape;margin:8mm}' +
-    '*{box-sizing:border-box;font-family:"Segoe UI",Tahoma,sans-serif}' +
-    'body{margin:0;color:#0f172a;-webkit-print-color-adjust:exact;print-color-adjust:exact}' +
-    '.page{page-break-after:always;border:2px solid #0b5d4b;border-radius:6px;padding:6mm;min-height:190mm}' +
-    '.hdr{text-align:center;border-bottom:2px solid #c9a24b;padding-bottom:4px;margin-bottom:6px}' +
-    '.ml{font-family:Gayathri,sans-serif;font-size:24px;font-weight:800}' +
-    '.sub{font-family:Marcellus,serif;letter-spacing:4px;color:#0b5d4b;font-size:13px}' +
-    '.badge{display:inline-block;color:#fff;font-size:10px;font-weight:700;padding:2px 12px;border-radius:10px;margin-top:3px;letter-spacing:1px}' +
-    '.meta{display:flex;justify-content:space-between;background:#f6f3ea;border:1px solid #d9c98f;padding:5px 10px;font-size:12px;margin-bottom:5px}' +
-    '.rules{font-size:10.5px;background:#fff8e1;border-left:4px solid #c9a24b;padding:5px 8px;margin-bottom:6px;line-height:1.4}' +
-    'table{width:100%;border-collapse:collapse;table-layout:fixed}' +
-    'th,td{border:1px solid #64748b;padding:2px 3px;font-size:11px;height:8.5mm}' +
-    'th{background:#062a24;color:#f4e8c8;font-size:10px}' +
-    'th.grp{background:#0b5d4b;font-size:9px;letter-spacing:.5px}' +
-    'th.vt{height:30mm;padding:2px;background:#e3f3ec;color:#062a24}' +
-    'th.vt div{writing-mode:vertical-rl;transform:rotate(180deg);margin:0 auto;font-size:10px;max-height:28mm;overflow:hidden}' +
-    'td.c{text-align:center}td.reg{font-weight:700;font-size:10px}td.nm{font-size:11px}' +
-    '.box{display:inline-block;width:5mm;height:5mm;border:1.5px solid #0f172a;border-radius:1px;vertical-align:middle}' +
-    'tr.cnt td{background:#f6f3ea}td.lim{background:#fff8e1}' +
-    '.sign{display:flex;justify-content:space-between;margin-top:14px;font-size:11.5px;font-weight:700;color:#0b5d4b}' +
-    '</style></head><body>' + pages + '<script>window.print();<\/script></body></html>';
-  win.document.write(html);
-  win.document.close();
-}
+      <div id="tabPointTable" class="official-tab-content">
+        <div class="report-box">
+          <h4 style="color:var(--navy-dark);margin-bottom:8px;"><i class="fa-solid fa-sliders"></i> Manual Score Adjustment</h4>
+          <div class="form-grid">
+            <select id="ptCategory">
+              <option value="SENIOR">Senior</option>
+              <option value="JUNIOR">Junior</option>
+              <option value="SUB-JUNIOR">Sub-Junior</option>
+              <option value="GENERAL">General</option>
+            </select>
+            <select id="ptTeam">
+              <option value="Qurthuba">Qurthuba (Red)</option>
+              <option value="Qusdiya">Qusdiya (Green)</option>
+              <option value="Qahira">Qahira (Blue)</option>
+            </select>
+            <input type="text" id="ptReason" placeholder="Event / Program Name">
+            <input type="number" id="ptMarks" placeholder="Marks (e.g. 5, 3, 1)">
+          </div>
+          <button class="btn btn-success" onclick="addManualCategoryScore()"><i class="fa-solid fa-plus"></i> Add Team Score</button>
+        </div>
+        <h4 style="color:var(--navy-dark);margin:18px 0 8px 0;">📊 Category Point Standings Preview</h4>
+        <div id="adminPointTablePreview" class="table-responsive"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. REGISTERED CANDIDATES -->
+  <div id="teamView" class="view-panel">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
+      <div>
+        <h3 style="color:var(--navy-dark);font-size:1.3rem;"><i class="fa-solid fa-users"></i> Registered Candidates</h3>
+        <p style="font-size:12px;color:var(--text-muted);">Search entries across Qurthuba, Qusdiya, and Qahira, or print official forms.</p>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="btn" style="width:auto;padding:8px 16px;background:var(--navy-main);" onclick="printTeamListPDF()"><i class="fa-solid fa-print"></i> Print Team List PDF</button>
+        <button class="btn" style="width:auto;padding:8px 16px;background:var(--emerald-main);" onclick="printEntryFormPDF()"><i class="fa-solid fa-file-signature"></i> Print Entry Form</button>
+      </div>
+    </div>
+    <div class="search-row">
+      <input type="text" id="searchReg" onkeyup="filterStudents()" placeholder="🔍 By Reg No (e.g. MMOSA01)...">
+      <input type="text" id="searchName" onkeyup="filterStudents()" placeholder="🔍 By Name...">
+      <select id="searchCategory" onchange="filterStudents()">
+        <option value="">All Categories</option>
+        <option value="SENIOR">Senior</option>
+        <option value="JUNIOR">Junior</option>
+        <option value="SUB-JUNIOR">Sub-Junior</option>
+      </select>
+      <select id="searchTeam" onchange="filterStudents()">
+        <option value="">All Teams</option>
+        <option value="Qurthuba">Qurthuba (Red)</option>
+        <option value="Qusdiya">Qusdiya (Green)</option>
+        <option value="Qahira">Qahira (Blue)</option>
+      </select>
+    </div>
+    <div id="teamMembersTable" class="table-responsive"></div>
+  </div>
+</div>
+
+<!-- 5. POSTER STUDIO -->
+<div id="posterStudioModal" class="poster-modal">
+  <div class="poster-modal-dialog">
+    <div class="poster-modal-header">
+      <h3 style="color:var(--navy-dark);font-size:16px;display:flex;align-items:center;gap:8px;"><i class="fa-solid fa-wand-magic-sparkles"></i> Meelad Fest Poster Studio</h3>
+      <span style="font-size:26px;cursor:pointer;color:var(--text-muted);" onclick="closePosterStudio()">&times;</span>
+    </div>
+    <div class="poster-modal-body">
+      <div>
+        <label style="font-size:12px;font-weight:700;color:var(--navy-main);margin-bottom:6px;display:block;">Select Design Model:</label>
+        <div class="model-selector-bar">
+          <button class="model-btn active" onclick="setPosterModel(1)">Model 1<br><small>Royal Blue</small></button>
+          <button class="model-btn" onclick="setPosterModel(2)">Model 2<br><small>Emerald</small></button>
+          <button class="model-btn" onclick="setPosterModel(3)">Model 3<br><small>Burgundy</small></button>
+          <button class="model-btn" onclick="setPosterModel(4)">Model 4<br><small>Midnight</small></button>
+          <button class="model-btn" onclick="setPosterModel(5)">Model 5<br><small>Golden Fest</small></button>
+        </div>
+        <label style="font-size:12px;font-weight:600;color:var(--text-muted);">Candidate Name:</label>
+        <input type="text" id="pmCandidateName" oninput="drawPosterPreview()" placeholder="Student Name">
+        <div style="display:flex;gap:10px;">
+          <div style="flex:1;">
+            <label style="font-size:12px;font-weight:600;color:var(--text-muted);">Position / Place:</label>
+            <select id="pmPosition" onchange="drawPosterPreview()">
+              <option value="FIRST PLACE">1st Place</option>
+              <option value="SECOND PLACE">2nd Place</option>
+              <option value="THIRD PLACE">3rd Place</option>
+              <option value="SPECIAL JURY">Special Jury</option>
+              <option value="A GRADE">A Grade</option>
+            </select>
+          </div>
+          <div style="flex:1;">
+            <label style="font-size:12px;font-weight:600;color:var(--text-muted);">Team:</label>
+            <select id="pmTeam" onchange="drawPosterPreview()">
+              <option value="Qahira">Qahira (Blue)</option>
+              <option value="Qusdiya">Qusdiya (Green)</option>
+              <option value="Qurthuba">Qurthuba (Red)</option>
+            </select>
+          </div>
+        </div>
+        <div style="display:flex;gap:10px;">
+          <div style="flex:1;"><label style="font-size:12px;font-weight:600;color:var(--text-muted);">Category:</label><input type="text" id="pmCategory" oninput="drawPosterPreview()" placeholder="Senior / Junior"></div>
+          <div style="flex:1;"><label style="font-size:12px;font-weight:600;color:var(--text-muted);">Program / Item:</label><input type="text" id="pmProgram" oninput="drawPosterPreview()" placeholder="e.g. Qira'at, Quiz"></div>
+        </div>
+        <label style="font-size:12px;font-weight:600;color:var(--text-muted);">Festival Title / Subtext:</label>
+        <input type="text" id="pmSubHeader" oninput="drawPosterPreview()" value="Meelad Fest 2k26 • MMO">
+        <label style="font-size:12px;font-weight:600;color:var(--text-muted);">Congratulatory Greeting:</label>
+        <input type="text" id="pmGreeting" oninput="drawPosterPreview()" value="MUBARAK! HEARTY CONGRATULATIONS">
+        <button class="btn btn-success" style="padding:13px;font-size:14px;margin-top:8px;" onclick="downloadPosterImage()"><i class="fa-solid fa-download"></i> Download Poster (High-Res PNG)</button>
+      </div>
+      <div class="preview-stage">
+        <canvas id="posterCanvas" width="1080" height="1350"></canvas>
+        <span style="color:#94a3b8;font-size:11px;margin-top:8px;">1080 × 1350 px (HD 4:5 Instagram &amp; WhatsApp Status Ready)</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+<script src="entry-form.js"></script>
+</body>
+</html>

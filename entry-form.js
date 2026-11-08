@@ -1,4 +1,4 @@
-/* Meelad Fest 2k26 — Tick-mark Entry Form
+/* MMO Arts Fest 2k26 — Tick-mark Entry Form
    Load AFTER your main <script>:  <script src="entry-form.js"></script>
    Replaces printEntryFormPDF() and adds a "Non-Stage" program type.
    Rules: Individual items = max 3 participants per team. Group / Non-Stage / General = no limit. */
@@ -75,7 +75,7 @@ function printEntryFormPDF() {
           }).join('') + '<td></td></tr>';
 
         pages += '<div class="page">' +
-          '<div class="hdr"><div class="ml">മാലീ സിവാക</div><div class="sub">Meelad Fest 2k26</div>' +
+          '<div class="hdr"><div class="ml">MMO Arts Fest</div><div class="sub">Campus Arts Festival 2k26</div>' +
           '<div class="badge" style="background:' + (teamColor[team] || '#1e3a8a') + '">OFFICIAL ENTRY FORM — TICK TO REGISTER</div></div>' +
           '<div class="meta"><div><b>TEAM:</b> ' + team.toUpperCase() + '</div><div><b>CATEGORY:</b> ' + cat + '</div>' +
           '<div><b>DATE:</b> ____ / ____ / 2026</div><div><b>SHEET:</b> ' + (ci + 1) + ' / ' + chunks.length + '</div></div>' +
@@ -92,7 +92,7 @@ function printEntryFormPDF() {
   });
 
   var win = window.open('', '_blank');
-  var html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Entry Form - Meelad Fest 2k26</title>' +
+  var html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Entry Form - MMO Arts Fest 2k26</title>' +
     '<link href="https://fonts.googleapis.com/css2?family=Gayathri:wght@700&family=Marcellus&display=swap" rel="stylesheet">' +
     '<style>' +
     '@page{size:A4 landscape;margin:8mm}' +
@@ -100,7 +100,7 @@ function printEntryFormPDF() {
     'body{margin:0;color:#0f172a;-webkit-print-color-adjust:exact;print-color-adjust:exact}' +
     '.page{page-break-after:always;border:2px solid #0b5d4b;border-radius:6px;padding:6mm;min-height:190mm}' +
     '.hdr{text-align:center;border-bottom:2px solid #c9a24b;padding-bottom:4px;margin-bottom:6px}' +
-    '.ml{font-family:Gayathri,sans-serif;font-size:24px;font-weight:800}' +
+    '.ml{font-family:Marcellus,serif;font-size:26px;font-weight:800;letter-spacing:3px;text-transform:uppercase}' +
     '.sub{font-family:Marcellus,serif;letter-spacing:4px;color:#0b5d4b;font-size:13px}' +
     '.badge{display:inline-block;color:#fff;font-size:10px;font-weight:700;padding:2px 12px;border-radius:10px;margin-top:3px;letter-spacing:1px}' +
     '.meta{display:flex;justify-content:space-between;background:#f6f3ea;border:1px solid #d9c98f;padding:5px 10px;font-size:12px;margin-bottom:5px}' +

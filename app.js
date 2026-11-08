@@ -283,7 +283,7 @@ function printTeamListPDF() {
     bodyContent += `
       <div style="page-break-after:always; margin-bottom:30px;">
         <div style="text-align:center; border-bottom:2px solid #1e3a8a; padding-bottom:8px; margin-bottom:15px;">
-          <h2 style="margin:0; font-size:24px; color:#0f172a;">മാലീ സിവാക | Meelad Fest 2k26</h2>
+          <h2 style="margin:0; font-size:24px; color:#0f172a;">MMO Arts Fest 2k26</h2>
           <h3 style="margin:4px 0 0 0; color:#0284c7; text-transform:uppercase;">OFFICIAL TEAM ROSTER: ${team.toUpperCase()}</h3>
         </div>`;
     categories.forEach(cat => {
@@ -314,7 +314,7 @@ function printTeamListPDF() {
       </div>`;
   });
 
-  var html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Official Team Lists - Meelad Fest 2k26</title>
+  var html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Official Team Lists - MMO Arts Fest 2k26</title>
     <style>
       @page { size: A4 portrait; margin: 12mm; }
       * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
@@ -339,7 +339,7 @@ function printJudgesSlip() {
   var item = document.getElementById('judgeItemSelect').value || "________________";
   var letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
   var win = window.open('', '_blank');
-  var html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Judges Evaluation Slip - Meelad Fest 2k26</title>
+  var html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Judges Evaluation Slip - MMO Arts Fest 2k26</title>
     <link href="https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@700&family=Cinzel:wght@700&family=Gayathri:wght@700&display=swap" rel="stylesheet">
     <style>
       @font-face { font-family: 'CustomFestFont'; src: url('custom-font.ttf') format('truetype'), url('ML-TTRavivarma.ttf') format('truetype'); font-weight: bold; font-style: normal; }
@@ -348,7 +348,7 @@ function printJudgesSlip() {
       body { background: #fff; color: #0f172a; margin: 0; padding: 0; }
       .slip-card { width: 100%; min-height: 270mm; border: 3px double #1e3a8a; border-radius: 8px; padding: 15mm 12mm; display: flex; flex-direction: column; justify-content: space-between; }
       .header-banner { text-align: center; border-bottom: 2px solid #1e3a8a; padding-bottom: 8px; margin-bottom: 15px; }
-      .title-malayalam { font-family: 'CustomFestFont', 'Gayathri', 'Anek Malayalam', sans-serif; font-size: 28px; font-weight: 800; }
+      .title-malayalam { font-family: 'Cinzel', serif; font-size: 28px; font-weight: 800; }
       .title-sub { font-family: 'Cinzel', serif; font-size: 17px; font-weight: 700; color: #1e3a8a; letter-spacing: 2px; text-transform: uppercase; }
       .title-desc { font-size: 12px; color: #059669; margin-top: 2px; font-weight: 700; }
       .meta-grid { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 14px; font-weight: 600; }
@@ -362,8 +362,8 @@ function printJudgesSlip() {
       <div class="slip-card">
         <div>
           <div class="header-banner">
-            <div class="title-malayalam">മാലീ സിവാക</div>
-            <div class="title-sub">Meelad Fest 2k26</div>
+            <div class="title-malayalam">MMO Arts Fest</div>
+            <div class="title-sub">Campus Arts Festival 2k26</div>
             <div class="title-desc">OFFICIAL JUDGES EVALUATION SLIP</div>
           </div>
           <div class="meta-grid">
@@ -484,7 +484,7 @@ function drawPosterPreview() {
   var cat = document.getElementById('pmCategory').value || "Senior";
   var prog = document.getElementById('pmProgram').value || "Competition Program";
   var pos = document.getElementById('pmPosition').value || "FIRST PLACE";
-  var subHeader = document.getElementById('pmSubHeader').value || "Meelad Fest 2k26 • MMO";
+  var subHeader = document.getElementById('pmSubHeader').value || "Campus Arts Festival 2k26 • MMO";
   var greeting = document.getElementById('pmGreeting').value || "MUBARAK! HEARTY CONGRATULATIONS";
 
   var bgImg = new Image();
@@ -536,8 +536,8 @@ function renderPosterTypography(ctx, canvas, name, team, cat, prog, pos, subHead
   ctx.textAlign = 'center';
 
   ctx.fillStyle = '#ffffff';
-  ctx.font = "800 64px 'Gayathri', 'Anek Malayalam', sans-serif";
-  ctx.fillText("മാലീ സിവാക", w / 2, 190);
+  ctx.font = "700 72px 'Cinzel', serif";
+  ctx.fillText("MMO ARTS FEST", w / 2, 190);
 
   ctx.fillStyle = '#38bdf8';
   ctx.font = "700 24px 'Cinzel', serif";
@@ -592,7 +592,7 @@ function downloadPosterImage() {
   var name = document.getElementById('pmCandidateName').value.trim() || 'Winner';
   var prog = document.getElementById('pmProgram').value.trim() || 'Result';
   var link = document.createElement('a');
-  link.download = `MeeladFest_${name.replace(/\s+/g, '_')}_${prog.replace(/\s+/g, '_')}_Poster.png`;
+  link.download = `MMOArtsFest_${name.replace(/\s+/g, '_')}_${prog.replace(/\s+/g, '_')}_Poster.png`;
   link.href = canvas.toDataURL('image/png', 1.0);
   link.click();
 }

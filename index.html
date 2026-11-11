@@ -111,6 +111,7 @@
       <div class="official-tabs">
         <button class="tab-btn active" onclick="openOfficialSubTab('tabPrograms')"><i class="fa-solid fa-list-check"></i> Programs</button>
         <button class="tab-btn" onclick="openOfficialSubTab('tabCandidates')"><i class="fa-solid fa-user-plus"></i> Candidates</button>
+        <button class="tab-btn" onclick="openOfficialSubTab('tabEntries')"><i class="fa-solid fa-square-check"></i> Entries</button>
         <button class="tab-btn" onclick="openOfficialSubTab('tabJudges')"><i class="fa-solid fa-scale-balanced"></i> Judges</button>
         <button class="tab-btn" onclick="openOfficialSubTab('tabResult')"><i class="fa-solid fa-square-poll-vertical"></i> Result</button>
         <button class="tab-btn" onclick="openOfficialSubTab('tabPointTable')"><i class="fa-solid fa-trophy"></i> Point Table</button>
@@ -138,6 +139,8 @@
               </select>
             </div>
           </div>
+          <label style="font-size:12px;color:var(--text-muted);">Max participants per team (leave blank = default: Individual 3, others no limit; 0 = no limit):</label>
+          <input type="number" id="progMax" min="0" placeholder="e.g. 3">
           <div id="programRowsContainer">
             <div class="program-input-row" style="display:flex;gap:8px;margin-bottom:8px;">
               <input type="text" class="prog-name-input" placeholder="Enter Program Name (e.g. Qira'at, Quiz, Madih, Duff)">
@@ -189,6 +192,24 @@
         </div>
         <h4 style="color:var(--navy-dark);margin:18px 0 8px 0;">👥 Registered Candidates Directory</h4>
         <div id="candidatesListTable" class="table-responsive"></div>
+      </div>
+
+      <div id="tabEntries" class="official-tab-content">
+        <div class="report-box">
+          <h4 style="color:var(--navy-dark);margin-bottom:6px;"><i class="fa-solid fa-square-check"></i> Candidate Program Entries</h4>
+          <p style="font-size:12px;color:var(--text-muted);margin-bottom:14px;">Copy the ticks from each team's entry form. A program that has reached its maximum for that team is locked. Click <b>Save Entries</b> when finished.</p>
+          <div class="form-grid">
+            <div><label style="font-size:12px;font-weight:700;">Team:</label>
+              <select id="entTeam" onchange="renderEntriesTab()"><option value="Qahira">Qahira (Blue)</option><option value="Qusdiya">Qusdiya (Green)</option><option value="Qurthuba">Qurthuba (Red)</option></select></div>
+            <div><label style="font-size:12px;font-weight:700;">Category:</label>
+              <select id="entCat" onchange="renderEntriesTab()"><option value="SENIOR">Senior</option><option value="JUNIOR">Junior</option><option value="SUB-JUNIOR">Sub-Junior</option></select></div>
+          </div>
+          <div id="entriesTable" class="table-responsive ent-wrap"></div>
+          <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-top:12px;">
+            <button class="btn btn-success" style="width:auto;padding:10px 22px;margin:0;" onclick="saveEntries()"><i class="fa-solid fa-cloud-arrow-up"></i> Save Entries</button>
+            <span id="entStatus" style="font-size:13px;"></span>
+          </div>
+        </div>
       </div>
 
       <div id="tabJudges" class="official-tab-content">
@@ -403,5 +424,6 @@
 <script src="judges.js"></script>
 <script src="poster.js"></script>
 <script src="rotation.js"></script>
+<script src="entries.js"></script>
 </body>
 </html>

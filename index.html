@@ -54,19 +54,23 @@
     </div>
     <div id="carouselCardContainer"><p style="color:var(--text-muted);">Synchronizing with cloud database...</p></div>
     <hr style="margin:26px 0 18px 0;border:0;border-top:2px solid var(--border-color);">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:10px;">
       <div>
-        <h3 style="color:var(--navy-dark);font-size:1.25rem;font-weight:700;"><i class="fa-solid fa-table-cells"></i> Detailed Student Marksheet Matrix</h3>
-        <p style="font-size:12px;color:var(--text-muted);">Candidate-wise marks scored across announced competition items.</p>
+        <h3 style="color:var(--navy-dark);font-size:1.25rem;font-weight:700;"><i class="fa-solid fa-rotate"></i> Team &amp; Category Score Rotation</h3>
+        <p style="font-size:12px;color:var(--text-muted);">Shows one team and one category at a time, then moves on automatically.</p>
       </div>
-      <select id="matrixCatFilter" onchange="renderStudentProgramMatrix()" style="margin:0;padding:6px 12px;width:auto;font-size:12px;font-weight:600;">
-        <option value="ALL">All Categories</option>
-        <option value="SENIOR">Senior</option>
-        <option value="JUNIOR">Junior</option>
-        <option value="SUB-JUNIOR">Sub-Junior</option>
-      </select>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+        <button class="rot-btn" onclick="rotPrev()" title="Previous"><i class="fa-solid fa-backward-step"></i></button>
+        <button class="rot-btn" id="rotPauseBtn" onclick="rotTogglePause()" title="Pause / Play"><i class="fa-solid fa-pause"></i></button>
+        <button class="rot-btn" onclick="rotNext()" title="Next"><i class="fa-solid fa-forward-step"></i></button>
+        <select id="rotSpeed" onchange="rotSetSpeed(this.value)" style="margin:0;padding:7px 10px;width:auto;font-size:12px;font-weight:600;">
+          <option value="10">10 sec</option><option value="15" selected>15 sec</option><option value="20">20 sec</option><option value="30">30 sec</option><option value="45">45 sec</option>
+        </select>
+        <span class="badge-timer" id="rotCount">1 / 12</span>
+      </div>
     </div>
-    <div id="studentProgramMatrixContainer" class="table-responsive"></div>
+    <div class="rot-progress"><div id="rotBar"></div></div>
+    <div id="studentProgramMatrixContainer"></div>
   </div>
 
   <!-- 2. POINT TABLE -->
@@ -326,8 +330,14 @@
           <button class="model-btn" onclick="setPosterModel(4)">Model 4<br><small>Midnight</small></button>
           <button class="model-btn" onclick="setPosterModel(5)">Model 5<br><small>Golden Fest</small></button>
         </div>
+        <div class="pm-box">
+          <b style="font-size:12.5px;color:var(--navy-main);"><i class="fa-solid fa-image"></i> Your own poster design (PNG)</b>
+          <p style="font-size:11.5px;color:var(--text-muted);margin:3px 0 8px;">Upload a 1080×1350 PNG with an empty space for the photo. Text and photo are added on top.</p>
+          <input type="file" id="pmBgFile" accept="image/png,image/jpeg,image/webp">
+          <button type="button" class="btn" id="pmClearBg" style="background:#e2e8f0;color:var(--navy-dark);padding:7px;">Remove my poster (use built-in model)</button>
+        </div>
         <label style="font-size:12px;font-weight:600;color:var(--text-muted);">Candidate Name:</label>
-        <input type="text" id="pmCandidateName" oninput="drawPosterPreview()" placeholder="Student Name">
+        <input type="text" id="pmCandidateName" list="pmNameList" oninput="drawPosterPreview()" placeholder="Type or pick a student">
         <div style="display:flex;gap:10px;">
           <div style="flex:1;">
             <label style="font-size:12px;font-weight:600;color:var(--text-muted);">Position / Place:</label>
@@ -350,12 +360,34 @@
         </div>
         <div style="display:flex;gap:10px;">
           <div style="flex:1;"><label style="font-size:12px;font-weight:600;color:var(--text-muted);">Category:</label><input type="text" id="pmCategory" oninput="drawPosterPreview()" placeholder="Senior / Junior"></div>
-          <div style="flex:1;"><label style="font-size:12px;font-weight:600;color:var(--text-muted);">Program / Item:</label><input type="text" id="pmProgram" oninput="drawPosterPreview()" placeholder="e.g. Qira'at, Quiz"></div>
+          <div style="flex:1;"><label style="font-size:12px;font-weight:600;color:var(--text-muted);">Program / Item:</label><input type="text" id="pmProgram" list="pmProgList" oninput="drawPosterPreview()" placeholder="e.g. Qira'at, Quiz"></div>
         </div>
         <label style="font-size:12px;font-weight:600;color:var(--text-muted);">Festival Title / Subtext:</label>
         <input type="text" id="pmSubHeader" oninput="drawPosterPreview()" value="Campus Arts Festival 2k26 • MMO">
         <label style="font-size:12px;font-weight:600;color:var(--text-muted);">Congratulatory Greeting:</label>
         <input type="text" id="pmGreeting" oninput="drawPosterPreview()" value="MUBARAK! HEARTY CONGRATULATIONS">
+        <label style="font-size:12px;font-weight:600;color:var(--text-muted);">Rank / Position text (optional, overrides place):</label>
+        <input type="text" id="pmRankText" oninput="drawPosterPreview()" placeholder="e.g. 1st Place, A+ Grade, Overall Champion">
+        <div class="pm-box">
+          <b style="font-size:12.5px;color:var(--navy-main);"><i class="fa-solid fa-user"></i> Candidate photo</b>
+          <input type="file" id="pmPhotoFile" accept="image/*" style="margin-top:6px;">
+          <div class="pm-grid">
+            <label>Left–Right<input type="range" id="pmPhotoX" min="0" max="100" value="50" oninput="drawPosterPreview()"></label>
+            <label>Up–Down<input type="range" id="pmPhotoY" min="0" max="100" value="40" oninput="drawPosterPreview()"></label>
+            <label>Size<input type="range" id="pmPhotoSize" min="80" max="460" value="190" oninput="drawPosterPreview()"></label>
+            <label>Shape<select id="pmShape" onchange="drawPosterPreview()"><option value="circle">Circle</option><option value="rounded">Rounded</option><option value="square">Square</option></select></label>
+          </div>
+          <p style="font-size:11px;color:var(--text-muted);">Tip: drag the photo directly on the preview to move it.</p>
+        </div>
+        <div class="pm-box">
+          <b style="font-size:12.5px;color:var(--navy-main);"><i class="fa-solid fa-font"></i> Text on my poster</b>
+          <div class="pm-grid">
+            <label>Text up–down<input type="range" id="pmTextY" min="-250" max="250" value="0" oninput="drawPosterPreview()"></label>
+            <label>Text colour<select id="pmTextColor" onchange="drawPosterPreview()"><option value="light">Light</option><option value="dark">Dark</option></select></label>
+          </div>
+          <label style="font-size:12px;display:flex;gap:8px;align-items:center;"><input type="checkbox" id="pmShowHeader" checked onchange="drawPosterPreview()" style="width:auto;margin:0;"> Show fest title &amp; greeting on top</label>
+        </div>
+        <datalist id="pmNameList"></datalist><datalist id="pmProgList"></datalist>
         <button class="btn btn-success" style="padding:13px;font-size:14px;margin-top:8px;" onclick="downloadPosterImage()"><i class="fa-solid fa-download"></i> Download Poster (High-Res PNG)</button>
       </div>
       <div class="preview-stage">
@@ -368,5 +400,8 @@
 
 <script src="app.js"></script>
 <script src="entry-form.js"></script>
+<script src="judges.js"></script>
+<script src="poster.js"></script>
+<script src="rotation.js"></script>
 </body>
 </html>

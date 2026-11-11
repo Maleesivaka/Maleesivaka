@@ -125,3 +125,39 @@ tr:hover { background: var(--navy-soft); }
   .view-panel { padding: 16px; }
 }
 @media (prefers-reduced-motion: reduce) { .live-pulse, .view-panel.active { animation: none; } }
+
+/* ===== Desktop / full-screen layout ===== */
+html, body { width: 100%; }
+.app-wrapper { max-width: none; width: 100%; padding: 18px clamp(14px, 3vw, 56px); }
+@media (min-width: 1024px) {
+  .top-header { min-height: 270px; }
+  .view-panel { padding: 30px 34px; }
+  th, td { font-size: 14.5px; padding: 13px 16px; }
+  .dashboard-card { min-height: 150px; padding: 24px 28px; }
+  .quote-text { font-size: 18px; }
+  .result-program { font-size: 20px; }
+  .form-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+}
+@media (min-width: 1600px) { th, td { font-size: 16px; } }
+
+/* ===== Rotation panel ===== */
+.rot-btn { width: 38px; height: 38px; border-radius: 10px; border: 1px solid var(--gold); background: #fff; color: var(--navy-dark); cursor: pointer; font-size: 14px; }
+.rot-btn:hover { background: var(--navy-main); color: #fff; }
+.rot-progress { height: 5px; background: #e6dfcc; border-radius: 4px; overflow: hidden; margin-bottom: 14px; }
+.rot-progress #rotBar { height: 100%; width: 0; background: linear-gradient(90deg, var(--gold), var(--navy-light)); transition: width 1s linear; }
+.rot-wrap { max-height: 66vh; overflow: auto; }
+.rot-wrap th { position: sticky; top: 0; z-index: 2; }
+.rot-wrap th.sticky-col { z-index: 4; }
+.rot-pl { display: block; font-size: 10px; color: var(--emerald-main); font-weight: 700; }
+.rot-empty { padding: 22px; text-align: center; color: var(--text-muted); background: #fbf8ef; border-radius: 12px; border: 1px dashed #d9c98f; }
+
+/* ===== Poster studio ===== */
+.poster-modal-dialog { max-width: 1240px; }
+.poster-modal-body { grid-template-columns: minmax(340px, 1fr) minmax(360px, 1fr); }
+.preview-stage { position: sticky; top: 70px; align-self: start; }
+.pm-box { background: #fbf8ef; border: 1px dashed #d9c98f; border-radius: 12px; padding: 12px; margin: 6px 0 12px; }
+.pm-box input[type=file] { padding: 7px; margin-bottom: 8px; background: #fff; }
+.pm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 12px; margin-top: 8px; }
+.pm-grid label { font-size: 11.5px; font-weight: 600; color: var(--text-muted); }
+.pm-grid input[type=range] { padding: 0; margin: 4px 0 0; }
+.pm-grid select { padding: 6px 8px; margin: 4px 0 0; }

@@ -2,7 +2,7 @@
    - 5 redesigned built-in models
    - upload your own PNG poster, upload candidate photo, drag to position */
 var posterPhoto = null, posterBg = null;
-var P_TEAM = { Qahira: '#0284c7', Qusdiya: '#059669', Qurthuba: '#ef4444' };
+var P_TEAM = { Qahira: '#0284c7', Qudsiya: '#059669', Qurthuba: '#ef4444' };
 var P_THEMES = {
   1: { bg: ['#071a3d', '#1e3a8a', '#050f26'], acc: '#f5c451', glow: '#3b82f6' },
   2: { bg: ['#022c22', '#0b6b4f', '#03261d'], acc: '#fcd34d', glow: '#10b981' },

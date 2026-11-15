@@ -1,8 +1,8 @@
 /* MMO Arts Fest — rotating Team x Category score view.
    Order: Team 1 (Senior, Junior, Sub-Junior, General) -> Team 2 (...) -> Team 3 (...) -> repeat */
-var ROT_TEAMS = ["Qahira", "Qusdiya", "Qurthuba"];
+var ROT_TEAMS = ["Qahira", "Qudsiya", "Qurthuba"];
 var ROT_CATS = ["SENIOR", "JUNIOR", "SUB-JUNIOR", "GENERAL"];
-var ROT_COL = { Qahira: "#0284c7", Qusdiya: "#059669", Qurthuba: "#ef4444" };
+var ROT_COL = { Qahira: "#0284c7", Qudsiya: "#059669", Qurthuba: "#ef4444" };
 var rotIndex = 0, rotSeconds = 15, rotLeft = 15, rotPaused = false, rotTimer = null;
 
 function rotSlides() {
@@ -80,7 +80,7 @@ function rotBuild(s) {
   festResults.forEach(function (r) { if (r.team === team && r.category === cat && (!r.regNo || r.regNo === '-')) other += Number(r.mark || 0); });
 
   var html = '<div class="table-responsive rot-wrap"><table class="matrix-table"><thead><tr><th>#</th><th class="sticky-col">Student</th><th>Reg No</th>' +
-    progs.map(function (p) { return '<th>' + p + '</th>'; }).join('') + '<th style="background:#0b5d4b;">Total</th></tr></thead><tbody>';
+    progs.map(function (p) { return '<th class="vt"><div>' + p + '</div></th>'; }).join('') + '<th style="background:#0b5d4b;">Total</th></tr></thead><tbody>';
   data.forEach(function (d, i) {
     html += '<tr><td>' + (i + 1) + '</td><td class="sticky-col"><b>' + d.c.name + '</b></td><td><code style="font-weight:700;font-size:12px;">' + d.c.regNo + '</code></td>' +
       d.cells + '<td style="font-weight:800;color:var(--emerald-main);background:#f0fdf4;">' + d.total + '</td></tr>';

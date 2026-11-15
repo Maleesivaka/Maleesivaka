@@ -125,7 +125,7 @@ function editProgram(k) {
       if (nk !== k && findProgByKey(nk)) { alert('Another program with this name already exists in this category.'); return false; }
       var limit = progMax(np.max === undefined ? { type: type } : { type: type, max: np.max });
       if (limit > 0) {
-        var over = ['Qahira', 'Qusdiya', 'Qurthuba'].filter(function (t) { return teamCount(t, k) > limit; });
+        var over = ['Qahira', 'Qudsiya', 'Qurthuba'].filter(function (t) { return teamCount(t, k) > limit; });
         if (over.length && !confirm('Team(s) ' + over.join(', ') + ' already have more than ' + limit + ' entered. Continue? (Untick extra candidates in the Entries tab.)')) return false;
       }
       var oldName = p.name, oldCat = p.category;

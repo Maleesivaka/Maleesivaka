@@ -1,3 +1,13 @@
+/* Badge colours for all teams (kept here so they always apply, even if an old stylesheet is cached) */
+(function () {
+  var st = document.createElement('style');
+  st.textContent =
+    '.team-badge-qahira{background:#0284c7!important;color:#fff!important;border:0!important}' +
+    '.team-badge-qudsiya,.team-badge-qusdiya{background:#059669!important;color:#fff!important;border:0!important}' +
+    '.team-badge-qurthuba{background:#ef4444!important;color:#fff!important;border:0!important}';
+  document.head.appendChild(st);
+})();
+
 const CLOUD_API_URL = "https://script.google.com/macros/s/AKfycbxlzA-KafoIAqSPCr-bONTTBt4l2bo7ZKNIxvf-8e7KPogsRtGFAe-9U79-pbaITSAl7w/exec";
 
 var festPrograms = JSON.parse(localStorage.getItem('MEELAD_PROGRAMS')) || [];

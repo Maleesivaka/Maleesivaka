@@ -52,9 +52,7 @@ function rotBuild(s) {
   var catResults = festResults.filter(function (r) { return r.category === cat && shown(r); });
   var progs = [];
   festPrograms.forEach(function (p) { if (p.category === cat && progs.indexOf(p.name) < 0) progs.push(p.name); });
-  var withRes = progs.filter(function (n) { return catResults.some(function (r) { return r.program === n; }); });
-  catResults.forEach(function (r) { if (r.program && withRes.indexOf(r.program) < 0 && r.regNo !== '-') withRes.push(r.program); });
-  if (withRes.length > 0) progs = withRes;
+  catResults.forEach(function (r) { if (r.program && progs.indexOf(r.program) < 0 && r.regNo !== '-') progs.push(r.program); });
 
   if (cands.length === 0) return out + '<p class="rot-empty">No candidates registered for this team in ' + cat + '.</p>';
 
@@ -80,7 +78,7 @@ function rotBuild(s) {
   festResults.forEach(function (r) { if (r.team === team && r.category === cat && (!r.regNo || r.regNo === '-')) other += Number(r.mark || 0); });
 
   var html = '<div class="table-responsive rot-wrap"><table class="matrix-table"><thead><tr><th>#</th><th class="sticky-col">Student</th><th>Reg No</th>' +
-    progs.map(function (p) { return '<th class="vt"><div>' + p + '</div></th>'; }).join('') + '<th style="background:#0b5d4b;">Total</th></tr></thead><tbody>';
+    progs.map(function (p) { return '<th class="vt" style="width:44px;min-width:0;height:150px;padding:8px 4px;vertical-align:bottom;background:#062a24;color:#f4e8c8;"><div style="writing-mode:vertical-rl;transform:rotate(180deg);margin:0 auto;max-height:150px;overflow:hidden;font-size:12px;font-weight:700;white-space:nowrap;text-transform:none;">' + p + '</div></th>'; }).join('') + '<th style="background:#0b5d4b;">Total</th></tr></thead><tbody>';
   data.forEach(function (d, i) {
     html += '<tr><td>' + (i + 1) + '</td><td class="sticky-col"><b>' + d.c.name + '</b></td><td><code style="font-weight:700;font-size:12px;">' + d.c.regNo + '</code></td>' +
       d.cells + '<td style="font-weight:800;color:var(--emerald-main);background:#f0fdf4;">' + d.total + '</td></tr>';

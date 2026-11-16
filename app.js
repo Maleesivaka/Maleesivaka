@@ -4,7 +4,12 @@
   st.textContent =
     '.team-badge-qahira{background:#0284c7!important;color:#fff!important;border:0!important}' +
     '.team-badge-qudsiya,.team-badge-qusdiya{background:#059669!important;color:#fff!important;border:0!important}' +
-    '.team-badge-qurthuba{background:#ef4444!important;color:#fff!important;border:0!important}';
+    '.team-badge-qurthuba{background:#ef4444!important;color:#fff!important;border:0!important}' +
+    /* full-width layout for computers (always applied) */
+    'html,body{width:100%!important;max-width:none!important}' +
+    '.app-wrapper{max-width:none!important;width:100%!important;padding:18px clamp(14px,3vw,56px)!important}' +
+    '.view-panel{max-width:none!important;width:100%!important}' +
+    '@media(min-width:1024px){.top-header{min-height:260px}.view-panel{padding:30px 34px}th,td{font-size:14.5px}.dashboard-card{min-height:150px}}';
   document.head.appendChild(st);
 })();
 

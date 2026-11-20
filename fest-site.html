@@ -371,6 +371,7 @@ html, body { width: 100%; }
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:8px;">
         <span class="badge" style="background:#059669;color:#fff;">🔑 Admin Mode Active</span>
         <div style="display:flex;gap:8px;">
+          <button onclick="openPrintCenter()" style="padding:7px 14px;font-size:12px;background:#c9a24b;color:#1d1500;border:none;border-radius:8px;cursor:pointer;font-weight:700;"><i class="fa-solid fa-print"></i> Print Center</button>
           <button onclick="printAllData()" style="padding:7px 14px;font-size:12px;background:#0b5d4b;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:600;"><i class="fa-solid fa-print"></i> Print All Data</button>
           <button onclick="syncToCloud()" style="padding:7px 14px;font-size:12px;background:var(--emerald-main);color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:600;"><i class="fa-solid fa-cloud-arrow-up"></i> Save to Cloud</button>
           <button onclick="logoutOfficial()" style="padding:7px 14px;font-size:12px;background:#ef4444;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:600;">Logout</button>
@@ -480,6 +481,7 @@ html, body { width: 100%; }
           <div id="entriesTable" class="table-responsive ent-wrap"></div>
           <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-top:12px;">
             <button class="btn btn-success" style="width:auto;padding:10px 22px;margin:0;" onclick="saveEntries()"><i class="fa-solid fa-cloud-arrow-up"></i> Save Entries</button>
+            <button class="btn" style="width:auto;padding:10px 22px;margin:0;background:#c9a24b;color:#1d1500;" onclick="openPrintCenter({report:'participants',team:document.getElementById('entTeam').value,cat:document.getElementById('entCat').value})"><i class="fa-solid fa-print"></i> Print Participants</button>
             <span id="entStatus" style="font-size:13px;"></span>
           </div>
         </div>
@@ -522,6 +524,7 @@ html, body { width: 100%; }
               <select id="judgeItemSelect"></select>
             </div>
           </div>
+          <label style="font-size:12.5px;display:flex;gap:8px;align-items:center;margin-bottom:10px;"><input type="checkbox" id="judgeNamesSlip" checked style="width:auto;margin:0;"> Slip 1 of each page = candidate-name slip (names listed, code blank)</label>
           <div style="margin-bottom:10px;"><label style="font-size:12px;color:var(--text-muted);">Number of A4 pages (4 slips on each page):</label><input type="number" id="judgePages" min="1" max="50" value="1"></div>
           <div style="display:flex;gap:10px;flex-wrap:wrap;">
             <button class="btn btn-success" style="flex:1;min-width:210px;" onclick="printJudgesSlip()"><i class="fa-solid fa-print"></i> Print 4 Slips — selected item</button>
@@ -619,6 +622,7 @@ html, body { width: 100%; }
       </div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
         <button class="btn" style="width:auto;padding:8px 16px;background:var(--navy-main);" onclick="printTeamListPDF()"><i class="fa-solid fa-print"></i> Print Team List PDF</button>
+        <button class="btn" style="width:auto;padding:8px 16px;background:#c9a24b;color:#1d1500;" onclick="openPrintCenter({report:'candidates'})"><i class="fa-solid fa-filter"></i> Print with filters</button>
         <button class="btn" style="width:auto;padding:8px 16px;background:var(--emerald-main);" onclick="printEntryFormPDF()"><i class="fa-solid fa-file-signature"></i> Print Entry Form</button>
       </div>
     </div>
@@ -648,6 +652,7 @@ html, body { width: 100%; }
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
         <select id="plFilter" onchange="renderProgramListView()" style="margin:0;width:auto;"><option value="">All Categories</option><option value="SENIOR">Senior</option><option value="JUNIOR">Junior</option><option value="SUB-JUNIOR">Sub-Junior</option><option value="GENERAL">General</option></select>
         <button class="btn" style="width:auto;padding:9px 18px;margin:0;" onclick="printProgramList()"><i class="fa-solid fa-print"></i> Print</button>
+        <button class="btn" style="width:auto;padding:9px 18px;margin:0;background:#c9a24b;color:#1d1500;" onclick="openPrintCenter({report:'programs'})"><i class="fa-solid fa-filter"></i> More print options</button>
       </div>
     </div>
     <div id="programListBox"></div>
@@ -1797,24 +1802,50 @@ function printEntryFormPDF() {
 
 </script>
 <script>
-/* MMO Arts Fest — Judges slips, 4 per A4 page (2 x 2), with item filled in or left blank */
-function judgeSlipHtml(cat, item) {
-  var rows = 'ABCDEFGHI'.split('').map(function (l) {
-    return '<tr><td class="code">' + l + '</td><td></td><td></td><td></td></tr>';
-  }).join('');
-  var catHtml = cat ? '<b>' + cat + '</b>' : '<span class="line"></span>';
-  var itemHtml = item ? '<b>' + item + '</b>' : '<span class="line"></span>';
-  return '<div class="slip"><div class="in">' +
-    '<div class="hdr"><div class="t1">MMO Arts Fest</div><div class="t2">JUDGES EVALUATION SLIP</div></div>' +
-    '<div class="meta"><div><span>CATEGORY</span>' + catHtml + '</div><div><span>ITEM</span>' + itemHtml + '</div></div>' +
-    '<table><thead><tr><th style="width:15mm">CODE</th><th>MARK</th><th style="width:16mm">GRADE</th><th style="width:16mm">RANK</th></tr></thead><tbody>' + rows + '</tbody></table>' +
-    '<div class="sign"><div>Judge: ____________________</div><div>Sign: ______________</div></div>' +
-    '</div></div>';
+/* MMO Arts Fest — Judges slips, 4 per A4 page (2 x 2).
+   Slip 1 can be the "candidate-name slip": code column blank, candidate names listed, then mark / grade / rank.
+   The other 3 slips are the normal code slips (A to I). Blank mode prints 4 empty slips. */
+
+function judgeNames(cat, item) {
+  if (!item) return [];
+  if (cat === 'GENERAL') return REP_TEAMS.map(function (t) { return { name: 'Team ' + t, reg: '' }; });
+  var p = festPrograms.filter(function (x) { return x.name === item && x.category === cat; })[0];
+  if (!p) return [];
+  var k = progKey(p);
+  return festCandidates.filter(function (c) { return c.category === cat && (c.entries || []).indexOf(k) >= 0; })
+    .sort(function (a, b) { return String(a.team).localeCompare(String(b.team)) || String(a.name).localeCompare(String(b.name)); })
+    .map(function (c) { return { name: c.name, reg: c.regNo }; });
 }
 
-function openJudgesDoc(cat, item, pages) {
-  var one = judgeSlipHtml(cat, item);
-  var pg = '<div class="page">' + one + one + one + one + '</div>';
+function judgeHead(cat, item, tag) {
+  var catHtml = cat ? '<b>' + esc(cat) + '</b>' : '<span class="line"></span>';
+  var itemHtml = item ? '<b>' + esc(item) + '</b>' : '<span class="line"></span>';
+  return '<div class="hdr"><div class="t1">MMO Arts Fest</div><div class="t2">JUDGES EVALUATION SLIP' + (tag ? ' — ' + tag : '') + '</div></div>' +
+    '<div class="meta"><div><span>CATEGORY</span>' + catHtml + '</div><div><span>ITEM</span>' + itemHtml + '</div></div>';
+}
+var JUDGE_SIGN = '<div class="sign"><div>Judge: ____________________</div><div>Sign: ______________</div></div>';
+
+function judgeSlipHtml(cat, item) {
+  var rows = 'ABCDEFGHI'.split('').map(function (l) { return '<tr><td class="code">' + l + '</td><td></td><td></td><td></td></tr>'; }).join('');
+  return '<div class="slip"><div class="in">' + judgeHead(cat, item, '') +
+    '<table><thead><tr><th style="width:15mm">CODE</th><th>MARK</th><th style="width:16mm">GRADE</th><th style="width:16mm">RANK</th></tr></thead><tbody>' + rows + '</tbody></table>' + JUDGE_SIGN + '</div></div>';
+}
+
+/* slip with candidate names, code column left blank */
+function judgeNamesSlipHtml(cat, item, names) {
+  var n = Math.min(Math.max(names.length, 9), 14), rows = '';
+  for (var i = 0; i < n; i++) {
+    var c = names[i];
+    rows += '<tr><td></td><td class="nm">' + (c ? esc(c.name) + (c.reg ? ' <small>(' + esc(c.reg) + ')</small>' : '') : '') + '</td><td></td><td></td><td></td></tr>';
+  }
+  return '<div class="slip"><div class="in">' + judgeHead(cat, item, 'NAME SLIP') +
+    '<table><thead><tr><th style="width:12mm">CODE</th><th>CANDIDATE</th><th style="width:15mm">MARK</th><th style="width:12mm">GRADE</th><th style="width:12mm">RANK</th></tr></thead><tbody>' + rows + '</tbody></table>' + JUDGE_SIGN + '</div></div>';
+}
+
+function openJudgesDoc(cat, item, pages, withNames) {
+  var plain = judgeSlipHtml(cat, item);
+  var first = withNames ? judgeNamesSlipHtml(cat, item, judgeNames(cat, item)) : plain;
+  var pg = '<div class="page">' + first + plain + plain + plain + '</div>';
   var body = ''; for (var i = 0; i < pages; i++) body += pg;
   var win = window.open('', '_blank');
   win.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Judges Slips - MMO Arts Fest 2k26</title>' +
@@ -1829,7 +1860,7 @@ function openJudgesDoc(cat, item, pages) {
     '.in{height:100%;border:.5mm solid #0b5d4b;outline:.2mm solid #c9a24b;outline-offset:-1.4mm;padding:3.5mm 4mm 3mm;display:flex;flex-direction:column}' +
     '.hdr{text-align:center;border-bottom:.4mm solid #c9a24b;padding-bottom:1.5mm}' +
     '.t1{font-family:Cinzel,serif;font-size:13pt;letter-spacing:1.5px;color:#062a24;text-transform:uppercase}' +
-    '.t2{font-size:6.5pt;letter-spacing:1.6px;color:#0b5d4b;font-weight:700;margin-top:.5mm}' +
+    '.t2{font-size:6.2pt;letter-spacing:1.4px;color:#0b5d4b;font-weight:700;margin-top:.5mm}' +
     '.meta{display:flex;gap:2mm;margin:2.5mm 0}' +
     '.meta div{flex:1;border:.3mm solid #0b5d4b;border-radius:1mm;padding:1.2mm 1.8mm;font-size:8pt;min-height:9mm}' +
     '.meta span{display:block;font-size:5.5pt;color:#64748b;letter-spacing:.8px}' +
@@ -1838,6 +1869,7 @@ function openJudgesDoc(cat, item, pages) {
     'th,td{border:.3mm solid #0b5d4b;text-align:center}' +
     'th{background:#062a24;color:#f4e8c8;font-size:6.5pt;height:5.5mm;letter-spacing:.5px}' +
     'td.code{font-size:11pt;font-weight:700;background:#f6f3ea;color:#062a24}' +
+    'td.nm{text-align:left;font-size:7.5pt;padding:0 1.5mm;font-weight:600}td.nm small{font-weight:400;color:#64748b;font-size:6pt}' +
     '.sign{display:flex;justify-content:space-between;margin-top:2.5mm;font-size:6.8pt;font-weight:600;color:#0b5d4b}' +
     '</style></head><body>' + body +
     '<script>window.onload=function(){setTimeout(function(){window.print()},600)}<\/script></body></html>');
@@ -1849,18 +1881,17 @@ function judgePageCount() {
   return n > 0 ? Math.min(n, 50) : 1;
 }
 
-/* selected category + item filled in */
+/* selected category + item filled in (slip 1 = candidate names, if ticked) */
 function printJudgesSlip() {
   var cat = document.getElementById('judgeCatSelect').value;
   var item = document.getElementById('judgeItemSelect').value;
   if (!item) { alert('Select a competition item first, or use "Print Blank Slips".'); return; }
-  openJudgesDoc(cat, item, judgePageCount());
+  var cb = document.getElementById('judgeNamesSlip');
+  openJudgesDoc(cat, item, judgePageCount(), !cb || cb.checked);
 }
 
-/* category and item left empty to write by hand */
-function printBlankJudgesSlips() {
-  openJudgesDoc('', '', judgePageCount());
-}
+/* nothing filled in: write by hand */
+function printBlankJudgesSlips() { openJudgesDoc('', '', judgePageCount(), false); }
 
 </script>
 <script>
@@ -2303,12 +2334,12 @@ function candProgCount(c) {
 }
 
 /* ---------- small popup ---------- */
-function miniModal(title, body, onSave) {
+function miniModal(title, body, onSave, saveLabel) {
   var m = document.getElementById('miniModal');
   if (!m) { m = document.createElement('div'); m.id = 'miniModal'; m.className = 'mini-modal'; document.body.appendChild(m); }
   m.innerHTML = '<div class="mini-card"><h3 style="margin-bottom:12px;">' + title + '</h3>' + body +
     '<div style="display:flex;gap:10px;margin-top:6px;"><button class="btn" id="mmCancel" style="background:#e2e8f0;color:#0f172a;">Cancel</button>' +
-    '<button class="btn btn-success" id="mmSave">Save</button></div></div>';
+    '<button class="btn btn-success" id="mmSave">' + (saveLabel || 'Save') + '</button></div></div>';
   m.style.display = 'flex';
   m.querySelector('#mmCancel').onclick = function () { m.style.display = 'none'; };
   m.querySelector('#mmSave').onclick = function () { if (onSave() !== false) m.style.display = 'none'; };
@@ -2672,7 +2703,7 @@ rbLoadPointInputs();
 
 </script>
 <script>
-/* MMO Arts Fest — printable reports (A4) + public Program List view */
+/* MMO Arts Fest — printable reports (A4) with filters + Print Center + public Program List view */
 var REP_CATS = ['SENIOR', 'JUNIOR', 'SUB-JUNIOR', 'GENERAL'];
 var REP_TEAMS = ['Qahira', 'Qudsiya', 'Qurthuba'];
 
@@ -2685,33 +2716,44 @@ function reportShell(title, body) {
     '.hdr{text-align:center;border-bottom:2px solid #c9a24b;padding-bottom:6px;margin-bottom:10px}' +
     '.t1{font-family:Cinzel,serif;font-size:22pt;letter-spacing:3px;color:#062a24;text-transform:uppercase}' +
     '.t2{font-size:9pt;letter-spacing:3px;color:#0b5d4b;font-weight:600}.t3{font-size:11pt;font-weight:700;margin-top:4px}' +
-    '.d{font-size:8pt;color:#64748b}h3{background:#e3f3ec;border-left:4px solid #0b5d4b;padding:4px 10px;margin:12px 0 5px;font-size:11pt;color:#062a24}' +
+    '.d{font-size:8pt;color:#64748b}h3{background:#e3f3ec;border-left:4px solid #0b5d4b;padding:4px 10px;margin:12px 0 5px;font-size:11pt;color:#062a24}h3 small{font-weight:400;color:#475569;font-size:8.5pt}' +
     'table{width:100%;border-collapse:collapse;margin:3px 0 8px}th,td{border:1px solid #94a3b8;padding:3px 6px;font-size:9pt;text-align:left}' +
-    'th{background:#062a24;color:#f4e8c8;font-size:8.5pt}tr{page-break-inside:avoid}.pb{page-break-before:always}.c{text-align:center}</style></head><body>' +
+    'th{background:#062a24;color:#f4e8c8;font-size:8.5pt}tr{page-break-inside:avoid}.pb{page-break-before:always}.c{text-align:center}.blk{page-break-inside:avoid}</style></head><body>' +
     '<div class="hdr"><div class="t1">MMO Arts Fest</div><div class="t2">CAMPUS ARTS FESTIVAL 2K26</div><div class="t3">' + title + '</div>' +
     '<div class="d">Printed: ' + new Date().toLocaleString() + '</div></div>' + body +
     '<script>window.onload=function(){setTimeout(function(){window.print()},600)}<\/script></body></html>');
   w.document.close();
 }
 
+function repF(f) { return typeof f === 'string' ? { cat: f } : (f || {}); }
+function filterText(F) {
+  var p = [];
+  if (F.team) p.push('Team ' + F.team);
+  if (F.cat) p.push(F.cat === 'GENERAL' ? 'General' : F.cat);
+  if (F.type) p.push(F.type + ' items');
+  return p.join(' • ');
+}
+function okProg(p, F) { return (!F.cat || p.category === F.cat) && (!F.type || p.type === F.type); }
+
 /* ----- section builders (return HTML) ----- */
-function programsHtml(filterCat) {
-  var out = '';
+function programsHtml(f) {
+  var F = repF(f), out = '';
   REP_CATS.forEach(function (cat) {
-    if (filterCat && filterCat !== cat) return;
-    var list = festPrograms.filter(function (p) { return p.category === cat; });
+    var list = festPrograms.filter(function (p) { return p.category === cat && okProg(p, F); });
     if (!list.length) return;
     out += '<h3>' + (cat === 'GENERAL' ? 'GENERAL / ALL TEAM ITEMS' : cat) + '</h3><table><thead><tr><th class="c" style="width:8%">#</th><th>Program</th><th style="width:20%">Type</th><th class="c" style="width:18%">Max / Team</th></tr></thead><tbody>' +
       list.map(function (p, i) { return '<tr><td class="c">' + (i + 1) + '</td><td><b>' + esc(p.name) + '</b></td><td>' + esc(p.type) + '</td><td class="c">' + maxText(p) + '</td></tr>'; }).join('') + '</tbody></table>';
   });
-  return out || '<p>No programs added yet.</p>';
+  return out || '<p>No programs match these filters.</p>';
 }
 
-function candidatesHtml() {
-  var out = '';
-  REP_TEAMS.forEach(function (team, ti) {
+function candidatesHtml(f) {
+  var F = repF(f), out = '';
+  if (F.cat === 'GENERAL') return '<p>General items have no individual candidates. Choose Senior, Junior or Sub-Junior.</p>';
+  var teams = F.team ? [F.team] : REP_TEAMS, cats = F.cat ? [F.cat] : ['SENIOR', 'JUNIOR', 'SUB-JUNIOR'];
+  teams.forEach(function (team, ti) {
     out += '<h3 class="' + (ti ? 'pb' : '') + '" style="font-size:13pt;">TEAM ' + team.toUpperCase() + '</h3>';
-    ['SENIOR', 'JUNIOR', 'SUB-JUNIOR'].forEach(function (cat) {
+    cats.forEach(function (cat) {
       var list = festCandidates.filter(function (c) { return c.team === team && c.category === cat; });
       out += '<h3>' + cat + '</h3><table><thead><tr><th class="c" style="width:6%">#</th><th style="width:15%">Reg No</th><th style="width:28%">Name</th><th class="c" style="width:10%">Programs</th><th>Program names</th></tr></thead><tbody>' +
         (list.length ? list.map(function (c, i) {
@@ -2723,37 +2765,87 @@ function candidatesHtml() {
   return out;
 }
 
-function resultsHtml() {
-  var rk = { '1st': 1, '2nd': 2, '3rd': 3 }, out = '';
+/* participants of every program (from the Entries ticks) */
+function participantsHtml(f) {
+  var F = repF(f), out = '', order = { 'Individual': 1, 'Group': 2, 'Non-Stage': 3, 'General': 4 };
+  var progs = festPrograms.filter(function (p) { return okProg(p, F); })
+    .sort(function (a, b) { return REP_CATS.indexOf(a.category) - REP_CATS.indexOf(b.category) || (order[a.type] || 9) - (order[b.type] || 9); });
+  progs.forEach(function (p) {
+    var k = progKey(p);
+    var list = festCandidates.filter(function (c) { return (c.entries || []).indexOf(k) >= 0 && (!F.team || c.team === F.team); })
+      .sort(function (a, b) { return String(a.team).localeCompare(String(b.team)) || String(a.regNo).localeCompare(String(b.regNo)); });
+    out += '<div class="blk"><h3>' + esc(p.name) + ' <small>' + esc(p.type) + ' • ' + (p.category === 'GENERAL' ? 'General' : esc(p.category)) + ' • max ' + maxText(p) + ' per team • ' + list.length + ' entered</small></h3>' +
+      '<table><thead><tr><th class="c" style="width:6%">#</th><th style="width:16%">Reg No</th><th>Name</th><th style="width:15%">Team</th><th style="width:14%">Category</th>' + (F.sign ? '<th style="width:20%">Attendance / Sign</th>' : '') + '</tr></thead><tbody>' +
+      (list.length ? list.map(function (c, i) {
+        return '<tr><td class="c">' + (i + 1) + '</td><td><b>' + esc(c.regNo) + '</b></td><td>' + esc(c.name) + '</td><td>' + esc(c.team) + '</td><td>' + esc(c.category) + '</td>' + (F.sign ? '<td></td>' : '') + '</tr>';
+      }).join('') : '<tr><td colspan="' + (F.sign ? 6 : 5) + '" class="c" style="color:#94a3b8;">No entries yet</td></tr>') + '</tbody></table></div>';
+  });
+  return out || '<p>No programs match these filters.</p>';
+}
+
+function resultsHtml(f) {
+  var F = repF(f), rk = { '1st': 1, '2nd': 2, '3rd': 3 }, out = '';
   REP_CATS.forEach(function (cat) {
-    var list = festResults.filter(function (r) { return r.category === cat && r.regNo !== '-'; })
-      .sort(function (a, b) { return String(a.program).localeCompare(String(b.program)) || (rk[a.place] || 9) - (rk[b.place] || 9); });
+    if (F.cat && F.cat !== cat) return;
+    var list = festResults.filter(function (r) {
+      if (r.category !== cat || r.regNo === '-' || (F.team && r.team !== F.team)) return false;
+      if (F.type) { var p = festPrograms.filter(function (x) { return x.name === r.program && x.category === cat; })[0]; if (!p || p.type !== F.type) return false; }
+      return true;
+    }).sort(function (a, b) { return String(a.program).localeCompare(String(b.program)) || (rk[a.place] || 9) - (rk[b.place] || 9); });
     if (!list.length) return;
     out += '<h3>' + cat + '</h3><table><thead><tr><th>Item</th><th>Participant</th><th>Team</th><th class="c">Rank</th><th class="c">Grade</th><th class="c">Mark</th></tr></thead><tbody>' +
       list.map(function (r) { return '<tr><td>' + esc(r.program) + '</td><td>' + esc(r.name) + ' <small>' + (r.regNo !== 'TEAM' ? esc(r.regNo) : '') + '</small></td><td>' + esc(r.team) + '</td><td class="c"><b>' + (r.place && r.place !== '-' ? r.place : '') + '</b></td><td class="c">' + esc(r.grade || '') + '</td><td class="c">' + r.mark + '</td></tr>'; }).join('') + '</tbody></table>';
   });
-  return out || '<p>No results entered yet.</p>';
+  return out || '<p>No results match these filters.</p>';
 }
 
-function pointsHtml() {
-  var rows = REP_TEAMS.map(function (t) {
+function pointsHtml(f) {
+  var F = repF(f);
+  var rows = REP_TEAMS.filter(function (t) { return !F.team || t === F.team; }).map(function (t) {
     var per = REP_CATS.map(function (c) { return rotTotal(t, c); });
     return { t: t, per: per, tot: per.reduce(function (a, b) { return a + b; }, 0) };
   }).sort(function (a, b) { return b.tot - a.tot; });
-  return '<h3>GRAND TEAM LEADERBOARD</h3><table><thead><tr><th class="c">Rank</th><th>Team</th>' + REP_CATS.map(function (c) { return '<th class="c">' + c + '</th>'; }).join('') + '<th class="c">TOTAL</th></tr></thead><tbody>' +
+  return '<h3>TEAM POINTS</h3><table><thead><tr><th class="c">Rank</th><th>Team</th>' + REP_CATS.map(function (c) { return '<th class="c">' + c + '</th>'; }).join('') + '<th class="c">TOTAL</th></tr></thead><tbody>' +
     rows.map(function (r, i) { return '<tr><td class="c"><b>#' + (i + 1) + '</b></td><td><b>' + r.t + '</b></td>' + r.per.map(function (v) { return '<td class="c">' + v + '</td>'; }).join('') + '<td class="c"><b>' + r.tot + '</b></td></tr>'; }).join('') + '</tbody></table>';
 }
 
-function printReport(list) {
-  var map = { programs: ['Program List', programsHtml], candidates: ['Registered Candidates', candidatesHtml], schedule: ['Program Schedule', function () { return scheduleHtml(); }], results: ['Results', resultsHtml], points: ['Point Table', pointsHtml] };
+function printReport(list, f) {
+  var F = repF(f);
+  var map = {
+    programs: ['Program List', programsHtml], candidates: ['Registered Candidates', candidatesHtml], participants: ['Participants by Program', participantsHtml],
+    schedule: ['Program Schedule', function (x) { return scheduleHtml(x.cat === 'GENERAL' || !x.cat ? '' : x.cat); }], results: ['Results', resultsHtml], points: ['Point Table', pointsHtml]
+  };
   var body = '', titles = [];
   list.forEach(function (k, i) {
     var m = map[k]; titles.push(m[0]);
-    body += (i ? '<div class="pb"></div>' : '') + (list.length > 1 ? '<div class="t3" style="text-align:center;margin:6px 0;">— ' + m[0].toUpperCase() + ' —</div>' : '') + m[1]();
+    body += (i ? '<div class="pb"></div>' : '') + (list.length > 1 ? '<div class="t3" style="text-align:center;margin:6px 0;">— ' + m[0].toUpperCase() + ' —</div>' : '') + m[1](F);
   });
-  reportShell(list.length > 1 ? 'Complete Fest Data' : titles[0], body);
+  var ft = filterText(F);
+  reportShell((list.length > 1 ? 'Complete Fest Data' : titles[0]) + (ft ? ' — ' + ft : ''), body);
 }
 function printAllData() { printReport(['programs', 'schedule', 'candidates', 'results', 'points']); }
+
+/* ----- Print Center: choose report + filters ----- */
+function openPrintCenter(preset) {
+  preset = preset || {};
+  var sel = function (id, label, opts, cur) {
+    return '<label style="font-size:12px;font-weight:600;">' + label + '</label><select id="' + id + '">' +
+      opts.map(function (o) { return '<option value="' + o[0] + '"' + (cur === o[0] ? ' selected' : '') + '>' + o[1] + '</option>'; }).join('') + '</select>';
+  };
+  miniModal('🖨️ Print Center',
+    sel('pcReport', 'What do you want to print?', [['participants', 'Participants of each program'], ['programs', 'Program list'], ['candidates', 'Registered candidates'], ['results', 'Results'], ['schedule', 'Schedule'], ['points', 'Point table'], ['all', 'Everything (full report)']], preset.report || 'participants') +
+    sel('pcTeam', 'Team', [['', 'All teams'], ['Qahira', 'Qahira'], ['Qudsiya', 'Qudsiya'], ['Qurthuba', 'Qurthuba']], preset.team || '') +
+    sel('pcCat', 'Category', [['', 'All categories'], ['SENIOR', 'Senior'], ['JUNIOR', 'Junior'], ['SUB-JUNIOR', 'Sub-Junior'], ['GENERAL', 'General (all-team items)']], preset.cat || '') +
+    sel('pcType', 'Program type', [['', 'All types'], ['Individual', 'Individual only'], ['Group', 'Group only'], ['Non-Stage', 'Non-Stage only'], ['General', 'General only']], preset.type || '') +
+    '<label style="font-size:12.5px;display:flex;gap:8px;align-items:center;margin:4px 0 10px;"><input type="checkbox" id="pcSign" style="width:auto;margin:0;"> Add attendance / signature column (participants list)</label>' +
+    '<p style="font-size:11.5px;color:var(--text-muted);margin-bottom:8px;">Filters that do not apply to a report are ignored.</p>',
+    function () {
+      var F = { team: document.getElementById('pcTeam').value, cat: document.getElementById('pcCat').value, type: document.getElementById('pcType').value, sign: document.getElementById('pcSign').checked };
+      var r = document.getElementById('pcReport').value;
+      if (r === 'all') printAllFiltered(F); else printReport([r], F);
+    }, 'Print');
+}
+function printAllFiltered(F) { printReport(['programs', 'schedule', 'participants', 'candidates', 'results', 'points'], F); }
 
 /* ----- public Program List view ----- */
 function renderProgramListView() {

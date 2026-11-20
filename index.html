@@ -6,8 +6,8 @@
   <title>MMO Arts Fest 2k26</title>
   <link href="https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@700;800&family=Cinzel:wght@700&family=Gayathri:wght@700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="style.css?v=7">
-  <link rel="stylesheet" href="enhance.css?v=7">
+  <link rel="stylesheet" href="style.css?v=8">
+  <link rel="stylesheet" href="enhance.css?v=8">
 </head>
 <body>
 
@@ -107,6 +107,7 @@
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:8px;">
         <span class="badge" style="background:#059669;color:#fff;">🔑 Admin Mode Active</span>
         <div style="display:flex;gap:8px;">
+          <button onclick="openPrintCenter()" style="padding:7px 14px;font-size:12px;background:#c9a24b;color:#1d1500;border:none;border-radius:8px;cursor:pointer;font-weight:700;"><i class="fa-solid fa-print"></i> Print Center</button>
           <button onclick="printAllData()" style="padding:7px 14px;font-size:12px;background:#0b5d4b;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:600;"><i class="fa-solid fa-print"></i> Print All Data</button>
           <button onclick="syncToCloud()" style="padding:7px 14px;font-size:12px;background:var(--emerald-main);color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:600;"><i class="fa-solid fa-cloud-arrow-up"></i> Save to Cloud</button>
           <button onclick="logoutOfficial()" style="padding:7px 14px;font-size:12px;background:#ef4444;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:600;">Logout</button>
@@ -216,6 +217,7 @@
           <div id="entriesTable" class="table-responsive ent-wrap"></div>
           <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-top:12px;">
             <button class="btn btn-success" style="width:auto;padding:10px 22px;margin:0;" onclick="saveEntries()"><i class="fa-solid fa-cloud-arrow-up"></i> Save Entries</button>
+            <button class="btn" style="width:auto;padding:10px 22px;margin:0;background:#c9a24b;color:#1d1500;" onclick="openPrintCenter({report:'participants',team:document.getElementById('entTeam').value,cat:document.getElementById('entCat').value})"><i class="fa-solid fa-print"></i> Print Participants</button>
             <span id="entStatus" style="font-size:13px;"></span>
           </div>
         </div>
@@ -258,6 +260,7 @@
               <select id="judgeItemSelect"></select>
             </div>
           </div>
+          <label style="font-size:12.5px;display:flex;gap:8px;align-items:center;margin-bottom:10px;"><input type="checkbox" id="judgeNamesSlip" checked style="width:auto;margin:0;"> Slip 1 of each page = candidate-name slip (names listed, code blank)</label>
           <div style="margin-bottom:10px;"><label style="font-size:12px;color:var(--text-muted);">Number of A4 pages (4 slips on each page):</label><input type="number" id="judgePages" min="1" max="50" value="1"></div>
           <div style="display:flex;gap:10px;flex-wrap:wrap;">
             <button class="btn btn-success" style="flex:1;min-width:210px;" onclick="printJudgesSlip()"><i class="fa-solid fa-print"></i> Print 4 Slips — selected item</button>
@@ -355,6 +358,7 @@
       </div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
         <button class="btn" style="width:auto;padding:8px 16px;background:var(--navy-main);" onclick="printTeamListPDF()"><i class="fa-solid fa-print"></i> Print Team List PDF</button>
+        <button class="btn" style="width:auto;padding:8px 16px;background:#c9a24b;color:#1d1500;" onclick="openPrintCenter({report:'candidates'})"><i class="fa-solid fa-filter"></i> Print with filters</button>
         <button class="btn" style="width:auto;padding:8px 16px;background:var(--emerald-main);" onclick="printEntryFormPDF()"><i class="fa-solid fa-file-signature"></i> Print Entry Form</button>
       </div>
     </div>
@@ -384,6 +388,7 @@
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
         <select id="plFilter" onchange="renderProgramListView()" style="margin:0;width:auto;"><option value="">All Categories</option><option value="SENIOR">Senior</option><option value="JUNIOR">Junior</option><option value="SUB-JUNIOR">Sub-Junior</option><option value="GENERAL">General</option></select>
         <button class="btn" style="width:auto;padding:9px 18px;margin:0;" onclick="printProgramList()"><i class="fa-solid fa-print"></i> Print</button>
+        <button class="btn" style="width:auto;padding:9px 18px;margin:0;background:#c9a24b;color:#1d1500;" onclick="openPrintCenter({report:'programs'})"><i class="fa-solid fa-filter"></i> More print options</button>
       </div>
     </div>
     <div id="programListBox"></div>
@@ -507,16 +512,16 @@
   </div>
 </div>
 
-<script src="app.js?v=7"></script>
-<script src="entry-form.js?v=7"></script>
-<script src="judges.js?v=7"></script>
-<script src="poster.js?v=7"></script>
-<script src="rotation.js?v=7"></script>
-<script src="entries.js?v=7"></script>
-<script src="results.js?v=7"></script>
-<script src="report.js?v=7"></script>
-<script src="schedule.js?v=7"></script>
-<script src="notify.js?v=7"></script>
-<script src="analytics.js?v=7"></script>
+<script src="app.js?v=8"></script>
+<script src="entry-form.js?v=8"></script>
+<script src="judges.js?v=8"></script>
+<script src="poster.js?v=8"></script>
+<script src="rotation.js?v=8"></script>
+<script src="entries.js?v=8"></script>
+<script src="results.js?v=8"></script>
+<script src="report.js?v=8"></script>
+<script src="schedule.js?v=8"></script>
+<script src="notify.js?v=8"></script>
+<script src="analytics.js?v=8"></script>
 </body>
 </html>

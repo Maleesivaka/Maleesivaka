@@ -27,12 +27,12 @@ function candProgCount(c) {
 }
 
 /* ---------- small popup ---------- */
-function miniModal(title, body, onSave) {
+function miniModal(title, body, onSave, saveLabel) {
   var m = document.getElementById('miniModal');
   if (!m) { m = document.createElement('div'); m.id = 'miniModal'; m.className = 'mini-modal'; document.body.appendChild(m); }
   m.innerHTML = '<div class="mini-card"><h3 style="margin-bottom:12px;">' + title + '</h3>' + body +
     '<div style="display:flex;gap:10px;margin-top:6px;"><button class="btn" id="mmCancel" style="background:#e2e8f0;color:#0f172a;">Cancel</button>' +
-    '<button class="btn btn-success" id="mmSave">Save</button></div></div>';
+    '<button class="btn btn-success" id="mmSave">' + (saveLabel || 'Save') + '</button></div></div>';
   m.style.display = 'flex';
   m.querySelector('#mmCancel').onclick = function () { m.style.display = 'none'; };
   m.querySelector('#mmSave').onclick = function () { if (onSave() !== false) m.style.display = 'none'; };

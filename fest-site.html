@@ -283,6 +283,8 @@ html, body { width: 100%; }
   <a href="javascript:void(0)" onclick="showView('officialView')"><i class="fa-solid fa-user-shield"></i> Official Portal (Admin)</a>
   <a href="javascript:void(0)" onclick="showView('programListView')"><i class="fa-solid fa-list-check"></i> Program List</a>
   <a href="javascript:void(0)" onclick="showView('scheduleView')"><i class="fa-solid fa-calendar-days"></i> Schedule</a>
+  <a href="javascript:void(0)" onclick="showView('toppersView')"><i class="fa-solid fa-crown"></i> Toppers</a>
+  <a href="javascript:void(0)" onclick="showView('notificationsView')"><i class="fa-solid fa-bell"></i> Notifications <span id="notifBadge" class="notif-badge" style="display:none"></span></a>
   <a href="javascript:void(0)" onclick="showView('teamView')"><i class="fa-solid fa-users"></i> Registered Candidates</a>
 </div>
 
@@ -382,6 +384,8 @@ html, body { width: 100%; }
         <button class="tab-btn" onclick="openOfficialSubTab('tabSchedule')"><i class="fa-solid fa-calendar-days"></i> Schedule</button>
         <button class="tab-btn" onclick="openOfficialSubTab('tabJudges')"><i class="fa-solid fa-scale-balanced"></i> Judges</button>
         <button class="tab-btn" onclick="openOfficialSubTab('tabResult')"><i class="fa-solid fa-square-poll-vertical"></i> Result</button>
+        <button class="tab-btn" onclick="openOfficialSubTab('tabAnnounce')"><i class="fa-solid fa-bullhorn"></i> Announce</button>
+        <button class="tab-btn" onclick="openOfficialSubTab('tabAnalytics')"><i class="fa-solid fa-chart-pie"></i> Analytics</button>
         <button class="tab-btn" onclick="openOfficialSubTab('tabPointTable')"><i class="fa-solid fa-trophy"></i> Point Table</button>
       </div>
 
@@ -556,6 +560,29 @@ html, body { width: 100%; }
         <div id="resultsAdminTable" class="table-responsive"></div>
       </div>
 
+      <div id="tabAnnounce" class="official-tab-content">
+        <div class="report-box">
+          <h4 style="color:var(--navy-dark);margin-bottom:6px;"><i class="fa-solid fa-bullhorn"></i> Announce Results</h4>
+          <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;">Results saved as <b>Draft</b> are hidden. Tick the items to publish together as one announcement. Everyone gets a pop-up notification.</p>
+          <div id="announceDrafts" class="table-responsive"></div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;">
+            <button class="btn btn-success" style="width:auto;padding:10px 22px;margin:0;" onclick="announceSelected()"><i class="fa-solid fa-bullhorn"></i> Announce Selected</button>
+            <button class="btn" style="width:auto;padding:10px 22px;margin:0;" onclick="announceAllDrafts()">Announce All Drafts</button>
+          </div>
+        </div>
+        <div class="report-box">
+          <h4 style="color:var(--navy-dark);margin-bottom:8px;"><i class="fa-solid fa-message"></i> Send a message to everyone</h4>
+          <input type="text" id="annTitle" placeholder="Title (e.g. Senior Qira'at starts now)">
+          <input type="text" id="annText" placeholder="Message">
+          <button class="btn btn-success" onclick="sendAnnouncement()"><i class="fa-solid fa-paper-plane"></i> Send Notification</button>
+        </div>
+      </div>
+
+      <div id="tabAnalytics" class="official-tab-content">
+        <h4 style="color:var(--navy-dark);margin-bottom:10px;"><i class="fa-solid fa-chart-pie"></i> Result Analytics</h4>
+        <div id="analyticsBox"></div>
+      </div>
+
       <div id="tabPointTable" class="official-tab-content">
         <div class="report-box">
           <h4 style="color:var(--navy-dark);margin-bottom:8px;"><i class="fa-solid fa-sliders"></i> Manual Score Adjustment</h4>
@@ -637,6 +664,25 @@ html, body { width: 100%; }
       </div>
     </div>
     <div id="scheduleBox"></div>
+  </div>
+<!-- TOPPERS (public) -->
+  <div id="toppersView" class="view-panel">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px;">
+      <div><h3 style="color:var(--navy-dark);font-size:1.3rem;"><i class="fa-solid fa-crown"></i> Toppers</h3>
+      <p style="font-size:12px;color:var(--text-muted);">Highest scoring candidates from published results.</p></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <select id="topFilter" onchange="renderToppers()" style="margin:0;width:auto;"><option value="">All Categories</option><option value="SENIOR">Senior</option><option value="JUNIOR">Junior</option><option value="SUB-JUNIOR">Sub-Junior</option></select>
+        <button class="btn" style="width:auto;padding:9px 18px;margin:0;" onclick="printToppers()"><i class="fa-solid fa-print"></i> Print</button>
+      </div>
+    </div>
+    <div id="toppersBox"></div>
+  </div>
+
+  <!-- NOTIFICATIONS -->
+  <div id="notificationsView" class="view-panel">
+    <h3 style="color:var(--navy-dark);font-size:1.3rem;margin-bottom:4px;"><i class="fa-solid fa-bell"></i> Notifications</h3>
+    <p style="font-size:12px;color:var(--text-muted);margin-bottom:14px;">Result announcements, schedule changes and messages from the organizers.</p>
+    <div id="noticeList"></div>
   </div>
 </div>
 
@@ -737,6 +783,8 @@ html, body { width: 100%; }
     'html,body{width:100%!important;max-width:none!important}' +
     '.app-wrapper{max-width:none!important;width:100%!important;padding:18px clamp(14px,3vw,56px)!important}' +
     '.view-panel{max-width:none!important;width:100%!important}' +
+    '.mini-modal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(6,42,36,.6);z-index:4000;display:none;align-items:center;justify-content:center;padding:14px}' +
+    '.mini-card{background:#fff;border-radius:16px;padding:22px;width:100%;max-width:460px;max-height:90vh;overflow:auto;border:2px solid #c9a24b;box-shadow:0 25px 50px rgba(0,0,0,.35)}' +
     '@media(min-width:1024px){.top-header{min-height:260px}.view-panel{padding:30px 34px}th,td{font-size:14.5px}.dashboard-card{min-height:150px}}';
   document.head.appendChild(st);
 })();
@@ -747,6 +795,8 @@ var festPrograms = JSON.parse(localStorage.getItem('MEELAD_PROGRAMS')) || [];
 var festCandidates = JSON.parse(localStorage.getItem('MEELAD_CANDIDATES')) || [];
 var festResults = JSON.parse(localStorage.getItem('MEELAD_RESULTS')) || [];
 var festSchedule = JSON.parse(localStorage.getItem('MEELAD_SCHEDULE')) || [];
+var festNotices = JSON.parse(localStorage.getItem('MEELAD_NOTICES')) || [];
+var cloudLoaded = false, cloudHasNotices = false;
 
 /* old spelling of team name -> corrected spelling */
 function migrateTeams() {
@@ -833,6 +883,9 @@ function fetchCloudData() {
         festCandidates = data.candidates || [];
         festResults = data.results || [];
         if (data.schedule) festSchedule = data.schedule;
+        if (data.notices) { festNotices = data.notices; cloudHasNotices = true; }
+        localStorage.setItem('MEELAD_NOTICES', JSON.stringify(festNotices));
+        cloudLoaded = true;
         migrateTeams();
         localStorage.setItem('MEELAD_SCHEDULE', JSON.stringify(festSchedule));
         localStorage.setItem('MEELAD_PROGRAMS', JSON.stringify(festPrograms));
@@ -849,8 +902,9 @@ function syncToCloud() {
   localStorage.setItem('MEELAD_CANDIDATES', JSON.stringify(festCandidates));
   localStorage.setItem('MEELAD_RESULTS', JSON.stringify(festResults));
   localStorage.setItem('MEELAD_SCHEDULE', JSON.stringify(festSchedule));
+  localStorage.setItem('MEELAD_NOTICES', JSON.stringify(festNotices));
   refreshAll();
-  var payload = { programs: festPrograms, candidates: festCandidates, results: festResults, schedule: festSchedule };
+  var payload = { programs: festPrograms, candidates: festCandidates, results: festResults, schedule: festSchedule, notices: festNotices };
   fetch(CLOUD_API_URL, {
     method: "POST",
     headers: { "Content-Type": "text/plain;charset=utf-8" },
@@ -2289,6 +2343,7 @@ function savePrograms() {
     festPrograms.push(p); added++;
   });
   if (added > 0) {
+    addNotice('program', 'New program added', inputs.length ? Array.prototype.map.call(inputs, function (i) { return i.value.trim(); }).filter(Boolean).slice(0, 4).join(', ') + ' (' + cat + ')' : '');
     saveAllData();
     document.getElementById('programRowsContainer').innerHTML = '<div class="program-input-row" style="display:flex; gap:8px; margin-bottom:8px;"><input type="text" class="prog-name-input" placeholder="Enter Program Name (e.g. Qira\'at, Quiz, Madih, Duff)"></div>';
     document.getElementById('progMax').value = '';
@@ -2593,13 +2648,22 @@ function saveResultBatch() {
     return rbRows.some(function (r) { return cat === 'GENERAL' ? x.team === r.team : String(x.regNo) === String(r.regNo); });
   };
   festResults = festResults.filter(function (x) { return !(x.program === item && x.category === cat && isRow(x)); });
+  var batchId = Date.now(), nowIso = new Date().toISOString();
   out.forEach(function (o, n) {
     festResults.push({
       id: Date.now() + n, regNo: o.r.regNo, name: cat === 'GENERAL' ? o.r.name + ' (Team)' : o.r.name, team: o.r.team,
       category: cat, program: item, mark: rbMark(o.rank, o.grade),
-      grade: o.grade === '-' ? '' : o.grade, place: o.rank, published: pub
+      grade: o.grade === '-' ? '' : o.grade, place: o.rank, published: pub,
+      batch: pub === 'YES' ? batchId : '', pubAt: pub === 'YES' ? nowIso : ''
     });
   });
+  if (pub === 'YES' && out.length) {
+    var med = { '1st': '🥇', '2nd': '🥈', '3rd': '🥉' };
+    var win = out.filter(function (o) { return med[o.rank]; }).sort(function (x, y) { return x.rank.localeCompare(y.rank); })
+      .map(function (o) { return med[o.rank] + ' ' + o.r.name + ' (' + o.r.team + ')'; }).join('  ');
+    addNotice('result', 'Result announced', item + ' (' + cat + ')' + (win ? ' — ' + win : ''));
+    markResultsKnown();
+  }
   saveAllData();
   alert('Result saved for "' + item + '" (' + out.length + ' participant' + (out.length === 1 ? '' : 's') + ').');
 }
@@ -2768,6 +2832,7 @@ function addScheduleItem() {
   var g = function (id) { return document.getElementById(id).value.trim(); };
   if (!g('schProgram') || !g('schTime')) { alert('Please enter at least the program name and the start time.'); return; }
   festSchedule.push({ id: Date.now() + Math.floor(Math.random() * 1000), date: g('schDate'), time: g('schTime'), endTime: g('schEnd'), program: g('schProgram'), category: g('schCategory'), venue: g('schVenue'), note: g('schNote') });
+  addNotice('schedule', 'New schedule item', festSchedule[festSchedule.length - 1].program + ' (' + catLabel(festSchedule[festSchedule.length - 1].category) + ') • ' + fmtDate(festSchedule[festSchedule.length - 1].date) + ' ' + fmtTime(festSchedule[festSchedule.length - 1].time));
   ['schProgram', 'schTime', 'schEnd', 'schVenue', 'schNote'].forEach(function (id) { document.getElementById(id).value = ''; });
   saveAllData();
 }
@@ -2775,6 +2840,7 @@ function addScheduleItem() {
 function deleteSchedule(id) {
   if (!confirm('Delete this schedule item?')) return;
   festSchedule = festSchedule.filter(function (s) { return s.id !== id; });
+  addNotice('schedule', 'Schedule item removed', 'An item was removed from the schedule.');
   saveAllData();
 }
 
@@ -2794,6 +2860,7 @@ function editSchedule(id) {
       if (!p || !t) { alert('Program name and start time are required.'); return false; }
       s.date = document.getElementById('esDate').value; s.time = t; s.endTime = document.getElementById('esEnd').value;
       s.program = p; s.category = document.getElementById('esCat').value; s.venue = document.getElementById('esVenue').value.trim(); s.note = document.getElementById('esNote').value.trim();
+      addNotice('schedule', 'Schedule updated', s.program + ' (' + catLabel(s.category) + ') • ' + fmtDate(s.date) + ' ' + fmtTime(s.time));
       saveAllData();
     });
 }
@@ -2808,6 +2875,304 @@ refreshAll = function () { _refreshAllSched.apply(this, arguments); renderSchedu
 
 renderScheduleViews();
 renderProgramListView();
+
+</script>
+<script>
+/* MMO Arts Fest — pop-up notifications (toasts), bell icon and Notifications page.
+   Notices are created when results are announced, the schedule/programs change, or an admin sends a message. */
+
+(function injectNotifyStyles() {
+  var st = document.createElement('style');
+  st.textContent =
+    '#toastBox{position:fixed;top:14px;right:14px;z-index:6000;width:360px;max-width:calc(100vw - 28px);display:flex;flex-direction:column;gap:10px;pointer-events:none}' +
+    '.toast{pointer-events:auto;background:#fff;border-radius:14px;box-shadow:0 14px 34px rgba(6,42,36,.28);border-left:6px solid #0284c7;padding:12px 38px 12px 14px;position:relative;animation:toastIn .35s ease;cursor:pointer}' +
+    '.toast.result{border-left-color:#c9a24b;background:linear-gradient(135deg,#fffdf5,#fff6dc)}.toast.schedule{border-left-color:#0b7a5f}.toast.program{border-left-color:#7c3aed}.toast.warn{border-left-color:#f59e0b}' +
+    '.toast b{display:block;font-size:13.5px;color:#062a24}.toast span{display:block;font-size:12.5px;color:#334155;margin-top:2px;line-height:1.4}' +
+    '.toast i.x{position:absolute;top:8px;right:12px;font-style:normal;font-size:18px;color:#94a3b8}' +
+    '@keyframes toastIn{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:none}}' +
+    '.notif-badge{background:#ef4444;color:#fff;border-radius:999px;font-size:10px;font-weight:800;padding:1px 6px;margin-left:6px}' +
+    '.notice-item{display:flex;gap:14px;padding:14px 16px;border:1px solid #e6dfcc;border-radius:14px;margin-bottom:10px;background:#fff}' +
+    '.notice-item.unread{background:#fff8e1;border-color:#c9a24b}.notice-ic{font-size:24px;line-height:1}' +
+    '.notice-item b{display:block;color:#062a24}.notice-item small{color:#64748b}' +
+    '.ana-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:16px}' +
+    '.ana-card{background:#fff;border:1px solid #e6dfcc;border-radius:14px;padding:14px 16px}.ana-card.dark{background:#111827;color:#fff;border:0}' +
+    '.ana-card small{font-size:11px;letter-spacing:1px;text-transform:uppercase;opacity:.75}.ana-card h4{font-size:24px;margin:6px 0 0}.ana-card span{font-size:12px;opacity:.7}' +
+    '.ana-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}' +
+    '.ana-panel{background:#fff;border:1px solid #e6dfcc;border-radius:14px;padding:14px 16px}.ana-panel h5{font-size:13.5px;color:#062a24;margin-bottom:10px}' +
+    '.ana-row{display:flex;align-items:center;gap:10px;margin-bottom:7px;font-size:12.5px}.ana-l{width:110px;flex:none;color:#475569;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}' +
+    '.ana-bar{flex:1;background:#eef2f1;border-radius:6px;height:12px;overflow:hidden}.ana-bar i{display:block;height:100%;border-radius:6px}.ana-empty{color:#94a3b8;font-size:12.5px;text-align:center;padding:14px}' +
+    '.top-card{background:#fff;border:1px solid #e6dfcc;border-radius:14px;padding:14px 16px;margin-bottom:16px}' +
+    '.top-row{display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid #f1ede0}.top-row:last-child{border:0}.top-row .m{font-size:22px;width:34px;text-align:center}';
+  document.head.appendChild(st);
+})();
+
+/* ---------- pop-up toasts ---------- */
+var NOTICE_ICON = { result: '🏆', schedule: '🗓️', program: '📋', info: '📢' };
+
+function showToast(title, msg, type) {
+  var box = document.getElementById('toastBox');
+  if (!box) { box = document.createElement('div'); box.id = 'toastBox'; document.body.appendChild(box); }
+  var t = document.createElement('div');
+  t.className = 'toast ' + (type || 'info');
+  t.innerHTML = '<i class="x">×</i>' + (title ? '<b>' + (NOTICE_ICON[type] || '🔔') + ' ' + esc(title) + '</b>' : '') + '<span>' + esc(msg) + '</span>';
+  var kill = function () { if (t.parentNode) t.parentNode.removeChild(t); };
+  t.onclick = kill;
+  box.appendChild(t);
+  setTimeout(kill, type === 'result' ? 12000 : 7000);
+}
+
+/* normal alert() messages now appear as pop-up notifications */
+window.alert = function (m) {
+  var s = String(m);
+  showToast('', s, /please|maximum|cannot|invalid|denied|already|required|empty|select|choose/i.test(s) ? 'warn' : 'info');
+};
+
+/* ---------- notices ---------- */
+function addNotice(type, title, text) {
+  festNotices.push({ id: Date.now() + Math.floor(Math.random() * 999), time: new Date().toISOString(), type: type, title: title, text: text });
+  if (festNotices.length > 150) festNotices = festNotices.slice(-150);
+  localStorage.setItem('MEELAD_NOTICES', JSON.stringify(festNotices));
+}
+function loadIds(key) { try { var v = JSON.parse(localStorage.getItem(key)); return Array.isArray(v) ? v : null; } catch (e) { return null; } }
+function saveIds(key, arr) { localStorage.setItem(key, JSON.stringify(arr.slice(-400))); }
+
+/* results already known on this device (used when the cloud script cannot store notices) */
+function publishedKeys() {
+  return festResults.filter(function (r) { return r.published === 'YES' && r.place && r.place !== '-'; })
+    .map(function (r) { return r.category + '|' + r.program + '|' + r.regNo + '|' + r.team + '|' + r.place; });
+}
+function markResultsKnown() { saveIds('MEELAD_KNOWN_RES', publishedKeys()); }
+
+function checkNotices() {
+  if (!cloudLoaded) return;
+  var seen = loadIds('MEELAD_TOASTED');
+  if (seen === null) { saveIds('MEELAD_TOASTED', festNotices.map(function (n) { return n.id; })); markResultsKnown(); updateBadges(); return; }
+
+  var fresh = festNotices.filter(function (n) { return seen.indexOf(n.id) < 0; }).sort(function (a, b) { return a.time.localeCompare(b.time); });
+  fresh.slice(-3).forEach(function (n) { showToast(n.title, n.text, n.type); });
+  if (fresh.length > 3) showToast('', (fresh.length - 3) + ' more notifications — see the Notifications page.', 'info');
+  if (fresh.length) saveIds('MEELAD_TOASTED', seen.concat(fresh.map(function (n) { return n.id; })));
+
+  if (!cloudHasNotices) {   /* fallback: detect newly published results by comparing with what this device knew */
+    var known = loadIds('MEELAD_KNOWN_RES') || [], cur = publishedKeys();
+    var newOnes = festResults.filter(function (r) {
+      return r.published === 'YES' && r.place && r.place !== '-' && known.indexOf(r.category + '|' + r.program + '|' + r.regNo + '|' + r.team + '|' + r.place) < 0;
+    });
+    var groups = {};
+    newOnes.forEach(function (r) { (groups[r.category + '|' + r.program] = groups[r.category + '|' + r.program] || []).push(r); });
+    Object.keys(groups).slice(0, 3).forEach(function (k) {
+      var g = groups[k];
+      showToast('Result announced', g[0].program + ' (' + g[0].category + ') — ' + g.sort(function (x, y) { return x.place.localeCompare(y.place); }).map(function (r) { return r.place + ' ' + r.name; }).join(', '), 'result');
+    });
+    saveIds('MEELAD_KNOWN_RES', cur);
+  }
+  updateBadges();
+}
+
+function unreadCount() {
+  var read = loadIds('MEELAD_READ') || [];
+  return festNotices.filter(function (n) { return read.indexOf(n.id) < 0; }).length;
+}
+function updateBadges() {
+  var n = unreadCount();
+  ['bellCount', 'notifBadge'].forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el) { el.textContent = n > 99 ? '99+' : n; el.style.display = n ? 'inline-block' : 'none'; }
+  });
+}
+function markAllRead() { saveIds('MEELAD_READ', festNotices.map(function (n) { return n.id; })); updateBadges(); }
+
+function renderNoticeList() {
+  var box = document.getElementById('noticeList');
+  if (!box) return;
+  var read = loadIds('MEELAD_READ') || [];
+  var list = festNotices.slice().sort(function (a, b) { return b.time.localeCompare(a.time); });
+  box.innerHTML = !list.length ? '<p class="rot-empty">No notifications yet. Result announcements and schedule changes will appear here.</p>' :
+    list.map(function (n) {
+      return '<div class="notice-item' + (read.indexOf(n.id) < 0 ? ' unread' : '') + '"><div class="notice-ic">' + (NOTICE_ICON[n.type] || '🔔') + '</div><div><b>' + esc(n.title) + '</b>' + esc(n.text) + '<br><small>' + new Date(n.time).toLocaleString() + '</small></div></div>';
+    }).join('');
+}
+
+/* ---------- bell icon in the header ---------- */
+(function addBell() {
+  var hc = document.querySelector('.header-controls');
+  if (!hc || document.getElementById('bellCount')) return;
+  var fs = hc.children[1], grp = document.createElement('div');
+  grp.style.cssText = 'display:flex;gap:8px;align-items:center';
+  var bell = document.createElement('div');
+  bell.className = 'icon-btn';
+  bell.innerHTML = '<i class="fa-solid fa-bell"></i><span id="bellCount" class="notif-badge" style="display:none"></span>';
+  bell.onclick = function () { showView('notificationsView'); };
+  hc.insertBefore(grp, fs); grp.appendChild(bell); grp.appendChild(fs);
+})();
+
+/* ---------- hooks into existing functions ---------- */
+var _showViewN = showView;
+showView = function (id) {
+  _showViewN.apply(this, arguments);
+  if (id === 'notificationsView') { renderNoticeList(); markAllRead(); }
+  if (id === 'toppersView' && typeof renderToppers === 'function') renderToppers();
+};
+
+var _refreshAllN = refreshAll;
+refreshAll = function () {
+  _refreshAllN.apply(this, arguments);
+  [renderNoticeList, checkNotices, function () { if (typeof renderToppers === 'function') renderToppers(); }, function () { if (typeof renderAnnounceTab === 'function') renderAnnounceTab(); }, function () { if (typeof renderAnalytics === 'function') renderAnalytics(); }]
+    .forEach(function (fn) { try { fn(); } catch (e) { console.error(e); } });
+};
+
+var _openSubN = openOfficialSubTab;
+openOfficialSubTab = function (id) {
+  _openSubN.apply(this, arguments);
+  if (id === 'tabAnnounce' && typeof renderAnnounceTab === 'function') renderAnnounceTab();
+  if (id === 'tabAnalytics' && typeof renderAnalytics === 'function') renderAnalytics();
+};
+
+updateBadges();
+
+</script>
+<script>
+/* MMO Arts Fest — Announce results (batches), Result Analytics, Toppers */
+
+function isPub(r) { return r.published === 'YES' || r.published === undefined; }
+function realResults() { return festResults.filter(function (r) { return r.regNo !== '-'; }); }
+function groupKey(r) { return r.category + '|' + r.program; }
+
+/* ================= ANNOUNCE TAB ================= */
+function draftGroups() {
+  var g = {};
+  realResults().filter(function (r) { return !isPub(r); }).forEach(function (r) { (g[groupKey(r)] = g[groupKey(r)] || []).push(r); });
+  return g;
+}
+
+function renderAnnounceTab() {
+  var box = document.getElementById('announceDrafts');
+  if (!box) return;
+  var g = draftGroups(), keys = Object.keys(g);
+  if (!keys.length) { box.innerHTML = '<p class="rot-empty">No draft results. Save a result with "Draft (Hidden)" status and it will appear here.</p>'; return; }
+  box.innerHTML = '<table><thead><tr><th style="width:40px;">✓</th><th>Item</th><th>Category</th><th>Participants</th><th>Winners</th></tr></thead><tbody>' +
+    keys.map(function (k) {
+      var rs = g[k].slice().sort(function (a, b) { return String(a.place).localeCompare(String(b.place)); });
+      var win = rs.filter(function (r) { return r.place && r.place !== '-'; }).map(function (r) { return r.place + ' ' + esc(r.name); }).join(', ');
+      return '<tr><td><input type="checkbox" class="ann-cb" value="' + enc(k) + '" checked style="width:20px;height:20px;margin:0;"></td><td><b>' + esc(rs[0].program) + '</b></td><td>' + esc(rs[0].category) + '</td><td>' + rs.length + '</td><td style="font-size:12.5px;">' + (win || '–') + '</td></tr>';
+    }).join('') + '</tbody></table>';
+}
+
+function publishGroups(keys) {
+  var g = draftGroups(), picked = keys.filter(function (k) { return g[k]; });
+  if (!picked.length) { alert('Please select at least one item to announce.'); return; }
+  var batch = Date.now(), iso = new Date().toISOString(), names = [];
+  picked.forEach(function (k) {
+    g[k].forEach(function (r) { r.published = 'YES'; r.batch = batch; r.pubAt = iso; });
+    names.push(g[k][0].program + ' (' + g[k][0].category + ')');
+  });
+  addNotice('result', 'Results announced', picked.length + ' item' + (picked.length > 1 ? 's' : '') + ': ' + names.slice(0, 4).join(', ') + (names.length > 4 ? ' and ' + (names.length - 4) + ' more' : ''));
+  markResultsKnown();
+  saveAllData();
+}
+function announceSelected() {
+  var keys = Array.prototype.map.call(document.querySelectorAll('.ann-cb:checked'), function (c) { return decodeURIComponent(c.value); });
+  publishGroups(keys);
+}
+function announceAllDrafts() { publishGroups(Object.keys(draftGroups())); }
+
+function sendAnnouncement() {
+  var t = document.getElementById('annTitle').value.trim(), m = document.getElementById('annText').value.trim();
+  if (!t && !m) { alert('Please type a title or a message.'); return; }
+  addNotice('info', t || 'Announcement', m);
+  document.getElementById('annTitle').value = ''; document.getElementById('annText').value = '';
+  saveAllData();
+}
+
+/* ================= ANALYTICS ================= */
+function anaBars(items, color) {
+  if (!items.length) return '<div class="ana-empty">No data yet</div>';
+  var max = Math.max.apply(null, items.map(function (i) { return i.v; }).concat([1]));
+  return items.map(function (i) {
+    return '<div class="ana-row"><span class="ana-l" title="' + esc(i.l) + '">' + esc(i.l) + '</span><div class="ana-bar"><i style="width:' + (i.v / max * 100) + '%;background:' + (i.c || color || '#0b7a5f') + '"></i></div><b>' + i.v + '</b></div>';
+  }).join('');
+}
+
+function renderAnalytics() {
+  var box = document.getElementById('analyticsBox');
+  if (!box) return;
+  var res = realResults(), pub = res.filter(isPub), groups = {};
+  res.forEach(function (r) { (groups[groupKey(r)] = groups[groupKey(r)] || []).push(r); });
+  var pubProgs = 0, draftProgs = 0, pubByCat = {}, batches = {}, days = {};
+  Object.keys(groups).forEach(function (k) {
+    var g = groups[k];
+    if (g.some(isPub)) { pubProgs++; pubByCat[g[0].category] = (pubByCat[g[0].category] || 0) + 1; } else draftProgs++;
+  });
+  var notStarted = Math.max(0, festPrograms.length - pubProgs - draftProgs);
+
+  var totalPts = festResults.filter(isPub).reduce(function (s, r) { return s + Number(r.mark || 0); }, 0);
+  var ptsByCat = {};
+  festResults.filter(isPub).forEach(function (r) { ptsByCat[r.category] = (ptsByCat[r.category] || 0) + Number(r.mark || 0); });
+
+  var tieMap = {}, ties = 0;
+  pub.forEach(function (r) { if (['1st', '2nd', '3rd'].indexOf(r.place) >= 0) { var k = groupKey(r) + '|' + r.place; tieMap[k] = (tieMap[k] || 0) + 1; } });
+  Object.keys(tieMap).forEach(function (k) { if (tieMap[k] > 1) ties++; });
+
+  pub.forEach(function (r) {
+    var b = r.batch || 'earlier';
+    (batches[b] = batches[b] || { t: r.pubAt || '', progs: {} }).progs[groupKey(r)] = 1;
+    var d = r.pubAt ? new Date(r.pubAt).toLocaleDateString() : 'Earlier';
+    days[d] = (days[d] || 0) + 1;
+  });
+  var batchKeys = Object.keys(batches).sort(function (a, b) { return String(batches[a].t).localeCompare(String(batches[b].t)); });
+
+  var pos = ['1st', '2nd', '3rd'].map(function (p, i) { return { l: p + ' place', v: pub.filter(function (r) { return r.place === p; }).length, c: ['#c9a24b', '#94a3b8', '#b45309'][i] }; });
+  var grd = ['A', 'B', 'C'].map(function (g, i) { return { l: 'Grade ' + g, v: pub.filter(function (r) { return r.grade === g; }).length, c: ['#059669', '#0284c7', '#f59e0b'][i] }; });
+  var cats = ['SENIOR', 'JUNIOR', 'SUB-JUNIOR', 'GENERAL'];
+
+  box.innerHTML =
+    '<div class="ana-cards">' +
+    '<div class="ana-card dark"><small>Published</small><h4>' + pubProgs + ' published</h4><span>' + (pubProgs + draftProgs) + ' generated</span></div>' +
+    '<div class="ana-card"><small>Total points</small><h4>' + totalPts + ' pts</h4><span>festival points awarded</span></div>' +
+    '<div class="ana-card"><small>Position ties</small><h4>' + ties + ' ties</h4><span>tied program ranks</span></div>' +
+    '<div class="ana-card"><small>Release batches</small><h4>' + batchKeys.length + ' cycles</h4><span>published batches</span></div>' +
+    '<div class="ana-card"><small>Unpublished</small><h4>' + draftProgs + ' pending</h4><span>awaiting publication</span></div></div>' +
+    '<div class="ana-grid">' +
+    '<div class="ana-panel"><h5>🗓️ Result Publishing Timeline</h5>' + anaBars(Object.keys(days).map(function (d) { return { l: d, v: days[d] }; }), '#0284c7') + '</div>' +
+    '<div class="ana-panel"><h5>📄 Programs Status Breakdown</h5>' + anaBars([{ l: 'Published', v: pubProgs, c: '#059669' }, { l: 'Draft / pending', v: draftProgs, c: '#f59e0b' }, { l: 'Not started', v: notStarted, c: '#94a3b8' }], '') + '</div>' +
+    '<div class="ana-panel"><h5>🏅 Candidates by Awarded Position</h5>' + anaBars(pos, '') + '</div>' +
+    '<div class="ana-panel"><h5>🎖️ Candidates by Awarded Grade</h5>' + anaBars(grd, '') + '</div>' +
+    '<div class="ana-panel"><h5>🧮 Total Points Contributed per Category</h5>' + anaBars(cats.filter(function (c) { return ptsByCat[c]; }).map(function (c) { return { l: c, v: ptsByCat[c] }; }), '#7c3aed') + '</div>' +
+    '<div class="ana-panel"><h5>📚 Published Programs per Category</h5>' + anaBars(cats.filter(function (c) { return pubByCat[c]; }).map(function (c) { return { l: c, v: pubByCat[c] }; }), '#0b7a5f') + '</div>' +
+    '<div class="ana-panel"><h5>📢 Programmes Published per Announcement Batch</h5>' + anaBars(batchKeys.map(function (b, i) { return { l: batches[b].t ? 'Batch ' + (i + 1) + ' · ' + new Date(batches[b].t).toLocaleDateString() : 'Earlier', v: Object.keys(batches[b].progs).length }; }), '#c9a24b') + '</div>' +
+    '</div>';
+}
+
+/* ================= TOPPERS ================= */
+function toppersHtml(filterCat) {
+  var out = '', medals = ['🥇', '🥈', '🥉'];
+  ['SENIOR', 'JUNIOR', 'SUB-JUNIOR'].forEach(function (cat) {
+    if (filterCat && filterCat !== cat) return;
+    var m = {};
+    festResults.filter(function (r) { return r.category === cat && isPub(r) && r.regNo && r.regNo !== '-' && r.regNo !== 'TEAM'; }).forEach(function (r) {
+      var o = m[r.regNo] = m[r.regNo] || { name: r.name, team: r.team, reg: r.regNo, total: 0, p1: 0, p2: 0, p3: 0, gr: 0 };
+      o.total += Number(r.mark || 0);
+      if (r.place === '1st') o.p1++; else if (r.place === '2nd') o.p2++; else if (r.place === '3rd') o.p3++;
+      if (r.grade) o.gr++;
+    });
+    var list = Object.keys(m).map(function (k) { return m[k]; }).sort(function (a, b) { return b.total - a.total || b.p1 - a.p1; }).slice(0, 10);
+    out += '<div class="top-card"><h3 style="margin-bottom:6px;">' + cat + ' TOPPERS</h3>' +
+      (list.length ? list.map(function (o, i) {
+        return '<div class="top-row"><div class="m">' + (medals[i] || (i + 1)) + '</div><div style="flex:1;"><b>' + esc(o.name) + '</b> <small style="color:#64748b;">' + esc(o.reg) + '</small><br><span class="badge team-badge-' + String(o.team).toLowerCase() + '">' + esc(o.team) + '</span> <small style="color:#64748b;">🥇' + o.p1 + ' 🥈' + o.p2 + ' 🥉' + o.p3 + ' • ' + o.gr + ' grades</small></div><div style="font-size:22px;font-weight:800;color:#0b7a5f;">' + o.total + '</div></div>';
+      }).join('') : '<div class="ana-empty">No published results yet</div>') + '</div>';
+  });
+  return out;
+}
+function renderToppers() {
+  var box = document.getElementById('toppersBox');
+  if (!box) return;
+  var f = document.getElementById('topFilter') ? document.getElementById('topFilter').value : '';
+  box.innerHTML = toppersHtml(f);
+}
+function printToppers() {
+  var f = document.getElementById('topFilter') ? document.getElementById('topFilter').value : '';
+  reportShell('Toppers' + (f ? ' — ' + f : ''), toppersHtml(f).replace(/class="top-card"/g, 'style="margin-bottom:10px"'));
+}
 
 </script>
 </body>

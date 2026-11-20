@@ -67,6 +67,7 @@ function savePrograms() {
     festPrograms.push(p); added++;
   });
   if (added > 0) {
+    addNotice('program', 'New program added', inputs.length ? Array.prototype.map.call(inputs, function (i) { return i.value.trim(); }).filter(Boolean).slice(0, 4).join(', ') + ' (' + cat + ')' : '');
     saveAllData();
     document.getElementById('programRowsContainer').innerHTML = '<div class="program-input-row" style="display:flex; gap:8px; margin-bottom:8px;"><input type="text" class="prog-name-input" placeholder="Enter Program Name (e.g. Qira\'at, Quiz, Madih, Duff)"></div>';
     document.getElementById('progMax').value = '';

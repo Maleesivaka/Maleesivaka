@@ -102,13 +102,22 @@ function saveResultBatch() {
     return rbRows.some(function (r) { return cat === 'GENERAL' ? x.team === r.team : String(x.regNo) === String(r.regNo); });
   };
   festResults = festResults.filter(function (x) { return !(x.program === item && x.category === cat && isRow(x)); });
+  var batchId = Date.now(), nowIso = new Date().toISOString();
   out.forEach(function (o, n) {
     festResults.push({
       id: Date.now() + n, regNo: o.r.regNo, name: cat === 'GENERAL' ? o.r.name + ' (Team)' : o.r.name, team: o.r.team,
       category: cat, program: item, mark: rbMark(o.rank, o.grade),
-      grade: o.grade === '-' ? '' : o.grade, place: o.rank, published: pub
+      grade: o.grade === '-' ? '' : o.grade, place: o.rank, published: pub,
+      batch: pub === 'YES' ? batchId : '', pubAt: pub === 'YES' ? nowIso : ''
     });
   });
+  if (pub === 'YES' && out.length) {
+    var med = { '1st': '🥇', '2nd': '🥈', '3rd': '🥉' };
+    var win = out.filter(function (o) { return med[o.rank]; }).sort(function (x, y) { return x.rank.localeCompare(y.rank); })
+      .map(function (o) { return med[o.rank] + ' ' + o.r.name + ' (' + o.r.team + ')'; }).join('  ');
+    addNotice('result', 'Result announced', item + ' (' + cat + ')' + (win ? ' — ' + win : ''));
+    markResultsKnown();
+  }
   saveAllData();
   alert('Result saved for "' + item + '" (' + out.length + ' participant' + (out.length === 1 ? '' : 's') + ').');
 }

@@ -61,6 +61,7 @@ function addScheduleItem() {
   var g = function (id) { return document.getElementById(id).value.trim(); };
   if (!g('schProgram') || !g('schTime')) { alert('Please enter at least the program name and the start time.'); return; }
   festSchedule.push({ id: Date.now() + Math.floor(Math.random() * 1000), date: g('schDate'), time: g('schTime'), endTime: g('schEnd'), program: g('schProgram'), category: g('schCategory'), venue: g('schVenue'), note: g('schNote') });
+  addNotice('schedule', 'New schedule item', festSchedule[festSchedule.length - 1].program + ' (' + catLabel(festSchedule[festSchedule.length - 1].category) + ') • ' + fmtDate(festSchedule[festSchedule.length - 1].date) + ' ' + fmtTime(festSchedule[festSchedule.length - 1].time));
   ['schProgram', 'schTime', 'schEnd', 'schVenue', 'schNote'].forEach(function (id) { document.getElementById(id).value = ''; });
   saveAllData();
 }
@@ -68,6 +69,7 @@ function addScheduleItem() {
 function deleteSchedule(id) {
   if (!confirm('Delete this schedule item?')) return;
   festSchedule = festSchedule.filter(function (s) { return s.id !== id; });
+  addNotice('schedule', 'Schedule item removed', 'An item was removed from the schedule.');
   saveAllData();
 }
 
@@ -87,6 +89,7 @@ function editSchedule(id) {
       if (!p || !t) { alert('Program name and start time are required.'); return false; }
       s.date = document.getElementById('esDate').value; s.time = t; s.endTime = document.getElementById('esEnd').value;
       s.program = p; s.category = document.getElementById('esCat').value; s.venue = document.getElementById('esVenue').value.trim(); s.note = document.getElementById('esNote').value.trim();
+      addNotice('schedule', 'Schedule updated', s.program + ' (' + catLabel(s.category) + ') • ' + fmtDate(s.date) + ' ' + fmtTime(s.time));
       saveAllData();
     });
 }

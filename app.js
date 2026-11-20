@@ -9,6 +9,8 @@
     'html,body{width:100%!important;max-width:none!important}' +
     '.app-wrapper{max-width:none!important;width:100%!important;padding:18px clamp(14px,3vw,56px)!important}' +
     '.view-panel{max-width:none!important;width:100%!important}' +
+    '.mini-modal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(6,42,36,.6);z-index:4000;display:none;align-items:center;justify-content:center;padding:14px}' +
+    '.mini-card{background:#fff;border-radius:16px;padding:22px;width:100%;max-width:460px;max-height:90vh;overflow:auto;border:2px solid #c9a24b;box-shadow:0 25px 50px rgba(0,0,0,.35)}' +
     '@media(min-width:1024px){.top-header{min-height:260px}.view-panel{padding:30px 34px}th,td{font-size:14.5px}.dashboard-card{min-height:150px}}';
   document.head.appendChild(st);
 })();
@@ -19,6 +21,8 @@ var festPrograms = JSON.parse(localStorage.getItem('MEELAD_PROGRAMS')) || [];
 var festCandidates = JSON.parse(localStorage.getItem('MEELAD_CANDIDATES')) || [];
 var festResults = JSON.parse(localStorage.getItem('MEELAD_RESULTS')) || [];
 var festSchedule = JSON.parse(localStorage.getItem('MEELAD_SCHEDULE')) || [];
+var festNotices = JSON.parse(localStorage.getItem('MEELAD_NOTICES')) || [];
+var cloudLoaded = false, cloudHasNotices = false;
 
 /* old spelling of team name -> corrected spelling */
 function migrateTeams() {
@@ -105,6 +109,9 @@ function fetchCloudData() {
         festCandidates = data.candidates || [];
         festResults = data.results || [];
         if (data.schedule) festSchedule = data.schedule;
+        if (data.notices) { festNotices = data.notices; cloudHasNotices = true; }
+        localStorage.setItem('MEELAD_NOTICES', JSON.stringify(festNotices));
+        cloudLoaded = true;
         migrateTeams();
         localStorage.setItem('MEELAD_SCHEDULE', JSON.stringify(festSchedule));
         localStorage.setItem('MEELAD_PROGRAMS', JSON.stringify(festPrograms));
@@ -121,8 +128,9 @@ function syncToCloud() {
   localStorage.setItem('MEELAD_CANDIDATES', JSON.stringify(festCandidates));
   localStorage.setItem('MEELAD_RESULTS', JSON.stringify(festResults));
   localStorage.setItem('MEELAD_SCHEDULE', JSON.stringify(festSchedule));
+  localStorage.setItem('MEELAD_NOTICES', JSON.stringify(festNotices));
   refreshAll();
-  var payload = { programs: festPrograms, candidates: festCandidates, results: festResults, schedule: festSchedule };
+  var payload = { programs: festPrograms, candidates: festCandidates, results: festResults, schedule: festSchedule, notices: festNotices };
   fetch(CLOUD_API_URL, {
     method: "POST",
     headers: { "Content-Type": "text/plain;charset=utf-8" },

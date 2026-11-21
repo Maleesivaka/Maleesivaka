@@ -6,8 +6,8 @@
   <title>MMO Arts Fest 2k26</title>
   <link href="https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@700;800&family=Cinzel:wght@700&family=Gayathri:wght@700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="style.css?v=8">
-  <link rel="stylesheet" href="enhance.css?v=8">
+  <link rel="stylesheet" href="style.css?v=9">
+  <link rel="stylesheet" href="enhance.css?v=9">
 </head>
 <body>
 
@@ -267,6 +267,19 @@
             <button class="btn" style="flex:1;min-width:210px;" onclick="printBlankJudgesSlips()"><i class="fa-solid fa-file"></i> Print 4 Blank Slips (fill by hand)</button>
           </div>
         </div>
+        <div class="report-box">
+          <h4 style="color:var(--navy-dark);margin-bottom:6px;"><i class="fa-solid fa-table-cells-large"></i> Custom slip sheet — mix several items on one A4 page</h4>
+          <p style="font-size:12px;color:var(--text-muted);margin-bottom:10px;">Add a row for each item and choose how many slips it needs (1, 2, 3 …). Slips fill the page four at a time, so for example <b>2 slips of Qira'at + 2 slips of Madih</b> share one page. Choose "blank" for slips to write by hand. Unused spaces stay empty.</p>
+          <div id="jcRows"></div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:10px 0;">
+            <button type="button" class="btn" style="width:auto;padding:8px 16px;margin:0;" onclick="jcAddRow()"><i class="fa-solid fa-plus"></i> Add another item</button>
+            <label style="font-size:12px;font-weight:600;">Repeat whole sheet</label>
+            <input type="number" id="jcRepeat" min="1" max="50" value="1" oninput="jcPreview()" style="width:80px;margin:0;">
+            <span style="font-size:12px;color:var(--text-muted);">time(s)</span>
+          </div>
+          <div id="jcPreview" style="margin-bottom:10px;"></div>
+          <button class="btn btn-success" style="width:auto;padding:10px 24px;" onclick="printCustomSlips()"><i class="fa-solid fa-print"></i> Print Custom Sheet</button>
+        </div>
       </div>
 
       <div id="tabResult" class="official-tab-content">
@@ -512,16 +525,16 @@
   </div>
 </div>
 
-<script src="app.js?v=8"></script>
-<script src="entry-form.js?v=8"></script>
-<script src="judges.js?v=8"></script>
-<script src="poster.js?v=8"></script>
-<script src="rotation.js?v=8"></script>
-<script src="entries.js?v=8"></script>
-<script src="results.js?v=8"></script>
-<script src="report.js?v=8"></script>
-<script src="schedule.js?v=8"></script>
-<script src="notify.js?v=8"></script>
-<script src="analytics.js?v=8"></script>
+<script src="app.js?v=9"></script>
+<script src="entry-form.js?v=9"></script>
+<script src="judges.js?v=9"></script>
+<script src="poster.js?v=9"></script>
+<script src="rotation.js?v=9"></script>
+<script src="entries.js?v=9"></script>
+<script src="results.js?v=9"></script>
+<script src="report.js?v=9"></script>
+<script src="schedule.js?v=9"></script>
+<script src="notify.js?v=9"></script>
+<script src="analytics.js?v=9"></script>
 </body>
 </html>

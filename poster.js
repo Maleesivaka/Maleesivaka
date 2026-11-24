@@ -26,11 +26,11 @@ function drawLogoHeader(ctx, w, greet, acc) {
 }
 var P_TEAM = { Qahira: '#0284c7', Qudsiya: '#059669', Qurthuba: '#ef4444' };
 var P_THEMES = {
-  1: { bg: ['#071a3d', '#1e3a8a', '#050f26'], acc: '#f5c451', glow: '#3b82f6' },
-  2: { bg: ['#022c22', '#0b6b4f', '#03261d'], acc: '#fcd34d', glow: '#10b981' },
-  3: { bg: ['#3b0a14', '#8a1c33', '#1f050a'], acc: '#f7c873', glow: '#f43f5e' },
-  4: { bg: ['#050816', '#0b3a6b', '#041225'], acc: '#38bdf8', glow: '#0ea5e9' },
-  5: { bg: ['#1a1203', '#5c3b07', '#0e0802'], acc: '#ffd76a', glow: '#f59e0b' }
+  1: { bg: ['#0b0b0f', '#1f1f29', '#050507'], acc: '#FDB827', glow: '#ff7a00' },
+  2: { bg: ['#2a0f00', '#8a3300', '#140700'], acc: '#ffd24d', glow: '#ff7a00' },
+  3: { bg: ['#1a0a2e', '#4a1d7a', '#0d0518'], acc: '#FDB827', glow: '#a855f7' },
+  4: { bg: ['#021b2a', '#075985', '#01131d'], acc: '#FDB827', glow: '#38bdf8' },
+  5: { bg: ['#0f0f0f', '#3a2a00', '#050505'], acc: '#ffe08a', glow: '#FDB827' }
 };
 
 function pv(id, def) { var e = document.getElementById(id); return (e && e.value !== '') ? e.value : def; }
@@ -173,7 +173,7 @@ function drawHeader(ctx, w, sub, greet, acc, light) {
   ctx.textAlign = 'center';
   ctx.save();
   ctx.shadowColor = 'rgba(0,0,0,.5)'; ctx.shadowBlur = 16;
-  ctx.fillStyle = light ? '#fff6dc' : acc;
+  ctx.fillStyle = light ? '#fff3c4' : acc;
   spaced(ctx, 6);
   fitFont(ctx, 'MMO ARTS FEST', 860, 80, '700', "'Cinzel', serif", 40);
   ctx.fillText('MMO ARTS FEST', w / 2, 168);

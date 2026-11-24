@@ -2,6 +2,28 @@
    - 5 redesigned built-in models
    - upload your own PNG poster, upload candidate photo, drag to position */
 var posterPhoto = null, posterBg = null;
+var posterLogo = { name: null, sub: null };
+(function loadPosterLogos() {
+  [['name', FEST_NAME_IMG], ['sub', FEST_SUB_IMG]].forEach(function (p) {
+    var i = new Image();
+    i.onload = function () { posterLogo[p[0]] = i; if (typeof drawPosterPreview === 'function') drawPosterPreview(); };
+    i.src = p[1];
+  });
+})();
+function drawLogoHeader(ctx, w, greet, acc) {
+  var n = posterLogo.name, s = posterLogo.sub, y = 62;
+  var k = Math.min(780 / n.width, 130 / n.height), nw = n.width * k, nh = n.height * k;
+  ctx.save(); ctx.shadowColor = 'rgba(0,0,0,.5)'; ctx.shadowBlur = 18; ctx.drawImage(n, (w - nw) / 2, y, nw, nh); ctx.restore();
+  y += nh + 8;
+  if (s) { var k2 = Math.min(520 / s.width, 46 / s.height), sw = s.width * k2, sh = s.height * k2; ctx.drawImage(s, (w - sw) / 2, y, sw, sh); y += sh + 12; }
+  ctx.strokeStyle = acc; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(w / 2 - 300, y); ctx.lineTo(w / 2 - 24, y); ctx.moveTo(w / 2 + 24, y); ctx.lineTo(w / 2 + 300, y); ctx.stroke();
+  ctx.save(); ctx.translate(w / 2, y); ctx.rotate(Math.PI / 4); ctx.fillStyle = acc; ctx.fillRect(-8, -8, 16, 16); ctx.restore();
+  ctx.textAlign = 'center'; ctx.fillStyle = '#fff'; spaced(ctx, 3);
+  fitFont(ctx, greet, 880, 27, '700', "'Poppins', sans-serif", 16);
+  ctx.fillText(greet, w / 2, Math.min(322, Math.max(300, y + 46)));
+  spaced(ctx, 0);
+}
 var P_TEAM = { Qahira: '#0284c7', Qudsiya: '#059669', Qurthuba: '#ef4444' };
 var P_THEMES = {
   1: { bg: ['#071a3d', '#1e3a8a', '#050f26'], acc: '#f5c451', glow: '#3b82f6' },
@@ -147,6 +169,7 @@ function drawRibbon(ctx, w, y, text, acc) {
 }
 
 function drawHeader(ctx, w, sub, greet, acc, light) {
+  if (posterLogo.name) { drawLogoHeader(ctx, w, greet, acc); return; }
   ctx.textAlign = 'center';
   ctx.save();
   ctx.shadowColor = 'rgba(0,0,0,.5)'; ctx.shadowBlur = 16;

@@ -7,7 +7,7 @@
     '.team-badge-qurthuba{background:#ef4444!important;color:#fff!important;border:0!important}' +
     /* full-width layout for computers (always applied) */
     'html,body{width:100%!important;max-width:none!important}' +
-    '.app-wrapper{max-width:none!important;width:100%!important;padding:18px clamp(14px,3vw,56px)!important}' +
+    '.app-wrapper{max-width:none!important;width:100%!important}' +
     '.view-panel{max-width:none!important;width:100%!important}' +
     '.mini-modal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(6,42,36,.6);z-index:4000;display:none;align-items:center;justify-content:center;padding:14px}' +
     '.mini-card{background:#fff;border-radius:16px;padding:22px;width:100%;max-width:460px;max-height:90vh;overflow:auto;border:2px solid #c9a24b;box-shadow:0 25px 50px rgba(0,0,0,.35)}' +
@@ -323,7 +323,7 @@ function printTeamListPDF() {
     bodyContent += `
       <div style="page-break-after:always; margin-bottom:30px;">
         <div style="text-align:center; border-bottom:2px solid #1e3a8a; padding-bottom:8px; margin-bottom:15px;">
-          <h2 style="margin:0; font-size:24px; color:#0f172a;">MMO Arts Fest 2k26</h2>
+          ${festTitleHtml(14, 6)}
           <h3 style="margin:4px 0 0 0; color:#0284c7; text-transform:uppercase;">OFFICIAL TEAM ROSTER: ${team.toUpperCase()}</h3>
         </div>`;
     categories.forEach(cat => {

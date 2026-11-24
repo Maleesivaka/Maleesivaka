@@ -1,6 +1,13 @@
 /* MMO Arts Fest — Judges slips, 4 per A4 page (2 x 2).
    Slip 1 can be the "candidate-name slip": code column blank, candidate names listed, then mark / grade / rank.
-   The other 3 slips are the normal code slips (A to I). Blank mode prints 4 empty slips. */
+   The other 3 slips are the normal code slips (A to L). Blank mode prints 4 empty slips. */
+
+/* number of code letters on every slip (set in the Judges tab; default A to I = 9) */
+var JUDGE_LETTERS = 'ABCDEFGHIJKLMNOP';
+function judgeCodeCount() {
+  var e = document.getElementById('judgeCodes'), n = parseInt(e && e.value, 10);
+  return n >= 1 && n <= 16 ? n : 9;
+}
 
 function judgeNames(cat, item) {
   if (!item) return [];
@@ -16,20 +23,20 @@ function judgeNames(cat, item) {
 function judgeHead(cat, item, tag) {
   var catHtml = cat ? '<b>' + esc(cat) + '</b>' : '<span class="line"></span>';
   var itemHtml = item ? '<b>' + esc(item) + '</b>' : '<span class="line"></span>';
-  return '<div class="hdr"><div class="t1">MMO Arts Fest</div><div class="t2">JUDGES EVALUATION SLIP' + (tag ? ' — ' + tag : '') + '</div></div>' +
+  return '<div class="hdr">' + festTitleHtml(8, 3.4) + '<div class="t2">JUDGES EVALUATION SLIP' + (tag ? ' — ' + tag : '') + '</div></div>' +
     '<div class="meta"><div><span>CATEGORY</span>' + catHtml + '</div><div><span>ITEM</span>' + itemHtml + '</div></div>';
 }
 var JUDGE_SIGN = '<div class="sign"><div>Judge: ____________________</div><div>Sign: ______________</div></div>';
 
 function judgeSlipHtml(cat, item) {
-  var rows = 'ABCDEFGHI'.split('').map(function (l) { return '<tr><td class="code">' + l + '</td><td></td><td></td><td></td></tr>'; }).join('');
+  var rows = JUDGE_LETTERS.slice(0, judgeCodeCount()).split('').map(function (l) { return '<tr><td class="code">' + l + '</td><td></td><td></td><td></td></tr>'; }).join('');
   return '<div class="slip"><div class="in">' + judgeHead(cat, item, '') +
     '<table><thead><tr><th style="width:15mm">CODE</th><th>MARK</th><th style="width:16mm">GRADE</th><th style="width:16mm">RANK</th></tr></thead><tbody>' + rows + '</tbody></table>' + JUDGE_SIGN + '</div></div>';
 }
 
 /* slip with candidate names, code column left blank */
 function judgeNamesSlipHtml(cat, item, names) {
-  var n = Math.min(Math.max(names.length, 9), 14), rows = '';
+  var n = Math.min(Math.max(names.length, judgeCodeCount()), 16), rows = '';
   for (var i = 0; i < n; i++) {
     var c = names[i];
     rows += '<tr><td></td><td class="nm">' + (c ? esc(c.name) + (c.reg ? ' <small>(' + esc(c.reg) + ')</small>' : '') : '') + '</td><td></td><td></td><td></td></tr>';
@@ -67,7 +74,7 @@ function openSlipDoc(slips) {
     'table{width:100%;border-collapse:collapse;flex:1}' +
     'th,td{border:.3mm solid #0b5d4b;text-align:center}' +
     'th{background:#062a24;color:#f4e8c8;font-size:6.5pt;height:5.5mm;letter-spacing:.5px}' +
-    'td.code{font-size:11pt;font-weight:700;background:#f6f3ea;color:#062a24}' +
+    'td.code{font-size:10pt;font-weight:700;background:#f6f3ea;color:#062a24}' +
     'td.nm{text-align:left;font-size:7.5pt;padding:0 1.5mm;font-weight:600}td.nm small{font-weight:400;color:#64748b;font-size:6pt}' +
     '.sign{display:flex;justify-content:space-between;margin-top:2.5mm;font-size:6.8pt;font-weight:600;color:#0b5d4b}' +
     '</style></head><body>' + body +

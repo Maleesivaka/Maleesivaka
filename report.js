@@ -14,7 +14,7 @@ function reportShell(title, body) {
     '.d{font-size:8pt;color:#64748b}h3{background:#e3f3ec;border-left:4px solid #0b5d4b;padding:4px 10px;margin:12px 0 5px;font-size:11pt;color:#062a24}h3 small{font-weight:400;color:#475569;font-size:8.5pt}' +
     'table{width:100%;border-collapse:collapse;margin:3px 0 8px}th,td{border:1px solid #94a3b8;padding:3px 6px;font-size:9pt;text-align:left}' +
     'th{background:#062a24;color:#f4e8c8;font-size:8.5pt}tr{page-break-inside:avoid}.pb{page-break-before:always}.c{text-align:center}.blk{page-break-inside:avoid}</style></head><body>' +
-    '<div class="hdr">' + festTitleHtml(16, 7) + '<div class="t3">' + title + '</div>' +
+    '<div class="hdr">' + festTitleHtml(22, 10) + '<div class="t3">' + title + '</div>' +
     '<div class="d">Printed: ' + new Date().toLocaleString() + '</div></div>' + body +
     '<script>window.onload=function(){setTimeout(function(){window.print()},600)}<\/script></body></html>');
   w.document.close();

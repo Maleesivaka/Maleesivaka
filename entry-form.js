@@ -76,7 +76,7 @@ function printEntryFormPDF() {
           }).join('') + '<td></td></tr>';
 
         pages += '<div class="page">' +
-          '<div class="hdr">' + festTitleHtml(13, 5.5) +
+          '<div class="hdr">' + festTitleHtml(17, 8) +
           '<div class="badge" style="background:' + (teamColor[team] || '#1e3a8a') + '">OFFICIAL ENTRY FORM — TICK TO REGISTER</div></div>' +
           '<div class="meta"><div><b>TEAM:</b> ' + team.toUpperCase() + '</div><div><b>CATEGORY:</b> ' + cat + '</div>' +
           '<div><b>DATE:</b> ____ / ____ / 2026</div><div><b>SHEET:</b> ' + (ci + 1) + ' / ' + chunks.length + '</div></div>' +

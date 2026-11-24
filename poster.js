@@ -12,10 +12,10 @@ var posterLogo = { name: null, sub: null };
 })();
 function drawLogoHeader(ctx, w, greet, acc) {
   var n = posterLogo.name, s = posterLogo.sub, y = 62;
-  var k = Math.min(780 / n.width, 130 / n.height), nw = n.width * k, nh = n.height * k;
+  var k = Math.min(560 / n.width, 140 / n.height), nw = n.width * k, nh = n.height * k;
   ctx.save(); ctx.shadowColor = 'rgba(0,0,0,.5)'; ctx.shadowBlur = 18; ctx.drawImage(n, (w - nw) / 2, y, nw, nh); ctx.restore();
   y += nh + 8;
-  if (s) { var k2 = Math.min(520 / s.width, 46 / s.height), sw = s.width * k2, sh = s.height * k2; ctx.drawImage(s, (w - sw) / 2, y, sw, sh); y += sh + 12; }
+  if (s) { var k2 = Math.min(380 / s.width, 62 / s.height), sw = s.width * k2, sh = s.height * k2; ctx.drawImage(s, (w - sw) / 2, y, sw, sh); y += sh + 12; }
   ctx.strokeStyle = acc; ctx.lineWidth = 2;
   ctx.beginPath(); ctx.moveTo(w / 2 - 300, y); ctx.lineTo(w / 2 - 24, y); ctx.moveTo(w / 2 + 24, y); ctx.lineTo(w / 2 + 300, y); ctx.stroke();
   ctx.save(); ctx.translate(w / 2, y); ctx.rotate(Math.PI / 4); ctx.fillStyle = acc; ctx.fillRect(-8, -8, 16, 16); ctx.restore();

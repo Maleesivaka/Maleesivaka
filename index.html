@@ -6,8 +6,8 @@
   <title>MMO Arts Fest 2k26</title>
   <link href="https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@700;800&family=Cinzel:wght@700&family=Gayathri:wght@700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="style.css?v=11">
-  <link rel="stylesheet" href="enhance.css?v=11">
+  <link rel="stylesheet" href="style.css?v=12">
+  <link rel="stylesheet" href="enhance.css?v=12">
   <!-- ===== Fest logo images: put these two PNG files next to index.html (change the names here if yours differ) ===== -->
   <script>
     var FEST_NAME_IMG = 'fest-name.png';          /* the fest name PNG */
@@ -29,7 +29,7 @@
     /* full-width hero */
     .top-header {
       border-radius: 0 !important; margin: 0 !important; border: 0 !important; box-shadow: none !important; width: 100% !important;
-      min-height: clamp(240px, 42vh, 400px) !important; padding: 70px 16px 34px !important;
+      min-height: clamp(240px, 40vh, 420px) !important; padding: 64px 16px 30px !important;
       background: radial-gradient(circle at 50% 130%, rgba(201,162,75,.5), transparent 58%), var(--star2), linear-gradient(160deg, #04211c 0%, #0b5d4b 55%, #083d33 100%) !important;
       background-size: auto, 72px 72px, auto !important;
       animation: heroDrift 24s linear infinite;
@@ -38,8 +38,8 @@
     .top-header::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 5px; background: linear-gradient(90deg, transparent, #c9a24b, transparent); }
     .header-controls { top: 14px !important; left: clamp(12px, 3vw, 40px) !important; right: clamp(12px, 3vw, 40px) !important; }
     .title-banner { margin-top: 0 !important; }
-    .hero-name { display: block; max-width: min(660px, 88vw); max-height: 200px; width: auto; height: auto; margin: 0 auto; filter: drop-shadow(0 8px 20px rgba(0,0,0,.55)); animation: heroIn 1.1s cubic-bezier(.2,.8,.2,1) both; }
-    .hero-sub  { display: block; max-width: min(470px, 72vw); max-height: 66px; width: auto; height: auto; margin: 8px auto 0; filter: drop-shadow(0 4px 12px rgba(0,0,0,.5)); animation: heroIn 1.1s .35s cubic-bezier(.2,.8,.2,1) both; }
+    .hero-name { display: block; max-width: min(520px, 80vw); max-height: clamp(120px, 24vh, 240px); width: auto; height: auto; margin: 0 auto; filter: drop-shadow(0 8px 20px rgba(0,0,0,.55)); animation: heroIn 1.1s cubic-bezier(.2,.8,.2,1) both; }
+    .hero-sub  { display: block; max-width: min(380px, 70vw); max-height: clamp(60px, 10vh, 100px); width: auto; height: auto; margin: 8px auto 0; filter: drop-shadow(0 4px 12px rgba(0,0,0,.5)); animation: heroIn 1.1s .35s cubic-bezier(.2,.8,.2,1) both; }
     @keyframes heroIn { from { opacity: 0; transform: translateY(16px) scale(.94); } to { opacity: 1; transform: none; } }
 
     /* sticky top menu (computers) */
@@ -68,8 +68,8 @@
     .w-spark { position: absolute; bottom: -20px; border-radius: 50%; background: radial-gradient(circle, #fff6dc, rgba(201,162,75,0)); animation: rise linear infinite; }
     @keyframes rise { from { transform: translateY(0) scale(.6); opacity: 0; } 15% { opacity: .95; } to { transform: translateY(-110vh) scale(1.2); opacity: 0; } }
     .w-center { position: relative; z-index: 2; text-align: center; padding: 20px; max-width: 94vw; }
-    .w-name { display: block; max-width: min(760px, 88vw); max-height: 36vh; width: auto; height: auto; margin: 0 auto; filter: drop-shadow(0 0 28px rgba(201,162,75,.65)) drop-shadow(0 10px 22px rgba(0,0,0,.5)); animation: wZoom 1.4s cubic-bezier(.2,.9,.2,1) both, wGlow 3s 1.4s ease-in-out infinite; }
-    .w-sub { display: block; max-width: min(520px, 76vw); max-height: 14vh; width: auto; height: auto; margin: 10px auto 0; animation: wUp 1.1s .8s cubic-bezier(.2,.9,.2,1) both; filter: drop-shadow(0 4px 14px rgba(0,0,0,.5)); }
+    .w-name { display: block; max-width: min(620px, 86vw); max-height: 38vh; width: auto; height: auto; margin: 0 auto; filter: drop-shadow(0 0 28px rgba(201,162,75,.65)) drop-shadow(0 10px 22px rgba(0,0,0,.5)); animation: wZoom 1.4s cubic-bezier(.2,.9,.2,1) both, wGlow 3s 1.4s ease-in-out infinite; }
+    .w-sub { display: block; max-width: min(420px, 70vw); max-height: 16vh; width: auto; height: auto; margin: 10px auto 0; animation: wUp 1.1s .8s cubic-bezier(.2,.9,.2,1) both; filter: drop-shadow(0 4px 14px rgba(0,0,0,.5)); }
     .w-name-t { font: 700 clamp(38px, 9vw, 84px) Cinzel, serif; color: #fff6dc; letter-spacing: 6px; text-transform: uppercase; text-shadow: 0 0 30px rgba(201,162,75,.7); animation: wZoom 1.4s both; }
     .w-sub-t { font: 600 clamp(14px, 3vw, 22px) Poppins, sans-serif; color: #c9a24b; letter-spacing: 8px; margin-top: 8px; animation: wUp 1.1s .8s both; }
     .w-hello { margin-top: 26px; color: #f4e8c8; font: 600 clamp(15px, 2.6vw, 24px) Poppins, sans-serif; letter-spacing: 6px; text-transform: uppercase; animation: wUp 1.1s 1.5s both; }
@@ -616,17 +616,17 @@
   </div>
 </div>
 
-<script src="app.js?v=11"></script>
-<script src="entry-form.js?v=11"></script>
-<script src="judges.js?v=11"></script>
-<script src="poster.js?v=11"></script>
-<script src="rotation.js?v=11"></script>
-<script src="entries.js?v=11"></script>
-<script src="results.js?v=11"></script>
-<script src="report.js?v=11"></script>
-<script src="schedule.js?v=11"></script>
-<script src="notify.js?v=11"></script>
-<script src="analytics.js?v=11"></script>
+<script src="app.js?v=12"></script>
+<script src="entry-form.js?v=12"></script>
+<script src="judges.js?v=12"></script>
+<script src="poster.js?v=12"></script>
+<script src="rotation.js?v=12"></script>
+<script src="entries.js?v=12"></script>
+<script src="results.js?v=12"></script>
+<script src="report.js?v=12"></script>
+<script src="schedule.js?v=12"></script>
+<script src="notify.js?v=12"></script>
+<script src="analytics.js?v=12"></script>
 <!-- ===== Welcome wall (shown when the site opens) ===== -->
 <div id="welcome">
   <div class="w-rays"></div>

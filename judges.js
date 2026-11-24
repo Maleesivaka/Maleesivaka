@@ -23,7 +23,7 @@ function judgeNames(cat, item) {
 function judgeHead(cat, item, tag) {
   var catHtml = cat ? '<b>' + esc(cat) + '</b>' : '<span class="line"></span>';
   var itemHtml = item ? '<b>' + esc(item) + '</b>' : '<span class="line"></span>';
-  return '<div class="hdr">' + festTitleHtml(8, 3.4) + '<div class="t2">JUDGES EVALUATION SLIP' + (tag ? ' — ' + tag : '') + '</div></div>' +
+  return '<div class="hdr">' + festTitleHtml(11, 5) + '<div class="t2">JUDGES EVALUATION SLIP' + (tag ? ' — ' + tag : '') + '</div></div>' +
     '<div class="meta"><div><span>CATEGORY</span>' + catHtml + '</div><div><span>ITEM</span>' + itemHtml + '</div></div>';
 }
 var JUDGE_SIGN = '<div class="sign"><div>Judge: ____________________</div><div>Sign: ______________</div></div>';

@@ -323,7 +323,7 @@ function printTeamListPDF() {
     bodyContent += `
       <div style="page-break-after:always; margin-bottom:30px;">
         <div style="text-align:center; border-bottom:2px solid #1e3a8a; padding-bottom:8px; margin-bottom:15px;">
-          ${festTitleHtml(14, 6)}
+          ${festTitleHtml(18, 8)}
           <h3 style="margin:4px 0 0 0; color:#0284c7; text-transform:uppercase;">OFFICIAL TEAM ROSTER: ${team.toUpperCase()}</h3>
         </div>`;
     categories.forEach(cat => {

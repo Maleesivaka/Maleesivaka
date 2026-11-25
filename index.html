@@ -8,6 +8,10 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="style.css?v=14">
   <link rel="stylesheet" href="enhance.css?v=14">
+  <!-- ===== Welcome intro (comic animation): independent component ===== -->
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="welcome-intro.css?v=1">
+  <script>try { if (!sessionStorage.getItem('KD_INTRO_SEEN') && !/[?&]intro=0/.test(location.search)) document.documentElement.classList.add('kd-will-play'); else if (/[?&]intro=1/.test(location.search)) document.documentElement.classList.add('kd-will-play'); } catch (e) { }</script>
   <!-- ===== Fest logo images: put these two PNG files next to index.html (change the names here if yours differ) ===== -->
   <script>
     var FEST_NAME_IMG = 'fest-name.png';          /* the fest name PNG */
@@ -669,6 +673,7 @@
     <div class="w-bar"><i></i></div>
   </div>
 </div>
+<script src="welcome-intro.js?v=1"></script>
 <script>
 (function () {
   var w = document.getElementById('welcome'); if (!w) return;

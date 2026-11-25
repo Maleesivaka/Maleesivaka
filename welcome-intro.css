@@ -2,7 +2,7 @@
    Independent component: nothing here touches the site's data or layout. */
 #kdIntro { position: fixed; inset: 0; z-index: 10000; overflow: hidden; background: #fff; font-family: 'Poppins', sans-serif;
   font-size: min(1.75vw, 3vh, 19px); --wa: 26em; --wb: 22em; --ink: #222; transition: opacity .8s ease, transform .8s ease; }
-@media (max-aspect-ratio: 3/4) { #kdIntro { font-size: min(2.1vw, 3vh); --wa: 22em; --wb: 19em; } }
+@media (max-aspect-ratio: 3/4) { #kdIntro { font-size: min(1.85vw, 3vh); --wa: 22em; --wb: 19em; } }
 #kdIntro.kd-out { opacity: 0; transform: scale(1.05); pointer-events: none; }
 #kdIntro *, #kdIntro *::before, #kdIntro *::after { box-sizing: border-box; }
 
@@ -14,7 +14,8 @@
 .kd-boom .kd-rays { opacity: 1; animation: kdSpin 20s linear infinite; }
 @keyframes kdSpin { to { transform: rotate(360deg); } }
 .kd-floor { position: absolute; left: 0; right: 0; bottom: calc(34% - 1.6em); height: .35em; background: linear-gradient(90deg, transparent, rgba(24,92,55,.35), transparent); }
-.kd-stage { position: absolute; inset: 0; }
+.kd-stage { position: absolute; inset: 0; z-index: 2; }
+.kd-fx.kd-fxb { z-index: 1; }
 .kd-stage.kd-shake { animation: kdShake .45s ease-in-out; }
 @keyframes kdShake { 0%,100% { transform: none; } 20% { transform: translate(-.5em, .3em); } 40% { transform: translate(.5em, -.3em); } 60% { transform: translate(-.35em, -.2em); } 80% { transform: translate(.3em, .25em); } }
 
@@ -37,7 +38,7 @@
 .kd-fb { text-align: center; font: 800 5em 'Bangers', 'Poppins', sans-serif; color: #185C37; padding: .3em 0; letter-spacing: .05em; }
 
 /* ---------- limbs ---------- */
-.kd-arm { position: absolute; width: 7em; height: 1.15em; background: var(--ink); border-radius: 1em; transform-origin: 0 50%; transition: transform .7s cubic-bezier(.3,1.3,.5,1), width .7s ease; }
+.kd-arm { position: absolute; width: 7em; height: 1.15em; background: var(--ink); border-radius: 1em; transform-origin: 0 50%; transition: transform .7s cubic-bezier(.3,1.3,.5,1), width .7s ease, top .7s ease; }
 .kd-arm .glove { position: absolute; right: -.95em; top: 50%; width: 2.1em; height: 2.1em; margin-top: -1.05em; border-radius: 50%; background: #fff; border: .24em solid var(--ink); }
 .arm-in  { left: 100%; top: 56%; margin-left: -.4em; z-index: 4; transform: rotate(calc(var(--s) * 86deg)); }
 .arm-out { left: 0; top: 56%; margin-left: .4em; z-index: 0; transform: rotate(calc(var(--s) * 100deg)); }
@@ -73,14 +74,14 @@
 /* ---------- explosion ---------- */
 .kd-fx { position: absolute; inset: 0; pointer-events: none; z-index: 6; }
 .kd-flash { position: absolute; inset: 0; background: #fff; opacity: 0; animation: kdFlash .5s ease-out; }
-@keyframes kdFlash { 0% { opacity: .75; } 100% { opacity: 0; } }
-.kd-burst { position: absolute; width: 38em; height: 38em; margin: -19em 0 0 -19em; transform: scale(0) rotate(-20deg); animation: kdBurst 1.5s cubic-bezier(.2,1.2,.4,1) forwards; }
-.kd-burst.o { background: var(--ink); width: 41em; height: 41em; margin: -20.5em 0 0 -20.5em; }
+@keyframes kdFlash { 0% { opacity: .45; } 100% { opacity: 0; } }
+.kd-burst { position: absolute; width: 30em; height: 30em; margin: -15em 0 0 -15em; transform: scale(0) rotate(-20deg); animation: kdBurst 1.25s cubic-bezier(.2,1.2,.4,1) forwards; }
+.kd-burst.o { background: var(--ink); width: 32.6em; height: 32.6em; margin: -16.3em 0 0 -16.3em; }
 .kd-burst.gold { background: radial-gradient(circle, #FFF8C9 0%, #FDB827 46%, #F59E0B 100%); }
 .kd-burst.orange { background: radial-gradient(circle, #FFEBD6 0%, #FF9A33 46%, #FF7A00 100%); }
-.kd-burst.mix { width: 58em; height: 58em; margin: -29em 0 0 -29em; background: conic-gradient(#FDB827, #FF7A00, #FFE08A, #FF9A33, #FDB827, #FF7A00, #FFE08A, #FDB827); }
-.kd-burst.mix.o { width: 62em; height: 62em; margin: -31em 0 0 -31em; background: var(--ink); }
-@keyframes kdBurst { 0% { transform: scale(0) rotate(-20deg); opacity: 1; } 35% { transform: scale(1.1) rotate(6deg); opacity: 1; } 70% { transform: scale(1) rotate(10deg); opacity: .95; } 100% { transform: scale(1.35) rotate(16deg); opacity: 0; } }
+.kd-burst.mix { width: 42em; height: 42em; margin: -21em 0 0 -21em; background: conic-gradient(#FDB827, #FF7A00, #FFE08A, #FF9A33, #FDB827, #FF7A00, #FFE08A, #FDB827); }
+.kd-burst.mix.o { width: 44.8em; height: 44.8em; margin: -22.4em 0 0 -22.4em; background: var(--ink); }
+@keyframes kdBurst { 0% { transform: scale(0) rotate(-20deg); opacity: 1; } 35% { transform: scale(1.1) rotate(6deg); opacity: 1; } 70% { transform: scale(1) rotate(10deg); opacity: .8; } 100% { transform: scale(1.35) rotate(16deg); opacity: 0; } }
 .kd-ring { position: absolute; width: 10em; height: 10em; margin: -5em 0 0 -5em; border-radius: 50%; border: .7em solid; opacity: 0; animation: kdRing 1.2s ease-out forwards; }
 @keyframes kdRing { 0% { transform: scale(.2); opacity: .95; } 100% { transform: scale(7); opacity: 0; } }
 .kd-line { position: absolute; width: 11em; height: .42em; border-radius: .3em; background: var(--ink); transform-origin: 0 50%; opacity: 0; animation: kdLine .9s ease-out forwards; }
@@ -103,3 +104,11 @@
 /* reduced motion: show the final picture without movement */
 .kd-static .kd-a { transform: translateX(var(--ax)); animation: none; } .kd-static .kd-b { transform: translateX(var(--bx)); animation: none; }
 .kd-static .kd-title { opacity: 1; transform: rotate(-1.5deg); animation: none; }
+
+/* pre-paint cover: added to <html> by a tiny inline script, removed by welcome-intro.js as soon as the intro mounts */
+html.kd-will-play body::before { content: ""; position: fixed; inset: 0; z-index: 9999; background: #fff; }
+@media (prefers-reduced-motion: reduce) { .kd-rays, .kd-boom .kd-rays { animation: none; } #kdIntro { transition-duration: .01s; } }
+
+/* hug pose: A's arm wraps across B's front, B's arm slips behind A's back (so the arms never cross in an X) */
+.kd-hug .kd-a .arm-in { top: 36%; width: 13em; transform: rotate(5deg); }
+.kd-hug .kd-b .arm-in { top: 72%; width: 15em; transform: rotate(-4deg); }

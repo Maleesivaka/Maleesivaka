@@ -1,7 +1,4 @@
-/* KADHARVA Campus Arts Fest 2K26 — Comic Welcome Intro
-   Independent component: uses Excel Green (#217346, #33A852, #185C37) & White (#FFFFFF)
-   while preserving original PNG logo colours. */
-
+/* KADHARVA Campus Arts Fest 2K26 — Comic Welcome Intro (Microsoft Excel Green Theme) */
 #kdIntro {
   position: fixed;
   inset: 0;
@@ -15,7 +12,6 @@
   --ink: #202124;
   transition: opacity 0.75s ease, transform 0.75s ease;
 }
-
 @media (max-aspect-ratio: 3/4) {
   #kdIntro {
     font-size: min(2.1vw, 2.8vh);
@@ -23,18 +19,14 @@
     --wb: 17.5em;
   }
 }
-
 #kdIntro.kd-out {
   opacity: 0;
   transform: scale(1.04);
   pointer-events: none;
 }
-
 #kdIntro *, #kdIntro *::before, #kdIntro *::after {
   box-sizing: border-box;
 }
-
-/* Soft Excel-Green & White comic backdrop */
 .kd-bg {
   position: absolute;
   inset: 0;
@@ -43,7 +35,6 @@
     radial-gradient(#cfe5d6 1.3px, transparent 1.8px) 0 0 / 20px 20px,
     linear-gradient(180deg, #FFFFFF 0%, #F2F9F4 100%);
 }
-
 .kd-rays {
   position: absolute;
   left: 50%;
@@ -53,20 +44,17 @@
   margin: -75vmax 0 0 -75vmax;
   opacity: 0;
   transition: opacity 0.6s ease;
-  background: repeating-conic-gradient(rgba(51, 168, 82, 0.16) 0 7deg, transparent 7deg 18deg);
+  background: repeating-conic-gradient(rgba(51, 168, 82, 0.18) 0 7deg, transparent 7deg 18deg);
   -webkit-mask-image: radial-gradient(circle, #000 0, transparent 56%);
   mask-image: radial-gradient(circle, #000 0, transparent 56%);
 }
-
 .kd-boom .kd-rays {
   opacity: 1;
   animation: kdSpin 22s linear infinite;
 }
-
 @keyframes kdSpin {
   to { transform: rotate(360deg); }
 }
-
 .kd-floor {
   position: absolute;
   left: 0;
@@ -75,28 +63,23 @@
   height: 0.35em;
   background: linear-gradient(90deg, transparent, rgba(24, 92, 55, 0.32), transparent);
 }
-
 .kd-stage {
   position: absolute;
   inset: 0;
   z-index: 2;
 }
-
 .kd-fx {
   position: absolute;
   inset: 0;
   pointer-events: none;
   z-index: 6;
 }
-
 .kd-fx.kd-fxb {
   z-index: 1;
 }
-
 .kd-stage.kd-shake {
   animation: kdShake 0.42s ease-in-out;
 }
-
 @keyframes kdShake {
   0%, 100% { transform: none; }
   20% { transform: translate(-0.45em, 0.25em); }
@@ -104,8 +87,6 @@
   60% { transform: translate(-0.3em, -0.18em); }
   80% { transform: translate(0.28em, 0.2em); }
 }
-
-/* ---------- Cartoon Logo Characters ---------- */
 .kd-char {
   position: absolute;
   left: 50%;
@@ -113,7 +94,6 @@
   width: var(--w);
   margin-left: calc(var(--w) / -2);
 }
-
 .kd-char::after {
   content: "";
   position: absolute;
@@ -126,67 +106,53 @@
   filter: blur(0.35em);
   z-index: -1;
 }
-
 .kd-a {
   --w: var(--wa);
   --s: 1;
-  --sh: #FDB827; /* Gold shoe matching KADHARVA logo */
+  --sh: #FDB827;
   --ax: calc(var(--wb) / -2 - 1.2em);
   z-index: 3;
   transform: translateX(calc(-50vw - var(--wa) - 6em));
 }
-
 .kd-b {
   --w: var(--wb);
   --s: -1;
-  --sh: #FF7A00; /* Orange shoe matching Campus Arts Fest logo */
+  --sh: #FF7A00;
   --bx: calc(var(--wa) / 2 + 1.2em);
   z-index: 2;
   transform: translateX(calc(50vw + var(--wa) + 6em));
 }
-
-/* Scene 1: Entrance */
 .kd-in .kd-a {
   animation: kdInA 2.2s cubic-bezier(0.28, 0.72, 0.38, 1) forwards;
 }
-
 .kd-in .kd-b {
   animation: kdInB 2.2s cubic-bezier(0.28, 0.72, 0.38, 1) forwards;
 }
-
 @keyframes kdInA {
   from { transform: translateX(calc(-50vw - var(--wa) - 6em)); }
   to { transform: translateX(var(--ax)); }
 }
-
 @keyframes kdInB {
   from { transform: translateX(calc(50vw + var(--wa) + 6em)); }
   to { transform: translateX(var(--bx)); }
 }
-
 .kd-mv {
   transition: transform 0.55s cubic-bezier(0.3, 1.45, 0.5, 1);
 }
-
-/* Scene 3: Hug lean */
 .kd-hug .kd-a .kd-mv {
   transform: translateX(1.6em) rotate(2.5deg);
 }
-
 .kd-hug .kd-b .kd-mv {
   transform: translateX(-1.6em) rotate(-2.5deg);
 }
-
 .kd-bounce {
   position: relative;
 }
-
 .kd-body {
   position: relative;
   z-index: 2;
   width: var(--w);
 }
-
 .kd-logo {
   display: block;
   width: 100%;
@@ -195,7 +161,6 @@
   user-select: none;
   -webkit-user-drag: none;
 }
-
 .kd-fb {
   text-align: center;
   font: 800 4.6em 'Bangers', 'Poppins', sans-serif;
@@ -203,8 +168,6 @@
   padding: 0.3em 0;
   letter-spacing: 0.05em;
 }
-
-/* ---------- Limbs: Arms, Gloves, Legs & Shoes ---------- */
 .kd-arm {
   position: absolute;
   width: 6.8em;
@@ -214,7 +177,6 @@
   transform-origin: 0 50%;
   transition: transform 0.65s cubic-bezier(0.3, 1.3, 0.5, 1), width 0.65s ease, top 0.65s ease;
 }
-
 .kd-arm .glove {
   position: absolute;
   right: -0.9em;
@@ -226,7 +188,6 @@
   background: #FFFFFF;
   border: 0.24em solid var(--ink);
 }
-
 .arm-in {
   left: 100%;
   top: 56%;
@@ -234,7 +195,6 @@
   z-index: 4;
   transform: rotate(calc(var(--s) * 85deg));
 }
-
 .arm-out {
   left: 0;
   top: 56%;
@@ -242,50 +202,39 @@
   z-index: 0;
   transform: rotate(calc(var(--s) * 98deg));
 }
-
 .kd-b .kd-arm {
   transform-origin: 100% 50%;
 }
-
 .kd-b .kd-arm .glove {
   right: auto;
   left: -0.9em;
 }
-
 .kd-b .arm-in {
   left: auto;
   right: 100%;
   margin: 0 -0.4em 0 0;
 }
-
 .kd-b .arm-out {
   left: auto;
   right: 0;
   margin: 0 0.4em 0 0;
 }
-
-/* Scene 2: Meeting — arms reach out */
 .kd-meet .arm-in {
   transform: rotate(calc(var(--s) * -8deg));
 }
-
-/* Scene 3: Hug — embrace without overlapping */
 .kd-hug .arm-out {
   transform: rotate(calc(var(--s) * -126deg));
 }
-
 .kd-hug .kd-a .arm-in {
   top: 38%;
   width: 12.5em;
   transform: rotate(5deg);
 }
-
 .kd-hug .kd-b .arm-in {
   top: 70%;
   width: 14em;
   transform: rotate(-4deg);
 }
-
 .kd-legs {
   position: relative;
   z-index: 1;
@@ -293,7 +242,6 @@
   height: 6em;
   margin: -0.65em auto 0;
 }
-
 .leg {
   position: absolute;
   top: 0;
@@ -303,10 +251,8 @@
   border-radius: 0.7em;
   transform-origin: 50% 0;
 }
-
 .leg.l { left: 0; }
 .leg.r { right: 0; }
-
 .shoe {
   position: absolute;
   bottom: -0.9em;
@@ -317,60 +263,46 @@
   border: 0.22em solid var(--ink);
   border-radius: 1.5em 1.9em 0.7em 0.7em;
 }
-
 .kd-b .kd-legs {
   transform: scaleX(-1);
 }
-
-/* Walking cycle */
 .kd-walk .kd-bounce { animation: kdBob 0.35s ease-in-out infinite; }
 .kd-walk .leg.l { animation: kdLeg 0.35s ease-in-out infinite alternate; }
 .kd-walk .leg.r { animation: kdLeg 0.35s ease-in-out infinite alternate-reverse; }
 .kd-walk .arm-in { animation: kdArmIn 0.35s ease-in-out infinite alternate; }
 .kd-walk .arm-out { animation: kdArmOut 0.35s ease-in-out infinite alternate; }
-
 .kd-b .leg.l { animation-delay: -0.175s; }
 .kd-b .kd-bounce { animation-delay: -0.175s; }
-
 @keyframes kdBob {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-0.55em); }
 }
-
 @keyframes kdLeg {
   from { transform: rotate(-28deg); }
   to { transform: rotate(28deg); }
 }
-
 @keyframes kdArmIn {
   from { transform: rotate(calc(var(--s) * 64deg)); }
   to { transform: rotate(calc(var(--s) * 106deg)); }
 }
-
 @keyframes kdArmOut {
   from { transform: rotate(calc(var(--s) * 118deg)); }
   to { transform: rotate(calc(var(--s) * 80deg)); }
 }
-
 .kd-squeeze .kd-bounce {
   animation: kdSq 0.48s ease-in-out 2;
 }
-
 @keyframes kdSq {
   0%, 100% { transform: none; }
   50% { transform: scale(1.025, 0.965); }
 }
-
 .kd-joy .kd-bounce {
   animation: kdJoy 0.6s ease-in-out infinite;
 }
-
 @keyframes kdJoy {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-0.95em); }
 }
-
-/* ---------- Scene 4: Colour Explosion (Gold/Yellow + Orange) ---------- */
 .kd-flash {
   position: absolute;
   inset: 0;
@@ -378,12 +310,10 @@
   opacity: 0;
   animation: kdFlash 0.45s ease-out;
 }
-
 @keyframes kdFlash {
   0% { opacity: 0.35; }
   100% { opacity: 0; }
 }
-
 .kd-burst {
   position: absolute;
   width: 28em;
@@ -392,43 +322,36 @@
   transform: scale(0) rotate(-20deg);
   animation: kdBurst 1.2s cubic-bezier(0.2, 1.2, 0.4, 1) forwards;
 }
-
 .kd-burst.o {
   background: var(--ink);
   width: 30.4em;
   height: 30.4em;
   margin: -15.2em 0 0 -15.2em;
 }
-
 .kd-burst.gold {
   background: radial-gradient(circle, #FFF8C9 0%, #FDB827 48%, #F59E0B 100%);
 }
-
 .kd-burst.orange {
   background: radial-gradient(circle, #FFEBD6 0%, #FF9A33 48%, #FF7A00 100%);
 }
-
 .kd-burst.mix {
   width: 38em;
   height: 38em;
   margin: -19em 0 0 -19em;
   background: conic-gradient(#FDB827, #FF7A00, #FFE08A, #FF9A33, #FDB827, #FF7A00, #FFE08A, #FDB827);
 }
-
 .kd-burst.mix.o {
   width: 40.6em;
   height: 40.6em;
   margin: -20.3em 0 0 -20.3em;
   background: var(--ink);
 }
-
 @keyframes kdBurst {
   0% { transform: scale(0) rotate(-20deg); opacity: 0.95; }
   35% { transform: scale(1.06) rotate(6deg); opacity: 0.95; }
   70% { transform: scale(0.98) rotate(10deg); opacity: 0.78; }
   100% { transform: scale(1.28) rotate(16deg); opacity: 0; }
 }
-
 .kd-ring {
   position: absolute;
   width: 10em;
@@ -439,12 +362,10 @@
   opacity: 0;
   animation: kdRing 1.15s ease-out forwards;
 }
-
 @keyframes kdRing {
   0% { transform: scale(0.2); opacity: 0.9; }
   100% { transform: scale(6.5); opacity: 0; }
 }
-
 .kd-line {
   position: absolute;
   width: 10.5em;
@@ -455,13 +376,11 @@
   opacity: 0;
   animation: kdLine 0.85s ease-out forwards;
 }
-
 @keyframes kdLine {
   0% { opacity: 0; transform: rotate(var(--a)) translateX(6.5em) scaleX(0); }
   25% { opacity: 0.95; }
   100% { opacity: 0; transform: rotate(var(--a)) translateX(15em) scaleX(1); }
 }
-
 .kd-p {
   position: absolute;
   width: 0.8em;
@@ -470,13 +389,11 @@
   opacity: 0;
   animation: kdPart 1.85s cubic-bezier(0.2, 0.7, 0.3, 1) forwards;
 }
-
 .kd-p.c {
   width: 0.95em;
   height: 0.95em;
   border-radius: 50%;
 }
-
 .kd-p.s {
   width: auto;
   height: auto;
@@ -484,15 +401,12 @@
   font-size: 1.75em;
   line-height: 1;
 }
-
 @keyframes kdPart {
   0% { opacity: 0; transform: translate(0, 0) scale(0.3) rotate(0); }
   10% { opacity: 1; }
   60% { opacity: 1; transform: translate(var(--dx), var(--dy)) rotate(var(--r)) scale(1); }
   100% { opacity: 0; transform: translate(calc(var(--dx) * 1.12), calc(var(--dy) + 11em)) rotate(calc(var(--r) * 1.6)) scale(0.8); }
 }
-
-/* ---------- Scene 5: Welcome Title (Excel Green Theme) ---------- */
 .kd-title {
   position: absolute;
   left: 0;
@@ -504,16 +418,13 @@
   transform: scale(0.4) rotate(-4deg);
   z-index: 7;
 }
-
 .kd-show .kd-title {
   animation: kdPop 0.7s cubic-bezier(0.2, 1.55, 0.4, 1) forwards;
 }
-
 @keyframes kdPop {
   from { opacity: 0; transform: scale(0.4) rotate(-4deg); }
   to { opacity: 1; transform: scale(1) rotate(-1.2deg); }
 }
-
 .kd-h {
   margin: 0;
   font: 400 4.5em/1 'Bangers', 'Poppins', sans-serif;
@@ -523,7 +434,6 @@
   paint-order: stroke fill;
   text-shadow: 0.06em 0.06em 0 #185C37, 0 0 0.6em rgba(51, 168, 82, 0.35);
 }
-
 .kd-sub {
   display: inline-block;
   margin-top: 0.65em;
@@ -536,7 +446,6 @@
   letter-spacing: 0.25em;
   box-shadow: 0 0.35em 1.1em rgba(24, 92, 55, 0.3);
 }
-
 .kd-skip {
   position: absolute;
   top: 16px;
@@ -552,17 +461,13 @@
   box-shadow: 0 6px 18px rgba(24, 92, 55, 0.14);
   transition: background 0.2s, color 0.2s;
 }
-
 .kd-skip:hover {
   background: #217346;
   color: #FFFFFF;
 }
-
-/* Accessibility: Reduced motion */
 .kd-static .kd-a { transform: translateX(var(--ax)); animation: none; }
 .kd-static .kd-b { transform: translateX(var(--bx)); animation: none; }
 .kd-static .kd-title { opacity: 1; transform: rotate(-1.2deg); animation: none; }
-
 html.kd-will-play body::before {
   content: "";
   position: fixed;
@@ -570,7 +475,6 @@ html.kd-will-play body::before {
   z-index: 9999;
   background: #FFFFFF;
 }
-
 @media (prefers-reduced-motion: reduce) {
   .kd-rays, .kd-boom .kd-rays { animation: none; }
   #kdIntro { transition-duration: 0.01s; }

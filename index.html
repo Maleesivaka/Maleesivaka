@@ -34,12 +34,8 @@
   <span class="close-btn" onclick="closeNav()">&times;</span>
   <a href="javascript:void(0)" onclick="showView('dashboardView')"><i class="fa-solid fa-chart-line"></i> Category Standings</a>
   <a href="javascript:void(0)" onclick="showView('pointTableView')"><i class="fa-solid fa-trophy"></i> Point Table &amp; Leaderboard</a>
-  <a href="javascript:void(0)" onclick="showView('officialView')"><i class="fa-solid fa-user-shield"></i> Official Portal (Admin)</a>
-  <a href="javascript:void(0)" onclick="showView('programListView')"><i class="fa-solid fa-list-check"></i> Program List</a>
-  <a href="javascript:void(0)" onclick="showView('scheduleView')"><i class="fa-solid fa-calendar-days"></i> Schedule</a>
-  <a href="javascript:void(0)" onclick="showView('toppersView')"><i class="fa-solid fa-crown"></i> Toppers</a>
-  <a href="javascript:void(0)" onclick="showView('notificationsView')"><i class="fa-solid fa-bell"></i> Notifications <span id="notifBadge" class="notif-badge" style="display:none"></span></a>
   <a href="javascript:void(0)" onclick="showView('teamView')"><i class="fa-solid fa-users"></i> Registered Candidates</a>
+  <a href="javascript:void(0)" onclick="showView('officialView')"><i class="fa-solid fa-user-shield"></i> Official Portal (Admin)</a>
 </div>
 
 <div class="app-wrapper">
@@ -60,16 +56,12 @@
 
   <nav id="mainNav">
     <a data-v="dashboardView" onclick="showView('dashboardView')"><i class="fa-solid fa-house"></i> Home</a>
-    <a data-v="programListView" onclick="showView('programListView')">Programs</a>
-    <a data-v="scheduleView" onclick="showView('scheduleView')">Schedule</a>
-    <a data-v="pointTableView" onclick="showView('pointTableView')">Point Table</a>
-    <a data-v="toppersView" onclick="showView('toppersView')">Toppers</a>
-    <a data-v="teamView" onclick="showView('teamView')">Candidates</a>
-    <a data-v="notificationsView" onclick="showView('notificationsView')">Notifications</a>
-    <a data-v="officialView" onclick="showView('officialView')"><i class="fa-solid fa-user-shield"></i> Admin</a>
+    <a data-v="pointTableView" onclick="showView('pointTableView')"><i class="fa-solid fa-trophy"></i> Point Table</a>
+    <a data-v="teamView" onclick="showView('teamView')"><i class="fa-solid fa-users"></i> Candidates</a>
+    <a data-v="officialView" onclick="showView('officialView')"><i class="fa-solid fa-user-shield"></i> Official Portal (Admin)</a>
   </nav>
 
-  <!-- 1. DASHBOARD -->
+  <!-- 1. PUBLIC DASHBOARD -->
   <div id="dashboardView" class="view-panel active">
     <div class="dashboard-split">
       <div class="dashboard-card">
@@ -110,7 +102,7 @@
     <div id="studentProgramMatrixContainer"></div>
   </div>
 
-  <!-- 2. POINT TABLE -->
+  <!-- 2. PUBLIC POINT TABLE & SCORE LOOKUP -->
   <div id="pointTableView" class="view-panel">
     <h3 style="margin-bottom:14px;font-size:1.3rem;"><i class="fa-solid fa-trophy"></i> Grand Team Leaderboard</h3>
     <div id="teamPointsTable" class="table-responsive"></div>
@@ -124,10 +116,10 @@
     <div id="studentResultBox" style="margin-top:10px;"></div>
   </div>
 
-  <!-- 3. ADMIN PORTAL -->
+  <!-- 3. OFFICIAL PORTAL (ALL ADMIN CONTROLS KEPT HERE) -->
   <div id="officialView" class="view-panel">
     <h3 style="margin-bottom:4px;font-size:1.3rem;"><i class="fa-solid fa-user-shield"></i> Official Management Portal</h3>
-    <p style="font-size:12px;color:var(--text-muted);margin-bottom:18px;">Admin access to enter and manage programs, candidates, and live scores across all devices.</p>
+    <p style="font-size:12px;color:var(--text-muted);margin-bottom:18px;">Restricted admin workspace for programs, candidates, entries, schedule, judges slips, results, announcements, and analytics.</p>
 
     <div id="officialAuth">
       <input type="text" id="officialUser" placeholder="Admin Username">
@@ -139,7 +131,7 @@
     <div id="officialContent" style="display:none;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:8px;">
         <span class="badge" style="background:#217346;color:#fff;">🔑 Admin Mode Active</span>
-        <div style="display:flex;gap:8px;">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
           <button onclick="openPrintCenter()" style="padding:7px 14px;font-size:12px;background:#217346;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:700;"><i class="fa-solid fa-print"></i> Print Center</button>
           <button onclick="printAllData()" style="padding:7px 14px;font-size:12px;background:#185C37;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:600;"><i class="fa-solid fa-print"></i> Print All Data</button>
           <button onclick="syncToCloud()" style="padding:7px 14px;font-size:12px;background:#33A852;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:600;"><i class="fa-solid fa-cloud-arrow-up"></i> Save to Cloud</button>
@@ -155,8 +147,10 @@
         <button class="tab-btn" onclick="openOfficialSubTab('tabJudges')"><i class="fa-solid fa-scale-balanced"></i> Judges</button>
         <button class="tab-btn" onclick="openOfficialSubTab('tabResult')"><i class="fa-solid fa-square-poll-vertical"></i> Result</button>
         <button class="tab-btn" onclick="openOfficialSubTab('tabAnnounce')"><i class="fa-solid fa-bullhorn"></i> Announce</button>
+        <button class="tab-btn" onclick="openOfficialSubTab('tabToppers')"><i class="fa-solid fa-crown"></i> Toppers</button>
         <button class="tab-btn" onclick="openOfficialSubTab('tabAnalytics')"><i class="fa-solid fa-chart-pie"></i> Analytics</button>
         <button class="tab-btn" onclick="openOfficialSubTab('tabPointTable')"><i class="fa-solid fa-trophy"></i> Point Table</button>
+        <button class="tab-btn" onclick="openOfficialSubTab('tabNotices')"><i class="fa-solid fa-bell"></i> Notifications <span id="notifBadge" class="notif-badge" style="display:none"></span></button>
       </div>
 
       <div id="tabPrograms" class="official-tab-content active">
@@ -194,7 +188,11 @@
           </div>
         </div>
         <h4 style="margin:18px 0 8px 0;">📋 Listed Competition Programs</h4>
-        <button class="btn" style="width:auto;padding:8px 18px;" onclick="printReport(['programs'])"><i class="fa-solid fa-print"></i> Print Program List</button>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px;">
+          <select id="plFilter" onchange="renderProgramListView()" style="margin:0;width:auto;"><option value="">All Categories</option><option value="SENIOR">Senior</option><option value="JUNIOR">Junior</option><option value="SUB-JUNIOR">Sub-Junior</option><option value="GENERAL">General</option></select>
+          <button class="btn" style="width:auto;padding:8px 18px;margin:0;" onclick="printProgramList()"><i class="fa-solid fa-print"></i> Print Program List</button>
+        </div>
+        <div id="programListBox"></div>
         <div id="programsListTable" class="table-responsive"></div>
       </div>
 
@@ -271,7 +269,11 @@
           <datalist id="schProgList"></datalist>
           <button class="btn btn-success" onclick="addScheduleItem()"><i class="fa-solid fa-plus"></i> Add to Schedule</button>
         </div>
-        <button class="btn" style="width:auto;padding:8px 18px;" onclick="printSchedule()"><i class="fa-solid fa-print"></i> Print Schedule</button>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px;">
+          <select id="schedFilter" onchange="renderScheduleViews()" style="margin:0;width:auto;"><option value="ALL">All Categories</option><option value="SENIOR">Senior</option><option value="JUNIOR">Junior</option><option value="SUB-JUNIOR">Sub-Junior</option><option value="GENERAL">General</option></select>
+          <button class="btn" style="width:auto;padding:8px 18px;margin:0;" onclick="printSchedule()"><i class="fa-solid fa-print"></i> Print Schedule</button>
+        </div>
+        <div id="scheduleBox"></div>
         <div id="schedAdminList" class="table-responsive"></div>
       </div>
 
@@ -365,6 +367,14 @@
         </div>
       </div>
 
+      <div id="tabToppers" class="official-tab-content">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px;">
+          <select id="topFilter" onchange="renderToppers()" style="margin:0;width:auto;"><option value="">All Categories</option><option value="SENIOR">Senior</option><option value="JUNIOR">Junior</option><option value="SUB-JUNIOR">Sub-Junior</option></select>
+          <button class="btn" style="width:auto;padding:8px 18px;margin:0;" onclick="printToppers()"><i class="fa-solid fa-print"></i> Print Toppers</button>
+        </div>
+        <div id="toppersBox"></div>
+      </div>
+
       <div id="tabAnalytics" class="official-tab-content">
         <h4 style="margin-bottom:10px;"><i class="fa-solid fa-chart-pie"></i> Result Analytics</h4>
         <div id="analyticsBox"></div>
@@ -394,19 +404,22 @@
         <button class="btn" style="width:auto;padding:8px 18px;" onclick="printReport(['points'])"><i class="fa-solid fa-print"></i> Print Point Table</button>
         <div id="adminPointTablePreview" class="table-responsive"></div>
       </div>
+
+      <div id="tabNotices" class="official-tab-content">
+        <h4 style="margin-bottom:10px;"><i class="fa-solid fa-bell"></i> Admin &amp; System Notifications</h4>
+        <div id="noticeList"></div>
+      </div>
     </div>
   </div>
 
-  <!-- 4. REGISTERED CANDIDATES -->
+  <!-- 4. REGISTERED CANDIDATES & BLANK ENTRY FORM PRINT -->
   <div id="teamView" class="view-panel">
     <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
       <div>
         <h3 style="font-size:1.3rem;"><i class="fa-solid fa-users"></i> Registered Candidates</h3>
-        <p style="font-size:12px;color:var(--text-muted);">Search entries across Qurthuba, Qudsiya, and Qahira, or print official forms.</p>
+        <p style="font-size:12px;color:var(--text-muted);">Search entries across Qurthuba, Qudsiya, and Qahira, or print entry forms.</p>
       </div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
-        <button class="btn" style="width:auto;padding:8px 16px;" onclick="printTeamListPDF()"><i class="fa-solid fa-print"></i> Print Team List PDF</button>
-        <button class="btn" style="width:auto;padding:8px 16px;" onclick="openPrintCenter({report:'candidates'})"><i class="fa-solid fa-filter"></i> Print with filters</button>
         <button class="btn btn-success" style="width:auto;padding:8px 16px;" onclick="printEntryFormPDF()"><i class="fa-solid fa-file-signature"></i> Print Entry Form</button>
       </div>
     </div>
@@ -428,56 +441,9 @@
     </div>
     <div id="teamMembersTable" class="table-responsive"></div>
   </div>
-
-  <!-- PROGRAM LIST (public) -->
-  <div id="programListView" class="view-panel">
-    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px;">
-      <div><h3 style="font-size:1.3rem;"><i class="fa-solid fa-list-check"></i> Program List</h3>
-      <p style="font-size:12px;color:var(--text-muted);">All competition items with the maximum participants allowed per team.</p></div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;">
-        <select id="plFilter" onchange="renderProgramListView()" style="margin:0;width:auto;"><option value="">All Categories</option><option value="SENIOR">Senior</option><option value="JUNIOR">Junior</option><option value="SUB-JUNIOR">Sub-Junior</option><option value="GENERAL">General</option></select>
-        <button class="btn" style="width:auto;padding:9px 18px;margin:0;" onclick="printProgramList()"><i class="fa-solid fa-print"></i> Print</button>
-        <button class="btn" style="width:auto;padding:9px 18px;margin:0;" onclick="openPrintCenter({report:'programs'})"><i class="fa-solid fa-filter"></i> More print options</button>
-      </div>
-    </div>
-    <div id="programListBox"></div>
-  </div>
-
-  <!-- SCHEDULE (public) -->
-  <div id="scheduleView" class="view-panel">
-    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px;">
-      <div><h3 style="font-size:1.3rem;"><i class="fa-solid fa-calendar-days"></i> Program Schedule</h3>
-      <p style="font-size:12px;color:var(--text-muted);">Time, program and category of every item.</p></div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;">
-        <select id="schedFilter" onchange="renderScheduleViews()" style="margin:0;width:auto;"><option value="ALL">All Categories</option><option value="SENIOR">Senior</option><option value="JUNIOR">Junior</option><option value="SUB-JUNIOR">Sub-Junior</option><option value="GENERAL">General</option></select>
-        <button class="btn" style="width:auto;padding:9px 18px;margin:0;" onclick="printSchedule()"><i class="fa-solid fa-print"></i> Print</button>
-      </div>
-    </div>
-    <div id="scheduleBox"></div>
-  </div>
-
-  <!-- TOPPERS (public) -->
-  <div id="toppersView" class="view-panel">
-    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px;">
-      <div><h3 style="font-size:1.3rem;"><i class="fa-solid fa-crown"></i> Toppers</h3>
-      <p style="font-size:12px;color:var(--text-muted);">Highest scoring candidates from published results.</p></div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;">
-        <select id="topFilter" onchange="renderToppers()" style="margin:0;width:auto;"><option value="">All Categories</option><option value="SENIOR">Senior</option><option value="JUNIOR">Junior</option><option value="SUB-JUNIOR">Sub-Junior</option></select>
-        <button class="btn" style="width:auto;padding:9px 18px;margin:0;" onclick="printToppers()"><i class="fa-solid fa-print"></i> Print</button>
-      </div>
-    </div>
-    <div id="toppersBox"></div>
-  </div>
-
-  <!-- NOTIFICATIONS -->
-  <div id="notificationsView" class="view-panel">
-    <h3 style="font-size:1.3rem;margin-bottom:4px;"><i class="fa-solid fa-bell"></i> Notifications</h3>
-    <p style="font-size:12px;color:var(--text-muted);margin-bottom:14px;">Result announcements, schedule changes and messages from the organizers.</p>
-    <div id="noticeList"></div>
-  </div>
 </div>
 
-<!-- 5. POSTER STUDIO -->
+<!-- 5. POSTER STUDIO (ADMIN TRIGGERED) -->
 <div id="posterStudioModal" class="poster-modal">
   <div class="poster-modal-dialog">
     <div class="poster-modal-header">
@@ -582,4 +548,4 @@
 </script>
 </body>
 </html>
-```[cite: 97, 106, 107, 108]
+```[cite: 10, 97, 106, 107, 108]

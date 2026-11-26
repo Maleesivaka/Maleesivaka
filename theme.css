@@ -5,7 +5,7 @@
 :root {
   --g: #185ABD; --g2: #2B7CD3; --g3: #103F91; --tint: #EAF2FF;
   --white: #FFFFFF; --grey: #F3F4F6; --slate: #4B5565; --ink: #202124; --line: #E9EAED;
-  --sbw: 92px; --tbh: 66px;
+  --sbw: 72px; --tbh: 66px;
   /* legacy variable names used by older parts of the site */
   --bg-main: #fff; --bg-white: #fff; --panel-bg: #fff; --card-bg: #F3F4F6;
   --navy-dark: #202124; --navy-main: #185ABD; --navy-light: #2B7CD3; --navy-soft: #EAF2FF;
@@ -24,17 +24,17 @@ code { background: var(--grey); color: var(--g3); padding: 1px 6px; border-radiu
 /* ============ NAVIGATION RAIL ============ */
 .sb { position: fixed; top: 0; left: 0; bottom: 0; width: var(--sbw); z-index: 1100; display: flex; flex-direction: column; align-items: center; color: #fff;
   background: linear-gradient(180deg, #185ABD 0%, #103F91 100%); box-shadow: 6px 0 24px rgba(16,63,145,.2); transition: transform .3s ease; }
-.sb-brand { margin: 14px 0 12px; width: 70px; height: 62px; padding: 8px; background: #fff; border-radius: 16px; display: grid; place-items: center; box-shadow: 0 6px 18px rgba(0,0,0,.14); }
+.sb-brand { margin: 12px 0 10px; width: 56px; height: 50px; padding: 6px; background: #fff; border-radius: 14px; display: grid; place-items: center; box-shadow: 0 6px 18px rgba(0,0,0,.14); }
 .sb-brand img { display: block; width: auto; height: auto; max-width: 100%; max-height: 100%; }
-.sb-scroll { flex: 1; width: 100%; overflow-y: auto; padding: 4px 8px 10px; }
+.sb-scroll { flex: 1; width: 100%; overflow-y: auto; padding: 2px 6px 8px; }
 .sb-g { display: none; }
-.sb a { position: relative; display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 11px 2px 9px; border-radius: 14px; color: rgba(255,255,255,.94); font-weight: 700; font-size: 11px; text-align: center; cursor: pointer; text-decoration: none; margin-bottom: 6px; transition: background .2s, color .2s; line-height: 1.1; }
-.sb a i { font-size: 19px; width: auto; }
+.sb a { position: relative; display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 9px 2px 7px; border-radius: 12px; color: rgba(255,255,255,.94); font-weight: 700; font-size: 9.5px; text-align: center; cursor: pointer; text-decoration: none; margin-bottom: 6px; transition: background .2s, color .2s; line-height: 1.1; }
+.sb a i { font-size: 16px; width: auto; }
 .sb a:hover { background: rgba(255,255,255,.15); }
 .sb a.on { background: #fff; color: var(--g); box-shadow: 0 6px 16px rgba(0,0,0,.18); }
-.sb a .notif-badge { position: absolute; top: 3px; right: 12px; margin: 0; }
-.sb-foot { width: 100%; padding: 8px 8px 14px; border-top: 1px solid rgba(255,255,255,.16); }
-.sb-foot a { margin: 0; font-size: 10.5px; }
+.sb a .notif-badge { position: absolute; top: 1px; right: 6px; margin: 0; }
+.sb-foot { width: 100%; padding: 6px 6px 12px; border-top: 1px solid rgba(255,255,255,.16); }
+.sb-foot a { margin: 0; font-size: 9.5px; }
 .overlay { background: rgba(32,33,36,.45) !important; z-index: 1050 !important; }
 
 /* ============ TOP BAR ============ */
@@ -204,7 +204,7 @@ tr:nth-child(even) { background: #FCFCFD; } tr:hover { background: #F3F8FF; }
 
 /* ============ RESPONSIVE ============ */
 @media (max-width: 1000px) {
-  .app-main { margin-left: 0; }
+  .app-wrapper.app-main { margin-left: 0 !important; }
   .sb { transform: translateX(-105%); } .sb.open { transform: none; }
   .tb-menu { display: block; }
   .tb-title { min-width: 0; font-size: 15px; }
@@ -230,3 +230,32 @@ button.btn-success { background: #217346 !important; } button.btn-success:hover 
 /* official tools are private: hidden for visitors until the admin logs in */
 body:not(.is-admin) [onclick*="openPosterStudioWithData"], body:not(.is-admin) [onclick*="printEntryFormPDF"], body:not(.is-admin) [onclick*="printTeamListPDF"], body:not(.is-admin) [onclick*="openPrintCenter"] { display: none !important; }
 .sync-pill { font-size: 12px; color: var(--slate); background: var(--grey); padding: 6px 14px; border-radius: 999px; }
+
+/* program / item names in score tables are black */
+.matrix-table th, .matrix-table th.vt, .rot-wrap th, .ent-wrap th { color: #111 !important; }
+.matrix-table th.vt div { color: #111 !important; font-weight: 700; }
+#pointTableView th, #dashboardView th { color: #111 !important; }
+
+/* admin accordion: closed sections look like neat rows */
+#officialContent .official-tab-content.collapsed { padding: 12px 18px; margin-bottom: 12px; transition: box-shadow .2s, border-color .2s; }
+#officialContent .official-tab-content.collapsed:hover { border-color: #C9DCF7; box-shadow: 0 8px 22px rgba(24,90,189,.1); }
+#officialContent .official-tab-content:not(.collapsed) { border-color: #C9DCF7; box-shadow: 0 10px 30px rgba(24,90,189,.1); }
+.official-tab-content.collapsed .sec-ic { width: 38px; height: 38px; font-size: 16px; }
+.admin-hint { font-size: 12.5px; color: var(--slate); margin: -4px 0 12px; }
+
+/* automatic fit for every screen size */
+img, canvas, video { max-width: 100%; }
+.table-responsive, .rot-wrap, .ent-wrap { max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+@media (max-width: 1000px) { .gsearch { max-width: none; } .ov-stats { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); } .form-grid { grid-template-columns: 1fr; } }
+@media (max-width: 700px) {
+  .hero { flex-wrap: nowrap; } .ov-grid, .dashboard-split, .ana-grid { grid-template-columns: 1fr; }
+  .pg-head { flex-direction: column; align-items: flex-start; } .pg-tools { width: 100%; } .pg-tools select, .pg-tools button { flex: 1; }
+  .qa-row button { flex: 1 1 calc(50% - 10px); } .quick-nav { top: calc(var(--tbh) + 4px); margin-bottom: 14px; }
+  .poster-modal-body { grid-template-columns: 1fr !important; } .poster-modal-dialog { max-height: 94vh; }
+  .sec-head { gap: 10px; } .sec-ic { width: 38px; height: 38px; }
+  .mini-card { max-width: 94vw; padding: 16px; } #toastBox { right: 8px; left: 8px; width: auto; }
+}
+@media (max-width: 420px) { .view-panel { padding: 16px 10px 50px !important; } .ov-stat b { font-size: 24px; } .hero { padding: 10px; } }
+@media (min-width: 1700px) { .view-panel { padding-left: clamp(40px, 5vw, 110px) !important; padding-right: clamp(40px, 5vw, 110px) !important; } }
+
+@media (max-width: 700px) { .cand-row-reg { width: 92px !important; font-size: 12px; } .cand-multi-row { gap: 6px !important; } }

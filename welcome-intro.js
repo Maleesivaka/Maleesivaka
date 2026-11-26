@@ -27,9 +27,9 @@
   function charHtml(cls, url, fbText) {
     var img = url ? '<img class="kd-logo" alt="' + fbText + '" src="' + url + '" draggable="false">' : '<div class="kd-fb">' + fbText + '</div>';
     return '<div class="kd-char ' + cls + '"><div class="kd-mv"><div class="kd-bounce">' +
-      '<div class="kd-body"><i class="kd-arm arm-out"><i class="glove"></i></i>' + img + '<i class="kd-arm arm-in"><i class="glove"></i></i></div>' +
+      '<div class="kd-body"><i class="kd-arm arm-out"><i class="glove"><i class="th"></i></i></i>' + img + '<i class="kd-arm arm-in"><i class="glove"><i class="th"></i></i></i></div>' +
       '<div class="kd-legs"><i class="leg l"><i class="shoe"></i></i><i class="leg r"><i class="shoe"></i></i></div>' +
-      '</div></div></div>';
+      '</div></div><i class="kd-sp s1"></i><i class="kd-sp s2"></i><i class="kd-sp s3"></i></div>';
   }
 
   function build(aUrl, bUrl) {
@@ -80,13 +80,15 @@
   /* ---------- timeline ---------- */
   function run() {
     var stage = document.getElementById('kdStage');
-    stage.classList.add('kd-in', 'kd-walk');                    // Scene 1: enter from the sides, walking
-    T(function () { stage.classList.remove('kd-walk'); stage.classList.add('kd-meet'); }, 2300);   // Scene 2: stop, face each other
-    T(function () { stage.classList.add('kd-hug'); }, 3000);                                        // Scene 3: raise arms and hug
-    T(function () { stage.classList.add('kd-squeeze'); }, 3500);
-    T(function () { boom(); }, 4150);                                                               // Scene 4: colour explosion
-    T(function () { stage.classList.add('kd-show', 'kd-joy'); }, 4900);                              // Scene 5: welcome message
-    T(function () { close(); }, 7100);
+    stage.classList.add('kd-in', 'kd-walk');                                                      // Scene 1: walk in along the bottom
+    T(function () { stage.classList.remove('kd-walk'); stage.classList.add('kd-open'); }, 2200);   // Scene 2: stop, feet together, arms spread wide
+    T(function () { stage.classList.add('kd-near', 'kd-walk'); }, 2800);                           // step closer (small walking steps)
+    T(function () { stage.classList.remove('kd-walk'); }, 3400);
+    T(function () { stage.classList.remove('kd-open'); stage.classList.add('kd-hug'); }, 3500);    // Scene 3: arms sweep around, hug
+    T(function () { stage.classList.add('kd-squeeze'); }, 3900);
+    T(function () { boom(); }, 4200);                                                              // Scene 4: colour explosion
+    T(function () { stage.classList.remove('kd-hug', 'kd-squeeze'); stage.classList.add('kd-thumbs', 'kd-joy', 'kd-show'); }, 5000);   // Scene 5: thumbs up + welcome message
+    T(function () { close(); }, 7300);
   }
 
   function close() {
@@ -110,7 +112,7 @@
       document.documentElement.style.overflow = 'hidden'; document.body.style.overflow = 'hidden';
       root.querySelector('.kd-skip').addEventListener('click', close);
       var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (reduce) { root.querySelector('#kdStage').classList.add('kd-static', 'kd-hug', 'kd-meet'); T(close, 2800); }
+      if (reduce) { root.querySelector('#kdStage').classList.add('kd-static', 'kd-near', 'kd-thumbs', 'kd-show'); T(close, 2800); }
       else requestAnimationFrame(function () { requestAnimationFrame(run); });
     }
     trim(NAME_IMG, function (u) { a = u; ready(); });

@@ -104,11 +104,30 @@ SEC.tabPoster = { t: 'Poster Studio', d: 'Winner posters with your own PNG desig
 SEC.tabSettings = { t: 'Settings & Backup', d: 'Cloud sync, data counts, export and backup tools.', c: '', i: 'fa-gear', s: function () { return ''; } };
 QN_IDS = ['festControl', 'tabPrograms', 'tabCandidates', 'tabEntries', 'tabSchedule', 'tabJudges', 'tabResult', 'tabAnnounce', 'tabAnalytics', 'tabPointTable', 'tabToppers', 'tabPoster', 'tabSettings'];
 
-/* collapse / expand an admin section by clicking its heading */
+/* ---------- admin accordion: sections stay closed until you click them (one open at a time) ---------- */
+function adminSections() { return Array.prototype.slice.call(document.querySelectorAll('#officialContent .official-tab-content')); }
+function markQuick(id) { Array.prototype.forEach.call(document.querySelectorAll('#quickNav button'), function (b) { b.classList.toggle('on', b.getAttribute('data-go') === id); }); }
+function collapseAdminSections() { adminSections().forEach(function (s) { s.classList.add('collapsed'); }); markQuick(''); }
+function scrollToEl(el) { if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - 84, behavior: 'smooth' }); }
+function openAdminSection(id) {
+  adminSections().forEach(function (s) { s.classList.toggle('collapsed', s.id !== id); });
+  markQuick(id);
+  var el = document.getElementById(id); if (el) setTimeout(function () { scrollToEl(el); }, 80);
+}
+adminGo = function (id) {
+  showView('officialView');
+  setTimeout(function () {
+    if (!adminLoggedIn()) { alert('Please log in as admin first.'); return; }
+    if (id === 'festControl') { collapseAdminSections(); scrollToEl(document.getElementById('festControl')); } else openAdminSection(id);
+  }, 80);
+};
 document.addEventListener('click', function (e) {
   var h = e.target.closest && e.target.closest('.sec-head'); if (!h) return;
-  var p = h.parentElement; if (p && p.classList.contains('official-tab-content')) p.classList.toggle('collapsed');
+  var p = h.parentElement; if (!p || !p.classList.contains('official-tab-content')) return;
+  if (p.classList.contains('collapsed')) openAdminSection(p.id); else { p.classList.add('collapsed'); markQuick(''); }
 });
+var _authAcc = authOfficial;
+authOfficial = function () { _authAcc.apply(this, arguments); if (adminLoggedIn()) { collapseAdminSections(); window.scrollTo(0, 0); } };
 
 /* Ctrl+K focuses the search box */
 focusSearch = function () { var i = document.getElementById('gSearch'); if (i) { i.focus(); i.select(); } };
@@ -120,4 +139,4 @@ refreshAll = function () {
   _refreshAllShell.apply(this, arguments);
   [renderPublicResults, renderAdminToppers, renderPosterWinners, renderSettingsInfo, decorateAdminSections, syncAdminUI].forEach(function (fn) { try { fn(); } catch (err) { console.error(err); } });
 };
-try { decorateAdminSections(); renderPublicResults(); syncAdminUI(); } catch (err) { console.error(err); }
+try { decorateAdminSections(); collapseAdminSections(); renderPublicResults(); syncAdminUI(); } catch (err) { console.error(err); }

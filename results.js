@@ -1,4 +1,4 @@
-/* MMO Arts Fest — Result entry: choose rank (1st/2nd/3rd) and grade (A/B/C) for every eligible participant.
+/* KADHARVA — Result entry: choose rank (1st/2nd/3rd) and grade (A/B/C) for every eligible participant.
    Mark = rank points + grade points (editable in "Points settings"). Defaults: ranks 5/3/1, grades A=5, B=3, C=1 */
 var rbRows = [];
 
@@ -102,6 +102,7 @@ function saveResultBatch() {
     return rbRows.some(function (r) { return cat === 'GENERAL' ? x.team === r.team : String(x.regNo) === String(r.regNo); });
   };
   festResults = festResults.filter(function (x) { return !(x.program === item && x.category === cat && isRow(x)); });
+  if (pub === 'YES' && out.length && !confirm('Publish this result now? Everyone will be notified.')) return;
   var batchId = Date.now(), nowIso = new Date().toISOString();
   out.forEach(function (o, n) {
     festResults.push({

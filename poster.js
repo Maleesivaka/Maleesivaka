@@ -1,13 +1,16 @@
-/* MMO Arts Fest — Poster Studio v2 (1080 x 1350)
+/* KADHARVA — Poster Studio v2 (1080 x 1350)
    - 5 redesigned built-in models
    - upload your own PNG poster, upload candidate photo, drag to position */
 var posterPhoto = null, posterBg = null;
 var posterLogo = { name: null, sub: null };
 (function loadPosterLogos() {
   [['name', FEST_NAME_IMG], ['sub', FEST_SUB_IMG]].forEach(function (p) {
-    var i = new Image();
-    i.onload = function () { posterLogo[p[0]] = i; if (typeof drawPosterPreview === 'function') drawPosterPreview(); };
-    i.src = p[1];
+    kdTrim(p[1], function (u) {
+      if (!u) return;
+      var i = new Image();
+      i.onload = function () { posterLogo[p[0]] = i; if (typeof drawPosterPreview === 'function') drawPosterPreview(); };
+      i.src = u;
+    });
   });
 })();
 function drawLogoHeader(ctx, w, greet, acc) {
@@ -175,8 +178,8 @@ function drawHeader(ctx, w, sub, greet, acc, light) {
   ctx.shadowColor = 'rgba(0,0,0,.5)'; ctx.shadowBlur = 16;
   ctx.fillStyle = light ? '#fff3c4' : acc;
   spaced(ctx, 6);
-  fitFont(ctx, 'MMO ARTS FEST', 860, 80, '700', "'Cinzel', serif", 40);
-  ctx.fillText('MMO ARTS FEST', w / 2, 168);
+  fitFont(ctx, 'KADHARVA', 860, 80, '700', "'Cinzel', serif", 40);
+  ctx.fillText('KADHARVA', w / 2, 168);
   ctx.restore();
   spaced(ctx, 5);
   ctx.fillStyle = 'rgba(255,255,255,.85)'; ctx.font = "600 23px 'Poppins', sans-serif";

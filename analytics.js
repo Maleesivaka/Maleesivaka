@@ -1,4 +1,4 @@
-/* MMO Arts Fest — Announce results (batches), Result Analytics, Toppers */
+/* KADHARVA — Announce results (batches), Result Analytics, Toppers */
 
 function isPub(r) { return r.published === 'YES' || r.published === undefined; }
 function realResults() { return festResults.filter(function (r) { return r.regNo !== '-'; }); }
@@ -27,6 +27,7 @@ function renderAnnounceTab() {
 function publishGroups(keys) {
   var g = draftGroups(), picked = keys.filter(function (k) { return g[k]; });
   if (!picked.length) { alert('Please select at least one item to announce.'); return; }
+  if (!confirm('Announce ' + picked.length + ' item' + (picked.length > 1 ? 's' : '') + ' now? Everyone will get a notification.')) return;
   var batch = Date.now(), iso = new Date().toISOString(), names = [];
   picked.forEach(function (k) {
     g[k].forEach(function (r) { r.published = 'YES'; r.batch = batch; r.pubAt = iso; });
@@ -55,7 +56,7 @@ function anaBars(items, color) {
   if (!items.length) return '<div class="ana-empty">No data yet</div>';
   var max = Math.max.apply(null, items.map(function (i) { return i.v; }).concat([1]));
   return items.map(function (i) {
-    return '<div class="ana-row"><span class="ana-l" title="' + esc(i.l) + '">' + esc(i.l) + '</span><div class="ana-bar"><i style="width:' + (i.v / max * 100) + '%;background:' + (i.c || color || '#0b7a5f') + '"></i></div><b>' + i.v + '</b></div>';
+    return '<div class="ana-row"><span class="ana-l" title="' + esc(i.l) + '">' + esc(i.l) + '</span><div class="ana-bar"><i style="width:' + (i.v / max * 100) + '%;background:' + (i.c || color || '#185ABD') + '"></i></div><b>' + i.v + '</b></div>';
   }).join('');
 }
 
@@ -87,7 +88,7 @@ function renderAnalytics() {
   });
   var batchKeys = Object.keys(batches).sort(function (a, b) { return String(batches[a].t).localeCompare(String(batches[b].t)); });
 
-  var pos = ['1st', '2nd', '3rd'].map(function (p, i) { return { l: p + ' place', v: pub.filter(function (r) { return r.place === p; }).length, c: ['#c9a24b', '#94a3b8', '#b45309'][i] }; });
+  var pos = ['1st', '2nd', '3rd'].map(function (p, i) { return { l: p + ' place', v: pub.filter(function (r) { return r.place === p; }).length, c: ['#2B7CD3', '#94a3b8', '#b45309'][i] }; });
   var grd = ['A', 'B', 'C'].map(function (g, i) { return { l: 'Grade ' + g, v: pub.filter(function (r) { return r.grade === g; }).length, c: ['#059669', '#0284c7', '#f59e0b'][i] }; });
   var cats = ['SENIOR', 'JUNIOR', 'SUB-JUNIOR', 'GENERAL'];
 
@@ -104,8 +105,8 @@ function renderAnalytics() {
     '<div class="ana-panel"><h5>🏅 Candidates by Awarded Position</h5>' + anaBars(pos, '') + '</div>' +
     '<div class="ana-panel"><h5>🎖️ Candidates by Awarded Grade</h5>' + anaBars(grd, '') + '</div>' +
     '<div class="ana-panel"><h5>🧮 Total Points Contributed per Category</h5>' + anaBars(cats.filter(function (c) { return ptsByCat[c]; }).map(function (c) { return { l: c, v: ptsByCat[c] }; }), '#7c3aed') + '</div>' +
-    '<div class="ana-panel"><h5>📚 Published Programs per Category</h5>' + anaBars(cats.filter(function (c) { return pubByCat[c]; }).map(function (c) { return { l: c, v: pubByCat[c] }; }), '#0b7a5f') + '</div>' +
-    '<div class="ana-panel"><h5>📢 Programmes Published per Announcement Batch</h5>' + anaBars(batchKeys.map(function (b, i) { return { l: batches[b].t ? 'Batch ' + (i + 1) + ' · ' + new Date(batches[b].t).toLocaleDateString() : 'Earlier', v: Object.keys(batches[b].progs).length }; }), '#c9a24b') + '</div>' +
+    '<div class="ana-panel"><h5>📚 Published Programs per Category</h5>' + anaBars(cats.filter(function (c) { return pubByCat[c]; }).map(function (c) { return { l: c, v: pubByCat[c] }; }), '#185ABD') + '</div>' +
+    '<div class="ana-panel"><h5>📢 Programmes Published per Announcement Batch</h5>' + anaBars(batchKeys.map(function (b, i) { return { l: batches[b].t ? 'Batch ' + (i + 1) + ' · ' + new Date(batches[b].t).toLocaleDateString() : 'Earlier', v: Object.keys(batches[b].progs).length }; }), '#2B7CD3') + '</div>' +
     '</div>';
 }
 
@@ -124,7 +125,7 @@ function toppersHtml(filterCat) {
     var list = Object.keys(m).map(function (k) { return m[k]; }).sort(function (a, b) { return b.total - a.total || b.p1 - a.p1; }).slice(0, 10);
     out += '<div class="top-card"><h3 style="margin-bottom:6px;">' + cat + ' TOPPERS</h3>' +
       (list.length ? list.map(function (o, i) {
-        return '<div class="top-row"><div class="m">' + (medals[i] || (i + 1)) + '</div><div style="flex:1;"><b>' + esc(o.name) + '</b> <small style="color:#64748b;">' + esc(o.reg) + '</small><br><span class="badge team-badge-' + String(o.team).toLowerCase() + '">' + esc(o.team) + '</span> <small style="color:#64748b;">🥇' + o.p1 + ' 🥈' + o.p2 + ' 🥉' + o.p3 + ' • ' + o.gr + ' grades</small></div><div style="font-size:22px;font-weight:800;color:#0b7a5f;">' + o.total + '</div></div>';
+        return '<div class="top-row"><div class="m">' + (medals[i] || (i + 1)) + '</div><div style="flex:1;"><b>' + esc(o.name) + '</b> <small style="color:#64748b;">' + esc(o.reg) + '</small><br><span class="badge team-badge-' + String(o.team).toLowerCase() + '">' + esc(o.team) + '</span> <small style="color:#64748b;">🥇' + o.p1 + ' 🥈' + o.p2 + ' 🥉' + o.p3 + ' • ' + o.gr + ' grades</small></div><div style="font-size:22px;font-weight:800;color:#185ABD;">' + o.total + '</div></div>';
       }).join('') : '<div class="ana-empty">No published results yet</div>') + '</div>';
   });
   return out;

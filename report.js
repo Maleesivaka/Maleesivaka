@@ -1,19 +1,19 @@
-/* MMO Arts Fest — printable reports (A4) with filters + Print Center + public Program List view */
+/* KADHARVA — printable reports (A4) with filters + Print Center + public Program List view */
 var REP_CATS = ['SENIOR', 'JUNIOR', 'SUB-JUNIOR', 'GENERAL'];
 var REP_TEAMS = ['Qahira', 'Qudsiya', 'Qurthuba'];
 
 function reportShell(title, body) {
   var w = window.open('', '_blank');
-  w.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>' + title + ' - MMO Arts Fest 2k26</title>' +
+  w.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>' + title + ' - KADHARVA Campus Arts Fest 2K26</title>' +
     '<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">' +
     '<style>@page{size:A4 portrait;margin:10mm}*{box-sizing:border-box;font-family:Poppins,"Segoe UI",sans-serif}' +
     'body{margin:0;color:#0f172a;font-size:10pt;-webkit-print-color-adjust:exact;print-color-adjust:exact}' +
-    '.hdr{text-align:center;border-bottom:2px solid #c9a24b;padding-bottom:6px;margin-bottom:10px}' +
-    '.t1{font-family:Cinzel,serif;font-size:22pt;letter-spacing:3px;color:#062a24;text-transform:uppercase}' +
-    '.t2{font-size:9pt;letter-spacing:3px;color:#0b5d4b;font-weight:600}.t3{font-size:11pt;font-weight:700;margin-top:4px}' +
-    '.d{font-size:8pt;color:#64748b}h3{background:#e3f3ec;border-left:4px solid #0b5d4b;padding:4px 10px;margin:12px 0 5px;font-size:11pt;color:#062a24}h3 small{font-weight:400;color:#475569;font-size:8.5pt}' +
+    '.hdr{text-align:center;border-bottom:2px solid #2B7CD3;padding-bottom:6px;margin-bottom:10px}' +
+    '.t1{font-family:Cinzel,serif;font-size:22pt;letter-spacing:3px;color:#103F91;text-transform:uppercase}' +
+    '.t2{font-size:9pt;letter-spacing:3px;color:#185ABD;font-weight:600}.t3{font-size:11pt;font-weight:700;margin-top:4px}' +
+    '.d{font-size:8pt;color:#64748b}h3{background:#EAF2FF;border-left:4px solid #185ABD;padding:4px 10px;margin:12px 0 5px;font-size:11pt;color:#103F91}h3 small{font-weight:400;color:#475569;font-size:8.5pt}' +
     'table{width:100%;border-collapse:collapse;margin:3px 0 8px}th,td{border:1px solid #94a3b8;padding:3px 6px;font-size:9pt;text-align:left}' +
-    'th{background:#062a24;color:#f4e8c8;font-size:8.5pt}tr{page-break-inside:avoid}.pb{page-break-before:always}.c{text-align:center}.blk{page-break-inside:avoid}</style></head><body>' +
+    'th{background:#103F91;color:#EAF2FF;font-size:8.5pt}tr{page-break-inside:avoid}.pb{page-break-before:always}.c{text-align:center}.blk{page-break-inside:avoid}</style></head><body>' +
     '<div class="hdr">' + festTitleHtml(22, 10) + '<div class="t3">' + title + '</div>' +
     '<div class="d">Printed: ' + new Date().toLocaleString() + '</div></div>' + body +
     '<script>window.onload=function(){setTimeout(function(){window.print()},600)}<\/script></body></html>');

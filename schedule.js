@@ -1,4 +1,4 @@
-/* MMO Arts Fest — Program Schedule (public view + admin editing + print) */
+/* KADHARVA — Program Schedule (public view + admin editing + print) */
 var SCHED_CATS = [['ALL', 'All Categories'], ['SENIOR', 'Senior'], ['JUNIOR', 'Junior'], ['SUB-JUNIOR', 'Sub-Junior'], ['GENERAL', 'General']];
 
 function fmtTime(t) {

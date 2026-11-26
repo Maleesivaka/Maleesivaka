@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>MMO Arts Fest 2k26</title>
-  <link href="https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@700;800&family=Cinzel:wght@700&family=Gayathri:wght@700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KADHARVA Campus Arts Fest 2K26</title>
+  <link href="https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@700;800&family=Bangers&family=Cinzel:wght@700&family=Gayathri:wght@700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
 @font-face{font-family:'CustomFestFont';src:url('custom-font.ttf') format('truetype'),url('ML-TTRavivarma.ttf') format('truetype');font-weight:bold;font-style:normal}
@@ -82,342 +82,441 @@ button.btn-danger:hover{background:#dc2626}
 
 </style>
   <style>
-/* Meelad Fest 2k26 visual upgrade. Link this file after your existing styles. */
-@import url('https://fonts.googleapis.com/css2?family=Marcellus&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+/* KADHARVA Campus Arts Fest 2K26 — light theme (white canvas, Microsoft Word blue accents)
+   Palette: primary #185ABD · light #2B7CD3 · deep #103F91 · white #FFFFFF · grey #F3F4F6 · slate #4B5565 · ink #202124 · line #E9EAED
+   Change the green once in the :root block below to re-colour the whole site. */
 
 :root {
-  --bg-main: #fff8e6;
-  --navy-dark: #14110b;
-  --navy-main: #D97706;
-  --navy-light: #F59E0B;
-  --navy-soft: #fff3d1;
-  --emerald-main: #D97706;
-  --gold: #FDB827;
-  --gold-soft: #ffe9a8;
-  --border-color: #f3e5b8;
-  --text-muted: #6b6f64;
-  --star: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 72 72'%3E%3Cpath d='M36 6l6.2 13.1L56 14.6l-4.5 13.9L66 36l-14.5 7.5L56 57.4l-13.8-4.5L36 66l-6.2-13.1L16 57.4l4.5-13.9L6 36l14.5-7.5L16 14.6l13.8 4.5z' fill='none' stroke='%23FDB827' stroke-opacity='.22' stroke-width='1.2'/%3E%3C/svg%3E");
+  --g: #185ABD; --g2: #2B7CD3; --g3: #103F91; --tint: #EAF2FF;
+  --white: #FFFFFF; --grey: #F3F4F6; --slate: #4B5565; --ink: #202124; --line: #E9EAED;
+  --sbw: 92px; --tbh: 66px;
+  /* legacy variable names used by older parts of the site */
+  --bg-main: #fff; --bg-white: #fff; --panel-bg: #fff; --card-bg: #F3F4F6;
+  --navy-dark: #202124; --navy-main: #185ABD; --navy-light: #2B7CD3; --navy-soft: #EAF2FF;
+  --emerald-main: #185ABD; --emerald-light: #2B7CD3; --gold: #2B7CD3; --gold-soft: #EAF2FF;
+  --border-color: #E9EAED; --text-dark: #202124; --text-muted: #4B5565;
 }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+html, body { width: 100% !important; max-width: none !important; margin: 0 !important; background: #fff !important; background-image: none !important; color: var(--ink); overflow-x: hidden; }
+body { font-family: 'Poppins', 'Segoe UI', sans-serif; }
+h1, h2, h3, h4 { color: var(--ink); }
+hr { border: 0 !important; border-top: 1px solid var(--line) !important; }
+code { background: var(--grey); color: var(--g3); padding: 1px 6px; border-radius: 6px; }
+::-webkit-scrollbar { width: 10px; height: 10px; } ::-webkit-scrollbar-thumb { background: #c9ced6; border-radius: 8px; } ::-webkit-scrollbar-track { background: transparent; }
 
-* { font-family: 'Plus Jakarta Sans', 'Poppins', sans-serif; }
-html, body {
-  background-color: var(--bg-main);
-  background-image: var(--star);
-  background-size: 72px 72px;
+/* ============ NAVIGATION RAIL ============ */
+.sb { position: fixed; top: 0; left: 0; bottom: 0; width: var(--sbw); z-index: 1100; display: flex; flex-direction: column; align-items: center; color: #fff;
+  background: linear-gradient(180deg, #185ABD 0%, #103F91 100%); box-shadow: 6px 0 24px rgba(16,63,145,.2); transition: transform .3s ease; }
+.sb-brand { margin: 14px 0 12px; width: 70px; height: 62px; padding: 8px; background: #fff; border-radius: 16px; display: grid; place-items: center; box-shadow: 0 6px 18px rgba(0,0,0,.14); }
+.sb-brand img { display: block; width: auto; height: auto; max-width: 100%; max-height: 100%; }
+.sb-scroll { flex: 1; width: 100%; overflow-y: auto; padding: 4px 8px 10px; }
+.sb-g { display: none; }
+.sb a { position: relative; display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 11px 2px 9px; border-radius: 14px; color: rgba(255,255,255,.94); font-weight: 700; font-size: 11px; text-align: center; cursor: pointer; text-decoration: none; margin-bottom: 6px; transition: background .2s, color .2s; line-height: 1.1; }
+.sb a i { font-size: 19px; width: auto; }
+.sb a:hover { background: rgba(255,255,255,.15); }
+.sb a.on { background: #fff; color: var(--g); box-shadow: 0 6px 16px rgba(0,0,0,.18); }
+.sb a .notif-badge { position: absolute; top: 3px; right: 12px; margin: 0; }
+.sb-foot { width: 100%; padding: 8px 8px 14px; border-top: 1px solid rgba(255,255,255,.16); }
+.sb-foot a { margin: 0; font-size: 10.5px; }
+.overlay { background: rgba(32,33,36,.45) !important; z-index: 1050 !important; }
+
+/* ============ TOP BAR ============ */
+.app-wrapper.app-main { margin-left: var(--sbw); min-height: 100vh; width: auto !important; max-width: none !important; padding: 0 !important; display: block !important; }
+#topbar { position: sticky; top: 0; z-index: 900; height: var(--tbh); background: #fff; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 14px; padding: 0 clamp(14px, 2.5vw, 34px); }
+.tb-title { font-weight: 800; font-size: 17px; color: var(--ink); white-space: nowrap; min-width: 120px; }
+.tb-ic { position: relative; width: 40px; height: 40px; border-radius: 12px; border: 1px solid var(--line); background: #fff; color: var(--ink); cursor: pointer; font-size: 15px; flex: none; }
+.tb-ic:hover { background: var(--tint); color: var(--g); }
+.tb-menu { display: none; }
+.tb-ic .notif-badge { position: absolute; top: -6px; right: -6px; margin: 0; }
+.tb-admin { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 10px; border: 0; background: var(--g); color: #fff; font-weight: 700; font-size: 13px; cursor: pointer; flex: none; box-shadow: 0 4px 12px rgba(24,90,189,.25); }
+.tb-admin:hover { background: var(--g3); }
+.tb-logout { display: none; align-items: center; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--line); background: #fff; color: var(--ink); font-weight: 600; font-size: 13px; cursor: pointer; flex: none; }
+.tb-logout:hover { background: #FEE2E2; border-color: #fca5a5; }
+.gsearch { position: relative; flex: 1; max-width: 560px; margin-left: auto; margin-right: 6px; background: var(--grey); border-radius: 12px; display: flex; align-items: center; }
+.gsearch > i { margin-left: 14px; color: var(--slate); }
+.gsearch input { border: 0 !important; background: transparent !important; margin: 0 !important; box-shadow: none !important; padding: 11px 14px !important; flex: 1; }
+.g-res { display: none; position: absolute; top: 48px; left: 0; right: 0; background: #fff; border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 16px 40px rgba(32,33,36,.16); max-height: 60vh; overflow: auto; z-index: 950; }
+.g-hit { display: flex; gap: 12px; padding: 10px 14px; cursor: pointer; align-items: center; } .g-hit:hover { background: var(--tint); }
+.g-hit b { display: block; font-size: 13.5px; } .g-hit small { color: var(--slate); font-size: 12px; } .g-empty { padding: 14px; color: var(--slate); font-size: 13px; }
+
+/* ============ HERO (home) ============ */
+.hero { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin: 0 0 22px; padding: 16px clamp(16px, 3vw, 36px); border-radius: 22px; position: relative; overflow: hidden;
+  background: linear-gradient(120deg, #fff 0%, #EAF2FF 55%, #DCE9FB 100%); border: 1px solid var(--line); box-shadow: 0 10px 34px rgba(16,63,145,.08); }
+.hero::before { content: ""; position: absolute; inset: 0; background: radial-gradient(#C9DCF7 1.3px, transparent 1.7px) 0 0 / 20px 20px; opacity: .55; pointer-events: none; }
+.hero > * { position: relative; }
+.hero img { display: block; width: auto; height: auto; flex: none; filter: drop-shadow(0 6px 10px rgba(16,63,145,.22)); }
+.hero .h-name { max-height: clamp(76px, 12vw, 136px); max-width: 38%; }
+.hero .h-sub { max-height: clamp(66px, 10vw, 118px); max-width: 34%; }
+.hero-mid { text-align: center; flex: 1; min-width: 0; }
+.hero-kick { font-size: 11px; letter-spacing: 3px; color: var(--g); font-weight: 800; }
+.hero-line { font-size: clamp(14px, 1.6vw, 20px); font-weight: 700; color: var(--ink); margin: 6px 0 10px; }
+.hero-chips { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+.hero-chips span { font-size: 11.5px; font-weight: 700; color: var(--g3); background: #fff; border: 1px solid #C9DCF7; padding: 4px 12px; border-radius: 999px; }
+.hero-fb { font-weight: 800; font-size: 28px; color: var(--g3); }
+
+/* ============ PAGES ============ */
+.view-panel { display: none; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; background: #fff !important; margin: 0 !important; width: 100% !important; max-width: none !important; padding: 26px clamp(14px, 3vw, 40px) 70px !important; min-height: calc(100vh - var(--tbh)); }
+.view-panel.active { display: block !important; animation: pgIn .35s ease both; }
+@keyframes pgIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.pg-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+.pg-head h3 { font-size: 22px; margin: 0; } .pg-head p { color: var(--slate); font-size: 13px; margin: 2px 0 0; }
+.pg-tools { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+h3 i, h4 i { color: var(--g); }
+
+/* cards */
+.dashboard-split { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 20px; }
+.dashboard-card, .report-box, .top-card, .ana-card, .ana-panel, .notice-item, .pts-box, .pm-box { background: #fff; border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 4px 16px rgba(32,33,36,.04); }
+.dashboard-card { padding: 20px; min-height: 0; color: var(--ink); } .dashboard-card::after { background: linear-gradient(180deg, var(--g2), var(--g)) !important; }
+.dashboard-card h4 { color: var(--g) !important; }
+.report-box { background: #FAFBFB; padding: 18px; border-style: solid !important; }
+.quote-text { color: var(--ink); } .quote-translation { color: var(--slate); }
+.result-program { color: var(--ink); } .result-cat { color: var(--g); } .result-winner { color: var(--ink); }
+.badge-timer { background: var(--tint) !important; border: 1px solid #C9DCF7 !important; color: var(--g3) !important; }
+.live-pulse { background: var(--g2) !important; box-shadow: 0 0 8px var(--g2) !important; }
+
+/* ============ FORMS & BUTTONS ============ */
+input, select, textarea { background: #fff !important; border: 1.5px solid #D9DCE1 !important; color: var(--ink) !important; border-radius: 10px !important; }
+input::placeholder, textarea::placeholder { color: #8a93a1; }
+input:focus, select:focus, textarea:focus { border-color: var(--g) !important; box-shadow: 0 0 0 4px rgba(24,90,189,.14) !important; outline: none; }
+input[type=checkbox], input[type=radio], input[type=range] { accent-color: var(--g); }
+button.btn { background: var(--g) !important; color: #fff !important; border-radius: 12px !important; font-weight: 700; box-shadow: 0 4px 12px rgba(24,90,189,.2); }
+button.btn:hover { background: var(--g3) !important; transform: translateY(-1px); }
+button.btn-success { background: var(--g2) !important; } button.btn-success:hover { background: #1F6FC0 !important; }
+button.btn-danger { background: #ef4444 !important; }
+button.btn[style*="e2e8f0"], button.btn[style*="e0f2fe"] { background: #fff !important; color: var(--ink) !important; border: 1px solid var(--line) !important; box-shadow: none; }
+button[style*="background:#0284c7"], button[style*="background: #0284c7"] { background: var(--g) !important; }
+button[style*="background:var(--navy-main)"], button[style*="background:var(--emerald-main)"], button[style*="background:#D97706"], button[style*="background:#FDB827"], button[style*="background:#2B7CD3"] { background: var(--g) !important; color: #fff !important; }
+.tab-btn { background: #fff; color: var(--ink); border: 1px solid var(--line); border-radius: 999px; }
+.tab-btn.active, .tab-btn:hover { background: var(--g); color: #fff; border-color: var(--g); box-shadow: none; }
+.rot-btn { width: 38px; height: 38px; border-radius: 12px; border: 1px solid var(--line); background: #fff; color: var(--ink); cursor: pointer; }
+.rot-btn:hover { background: var(--g); color: #fff; }
+.notif-badge { background: #ef4444; color: #fff; border-radius: 999px; font-size: 10px; font-weight: 800; padding: 1px 6px; }
+
+/* tinted inline backgrounds from older markup -> light green / grey */
+[style*="background:#e0f2fe"], [style*="background: #e0f2fe"], [style*="background:#bae6fd"], [style*="background:#EAF2FF"], [style*="background:#fff8e1"], [style*="background:#fff3d1"], [style*="background:#FFE9A8"], [style*="background:#fff3c4"] { background: var(--tint) !important; color: var(--g3) !important; }
+[style*="background:#f8fafc"], [style*="background:#f1f5f9"], [style*="background:#fafafa"], [style*="background:#FFF8E8"], [style*="background:#FFFAF0"] { background: var(--grey) !important; }
+[style*="background:#f0fdf4"] { background: var(--tint) !important; }
+[style*="color:#334155"], [style*="color:#1e293b"], [style*="color:#0f172a"] { color: var(--ink) !important; }
+
+/* ============ TABLES ============ */
+.table-responsive { background: #fff; border: 1px solid var(--line); border-radius: 14px; box-shadow: none; }
+table { border-collapse: collapse; }
+th { background: var(--grey) !important; color: var(--slate) !important; font-size: 11.5px; text-transform: uppercase; letter-spacing: .6px; border-bottom: 1px solid var(--line) !important; }
+td { border-bottom: 1px solid #F0F1F3; color: var(--ink); }
+tr:nth-child(even) { background: #FCFCFD; } tr:hover { background: #F3F8FF; }
+.matrix-table th, .matrix-table td { border: 1px solid var(--line); }
+.matrix-table th.sticky-col, .matrix-table td.sticky-col { background: #fff; } .matrix-table th.sticky-col { background: var(--grey) !important; }
+.matrix-table th.vt { background: var(--grey) !important; color: var(--g3) !important; }
+
+/* ============ OVERVIEW / FEST CONTROL ============ */
+#festOverview, #festControl { margin-bottom: 26px; }
+.ov-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; gap: 10px; flex-wrap: wrap; }
+.ov-title { font-weight: 800; letter-spacing: 1.6px; color: var(--g); font-size: 13px; display: flex; align-items: center; gap: 10px; }
+.ov-live { font-size: 11px; font-weight: 800; color: var(--g3); background: var(--tint); padding: 3px 10px; border-radius: 999px; }
+.live-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--g2); display: inline-block; margin-right: 4px; animation: pulseDot 1.6s infinite; }
+.live-dot.off { background: #9aa0a6; animation: none; }
+@keyframes pulseDot { 0% { box-shadow: 0 0 0 0 rgba(43,124,211,.55); } 100% { box-shadow: 0 0 0 9px rgba(43,124,211,0); } }
+.ov-sync { font-size: 12px; color: var(--slate); }
+.ov-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(165px, 1fr)); gap: 14px; margin-bottom: 18px; }
+.ov-stat { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 16px 18px; box-shadow: 0 4px 16px rgba(32,33,36,.04); }
+.ov-stat b { display: block; font-size: 30px; font-weight: 800; color: var(--ink); line-height: 1.1; } .ov-stat span { font-size: 12px; color: var(--slate); }
+.ov-stat:first-child { background: linear-gradient(135deg, #185ABD, #2B7CD3); border: 0; } .ov-stat:first-child b, .ov-stat:first-child span { color: #fff; }
+.ov-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; margin-bottom: 16px; }
+#ovLeader, #ovUpcoming, #fcLeader, #fcUpcoming, #fcPending, #fcActivity { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 16px 18px; }
+.ov-h { font-size: 11.5px; font-weight: 800; letter-spacing: 1.5px; color: var(--g); margin: 0 0 10px; } .ov-h small { font-weight: 500; letter-spacing: 0; color: var(--slate); margin-left: 6px; }
+.lb-row { display: flex; align-items: center; gap: 10px; padding: 8px 6px; border-radius: 10px; }
+.lb-row.first { background: linear-gradient(90deg, var(--tint), transparent); }
+.lb-rank { width: 34px; text-align: center; font-weight: 800; color: var(--slate); }
+.lb-bar { flex: 1; height: 10px; background: #EEF0F2; border-radius: 6px; overflow: hidden; } .lb-bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--g2), var(--g)); border-radius: 6px; transition: width .9s ease; }
+.lb-pts { min-width: 78px; text-align: right; font-weight: 800; color: var(--ink); } .lb-row.first .lb-pts { color: var(--g); }
+.cd-box { background: linear-gradient(135deg, #185ABD, #2B7CD3); color: #fff; border-radius: 14px; padding: 12px 16px; margin-bottom: 10px; }
+.cd-label { font-size: 12px; opacity: .92; } .cd-time { font-size: 28px; font-weight: 800; letter-spacing: 2px; }
+.up-row { display: flex; gap: 10px; align-items: baseline; padding: 8px 0; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+.up-row b { color: var(--g); min-width: 76px; } .up-row span { flex: 1; font-weight: 600; } .up-row small, .act-row small { color: var(--slate); }
+.act-row { display: flex; justify-content: space-between; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+.win-banner { background: linear-gradient(120deg, #185ABD, #2B7CD3); color: #fff; border-radius: 16px; padding: 14px 18px; margin-bottom: 16px; box-shadow: 0 10px 26px rgba(24,90,189,.25); }
+.wb-t { font-size: 11px; letter-spacing: 2px; opacity: .92; } .wb-p { font-size: 20px; font-weight: 800; } .wb-p small { font-weight: 500; opacity: .85; }
+.wb-w { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 6px; } .wb-w em { font-style: normal; opacity: .88; font-size: 12px; }
+.qa-row { display: flex; gap: 10px; flex-wrap: wrap; margin: 0 0 16px; }
+.qa-row button { padding: 10px 16px; border-radius: 12px; border: 1px solid var(--line); background: #fff; color: var(--ink); font-weight: 600; cursor: pointer; font-size: 13px; }
+.qa-row button:hover { background: var(--tint); border-color: #C9DCF7; } .qa-row button.main { background: var(--g); color: #fff; border-color: var(--g); } .qa-row button.main:hover { background: var(--g3); }
+.chip-ok { background: var(--tint); color: var(--g3); padding: 2px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; }
+.chip-draft { background: #FEF3C7; color: #92400E; padding: 2px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; }
+
+/* ============ ADMIN: ONE CONTINUOUS PAGE ============ */
+#officialContent .official-tabs { display: none !important; }
+#officialContent .official-tab-content { display: block !important; margin: 0 0 26px; padding: 20px 22px; background: #fff; border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 6px 22px rgba(32,33,36,.05); scroll-margin-top: calc(var(--tbh) + 14px); }
+#festControl { scroll-margin-top: calc(var(--tbh) + 14px); }
+.sec-head { display: flex; gap: 14px; align-items: center; margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px solid var(--line); cursor: pointer; }
+.sec-ic { width: 44px; height: 44px; border-radius: 14px; background: var(--tint); color: var(--g); display: grid; place-items: center; font-size: 18px; flex: none; }
+.sec-tx h3 { font-size: 18px; margin: 0; } .sec-tx p { font-size: 12.5px; color: var(--slate); margin: 2px 0 0; }
+.sec-stat { margin-left: auto; font-size: 12.5px; font-weight: 700; color: var(--g); background: var(--tint); padding: 5px 12px; border-radius: 999px; white-space: nowrap; }
+.sec-head::after { content: "\f078"; font-family: "Font Awesome 6 Free"; font-weight: 900; color: var(--slate); font-size: 12px; transition: transform .25s; }
+.official-tab-content.collapsed > :not(.sec-head) { display: none !important; } .official-tab-content.collapsed .sec-head { margin-bottom: 0; padding-bottom: 0; border-bottom: 0; } .official-tab-content.collapsed .sec-head::after { transform: rotate(-90deg); }
+.tab-note { font-size: 12.5px; color: var(--slate); margin-bottom: 12px; }
+
+/* ============ ROTATION / ENTRIES / ANALYTICS / NOTICES ============ */
+.rot-progress { height: 5px; background: #E9EAED; border-radius: 4px; overflow: hidden; margin-bottom: 14px; } .rot-progress #rotBar { height: 100%; width: 0; background: linear-gradient(90deg, var(--g2), var(--g)); transition: width 1s linear; }
+.rot-wrap, .ent-wrap { max-height: 68vh; overflow: auto; } .rot-wrap th, .ent-wrap th { position: sticky; top: 0; z-index: 2; } .rot-wrap th.sticky-col, .ent-wrap th.sticky-col { z-index: 4; }
+.rot-pl { display: block; font-size: 10px; color: var(--g); font-weight: 700; }
+.rot-empty, .ana-empty { padding: 22px; text-align: center; color: var(--slate); background: var(--grey); border-radius: 12px; font-size: 13px; }
+.rot-wrap .matrix-table td { padding: 8px 6px; } .rot-wrap .matrix-table th, .rot-wrap .matrix-table td { white-space: normal; } .rot-wrap .matrix-table td.sticky-col { white-space: nowrap; }
+.matrix-table th.vt { min-width: 0; width: 46px; height: 150px; padding: 8px 4px; vertical-align: bottom; }
+.ent-cb { width: 22px; height: 22px; margin: 0; cursor: pointer; accent-color: var(--g); } .ent-cb:disabled { cursor: not-allowed; opacity: .35; }
+.ana-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-bottom: 16px; }
+.ana-card { padding: 14px 16px; } .ana-card.dark { background: var(--g); color: #fff; border: 0; } .ana-card small { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; opacity: .75; } .ana-card h4 { font-size: 24px; margin: 6px 0 0; color: inherit; } .ana-card span { font-size: 12px; opacity: .7; }
+.ana-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 14px; } .ana-panel { padding: 14px 16px; } .ana-panel h5 { font-size: 13.5px; color: var(--ink); margin-bottom: 10px; }
+.ana-row { display: flex; align-items: center; gap: 10px; margin-bottom: 7px; font-size: 12.5px; } .ana-l { width: 110px; flex: none; color: var(--slate); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ana-bar { flex: 1; background: #EEF0F2; border-radius: 6px; height: 12px; overflow: hidden; } .ana-bar i { display: block; height: 100%; border-radius: 6px; }
+.top-card { padding: 14px 16px; margin-bottom: 16px; } .top-row { display: flex; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid #F0F1F3; } .top-row:last-child { border: 0; } .top-row .m { font-size: 22px; width: 34px; text-align: center; }
+.notice-item { display: flex; gap: 14px; padding: 14px 16px; margin-bottom: 10px; } .notice-item.unread { background: var(--tint); border-color: #C9DCF7; } .notice-ic { font-size: 24px; line-height: 1; } .notice-item b { display: block; color: var(--ink); } .notice-item small { color: var(--slate); }
+.pts-box, .pm-box { padding: 10px 14px; background: #FAFBFB; }
+.lr-card { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 14px 18px; margin-bottom: 14px; box-shadow: 0 4px 16px rgba(32,33,36,.04); }
+.lr-card h4 { margin: 0 0 8px; font-size: 15px; } .lr-card h4 small { color: var(--slate); font-weight: 500; }
+.lr-row { display: flex; align-items: center; gap: 12px; padding: 7px 0; border-top: 1px solid #F0F1F3; font-size: 13.5px; } .lr-row:first-of-type { border-top: 0; }
+.lr-row .rk { width: 34px; text-align: center; font-size: 20px; } .lr-row .nm { flex: 1; font-weight: 600; } .lr-row .mk { font-weight: 800; color: var(--g); min-width: 40px; text-align: right; }
+.gr-chip { background: var(--tint); color: var(--g3); border-radius: 999px; padding: 1px 9px; font-size: 11px; font-weight: 800; }
+
+/* ============ MODALS & TOASTS ============ */
+.mini-modal { background: rgba(32,33,36,.5) !important; z-index: 4000 !important; }
+.mini-card { background: #fff !important; color: var(--ink); border: 1px solid var(--line) !important; border-radius: 18px !important; box-shadow: 0 25px 60px rgba(0,0,0,.28) !important; }
+.poster-modal-dialog { border-radius: 20px; border: 1px solid var(--line); } .poster-modal-header { background: #fff; }
+.poster-modal-body label { color: var(--slate); }
+.model-btn.active { background: var(--g); border-color: var(--g); } .preview-stage { background: #202124; }
+.toast { background: #fff; border-left-color: var(--g2) !important; } .toast.result { background: #F1F6FF !important; border-left-color: var(--g) !important; }
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 1000px) {
+  .app-main { margin-left: 0; }
+  .sb { transform: translateX(-105%); } .sb.open { transform: none; }
+  .tb-menu { display: block; }
+  .tb-title { min-width: 0; font-size: 15px; }
 }
-
-/* ---------- Header: the one bold moment ---------- */
-.top-header {
-  min-height: 230px;
-  border: 0;
-  border-radius: 22px;
-  background:
-    var(--star),
-    radial-gradient(circle at 50% 120%, rgba(253,184,39,.35), transparent 55%),
-    linear-gradient(160deg, #0d0b08 0%, #D97706 60%, #2a1d06 100%),
-    url('title-logo.png') center/cover no-repeat;
-  background-size: 72px 72px, auto, auto, cover;
-  box-shadow: 0 18px 40px rgba(20,17,11,.28), inset 0 0 0 1.5px rgba(253,184,39,.55), inset 0 0 0 6px rgba(20,17,11,.6), inset 0 0 0 7px rgba(253,184,39,.3);
+@media (max-width: 700px) {
+  .tb-admin { padding: 10px 12px; font-size: 0; } .tb-admin i { font-size: 15px; }
+  .hero-mid { display: none; } .hero { justify-content: space-around; padding: 14px; }
+  .hero .h-name { max-width: 48%; max-height: 90px; } .hero .h-sub { max-width: 44%; max-height: 80px; }
+  .gsearch { max-width: none; } .tb-title { display: none; }
+  #officialContent .official-tab-content { padding: 14px; border-radius: 14px; }
+  .sec-stat { display: none; }
 }
-.fest-title-malayalam {
-  font-family: 'Marcellus', serif;
-  text-transform: uppercase;
-  letter-spacing: 4px;
-  font-size: clamp(34px, 8vw, 62px);
-  color: #fff3c4;
-  text-shadow: 0 3px 0 rgba(0,0,0,.35), 0 0 30px rgba(253,184,39,.55);
-}
-.sub-fest-title {
-  font-family: 'Marcellus', serif;
-  color: var(--gold);
-  font-size: clamp(13px, 3.4vw, 18px);
-  letter-spacing: 6px;
-  padding: 6px 18px;
-  border-top: 1px solid rgba(253,184,39,.6);
-  border-bottom: 1px solid rgba(253,184,39,.6);
-  margin-top: 12px;
-}
-.icon-btn { border-color: rgba(253,184,39,.6); background: rgba(13,11,8,.6); }
-.icon-btn:hover { background: var(--gold); color: #14110b; }
+@media (min-width: 1024px) { th, td { font-size: 14px; } }
+@media (prefers-reduced-motion: reduce) { * { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } html { scroll-behavior: auto; } }
 
-/* ---------- Drawer ---------- */
-.side-drawer { background: #14110b; border-right: 2px solid var(--gold); }
-.side-drawer a { color: #ffe9a8; border-bottom: 1px solid rgba(253,184,39,.18); }
-.side-drawer a:hover { background: rgba(253,184,39,.15); color: #fff; }
-.side-drawer .close-btn { color: var(--gold); }
-
-/* ---------- Panels & cards ---------- */
-.view-panel {
-  border: 1px solid var(--border-color);
-  border-radius: 20px;
-  background: rgba(255,255,255,.92);
-  box-shadow: 0 10px 30px rgba(20,17,11,.07);
-}
-.dashboard-card {
-  border-radius: 18px;
-  border: 1px solid var(--border-color);
-  background: linear-gradient(180deg, #fff, #fffaf0);
-}
-.dashboard-card::after { width: 5px; background: linear-gradient(var(--gold), var(--navy-light)); }
-.dashboard-card h4 { color: var(--gold); font-family: 'Marcellus', serif; letter-spacing: 2px; }
-.quote-text { font-family: 'Marcellus', serif; font-size: 16px; color: var(--navy-dark); }
-h3 { font-family: 'Marcellus', serif; letter-spacing: .3px; }
-
-/* ---------- Tabs & buttons ---------- */
-.tab-btn { background: #fff; border-radius: 999px; }
-.tab-btn.active, .tab-btn:hover {
-  background: var(--navy-main);
-  border-color: var(--gold);
-  box-shadow: 0 6px 14px rgba(217,119,6,.28);
-}
-button.btn { background: linear-gradient(135deg, var(--navy-main), var(--navy-light)); border-radius: 10px; letter-spacing: .2px; }
-button.btn:hover { background: linear-gradient(135deg, var(--navy-dark), var(--navy-main)); box-shadow: 0 8px 18px rgba(20,17,11,.25); }
-button.btn-success { background: linear-gradient(135deg, #b8902f, var(--gold)); color: #1d1500; }
-button.btn-success:hover { background: linear-gradient(135deg, #a07d24, #b8902f); }
-button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
-
-/* ---------- Inputs ---------- */
-input, select, textarea { border: 1.5px solid #d9d2bb; background: #fffdf8; border-radius: 10px; }
-input:focus, select:focus, textarea:focus { border-color: var(--gold); box-shadow: 0 0 0 4px rgba(253,184,39,.2); }
-.report-box { background: #fffaf0; border: 1px dashed #f0d27a; border-radius: 16px; }
-
-/* ---------- Tables ---------- */
-.table-responsive { border-radius: 14px; border: 1px solid var(--border-color); box-shadow: 0 4px 14px rgba(20,17,11,.05); }
-th { background: var(--navy-dark); color: var(--gold-soft); border-bottom: 2px solid var(--gold); }
-tr:nth-child(even) { background: #fffaf0; }
-tr:hover { background: var(--navy-soft); }
-.matrix-table th, .matrix-table td { border-color: #eee7d2; }
-.matrix-table th.sticky-col { background: var(--navy-dark); }
-.matrix-table td.sticky-col { background: #fff; }
-
-/* ---------- Badges: team colours made richer ---------- */
-.badge { border-radius: 999px; padding: 4px 12px; letter-spacing: .3px; }
-.team-badge-qurthuba { background: #ef4444; color: #fff; border: 0; }
-.team-badge-qudsiya  { background: #059669; color: #fff; border: 0; }
-.team-badge-qahira   { background: #0284c7; color: #fff; border: 0; }
-.badge-timer { background: var(--gold-soft); border-color: var(--gold); color: var(--navy-dark); }
-.live-pulse { animation: pulse 1.6s ease-out infinite; }
-@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(11,122,95,.6); } 100% { box-shadow: 0 0 0 10px rgba(11,122,95,0); } }
-
-/* ---------- Poster studio ---------- */
-.poster-modal-dialog { border-radius: 20px; border: 2px solid var(--gold); }
-.model-btn.active { background: var(--navy-main); border-color: var(--gold); }
-.preview-stage { background: #0d0b08; }
-
-@media (max-width: 600px) {
-  .app-wrapper { padding: 10px; }
-  .view-panel { padding: 16px; }
-}
-@media (prefers-reduced-motion: reduce) { .live-pulse, .view-panel.active { animation: none; } }
-
-/* ===== Desktop / full-screen layout ===== */
-html, body { width: 100%; }
-.app-wrapper { max-width: none; width: 100%; padding: 18px clamp(14px, 3vw, 56px); }
-@media (min-width: 1024px) {
-  .top-header { min-height: 270px; }
-  .view-panel { padding: 30px 34px; }
-  th, td { font-size: 14.5px; padding: 13px 16px; }
-  .dashboard-card { min-height: 150px; padding: 24px 28px; }
-  .quote-text { font-size: 18px; }
-  .result-program { font-size: 20px; }
-  .form-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
-}
-@media (min-width: 1600px) { th, td { font-size: 16px; } }
-
-/* ===== Rotation panel ===== */
-.rot-btn { width: 38px; height: 38px; border-radius: 10px; border: 1px solid var(--gold); background: #fff; color: var(--navy-dark); cursor: pointer; font-size: 14px; }
-.rot-btn:hover { background: var(--navy-main); color: #fff; }
-.rot-progress { height: 5px; background: #f3e5b8; border-radius: 4px; overflow: hidden; margin-bottom: 14px; }
-.rot-progress #rotBar { height: 100%; width: 0; background: linear-gradient(90deg, var(--gold), var(--navy-light)); transition: width 1s linear; }
-.rot-wrap { max-height: 66vh; overflow: auto; }
-.rot-wrap th { position: sticky; top: 0; z-index: 2; }
-.rot-wrap th.sticky-col { z-index: 4; }
-.rot-pl { display: block; font-size: 10px; color: var(--emerald-main); font-weight: 700; }
-.rot-empty { padding: 22px; text-align: center; color: var(--text-muted); background: #fffaf0; border-radius: 12px; border: 1px dashed #f0d27a; }
-
-/* ===== Poster studio ===== */
-.poster-modal-dialog { max-width: 1240px; }
-.poster-modal-body { grid-template-columns: minmax(340px, 1fr) minmax(360px, 1fr); }
-.preview-stage { position: sticky; top: 70px; align-self: start; }
-.pm-box { background: #fffaf0; border: 1px dashed #f0d27a; border-radius: 12px; padding: 12px; margin: 6px 0 12px; }
-.pm-box input[type=file] { padding: 7px; margin-bottom: 8px; background: #fff; }
-.pm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 12px; margin-top: 8px; }
-.pm-grid label { font-size: 11.5px; font-weight: 600; color: var(--text-muted); }
-.pm-grid input[type=range] { padding: 0; margin: 4px 0 0; }
-.pm-grid select { padding: 6px 8px; margin: 4px 0 0; }
-
-/* ===== Entries tab & small popup ===== */
-.ent-wrap { max-height: 68vh; overflow: auto; }
-.ent-wrap th { position: sticky; top: 0; z-index: 2; }
-.ent-wrap th.sticky-col { z-index: 4; }
-.ent-cb { width: 22px; height: 22px; margin: 0; cursor: pointer; accent-color: #D97706; }
-.ent-cb:disabled { cursor: not-allowed; opacity: .35; }
-.mini-modal { position: fixed; inset: 0; background: rgba(20,17,11,.6); z-index: 3000; display: none; align-items: center; justify-content: center; padding: 14px; backdrop-filter: blur(4px); }
-.mini-card { background: #fff; border-radius: 16px; padding: 22px; width: 100%; max-width: 460px; border: 2px solid var(--gold); }
-
-/* ===== Vertical item names (rotation / matrix) ===== */
-.matrix-table th.vt { min-width: 0; width: 46px; height: 150px; padding: 8px 4px; vertical-align: bottom; background: var(--navy-dark); color: var(--gold-soft); }
-.matrix-table th.vt div { writing-mode: vertical-rl; transform: rotate(180deg); margin: 0 auto; max-height: 150px; overflow: hidden; font-size: 12px; font-weight: 700; letter-spacing: .3px; text-transform: none; white-space: nowrap; }
-.rot-wrap .matrix-table td { padding: 8px 6px; }
-.rot-wrap .matrix-table th, .rot-wrap .matrix-table td { white-space: normal; }
-.rot-wrap .matrix-table td.sticky-col { white-space: nowrap; }
-
-/* ===== Result entry, program list, schedule ===== */
-.pts-box { background: #fff; border: 1px solid var(--border-color); border-radius: 10px; padding: 8px 12px; margin-top: 4px; }
-.pts-box summary { cursor: pointer; font-size: 13px; font-weight: 700; color: var(--navy-main); }
-.pts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px 14px; margin-top: 10px; }
-.pts-grid label { font-size: 12px; font-weight: 600; color: var(--text-muted); }
-.pts-grid input { margin: 3px 0 0; padding: 6px 10px; }
-#programListBox .c, #scheduleBox .c { text-align: center; }
-#programListBox h3, #scheduleBox h3 { background: var(--navy-soft); border-left: 4px solid var(--gold); padding: 8px 14px; margin: 18px 0 8px; font-size: 15px; color: var(--navy-dark); border-radius: 0 8px 8px 0; }
+/* ============ ADMIN SECTION BAR ============ */
+.quick-nav { position: sticky; top: calc(var(--tbh) + 8px); z-index: 800; display: flex; gap: 4px; align-items: center; overflow-x: auto; background: rgba(255,255,255,.96); border: 1px solid var(--line); border-radius: 14px; padding: 8px 10px; margin: 0 0 20px; box-shadow: 0 6px 20px rgba(32,33,36,.07); backdrop-filter: blur(10px); }
+.qn-t { font-size: 10px; font-weight: 800; letter-spacing: 1.6px; color: var(--slate); padding: 0 8px; white-space: nowrap; }
+.quick-nav button { border: 0; background: transparent; color: var(--ink); font-weight: 600; font-size: 12.5px; padding: 8px 14px; border-radius: 10px; cursor: pointer; white-space: nowrap; }
+.quick-nav button:hover { background: var(--tint); color: var(--g); } .quick-nav button.on { background: var(--g); color: #fff; }
+/* save buttons stay green (success), everything else is blue */
+button.btn-success { background: #217346 !important; } button.btn-success:hover { background: #185C37 !important; }
+/* official tools are private: hidden for visitors until the admin logs in */
+body:not(.is-admin) [onclick*="openPosterStudioWithData"], body:not(.is-admin) [onclick*="printEntryFormPDF"], body:not(.is-admin) [onclick*="printTeamListPDF"], body:not(.is-admin) [onclick*="openPrintCenter"] { display: none !important; }
+.sync-pill { font-size: 12px; color: var(--slate); background: var(--grey); padding: 6px 14px; border-radius: 999px; }
 
 </style>
-  <!-- ===== Fest logo images: put these two PNG files next to index.html (change the names here if yours differ) ===== -->
+  <style>
+/* KADHARVA welcome intro — two PNG logos walk in, hug, explode in colour, then welcome the visitor.
+   Independent component: nothing here touches the site's data or layout. */
+#kdIntro { position: fixed; inset: 0; z-index: 10000; overflow: hidden; background: #fff; font-family: 'Poppins', sans-serif;
+  font-size: min(1.75vw, 3vh, 19px); --wa: 26em; --wb: 22em; --ink: #222; transition: opacity .8s ease, transform .8s ease; }
+@media (max-aspect-ratio: 3/4) {
+  #kdIntro { font-size: min(2.25vw, 3vh); --wa: 19em; --wb: 16em; }
+  .kd-arm { width: 5em; } .kd-hug .arm-in { width: 6.6em; } .kd-hug .arm-out { transform: rotate(calc(var(--s) * -108deg)); }
+  .kd-char { bottom: 40%; } .kd-floor { bottom: calc(40% - 1.6em); } .kd-title { top: 62%; }
+  .kd-h { font-size: 3.6em; }
+}
+#kdIntro.kd-out { opacity: 0; transform: scale(1.05); pointer-events: none; }
+#kdIntro *, #kdIntro *::before, #kdIntro *::after { box-sizing: border-box; }
+
+.kd-bg { position: absolute; inset: 0;
+  background: radial-gradient(circle at 50% 56%, rgba(43,124,211,.2), transparent 58%), radial-gradient(#C9DCF7 1.3px, transparent 1.8px) 0 0 / 18px 18px, linear-gradient(180deg, #fff 0%, #f1f9f4 100%); }
+.kd-rays { position: absolute; left: 50%; top: 46%; width: 150vmax; height: 150vmax; margin: -75vmax 0 0 -75vmax; opacity: 0; transition: opacity .6s;
+  background: repeating-conic-gradient(rgba(43,124,211,.2) 0 7deg, transparent 7deg 18deg);
+  -webkit-mask-image: radial-gradient(circle, #000 0, transparent 55%); mask-image: radial-gradient(circle, #000 0, transparent 55%); }
+.kd-boom .kd-rays { opacity: 1; animation: kdSpin 20s linear infinite; }
+@keyframes kdSpin { to { transform: rotate(360deg); } }
+.kd-floor { position: absolute; left: 0; right: 0; bottom: calc(34% - 1.6em); height: .35em; background: linear-gradient(90deg, transparent, rgba(16,63,145,.35), transparent); }
+.kd-stage { position: absolute; inset: 0; }
+.kd-stage.kd-shake { animation: kdShake .45s ease-in-out; }
+@keyframes kdShake { 0%,100% { transform: none; } 20% { transform: translate(-.5em, .3em); } 40% { transform: translate(.5em, -.3em); } 60% { transform: translate(-.35em, -.2em); } 80% { transform: translate(.3em, .25em); } }
+
+/* ---------- characters ---------- */
+.kd-char { position: absolute; left: 50%; bottom: 34%; width: var(--w); margin-left: calc(var(--w) / -2); }
+.kd-char::after { content: ""; position: absolute; left: 8%; right: 8%; bottom: -1.5em; height: 1.7em; border-radius: 50%; background: rgba(16,63,145,.2); filter: blur(.35em); z-index: -1; }
+.kd-a { --w: var(--wa); --s: 1;  --sh: #FDB827; --ax: calc(var(--wb) / -2 - 1.3em); z-index: 3; transform: translateX(calc(-50vw - var(--wa) - 6em)); }
+.kd-b { --w: var(--wb); --s: -1; --sh: #FF7A00; --bx: calc(var(--wa) / 2 + 1.3em);  z-index: 2; transform: translateX(calc(50vw + var(--wa) + 6em)); }
+.kd-in .kd-a { animation: kdInA 2.3s cubic-bezier(.3,.7,.4,1) forwards; }
+.kd-in .kd-b { animation: kdInB 2.3s cubic-bezier(.3,.7,.4,1) forwards; }
+@keyframes kdInA { from { transform: translateX(calc(-50vw - var(--wa) - 6em)); } to { transform: translateX(var(--ax)); } }
+@keyframes kdInB { from { transform: translateX(calc(50vw + var(--wa) + 6em)); } to { transform: translateX(var(--bx)); } }
+
+.kd-mv { transition: transform .6s cubic-bezier(.3,1.5,.5,1); }
+.kd-hug .kd-a .kd-mv { transform: translateX(1.5em) rotate(2.5deg); }
+.kd-hug .kd-b .kd-mv { transform: translateX(-1.5em) rotate(-2.5deg); }
+.kd-bounce { position: relative; }
+.kd-body { position: relative; z-index: 2; width: var(--w); }
+.kd-logo { display: block; width: 100%; height: auto; user-select: none; -webkit-user-drag: none; }
+.kd-fb { text-align: center; font: 800 5em 'Bangers', 'Poppins', sans-serif; color: #103F91; padding: .3em 0; letter-spacing: .05em; }
+
+/* ---------- limbs ---------- */
+.kd-arm { position: absolute; width: 7em; height: 1.15em; background: var(--ink); border-radius: 1em; transform-origin: 0 50%; transition: transform .7s cubic-bezier(.3,1.3,.5,1), width .7s ease; }
+.kd-arm .glove { position: absolute; right: -.95em; top: 50%; width: 2.1em; height: 2.1em; margin-top: -1.05em; border-radius: 50%; background: #fff; border: .24em solid var(--ink); }
+.arm-in  { left: 100%; top: 56%; margin-left: -.4em; z-index: 4; transform: rotate(calc(var(--s) * 86deg)); }
+.arm-out { left: 0; top: 56%; margin-left: .4em; z-index: 0; transform: rotate(calc(var(--s) * 100deg)); }
+.kd-b .kd-arm { transform-origin: 100% 50%; }
+.kd-b .kd-arm .glove { right: auto; left: -.95em; }
+.kd-b .arm-in  { left: auto; right: 100%; margin: 0 -.4em 0 0; }
+.kd-b .arm-out { left: auto; right: 0; margin: 0 .4em 0 0; }
+.kd-meet .arm-in  { transform: rotate(calc(var(--s) * -6deg)); }
+.kd-hug  .arm-in  { transform: rotate(calc(var(--s) * -30deg)); width: 9.4em; }
+.kd-hug  .arm-out { transform: rotate(calc(var(--s) * -128deg)); }
+.kd-legs { position: relative; z-index: 1; width: calc(var(--w) * .42); height: 6.3em; margin: -.7em auto 0; }
+.leg { position: absolute; top: 0; width: 1.3em; height: 100%; background: var(--ink); border-radius: .7em; transform-origin: 50% 0; }
+.leg.l { left: 0; } .leg.r { right: 0; }
+.shoe { position: absolute; bottom: -.95em; left: -.4em; width: 3.3em; height: 1.75em; background: var(--sh); border: .23em solid var(--ink); border-radius: 1.6em 2em .7em .7em; }
+.kd-b .kd-legs { transform: scaleX(-1); }
+
+/* ---------- walking ---------- */
+.kd-walk .kd-bounce { animation: kdBob .36s ease-in-out infinite; }
+.kd-walk .leg.l { animation: kdLeg .36s ease-in-out infinite alternate; }
+.kd-walk .leg.r { animation: kdLeg .36s ease-in-out infinite alternate-reverse; }
+.kd-walk .arm-in  { animation: kdArmIn .36s ease-in-out infinite alternate; }
+.kd-walk .arm-out { animation: kdArmOut .36s ease-in-out infinite alternate; }
+.kd-b .leg.l { animation-delay: -.18s; } .kd-b .kd-bounce { animation-delay: -.18s; }
+@keyframes kdBob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-.6em); } }
+@keyframes kdLeg { from { transform: rotate(-30deg); } to { transform: rotate(30deg); } }
+@keyframes kdArmIn  { from { transform: rotate(calc(var(--s) * 64deg)); } to { transform: rotate(calc(var(--s) * 106deg)); } }
+@keyframes kdArmOut { from { transform: rotate(calc(var(--s) * 120deg)); } to { transform: rotate(calc(var(--s) * 82deg)); } }
+.kd-squeeze .kd-bounce { animation: kdSq .5s ease-in-out 2; }
+@keyframes kdSq { 0%,100% { transform: none; } 50% { transform: scale(1.025, .965); } }
+.kd-joy .kd-bounce { animation: kdJoy .62s ease-in-out infinite; }
+@keyframes kdJoy { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-1.1em); } }
+
+/* ---------- explosion ---------- */
+.kd-fx { position: absolute; inset: 0; pointer-events: none; z-index: 6; }
+.kd-flash { position: absolute; inset: 0; background: #fff; opacity: 0; animation: kdFlash .5s ease-out; }
+@keyframes kdFlash { 0% { opacity: .75; } 100% { opacity: 0; } }
+.kd-burst { position: absolute; width: 24em; height: 24em; margin: -12em 0 0 -12em; transform: scale(0) rotate(-20deg); animation: kdBurst 1.25s cubic-bezier(.2,1.2,.4,1) forwards; }
+.kd-burst.o { background: var(--ink); width: 26em; height: 26em; margin: -13em 0 0 -13em; }
+.kd-burst.gold { background: radial-gradient(circle, #FFF8C9 0%, #FDB827 46%, #F59E0B 100%); }
+.kd-burst.orange { background: radial-gradient(circle, #FFEBD6 0%, #FF9A33 46%, #FF7A00 100%); }
+.kd-burst.mix { width: 34em; height: 34em; margin: -17em 0 0 -17em; background: conic-gradient(#FDB827, #FF7A00, #FFE08A, #FF9A33, #FDB827, #FF7A00, #FFE08A, #FDB827); }
+.kd-burst.mix.o { width: 36.5em; height: 36.5em; margin: -18.25em 0 0 -18.25em; background: var(--ink); }
+@keyframes kdBurst { 0% { transform: scale(0) rotate(-20deg); opacity: 1; } 30% { transform: scale(1.1) rotate(6deg); opacity: .96; } 60% { transform: scale(1) rotate(10deg); opacity: .8; } 100% { transform: scale(1.25) rotate(14deg); opacity: 0; } }
+.kd-ring { position: absolute; width: 10em; height: 10em; margin: -5em 0 0 -5em; border-radius: 50%; border: .7em solid; opacity: 0; animation: kdRing 1.2s ease-out forwards; }
+@keyframes kdRing { 0% { transform: scale(.2); opacity: .95; } 100% { transform: scale(7); opacity: 0; } }
+.kd-line { position: absolute; width: 11em; height: .42em; border-radius: .3em; background: var(--ink); transform-origin: 0 50%; opacity: 0; animation: kdLine .9s ease-out forwards; }
+@keyframes kdLine { 0% { opacity: 0; transform: rotate(var(--a)) translateX(7em) scaleX(0); } 25% { opacity: 1; } 100% { opacity: 0; transform: rotate(var(--a)) translateX(16em) scaleX(1); } }
+.kd-p { position: absolute; width: .8em; height: 1.4em; border-radius: .15em; opacity: 0; animation: kdPart 1.9s cubic-bezier(.2,.7,.3,1) forwards; }
+.kd-p.c { width: 1em; height: 1em; border-radius: 50%; }
+.kd-p.s { width: auto; height: auto; background: none !important; font-size: 1.8em; line-height: 1; }
+@keyframes kdPart { 0% { opacity: 0; transform: translate(0, 0) scale(.3) rotate(0); } 10% { opacity: 1; } 60% { opacity: 1; transform: translate(var(--dx), var(--dy)) rotate(var(--r)) scale(1); } 100% { opacity: 0; transform: translate(calc(var(--dx) * 1.12), calc(var(--dy) + 12em)) rotate(calc(var(--r) * 1.7)) scale(.8); } }
+
+/* ---------- welcome title ---------- */
+.kd-title { position: absolute; left: 0; right: 0; top: 70%; text-align: center; padding: 0 3%; opacity: 0; transform: scale(.4) rotate(-4deg); z-index: 7; }
+.kd-show .kd-title { animation: kdPop .75s cubic-bezier(.2,1.6,.4,1) forwards; }
+@keyframes kdPop { from { opacity: 0; transform: scale(.4) rotate(-4deg); } to { opacity: 1; transform: scale(1) rotate(-1.5deg); } }
+.kd-h { margin: 0; font: 400 4.7em/1 'Bangers', 'Poppins', sans-serif; letter-spacing: .04em; color: #185ABD; -webkit-text-stroke: .1em #fff; paint-order: stroke fill;
+  text-shadow: .07em .07em 0 #103F91, 0 0 .7em rgba(43,124,211,.45); }
+.kd-sub { display: inline-block; margin-top: .7em; padding: .45em 1.6em; border-radius: 999px; background: #185ABD; color: #fff; font-weight: 700; font-size: 1.3em; letter-spacing: .28em; box-shadow: 0 .4em 1.2em rgba(24,90,189,.35); }
+.kd-skip { position: absolute; top: 14px; right: 14px; z-index: 9; padding: 9px 18px; border-radius: 999px; border: 1px solid #C9DCF7; background: #fff; color: #185ABD; font: 700 13px 'Poppins', sans-serif; cursor: pointer; box-shadow: 0 6px 18px rgba(16,63,145,.14); }
+.kd-skip:hover { background: #185ABD; color: #fff; }
+
+/* reduced motion: show the final picture without movement */
+.kd-static .kd-a { transform: translateX(var(--ax)); animation: none; } .kd-static .kd-b { transform: translateX(var(--bx)); animation: none; }
+.kd-static .kd-title { opacity: 1; transform: rotate(-1.5deg); animation: none; }
+
+</style>
+  <!-- ===== Logo images: keep these two PNG files next to index.html (change the names here if yours differ) ===== -->
   <script>
-    var FEST_NAME_IMG = 'fest-name.png';          /* the fest name PNG */
-    var FEST_SUB_IMG  = 'campus-arts-fest.png';   /* the "Campus Arts Fest" PNG (shown just below the name) */
+    var FEST_NAME_IMG = 'fest-name.png';          /* KADHARVA fest-name logo */
+    var FEST_SUB_IMG  = 'campus-arts-fest.png';   /* Campus Arts Fest 2K26 logo */
+    var KD_CACHE = {}, KD_Q = {};
     function festAbs(f) { try { return new URL(f, location.href).href; } catch (e) { return f; } }
-    /* title block used on every printout: name image, with the Campus Arts Fest image just below it */
+    /* Trims empty transparent margins of a logo in memory (the artwork itself is never changed). Calls back with a usable URL, or null if the file is missing. */
+    function kdTrim(file, cb) {
+      if (KD_CACHE.hasOwnProperty(file)) { cb(KD_CACHE[file]); return; }
+      var q = (KD_Q[file] = KD_Q[file] || []); q.push(cb); if (q.length > 1) return;
+      var done = function (res) { KD_CACHE[file] = res; var l = KD_Q[file]; KD_Q[file] = null; (l || []).forEach(function (f) { f(res); }); };
+      var im = new Image();
+      im.onload = function () {
+        var res = file;
+        try {
+          var w = im.naturalWidth, h = im.naturalHeight, c = document.createElement('canvas'); c.width = w; c.height = h;
+          var x = c.getContext('2d'); x.drawImage(im, 0, 0);
+          var d = new Uint32Array(x.getImageData(0, 0, w, h).data.buffer), minX = w, minY = h, maxX = -1, maxY = -1;
+          for (var yy = 0; yy < h; yy++) { var row = yy * w; for (var xx = 0; xx < w; xx++) { if ((d[row + xx] >>> 24) > 8) { if (xx < minX) minX = xx; if (xx > maxX) maxX = xx; if (yy < minY) minY = yy; maxY = yy; } } }
+          if (maxX >= 0) {
+            var pad = 6; minX = Math.max(0, minX - pad); minY = Math.max(0, minY - pad); maxX = Math.min(w - 1, maxX + pad); maxY = Math.min(h - 1, maxY + pad);
+            var cw = maxX - minX + 1, ch = maxY - minY + 1;
+            if (cw * ch < w * h * 0.8) { var c2 = document.createElement('canvas'); c2.width = cw; c2.height = ch; c2.getContext('2d').drawImage(im, minX, minY, cw, ch, 0, 0, cw, ch); res = c2.toDataURL('image/png'); }
+          }
+        } catch (e) { res = file; }
+        done(res);
+      };
+      im.onerror = function () { done(null); };
+      im.src = file;
+    }
+    function festImgUrl(f) { var r = KD_CACHE[f]; return (r && r.indexOf('data:') === 0) ? r : festAbs(f); }
+    kdTrim(FEST_NAME_IMG, function () { }); kdTrim(FEST_SUB_IMG, function () { });
+    /* logo block used at the top of every printout: fest name, with the Campus Arts Fest logo just below it */
     function festTitleHtml(h1, h2) {
       var bad = "this.style.display='none';this.nextSibling.style.display='block'";
       return '<div style="text-align:center;line-height:1.1">' +
-        '<img src="' + festAbs(FEST_NAME_IMG) + '" style="height:' + h1 + 'mm;max-width:100%" onerror="' + bad + '"><div style="display:none;font-family:Cinzel,serif;font-weight:700;font-size:' + (h1 * 2.2) + 'pt;letter-spacing:2px;text-transform:uppercase">MMO Arts Fest</div>' +
-        '<br><img src="' + festAbs(FEST_SUB_IMG) + '" style="height:' + h2 + 'mm;margin-top:1.2mm;max-width:100%" onerror="' + bad + '"><div style="display:none;font-size:' + (h2 * 1.5) + 'pt;letter-spacing:3px;color:#D97706;font-weight:600">CAMPUS ARTS FESTIVAL 2K26</div></div>';
+        '<img src="' + festImgUrl(FEST_NAME_IMG) + '" style="height:' + h1 + 'mm;max-width:100%" onerror="' + bad + '"><div style="display:none;font-family:Cinzel,serif;font-weight:700;font-size:' + (h1 * 2.2) + 'pt;letter-spacing:2px;text-transform:uppercase">KADHARVA</div>' +
+        '<br><img src="' + festImgUrl(FEST_SUB_IMG) + '" style="height:' + h2 + 'mm;margin-top:1.2mm;max-width:100%" onerror="' + bad + '"><div style="display:none;font-size:' + (h2 * 1.5) + 'pt;letter-spacing:3px;color:#185ABD;font-weight:600">CAMPUS ARTS FESTIVAL 2K26</div></div>';
     }
   </script>
-  <style id="fullpage-style">
-    :root { --star2: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 72 72'%3E%3Cpath d='M36 6l6.2 13.1L56 14.6l-4.5 13.9L66 36l-14.5 7.5L56 57.4l-13.8-4.5L36 66l-6.2-13.1L16 57.4l4.5-13.9L6 36l14.5-7.5L16 14.6l13.8 4.5z' fill='none' stroke='%23FDB827' stroke-opacity='.25' stroke-width='1.2'/%3E%3C/svg%3E"); }
-    html, body { width: 100% !important; margin: 0 !important; background: #fff !important; background-image: none !important; }
-    .app-wrapper { max-width: none !important; width: 100% !important; padding: 0 !important; margin: 0 !important; }
-
-    /* full-width hero */
-    .top-header {
-      border-radius: 0 !important; margin: 0 !important; border: 0 !important; box-shadow: none !important; width: 100% !important;
-      min-height: clamp(240px, 40vh, 420px) !important; padding: 64px 16px 30px !important;
-      background: radial-gradient(circle at 50% 130%, rgba(253,184,39,.5), transparent 58%), var(--star2), linear-gradient(160deg, #0d0b08 0%, #D97706 55%, #2a1d06 100%) !important;
-      background-size: auto, 72px 72px, auto !important;
-      animation: heroDrift 24s linear infinite;
-    }
-    @keyframes heroDrift { from { background-position: 0 0, 0 0, 0 0; } to { background-position: 0 0, 72px 72px, 0 0; } }
-    .top-header::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 5px; background: linear-gradient(90deg, transparent, #FDB827, transparent); }
-    .header-controls { top: 14px !important; left: clamp(12px, 3vw, 40px) !important; right: clamp(12px, 3vw, 40px) !important; }
-    .title-banner { margin-top: 0 !important; }
-    .hero-name { display: block; max-width: min(520px, 80vw); max-height: clamp(120px, 24vh, 240px); width: auto; height: auto; margin: 0 auto; filter: drop-shadow(0 8px 20px rgba(0,0,0,.55)); animation: heroIn 1.1s cubic-bezier(.2,.8,.2,1) both; }
-    .hero-sub  { display: block; max-width: min(380px, 70vw); max-height: clamp(60px, 10vh, 100px); width: auto; height: auto; margin: 8px auto 0; filter: drop-shadow(0 4px 12px rgba(0,0,0,.5)); animation: heroIn 1.1s .35s cubic-bezier(.2,.8,.2,1) both; }
-    @keyframes heroIn { from { opacity: 0; transform: translateY(16px) scale(.94); } to { opacity: 1; transform: none; } }
-
-    /* sticky top menu (computers) */
-    #mainNav { display: none; }
-    @media (min-width: 900px) {
-      #mainNav { display: flex; position: sticky; top: 0; z-index: 900; background: #14110b; border-bottom: 3px solid #FDB827; padding: 0 clamp(16px, 4vw, 72px); gap: 2px; overflow-x: auto; }
-      #mainNav a { color: #ffe9a8; padding: 15px 18px; cursor: pointer; font-weight: 600; font-size: 14px; white-space: nowrap; border-bottom: 3px solid transparent; margin-bottom: -3px; transition: .2s; }
-      #mainNav a:hover, #mainNav a.on { color: #fff; border-bottom-color: #FDB827; background: rgba(253,184,39,.14); }
-    }
-
-    /* full-width page sections */
-    .view-panel { border-radius: 0 !important; border-left: 0 !important; border-right: 0 !important; border-top: 0 !important; box-shadow: none !important; margin: 0 !important; width: 100% !important; max-width: none !important; background: #fff !important; padding: 30px clamp(16px, 4vw, 72px) 50px !important; min-height: 56vh; }
-
-    /* ===== Welcome wall ===== */
-    #welcome { position: fixed; inset: 0; z-index: 9000; overflow: hidden; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at 50% 45%, #FF8A00 0%, #D97706 35%, #0d0b08 100%); transition: opacity .9s ease, visibility .9s; cursor: pointer; }
-    #welcome.hide { opacity: 0; visibility: hidden; }
-    #welcome::before { content: ""; position: absolute; inset: 0; background: var(--star2); background-size: 72px 72px; animation: heroDrift 14s linear infinite; opacity: .9; }
-    .w-rays { position: absolute; left: 50%; top: 50%; width: 220vmax; height: 220vmax; margin: -110vmax 0 0 -110vmax; background: repeating-conic-gradient(rgba(253,184,39,.16) 0 6deg, transparent 6deg 18deg); animation: spin 50s linear infinite; -webkit-mask-image: radial-gradient(circle, #000 5%, transparent 55%); mask-image: radial-gradient(circle, #000 5%, transparent 55%); }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .w-wall { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-around; pointer-events: none; }
-    .w-row { display: flex; white-space: nowrap; width: max-content; opacity: .16; animation: rowL 38s linear infinite; align-items: center; }
-    .w-row:nth-child(even) { animation-name: rowR; opacity: .1; }
-    .w-row img { height: 60px; margin: 0 34px; } .w-row span { font: 700 40px Cinzel, serif; color: #fff; margin: 0 34px; letter-spacing: 4px; }
-    @keyframes rowL { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-    @keyframes rowR { from { transform: translateX(-50%); } to { transform: translateX(0); } }
-    .w-spark { position: absolute; bottom: -20px; border-radius: 50%; background: radial-gradient(circle, #fff3c4, rgba(253,184,39,0)); animation: rise linear infinite; }
-    @keyframes rise { from { transform: translateY(0) scale(.6); opacity: 0; } 15% { opacity: .95; } to { transform: translateY(-110vh) scale(1.2); opacity: 0; } }
-    .w-center { position: relative; z-index: 2; text-align: center; padding: 20px; max-width: 94vw; }
-    .w-name { display: block; max-width: min(620px, 86vw); max-height: 38vh; width: auto; height: auto; margin: 0 auto; filter: drop-shadow(0 0 28px rgba(253,184,39,.65)) drop-shadow(0 10px 22px rgba(0,0,0,.5)); animation: wZoom 1.4s cubic-bezier(.2,.9,.2,1) both, wGlow 3s 1.4s ease-in-out infinite; }
-    .w-sub { display: block; max-width: min(420px, 70vw); max-height: 16vh; width: auto; height: auto; margin: 10px auto 0; animation: wUp 1.1s .8s cubic-bezier(.2,.9,.2,1) both; filter: drop-shadow(0 4px 14px rgba(0,0,0,.5)); }
-    .w-name-t { font: 700 clamp(38px, 9vw, 84px) Cinzel, serif; color: #fff3c4; letter-spacing: 6px; text-transform: uppercase; text-shadow: 0 0 30px rgba(253,184,39,.7); animation: wZoom 1.4s both; }
-    .w-sub-t { font: 600 clamp(14px, 3vw, 22px) Poppins, sans-serif; color: #FDB827; letter-spacing: 8px; margin-top: 8px; animation: wUp 1.1s .8s both; }
-    .w-hello { margin-top: 26px; color: #ffe9a8; font: 600 clamp(15px, 2.6vw, 24px) Poppins, sans-serif; letter-spacing: 6px; text-transform: uppercase; animation: wUp 1.1s 1.5s both; }
-    .w-hello b { color: #FDB827; }
-    #wEnter { margin-top: 22px; padding: 11px 34px; border-radius: 999px; border: 2px solid #FDB827; background: rgba(20,17,11,.5); color: #fff3c4; font: 700 14px Poppins, sans-serif; letter-spacing: 3px; cursor: pointer; animation: wUp 1s 2.1s both; backdrop-filter: blur(4px); }
-    #wEnter:hover { background: #FDB827; color: #14110b; }
-    .w-bar { width: min(260px, 60vw); height: 3px; background: rgba(255,255,255,.2); margin: 20px auto 0; border-radius: 3px; overflow: hidden; animation: wUp 1s 2.1s both; }
-    .w-bar i { display: block; height: 100%; width: 0; background: #FDB827; animation: wBar 6s linear forwards; }
-    @keyframes wZoom { from { opacity: 0; transform: scale(.6); filter: blur(12px); } to { opacity: 1; transform: none; } }
-    @keyframes wUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: none; } }
-    @keyframes wGlow { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
-    @keyframes wBar { to { width: 100%; } }
-    @media (prefers-reduced-motion: reduce) { .w-rays, .w-row, .w-spark, .top-header, #welcome::before { animation: none !important; } }
-  </style>
-  <style id="theme-yellow">
-    /* ===== Fest colours taken from the logos: warm black, sunshine yellow, orange ===== */
-    :root { --emerald-main: #D97706; --navy-soft: #fff3d1; --border-color: #f3e5b8; }
-    .top-header {
-      min-height: clamp(380px, 62vh, 640px) !important; padding: 74px 16px 44px !important; display: flex; flex-direction: column; align-items: center; justify-content: center;
-      background: radial-gradient(circle at 50% 58%, rgba(253,184,39,.38), transparent 55%), var(--star2), linear-gradient(160deg, #0d0b08 0%, #2a1d06 52%, #14110b 100%) !important;
-      background-size: auto, 72px 72px, auto !important;
-    }
-    .top-header::after { height: 6px !important; background: linear-gradient(90deg, #FF8A00, #FDB827, #FF8A00) !important; }
-    .title-banner { position: relative; isolation: isolate; }
-    .title-banner::before { content: ""; position: absolute; left: 50%; top: 50%; width: min(980px, 130vw); height: min(640px, 90vh); transform: translate(-50%, -50%); z-index: -1;
-      background: radial-gradient(closest-side, rgba(253,184,39,.6), rgba(255,138,0,.2) 55%, transparent 76%); animation: glowPulse 4.5s ease-in-out infinite; }
-    @keyframes glowPulse { 0%, 100% { opacity: .75; transform: translate(-50%, -50%) scale(.95); } 50% { opacity: 1; transform: translate(-50%, -50%) scale(1.06); } }
-    .hero-name { max-width: min(780px, 92vw) !important; max-height: clamp(180px, 36vh, 360px) !important; animation: heroIn 1.1s cubic-bezier(.2,.8,.2,1) both, bob 5s 1.2s ease-in-out infinite !important; filter: drop-shadow(0 10px 26px rgba(0,0,0,.6)) !important; }
-    .hero-sub { max-width: min(560px, 80vw) !important; max-height: clamp(90px, 17vh, 170px) !important; margin-top: 10px !important; animation: heroIn 1.1s .35s cubic-bezier(.2,.8,.2,1) both, bob 5s 1.6s ease-in-out infinite !important; filter: drop-shadow(0 8px 20px rgba(0,0,0,.55)) !important; }
-    @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
-    .ribbon { background: #FDB827; color: #14110b; overflow: hidden; white-space: nowrap; border-top: 3px solid #14110b; border-bottom: 3px solid #14110b; font: 800 14px Poppins, sans-serif; letter-spacing: 4px; padding: 10px 0; }
-    .ribbon .t { display: inline-block; white-space: nowrap; animation: rowL 32s linear infinite; }
-    .ribbon .t span { margin: 0 22px; }
-    #welcome { background: radial-gradient(circle at 50% 45%, #6b4a07 0%, #2a1d06 40%, #0d0b08 100%) !important; }
-    .w-name { max-width: min(820px, 92vw) !important; max-height: 44vh !important; }
-    .w-sub { max-width: min(600px, 80vw) !important; max-height: 20vh !important; }
-    .w-hello { color: #ffe9a8 !important; }
-    @media (max-width: 600px) { .top-header { min-height: 340px !important; } }
-  </style>
 </head>
 <body>
 
-<div id="drawerOverlay" class="overlay" onclick="closeNav()"></div>
-<div id="sideNav" class="side-drawer">
-  <span class="close-btn" onclick="closeNav()">&times;</span>
-  <a href="javascript:void(0)" onclick="showView('dashboardView')"><i class="fa-solid fa-chart-line"></i> Category Standings</a>
-  <a href="javascript:void(0)" onclick="showView('pointTableView')"><i class="fa-solid fa-trophy"></i> Point Table &amp; Leaderboard</a>
-  <a href="javascript:void(0)" onclick="showView('officialView')"><i class="fa-solid fa-user-shield"></i> Official Portal (Admin)</a>
-  <a href="javascript:void(0)" onclick="showView('programListView')"><i class="fa-solid fa-list-check"></i> Program List</a>
-  <a href="javascript:void(0)" onclick="showView('scheduleView')"><i class="fa-solid fa-calendar-days"></i> Schedule</a>
-  <a href="javascript:void(0)" onclick="showView('toppersView')"><i class="fa-solid fa-crown"></i> Toppers</a>
-  <a href="javascript:void(0)" onclick="showView('notificationsView')"><i class="fa-solid fa-bell"></i> Notifications <span id="notifBadge" class="notif-badge" style="display:none"></span></a>
-  <a href="javascript:void(0)" onclick="showView('teamView')"><i class="fa-solid fa-users"></i> Registered Candidates</a>
-</div>
-
-<div class="app-wrapper">
-  <div class="top-header">
-    <div class="header-controls">
-      <div class="icon-btn" onclick="openNav()"><i class="fa-solid fa-bars"></i> Menu</div>
-      <div class="icon-btn" onclick="toggleFullScreen()"><i class="fa-solid fa-expand" id="fsIcon"></i> Full Screen</div>
-    </div>
-    <div class="title-banner">
-      <img id="heroName" class="hero-name" src="fest-name.png" alt="MMO Arts Fest" onerror="this.style.display='none';document.getElementById('heroNameText').style.display='block'">
-      <h1 class="fest-title-malayalam" id="heroNameText" style="display:none">MMO Arts Fest</h1>
-      <img id="heroSub" class="hero-sub" src="campus-arts-fest.png" alt="Campus Arts Fest" onerror="this.style.display='none';document.getElementById('heroSubText').style.display='block'">
-      <div class="sub-fest-title" id="heroSubText" style="display:none">Campus Arts Festival 2k26</div>
-    </div>
+<aside id="sideNav" class="sb" aria-label="Main navigation">
+  <div class="sb-brand"><img class="js-logo-name" src="fest-name.png" alt="KADHARVA"><div class="logo-fb" style="display:none;color:#185ABD;font-weight:800;">K</div></div>
+  <div class="sb-scroll">
+    <a data-v="dashboardView" class="on" onclick="showView('dashboardView')"><i class="fa-solid fa-house"></i><span>Home</span></a>
+    <a data-v="programListView" onclick="showView('programListView')"><i class="fa-solid fa-list-check"></i><span>Programs</span></a>
+    <a data-v="scheduleView" onclick="showView('scheduleView')"><i class="fa-solid fa-calendar-days"></i><span>Schedule</span></a>
+    <a data-v="resultsView" onclick="showView('resultsView')"><i class="fa-solid fa-trophy"></i><span>Results</span></a>
+    <a data-v="pointTableView" onclick="showView('pointTableView')"><i class="fa-solid fa-ranking-star"></i><span>Points</span></a>
+    <a data-v="toppersView" onclick="showView('toppersView')"><i class="fa-solid fa-crown"></i><span>Toppers</span></a>
+    <a data-v="teamView" onclick="showView('teamView')"><i class="fa-solid fa-users"></i><span>Candidates</span></a>
+    <a data-v="notificationsView" onclick="showView('notificationsView')"><i class="fa-solid fa-bell"></i><span>Alerts</span><span id="notifBadge" class="notif-badge" style="display:none"></span></a>
+    <a data-v="officialView" onclick="showView('officialView')"><i class="fa-solid fa-user-shield"></i><span>Admin</span></a>
   </div>
+  <div class="sb-foot"><a onclick="kdIntroPlay(true)" title="Replay the welcome intro"><i class="fa-solid fa-rotate-right"></i><span>Intro</span></a></div>
+</aside>
+<div id="drawerOverlay" class="overlay" onclick="closeNav()"></div>
 
-  <div class="ribbon"><div class="t"><span>★ MMO ARTS FEST ★</span><span>CAMPUS ARTS FEST 2K26</span><span>★ BEYOND THE IMAGINATION ★</span><span>★ MMO ARTS FEST ★</span><span>CAMPUS ARTS FEST 2K26</span><span>★ BEYOND THE IMAGINATION ★</span><span>★ MMO ARTS FEST ★</span><span>CAMPUS ARTS FEST 2K26</span><span>★ BEYOND THE IMAGINATION ★</span><span>★ MMO ARTS FEST ★</span><span>CAMPUS ARTS FEST 2K26</span><span>★ BEYOND THE IMAGINATION ★</span><span>★ MMO ARTS FEST ★</span><span>CAMPUS ARTS FEST 2K26</span><span>★ BEYOND THE IMAGINATION ★</span><span>★ MMO ARTS FEST ★</span><span>CAMPUS ARTS FEST 2K26</span><span>★ BEYOND THE IMAGINATION ★</span><span>★ MMO ARTS FEST ★</span><span>CAMPUS ARTS FEST 2K26</span><span>★ BEYOND THE IMAGINATION ★</span><span>★ MMO ARTS FEST ★</span><span>CAMPUS ARTS FEST 2K26</span><span>★ BEYOND THE IMAGINATION ★</span><span>★ MMO ARTS FEST ★</span><span>CAMPUS ARTS FEST 2K26</span><span>★ BEYOND THE IMAGINATION ★</span><span>★ MMO ARTS FEST ★</span><span>CAMPUS ARTS FEST 2K26</span><span>★ BEYOND THE IMAGINATION ★</span><span>★ MMO ARTS FEST ★</span><span>CAMPUS ARTS FEST 2K26</span><span>★ BEYOND THE IMAGINATION ★</span><span>★ MMO ARTS FEST ★</span><span>CAMPUS ARTS FEST 2K26</span><span>★ BEYOND THE IMAGINATION ★</span></div></div>
-
-  <nav id="mainNav">
-    <a data-v="dashboardView" onclick="showView('dashboardView')"><i class="fa-solid fa-house"></i> Home</a>
-    <a data-v="programListView" onclick="showView('programListView')">Programs</a>
-    <a data-v="scheduleView" onclick="showView('scheduleView')">Schedule</a>
-    <a data-v="pointTableView" onclick="showView('pointTableView')">Point Table</a>
-    <a data-v="toppersView" onclick="showView('toppersView')">Toppers</a>
-    <a data-v="teamView" onclick="showView('teamView')">Candidates</a>
-    <a data-v="notificationsView" onclick="showView('notificationsView')">Notifications</a>
-    <a data-v="officialView" onclick="showView('officialView')"><i class="fa-solid fa-user-shield"></i> Admin</a>
-  </nav>
+<div class="app-wrapper app-main">
+  <header id="topbar">
+    <button class="tb-ic tb-menu" onclick="openNav()" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+    <div class="tb-title" id="tbTitle">Festival Dashboard</div>
+    <div class="gsearch"><i class="fa-solid fa-magnifying-glass"></i><input id="gSearch" type="text" placeholder="Search programs, candidates, reg no…  (Ctrl K)" autocomplete="off" oninput="onGlobalSearch(this)" onfocus="onGlobalSearch(this)"><div id="gRes" class="g-res"></div></div>
+    <button class="tb-ic" onclick="toggleFullScreen()" title="Full screen"><i class="fa-solid fa-expand" id="fsIcon"></i></button>
+    <button class="tb-ic tb-bell" onclick="showView('notificationsView')" title="Notifications"><i class="fa-regular fa-bell"></i><span id="bellCount" class="notif-badge" style="display:none"></span></button>
+    <button class="tb-admin" id="tbAdmin" onclick="showView('officialView')"><i class="fa-solid fa-user-shield"></i> Official Portal</button>
+    <button class="tb-logout" id="tbLogout" onclick="logoutOfficial()"><i class="fa-solid fa-right-from-bracket"></i>&nbsp;Logout</button>
+  </header>
 
   <!-- 1. DASHBOARD -->
   <div id="dashboardView" class="view-panel active">
+    <div class="pg-head"><div><h3>Festival Dashboard</h3><p>Live standings, schedule updates and published competition results for KADHARVA Campus Arts Fest 2K26.</p></div></div>
+    <div class="hero">
+      <img class="h-name js-logo-name" src="fest-name.png" alt="KADHARVA"><div class="logo-fb hero-fb" style="display:none">KADHARVA</div>
+      <div class="hero-mid"><div class="hero-kick">WELCOME TO</div><div class="hero-line">KADHARVA &middot; Campus Arts Fest 2K26</div>
+        <div class="hero-chips"><span>Programs</span><span>Live Results</span><span>Schedule</span><span>Point Table</span></div></div>
+      <img class="h-sub js-logo-sub" src="campus-arts-fest.png" alt="Campus Arts Fest 2K26"><div class="logo-fb hero-fb" style="display:none">Campus Arts Fest 2K26</div>
+    </div>
+    <div id="festOverview">
+      <div class="ov-head"><div class="ov-title">FESTIVAL OVERVIEW <span class="ov-live" id="ovLive"></span></div><div class="ov-sync" id="ovSync"></div></div>
+      
+      <div class="ov-stats" id="ovStats"></div>
+      <div id="ovBanner"></div>
+      <div class="ov-grid"><div id="ovLeader"></div><div id="ovUpcoming"></div></div>
+    </div>
+
     <div class="dashboard-split">
       <div class="dashboard-card">
         <h4><i class="fa-solid fa-quote-left"></i> Prophetic Wisdom</h4>
@@ -494,6 +593,48 @@ html, body { width: 100%; }
         </div>
       </div>
 
+      <div id="quickNav" class="quick-nav"><span class="qn-t">QUICK NAVIGATION</span>
+        <button data-go="festControl" class="on" onclick="adminGo('festControl')">Overview</button>
+        <button data-go="tabPrograms" onclick="adminGo('tabPrograms')">Programs</button>
+        <button data-go="tabCandidates" onclick="adminGo('tabCandidates')">Candidates</button>
+        <button data-go="tabEntries" onclick="adminGo('tabEntries')">Entries</button>
+        <button data-go="tabSchedule" onclick="adminGo('tabSchedule')">Schedule</button>
+        <button data-go="tabJudges" onclick="adminGo('tabJudges')">Judges</button>
+        <button data-go="tabResult" onclick="adminGo('tabResult')">Results</button>
+        <button data-go="tabAnnounce" onclick="adminGo('tabAnnounce')">Announce</button>
+        <button data-go="tabAnalytics" onclick="adminGo('tabAnalytics')">Analytics</button>
+        <button data-go="tabPointTable" onclick="adminGo('tabPointTable')">Team Points</button>
+        <button data-go="tabToppers" onclick="adminGo('tabToppers')">Toppers</button>
+        <button data-go="tabPoster" onclick="adminGo('tabPoster')">Poster Studio</button>
+        <button data-go="tabSettings" onclick="adminGo('tabSettings')">Settings</button>
+      </div>
+
+      <div id="festControl">
+        <div class="ov-head"><div class="ov-title">FEST CONTROL <span class="ov-live" id="fcLive"></span></div><div class="ov-sync" id="fcSync"></div></div>
+        <div class="ov-stats" id="fcStats"></div>
+        <div class="ov-grid"><div id="fcLeader"></div><div id="fcUpcoming"></div></div>
+        <div class="ov-grid"><div id="fcPending"></div><div id="fcActivity"></div></div>
+        <div class="ov-h">QUICK ACTIONS</div>
+        <div class="qa-row">
+          <button class="main" onclick="adminGo('tabCandidates')"><i class="fa-solid fa-user-plus"></i> Register candidate</button>
+          <button class="main" onclick="adminGo('tabPrograms')"><i class="fa-solid fa-plus"></i> Add program</button>
+          <button class="main" onclick="adminGo('tabResult')"><i class="fa-solid fa-award"></i> Enter results</button>
+          <button onclick="adminGo('tabAnnounce')"><i class="fa-solid fa-bullhorn"></i> Announce</button>
+          <button onclick="adminGo('tabSchedule')"><i class="fa-solid fa-calendar-plus"></i> Add schedule</button>
+          <button onclick="openPrintCenter()"><i class="fa-solid fa-print"></i> Print Center</button>
+          <button onclick="focusSearch()"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+        </div>
+        <div class="ov-h">EXPORT CENTRE</div>
+        <div class="qa-row">
+          <button onclick="exportData('programs')"><i class="fa-solid fa-download"></i> Programs CSV</button>
+          <button onclick="exportData('candidates')"><i class="fa-solid fa-download"></i> Candidates CSV</button>
+          <button onclick="exportData('entries')"><i class="fa-solid fa-download"></i> Entries CSV</button>
+          <button onclick="exportData('results')"><i class="fa-solid fa-download"></i> Results CSV</button>
+          <button onclick="exportData('schedule')"><i class="fa-solid fa-download"></i> Schedule CSV</button>
+          <button onclick="exportData('backup')"><i class="fa-solid fa-database"></i> Full backup (JSON)</button>
+        </div>
+      </div>
+
       <div class="official-tabs">
         <button class="tab-btn active" onclick="openOfficialSubTab('tabPrograms')"><i class="fa-solid fa-list-check"></i> Programs</button>
         <button class="tab-btn" onclick="openOfficialSubTab('tabCandidates')"><i class="fa-solid fa-user-plus"></i> Candidates</button>
@@ -541,6 +682,11 @@ html, body { width: 100%; }
           </div>
         </div>
         <h4 style="color:var(--navy-dark);margin:18px 0 8px 0;">📋 Listed Competition Programs</h4>
+        <div class="search-row">
+          <input type="text" id="pfSearch" oninput="renderProgramsTable()" placeholder="🔍 Search programs…">
+          <select id="pfCat" onchange="renderProgramsTable()"><option value="">All categories</option><option value="SENIOR">Senior</option><option value="JUNIOR">Junior</option><option value="SUB-JUNIOR">Sub-Junior</option><option value="GENERAL">General</option></select>
+          <select id="pfType" onchange="renderProgramsTable()"><option value="">All types</option><option value="Individual">Individual</option><option value="Group">Group</option><option value="Non-Stage">Non-Stage</option><option value="General">General</option></select>
+        </div>
         <button class="btn" style="width:auto;padding:8px 18px;" onclick="printReport(['programs'])"><i class="fa-solid fa-print"></i> Print Program List</button>
         <div id="programsListTable" class="table-responsive"></div>
       </div>
@@ -581,6 +727,11 @@ html, body { width: 100%; }
           </div>
         </div>
         <h4 style="color:var(--navy-dark);margin:18px 0 8px 0;">👥 Registered Candidates Directory</h4>
+        <div class="search-row">
+          <input type="text" id="cfSearch" oninput="renderCandidatesTable()" placeholder="🔍 Search name or Reg No…">
+          <select id="cfTeam" onchange="renderCandidatesTable()"><option value="">All teams</option><option value="Qahira">Qahira</option><option value="Qudsiya">Qudsiya</option><option value="Qurthuba">Qurthuba</option></select>
+          <select id="cfCat" onchange="renderCandidatesTable()"><option value="">All categories</option><option value="SENIOR">Senior</option><option value="JUNIOR">Junior</option><option value="SUB-JUNIOR">Sub-Junior</option></select>
+        </div>
         <div id="candidatesListTable" class="table-responsive"></div>
       </div>
 
@@ -741,7 +892,45 @@ html, body { width: 100%; }
         <button class="btn" style="width:auto;padding:8px 18px;" onclick="printReport(['points'])"><i class="fa-solid fa-print"></i> Print Point Table</button>
         <div id="adminPointTablePreview" class="table-responsive"></div>
       </div>
+
+      <div id="tabToppers" class="official-tab-content">
+        <div class="pg-tools" style="margin-bottom:12px;">
+          <select id="adminTopFilter" onchange="renderAdminToppers()" style="margin:0;width:auto;"><option value="">All Categories</option><option value="SENIOR">Senior</option><option value="JUNIOR">Junior</option><option value="SUB-JUNIOR">Sub-Junior</option></select>
+          <button class="btn" style="width:auto;padding:8px 18px;margin:0;" onclick="printToppers()"><i class="fa-solid fa-print"></i> Print</button>
+        </div>
+        <div id="adminToppersBox"></div>
+      </div>
+
+      <div id="tabPoster" class="official-tab-content">
+        <p class="tab-note">Make winner posters with the built-in designs or your own PNG poster, a candidate photo, the item and the rank.</p>
+        <div class="qa-row"><button class="main" onclick="openPosterBlank()"><i class="fa-solid fa-wand-magic-sparkles"></i> Open Poster Studio</button></div>
+        <div class="ov-h">RECENT PUBLISHED WINNERS</div>
+        <div id="posterWinners" class="table-responsive"></div>
+      </div>
+
+      <div id="tabSettings" class="official-tab-content">
+        <div id="settingsInfo"></div>
+        <div class="qa-row">
+          <button class="main" onclick="syncToCloud()"><i class="fa-solid fa-cloud-arrow-up"></i> Save to Cloud now</button>
+          <button onclick="reloadFromCloud()"><i class="fa-solid fa-cloud-arrow-down"></i> Reload from Cloud</button>
+          <button onclick="exportData('backup')"><i class="fa-solid fa-database"></i> Full backup (JSON)</button>
+          <button onclick="openPrintCenter()"><i class="fa-solid fa-print"></i> Print Center</button>
+          <button onclick="printAllData()"><i class="fa-solid fa-print"></i> Print All Data</button>
+          <button onclick="kdIntroPlay(true)"><i class="fa-solid fa-film"></i> Replay welcome intro</button>
+        </div>
+        <p class="tab-note">The admin login is fixed in the site and cannot be changed from this page. Every official tool stays private to the Official Portal.</p>
+      </div>
     </div>
+  </div>
+
+  <!-- LIVE RESULTS (public) -->
+  <div id="resultsView" class="view-panel">
+    <div class="pg-head"><div><h3>Live Results</h3><p>Published results and winners, updated automatically.</p></div>
+      <div class="pg-tools">
+        <select id="lrCat" onchange="renderPublicResults()" style="margin:0;width:auto;"><option value="">All Categories</option><option value="SENIOR">Senior</option><option value="JUNIOR">Junior</option><option value="SUB-JUNIOR">Sub-Junior</option><option value="GENERAL">General</option></select>
+        <select id="lrTeam" onchange="renderPublicResults()" style="margin:0;width:auto;"><option value="">All Teams</option><option value="Qahira">Qahira</option><option value="Qudsiya">Qudsiya</option><option value="Qurthuba">Qurthuba</option></select>
+      </div></div>
+    <div id="liveResultsBox"></div>
   </div>
 
   <!-- 4. REGISTERED CANDIDATES -->
@@ -915,13 +1104,9 @@ html, body { width: 100%; }
     '.team-badge-qahira{background:#0284c7!important;color:#fff!important;border:0!important}' +
     '.team-badge-qudsiya,.team-badge-qusdiya{background:#059669!important;color:#fff!important;border:0!important}' +
     '.team-badge-qurthuba{background:#ef4444!important;color:#fff!important;border:0!important}' +
-    /* full-width layout for computers (always applied) */
-    'html,body{width:100%!important;max-width:none!important}' +
-    '.app-wrapper{max-width:none!important;width:100%!important}' +
-    '.view-panel{max-width:none!important;width:100%!important}' +
-    '.mini-modal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(20,17,11,.6);z-index:4000;display:none;align-items:center;justify-content:center;padding:14px}' +
-    '.mini-card{background:#fff;border-radius:16px;padding:22px;width:100%;max-width:460px;max-height:90vh;overflow:auto;border:2px solid #FDB827;box-shadow:0 25px 50px rgba(0,0,0,.35)}' +
-    '@media(min-width:1024px){.top-header{min-height:260px}.view-panel{padding:30px 34px}th,td{font-size:14.5px}.dashboard-card{min-height:150px}}';
+    '.mini-modal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(16,63,145,.6);z-index:4000;display:none;align-items:center;justify-content:center;padding:14px}' +
+    '.mini-card{background:#fff;border-radius:16px;padding:22px;width:100%;max-width:460px;max-height:90vh;overflow:auto;border:2px solid #2B7CD3;box-shadow:0 25px 50px rgba(0,0,0,.35)}' +
+    '';
   document.head.appendChild(st);
 })();
 
@@ -932,6 +1117,8 @@ var festCandidates = JSON.parse(localStorage.getItem('MEELAD_CANDIDATES')) || []
 var festResults = JSON.parse(localStorage.getItem('MEELAD_RESULTS')) || [];
 var festSchedule = JSON.parse(localStorage.getItem('MEELAD_SCHEDULE')) || [];
 var festNotices = JSON.parse(localStorage.getItem('MEELAD_NOTICES')) || [];
+var festLog = JSON.parse(localStorage.getItem('MEELAD_LOG')) || [];
+var lastSyncAt = 0;
 var cloudLoaded = false, cloudHasNotices = false;
 
 /* old spelling of team name -> corrected spelling */
@@ -1020,8 +1207,10 @@ function fetchCloudData() {
         festResults = data.results || [];
         if (data.schedule) festSchedule = data.schedule;
         if (data.notices) { festNotices = data.notices; cloudHasNotices = true; }
+        if (data.log) festLog = data.log;
         localStorage.setItem('MEELAD_NOTICES', JSON.stringify(festNotices));
         cloudLoaded = true;
+        lastSyncAt = Date.now();
         migrateTeams();
         localStorage.setItem('MEELAD_SCHEDULE', JSON.stringify(festSchedule));
         localStorage.setItem('MEELAD_PROGRAMS', JSON.stringify(festPrograms));
@@ -1040,14 +1229,14 @@ function syncToCloud() {
   localStorage.setItem('MEELAD_SCHEDULE', JSON.stringify(festSchedule));
   localStorage.setItem('MEELAD_NOTICES', JSON.stringify(festNotices));
   refreshAll();
-  var payload = { programs: festPrograms, candidates: festCandidates, results: festResults, schedule: festSchedule, notices: festNotices };
+  var payload = { programs: festPrograms, candidates: festCandidates, results: festResults, schedule: festSchedule, notices: festNotices, log: festLog };
   fetch(CLOUD_API_URL, {
     method: "POST",
     headers: { "Content-Type": "text/plain;charset=utf-8" },
     body: JSON.stringify(payload)
   })
     .then(res => res.json())
-    .then(res => alert(res.message || "Synchronized across all devices!"))
+    .then(res => { lastSyncAt = Date.now(); alert(res.message || "Synchronized across all devices!"); })
     .catch(err => alert("Saved locally. Background network sync will retry."));
 }
 
@@ -1264,7 +1453,7 @@ function printTeamListPDF() {
       </div>`;
   });
 
-  var html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Official Team Lists - MMO Arts Fest 2k26</title>
+  var html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Official Team Lists - KADHARVA Campus Arts Fest 2K26</title>
     <style>
       @page { size: A4 portrait; margin: 12mm; }
       * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
@@ -1289,7 +1478,7 @@ function printJudgesSlip() {
   var item = document.getElementById('judgeItemSelect').value || "________________";
   var letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
   var win = window.open('', '_blank');
-  var html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Judges Evaluation Slip - MMO Arts Fest 2k26</title>
+  var html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Judges Evaluation Slip - KADHARVA Campus Arts Fest 2K26</title>
     <link href="https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@700&family=Cinzel:wght@700&family=Gayathri:wght@700&display=swap" rel="stylesheet">
     <style>
       @font-face { font-family: 'CustomFestFont'; src: url('custom-font.ttf') format('truetype'), url('ML-TTRavivarma.ttf') format('truetype'); font-weight: bold; font-style: normal; }
@@ -1312,7 +1501,7 @@ function printJudgesSlip() {
       <div class="slip-card">
         <div>
           <div class="header-banner">
-            <div class="title-malayalam">MMO Arts Fest</div>
+            <div class="title-malayalam">KADHARVA</div>
             <div class="title-sub">Campus Arts Festival 2k26</div>
             <div class="title-desc">OFFICIAL JUDGES EVALUATION SLIP</div>
           </div>
@@ -1487,7 +1676,7 @@ function renderPosterTypography(ctx, canvas, name, team, cat, prog, pos, subHead
 
   ctx.fillStyle = '#ffffff';
   ctx.font = "700 72px 'Cinzel', serif";
-  ctx.fillText("MMO ARTS FEST", w / 2, 190);
+  ctx.fillText("KADHARVA", w / 2, 190);
 
   ctx.fillStyle = '#38bdf8';
   ctx.font = "700 24px 'Cinzel', serif";
@@ -1542,7 +1731,7 @@ function downloadPosterImage() {
   var name = document.getElementById('pmCandidateName').value.trim() || 'Winner';
   var prog = document.getElementById('pmProgram').value.trim() || 'Result';
   var link = document.createElement('a');
-  link.download = `MMOArtsFest_${name.replace(/\s+/g, '_')}_${prog.replace(/\s+/g, '_')}_Poster.png`;
+  link.download = `KADHARVA_${name.replace(/\s+/g, '_')}_${prog.replace(/\s+/g, '_')}_Poster.png`;
   link.href = canvas.toDataURL('image/png', 1.0);
   link.click();
 }
@@ -1808,7 +1997,7 @@ function filterStudents() {
 
 </script>
 <script>
-/* MMO Arts Fest 2k26 — Tick-mark Entry Form
+/* KADHARVA Campus Arts Fest 2K26 — Tick-mark Entry Form
    Loaded after the main script.
    Replaces printEntryFormPDF() and adds a "Non-Stage" program type.
    Rules: Individual items = max 3 participants per team. Group / Non-Stage / General = no limit. */
@@ -1903,29 +2092,29 @@ function printEntryFormPDF() {
   });
 
   var win = window.open('', '_blank');
-  var html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Entry Form - MMO Arts Fest 2k26</title>' +
+  var html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Entry Form - KADHARVA Campus Arts Fest 2K26</title>' +
     '<link href="https://fonts.googleapis.com/css2?family=Gayathri:wght@700&family=Marcellus&display=swap" rel="stylesheet">' +
     '<style>' +
     '@page{size:A4 landscape;margin:8mm}' +
     '*{box-sizing:border-box;font-family:"Segoe UI",Tahoma,sans-serif}' +
     'body{margin:0;color:#0f172a;-webkit-print-color-adjust:exact;print-color-adjust:exact}' +
-    '.page{page-break-after:always;border:2px solid #D97706;border-radius:6px;padding:6mm;min-height:190mm}' +
-    '.hdr{text-align:center;border-bottom:2px solid #FDB827;padding-bottom:4px;margin-bottom:6px}' +
+    '.page{page-break-after:always;border:2px solid #185ABD;border-radius:6px;padding:6mm;min-height:190mm}' +
+    '.hdr{text-align:center;border-bottom:2px solid #2B7CD3;padding-bottom:4px;margin-bottom:6px}' +
     '.ml{font-family:Marcellus,serif;font-size:26px;font-weight:800;letter-spacing:3px;text-transform:uppercase}' +
-    '.sub{font-family:Marcellus,serif;letter-spacing:4px;color:#D97706;font-size:13px}' +
+    '.sub{font-family:Marcellus,serif;letter-spacing:4px;color:#185ABD;font-size:13px}' +
     '.badge{display:inline-block;color:#fff;font-size:10px;font-weight:700;padding:2px 12px;border-radius:10px;margin-top:3px;letter-spacing:1px}' +
     '.meta{display:flex;justify-content:space-between;background:#fff8e6;border:1px solid #f0d27a;padding:5px 10px;font-size:12px;margin-bottom:5px}' +
-    '.rules{font-size:10.5px;background:#fff8e1;border-left:4px solid #FDB827;padding:5px 8px;margin-bottom:6px;line-height:1.4}' +
+    '.rules{font-size:10.5px;background:#fff8e1;border-left:4px solid #2B7CD3;padding:5px 8px;margin-bottom:6px;line-height:1.4}' +
     'table{width:100%;border-collapse:collapse;table-layout:fixed}' +
     'th,td{border:1px solid #64748b;padding:2px 3px;font-size:11px;height:8.5mm}' +
-    'th{background:#14110b;color:#ffe9a8;font-size:10px}' +
-    'th.grp{background:#D97706;font-size:9px;letter-spacing:.5px}' +
-    'th.vt{height:30mm;padding:2px;background:#fff3d1;color:#14110b}' +
+    'th{background:#103F91;color:#EAF2FF;font-size:10px}' +
+    'th.grp{background:#185ABD;font-size:9px;letter-spacing:.5px}' +
+    'th.vt{height:30mm;padding:2px;background:#EAF2FF;color:#103F91}' +
     'th.vt div{writing-mode:vertical-rl;transform:rotate(180deg);margin:0 auto;font-size:10px;max-height:28mm;overflow:hidden}' +
     'td.c{text-align:center}td.reg{font-weight:700;font-size:10px}td.nm{font-size:11px}' +
     '.box{display:inline-block;width:5mm;height:5mm;border:1.5px solid #0f172a;border-radius:1px;vertical-align:middle}' +
     'tr.cnt td{background:#fff8e6}td.lim{background:#fff8e1}' +
-    '.sign{display:flex;justify-content:space-between;margin-top:14px;font-size:11.5px;font-weight:700;color:#D97706}' +
+    '.sign{display:flex;justify-content:space-between;margin-top:14px;font-size:11.5px;font-weight:700;color:#185ABD}' +
     '</style></head><body>' + pages + '<script>window.print();<\/script></body></html>';
   win.document.write(html);
   win.document.close();
@@ -1933,7 +2122,7 @@ function printEntryFormPDF() {
 
 </script>
 <script>
-/* MMO Arts Fest — Judges slips, 4 per A4 page (2 x 2).
+/* KADHARVA — Judges slips, 4 per A4 page (2 x 2).
    Slip 1 can be the "candidate-name slip": code column blank, candidate names listed, then mark / grade / rank.
    The other 3 slips are the normal code slips (A to L). Blank mode prints 4 empty slips. */
 
@@ -1989,7 +2178,7 @@ function openSlipDoc(slips) {
     body += '<div class="page">' + chunk.join('') + '</div>';
   }
   var win = window.open('', '_blank');
-  win.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Judges Slips - MMO Arts Fest 2k26</title>' +
+  win.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Judges Slips - KADHARVA Campus Arts Fest 2K26</title>' +
     '<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">' +
     '<style>' +
     '@page{size:A4 portrait;margin:0}' +
@@ -1998,20 +2187,20 @@ function openSlipDoc(slips) {
     '.page{width:210mm;height:297mm;display:grid;grid-template-columns:105mm 105mm;grid-template-rows:148.5mm 148.5mm;page-break-after:always;overflow:hidden}' +
     '.page:last-child{page-break-after:auto}' +
     '.slip{padding:5mm;border:.25mm dashed #94a3b8;overflow:hidden}.slip:empty{border:none}' +
-    '.in{height:100%;border:.5mm solid #D97706;outline:.2mm solid #FDB827;outline-offset:-1.4mm;padding:3.5mm 4mm 3mm;display:flex;flex-direction:column}' +
-    '.hdr{text-align:center;border-bottom:.4mm solid #FDB827;padding-bottom:1.5mm}' +
-    '.t1{font-family:Cinzel,serif;font-size:13pt;letter-spacing:1.5px;color:#14110b;text-transform:uppercase}' +
-    '.t2{font-size:6.2pt;letter-spacing:1.4px;color:#D97706;font-weight:700;margin-top:.5mm}' +
+    '.in{height:100%;border:.5mm solid #185ABD;outline:.2mm solid #2B7CD3;outline-offset:-1.4mm;padding:3.5mm 4mm 3mm;display:flex;flex-direction:column}' +
+    '.hdr{text-align:center;border-bottom:.4mm solid #2B7CD3;padding-bottom:1.5mm}' +
+    '.t1{font-family:Cinzel,serif;font-size:13pt;letter-spacing:1.5px;color:#103F91;text-transform:uppercase}' +
+    '.t2{font-size:6.2pt;letter-spacing:1.4px;color:#185ABD;font-weight:700;margin-top:.5mm}' +
     '.meta{display:flex;gap:2mm;margin:2.5mm 0}' +
-    '.meta div{flex:1;border:.3mm solid #D97706;border-radius:1mm;padding:1.2mm 1.8mm;font-size:8pt;min-height:9mm}' +
+    '.meta div{flex:1;border:.3mm solid #185ABD;border-radius:1mm;padding:1.2mm 1.8mm;font-size:8pt;min-height:9mm}' +
     '.meta span{display:block;font-size:5.5pt;color:#64748b;letter-spacing:.8px}' +
     '.line{display:block;border-bottom:.25mm solid #64748b;height:4mm}' +
     'table{width:100%;border-collapse:collapse;flex:1}' +
-    'th,td{border:.3mm solid #D97706;text-align:center}' +
-    'th{background:#14110b;color:#ffe9a8;font-size:6.5pt;height:5.5mm;letter-spacing:.5px}' +
-    'td.code{font-size:10pt;font-weight:700;background:#fff8e6;color:#14110b}' +
+    'th,td{border:.3mm solid #185ABD;text-align:center}' +
+    'th{background:#103F91;color:#EAF2FF;font-size:6.5pt;height:5.5mm;letter-spacing:.5px}' +
+    'td.code{font-size:10pt;font-weight:700;background:#fff8e6;color:#103F91}' +
     'td.nm{text-align:left;font-size:7.5pt;padding:0 1.5mm;font-weight:600}td.nm small{font-weight:400;color:#64748b;font-size:6pt}' +
-    '.sign{display:flex;justify-content:space-between;margin-top:2.5mm;font-size:6.8pt;font-weight:600;color:#D97706}' +
+    '.sign{display:flex;justify-content:space-between;margin-top:2.5mm;font-size:6.8pt;font-weight:600;color:#185ABD}' +
     '</style></head><body>' + body +
     '<script>window.onload=function(){setTimeout(function(){window.print()},600)}<\/script></body></html>');
   win.document.close();
@@ -2133,16 +2322,19 @@ updateJudgeProgramDropdown = function () { _ujpdJ.apply(this, arguments); jcRend
 
 </script>
 <script>
-/* MMO Arts Fest — Poster Studio v2 (1080 x 1350)
+/* KADHARVA — Poster Studio v2 (1080 x 1350)
    - 5 redesigned built-in models
    - upload your own PNG poster, upload candidate photo, drag to position */
 var posterPhoto = null, posterBg = null;
 var posterLogo = { name: null, sub: null };
 (function loadPosterLogos() {
   [['name', FEST_NAME_IMG], ['sub', FEST_SUB_IMG]].forEach(function (p) {
-    var i = new Image();
-    i.onload = function () { posterLogo[p[0]] = i; if (typeof drawPosterPreview === 'function') drawPosterPreview(); };
-    i.src = p[1];
+    kdTrim(p[1], function (u) {
+      if (!u) return;
+      var i = new Image();
+      i.onload = function () { posterLogo[p[0]] = i; if (typeof drawPosterPreview === 'function') drawPosterPreview(); };
+      i.src = u;
+    });
   });
 })();
 function drawLogoHeader(ctx, w, greet, acc) {
@@ -2310,8 +2502,8 @@ function drawHeader(ctx, w, sub, greet, acc, light) {
   ctx.shadowColor = 'rgba(0,0,0,.5)'; ctx.shadowBlur = 16;
   ctx.fillStyle = light ? '#fff3c4' : acc;
   spaced(ctx, 6);
-  fitFont(ctx, 'MMO ARTS FEST', 860, 80, '700', "'Cinzel', serif", 40);
-  ctx.fillText('MMO ARTS FEST', w / 2, 168);
+  fitFont(ctx, 'KADHARVA', 860, 80, '700', "'Cinzel', serif", 40);
+  ctx.fillText('KADHARVA', w / 2, 168);
   ctx.restore();
   spaced(ctx, 5);
   ctx.fillStyle = 'rgba(255,255,255,.85)'; ctx.font = "600 23px 'Poppins', sans-serif";
@@ -2438,7 +2630,7 @@ function drawPosterPreview() {
 
 </script>
 <script>
-/* MMO Arts Fest — rotating Team x Category score view.
+/* KADHARVA — rotating Team x Category score view.
    Order: Team 1 (Senior, Junior, Sub-Junior, General) -> Team 2 (...) -> Team 3 (...) -> repeat */
 var ROT_TEAMS = ["Qahira", "Qudsiya", "Qurthuba"];
 var ROT_CATS = ["SENIOR", "JUNIOR", "SUB-JUNIOR", "GENERAL"];
@@ -2466,7 +2658,7 @@ function rotRank(team, cat) {
 function rotBanner(team, cat) {
   var col = ROT_COL[team];
   var nice = cat === 'GENERAL' ? 'GENERAL / GROUP ITEMS' : cat;
-  return '<div style="background:linear-gradient(135deg,' + col + ',#14110b);color:#fff;border-radius:16px;padding:18px 22px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;box-shadow:0 10px 24px rgba(20,17,11,.2);">' +
+  return '<div style="background:linear-gradient(135deg,' + col + ',#103F91);color:#fff;border-radius:16px;padding:18px 22px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;box-shadow:0 10px 24px rgba(16,63,145,.2);">' +
     '<div><div style="font-size:12px;letter-spacing:3px;opacity:.85;">TEAM</div>' +
     '<div style="font-family:Marcellus,serif;font-size:clamp(26px,4vw,40px);letter-spacing:2px;text-transform:uppercase;line-height:1.1;">' + team + '</div>' +
     '<div style="display:inline-block;margin-top:6px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.4);padding:3px 14px;border-radius:999px;font-size:13px;font-weight:700;letter-spacing:1.5px;">' + nice + '</div></div>' +
@@ -2518,7 +2710,7 @@ function rotBuild(s) {
   festResults.forEach(function (r) { if (r.team === team && r.category === cat && (!r.regNo || r.regNo === '-')) other += Number(r.mark || 0); });
 
   var html = '<div class="table-responsive rot-wrap"><table class="matrix-table"><thead><tr><th>#</th><th class="sticky-col">Student</th><th>Reg No</th>' +
-    progs.map(function (p) { return '<th class="vt" style="width:44px;min-width:0;height:150px;padding:8px 4px;vertical-align:bottom;background:#14110b;color:#ffe9a8;"><div style="writing-mode:vertical-rl;transform:rotate(180deg);margin:0 auto;max-height:150px;overflow:hidden;font-size:12px;font-weight:700;white-space:nowrap;text-transform:none;">' + p + '</div></th>'; }).join('') + '<th style="background:#D97706;">Total</th></tr></thead><tbody>';
+    progs.map(function (p) { return '<th class="vt" style="width:44px;min-width:0;height:150px;padding:8px 4px;vertical-align:bottom;background:#103F91;color:#EAF2FF;"><div style="writing-mode:vertical-rl;transform:rotate(180deg);margin:0 auto;max-height:150px;overflow:hidden;font-size:12px;font-weight:700;white-space:nowrap;text-transform:none;">' + p + '</div></th>'; }).join('') + '<th style="background:#185ABD;">Total</th></tr></thead><tbody>';
   data.forEach(function (d, i) {
     html += '<tr><td>' + (i + 1) + '</td><td class="sticky-col"><b>' + d.c.name + '</b></td><td><code style="font-weight:700;font-size:12px;">' + d.c.regNo + '</code></td>' +
       d.cells + '<td style="font-weight:800;color:var(--emerald-main);background:#f0fdf4;">' + d.total + '</td></tr>';
@@ -2566,7 +2758,7 @@ renderStudentProgramMatrix();
 
 </script>
 <script>
-/* MMO Arts Fest — Entries module
+/* KADHARVA — Entries module
    - Programs: edit + "max participants per team"
    - Candidates: edit name + number of programs
    - Entries tab: tick which programs each candidate takes part in (limits enforced)
@@ -2645,18 +2837,29 @@ function savePrograms() {
   }
 }
 
+function progResultStatus(p) {
+  var rs = festResults.filter(function (r) { return r.program === p.name && r.category === p.category && r.regNo !== '-'; });
+  if (!rs.length) return '<span style="color:#7d7a6e;">—</span>';
+  return rs.some(function (r) { return r.published === 'YES' || r.published === undefined; })
+    ? '<span class="chip-ok">● Published</span>' : '<span class="chip-draft">● Draft</span>';
+}
+
 function renderProgramsTable() {
   var box = document.getElementById('programsListTable');
   if (!box) return;
   if (festPrograms.length === 0) { box.innerHTML = "<p style='font-size:13px; padding:12px; color:var(--text-muted);'>No competition programs registered yet.</p>"; return; }
-  var h = '<table><thead><tr><th>Type</th><th>Category</th><th>Program Name</th><th>Max / Team</th><th>Entered</th><th>Action</th></tr></thead><tbody>';
-  festPrograms.forEach(function (p) {
+  var q = ((document.getElementById('pfSearch') || {}).value || '').toLowerCase().trim();
+  var fc = (document.getElementById('pfCat') || {}).value || '', ft = (document.getElementById('pfType') || {}).value || '';
+  var list = festPrograms.filter(function (p) { return (!q || p.name.toLowerCase().indexOf(q) >= 0) && (!fc || p.category === fc) && (!ft || p.type === ft); });
+  if (!list.length) { box.innerHTML = "<p style='font-size:13px; padding:12px; color:var(--text-muted);'>No programs match the filter.</p>"; return; }
+  var h = '<table><thead><tr><th>Type</th><th>Category</th><th>Program Name</th><th>Max / Team</th><th>Entered</th><th>Result</th><th>Action</th></tr></thead><tbody>';
+  list.forEach(function (p) {
     var k = progKey(p);
     h += '<tr><td><b>' + esc(p.type) + '</b></td>' +
       '<td><span class="badge" style="background:#e0f2fe; color:var(--navy-dark);">' + esc(p.category) + '</span></td>' +
       '<td style="color:var(--navy-main); font-weight:600;">' + esc(p.name) + '</td>' +
       '<td style="font-weight:800;">' + maxText(p) + '</td>' +
-      '<td>' + totalEntered(k) + '</td>' +
+      '<td>' + totalEntered(k) + '</td><td>' + progResultStatus(p) + '</td>' +
       '<td style="white-space:nowrap;"><button onclick="editProgram(\'' + enc(k) + '\')" style="padding:4px 10px; background:#0284c7; color:#fff; border:none; border-radius:4px; cursor:pointer; margin-right:4px;"><i class="fa-solid fa-pen"></i> Edit</button>' +
       '<button onclick="deleteProgramByKey(\'' + enc(k) + '\')" style="padding:4px 8px; background:#ef4444; color:#fff; border:none; border-radius:4px; cursor:pointer;"><i class="fa-solid fa-trash"></i></button></td></tr>';
   });
@@ -2713,8 +2916,12 @@ function renderCandidatesTable() {
   var box = document.getElementById('candidatesListTable');
   if (!box) return;
   if (festCandidates.length === 0) { box.innerHTML = "<p style='font-size:13px; padding:12px; color:var(--text-muted);'>No candidates registered yet.</p>"; return; }
+  var cq = ((document.getElementById('cfSearch') || {}).value || '').toLowerCase().trim();
+  var ct = (document.getElementById('cfTeam') || {}).value || '', cc = (document.getElementById('cfCat') || {}).value || '';
+  var shown = festCandidates.filter(function (c) { return (!cq || (String(c.name) + ' ' + String(c.regNo)).toLowerCase().indexOf(cq) >= 0) && (!ct || c.team === ct) && (!cc || c.category === cc); });
+  if (!shown.length) { box.innerHTML = "<p style='font-size:13px; padding:12px; color:var(--text-muted);'>No candidates match the filter.</p>"; return; }
   var h = '<table><thead><tr><th>Reg No</th><th>Candidate Name</th><th>Category</th><th>Team</th><th>Programs</th><th>Action</th></tr></thead><tbody>';
-  festCandidates.forEach(function (c) {
+  shown.forEach(function (c) {
     var keys = candProgCount(c);
     var names = keys.map(function (k) { return findProgByKey(k).name; }).join(', ');
     h += '<tr><td><b style="color:var(--navy-main);">' + esc(c.regNo) + '</b></td><td>' + esc(c.name) + '</td>' +
@@ -2768,7 +2975,7 @@ function renderEntriesTab() {
     var k = progKey(p), m = progMax(p), n = teamCount(team, k);
     var full = m > 0 && n >= m;
     h += '<th style="min-width:92px;white-space:normal;font-size:11px;">' + esc(p.name) + '<br><span style="font-weight:500;opacity:.85;">' + esc(p.type) + '</span><br>' +
-      '<span style="display:inline-block;margin-top:3px;padding:1px 8px;border-radius:10px;background:' + (full ? '#fee2e2;color:#b91c1c' : '#fff3d1;color:#D97706') + ';">' + n + ' / ' + maxText(p) + '</span></th>';
+      '<span style="display:inline-block;margin-top:3px;padding:1px 8px;border-radius:10px;background:' + (full ? '#fee2e2;color:#b91c1c' : '#EAF2FF;color:#185ABD') + ';">' + n + ' / ' + maxText(p) + '</span></th>';
   });
   h += '<th>Total</th></tr></thead><tbody>';
   cands.forEach(function (c, i) {
@@ -2836,7 +3043,7 @@ renderEntriesTab();
 
 </script>
 <script>
-/* MMO Arts Fest — Result entry: choose rank (1st/2nd/3rd) and grade (A/B/C) for every eligible participant.
+/* KADHARVA — Result entry: choose rank (1st/2nd/3rd) and grade (A/B/C) for every eligible participant.
    Mark = rank points + grade points (editable in "Points settings"). Defaults: ranks 5/3/1, grades A=5, B=3, C=1 */
 var rbRows = [];
 
@@ -2940,6 +3147,7 @@ function saveResultBatch() {
     return rbRows.some(function (r) { return cat === 'GENERAL' ? x.team === r.team : String(x.regNo) === String(r.regNo); });
   };
   festResults = festResults.filter(function (x) { return !(x.program === item && x.category === cat && isRow(x)); });
+  if (pub === 'YES' && out.length && !confirm('Publish this result now? Everyone will be notified.')) return;
   var batchId = Date.now(), nowIso = new Date().toISOString();
   out.forEach(function (o, n) {
     festResults.push({
@@ -2964,22 +3172,22 @@ rbLoadPointInputs();
 
 </script>
 <script>
-/* MMO Arts Fest — printable reports (A4) with filters + Print Center + public Program List view */
+/* KADHARVA — printable reports (A4) with filters + Print Center + public Program List view */
 var REP_CATS = ['SENIOR', 'JUNIOR', 'SUB-JUNIOR', 'GENERAL'];
 var REP_TEAMS = ['Qahira', 'Qudsiya', 'Qurthuba'];
 
 function reportShell(title, body) {
   var w = window.open('', '_blank');
-  w.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>' + title + ' - MMO Arts Fest 2k26</title>' +
+  w.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>' + title + ' - KADHARVA Campus Arts Fest 2K26</title>' +
     '<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">' +
     '<style>@page{size:A4 portrait;margin:10mm}*{box-sizing:border-box;font-family:Poppins,"Segoe UI",sans-serif}' +
     'body{margin:0;color:#0f172a;font-size:10pt;-webkit-print-color-adjust:exact;print-color-adjust:exact}' +
-    '.hdr{text-align:center;border-bottom:2px solid #FDB827;padding-bottom:6px;margin-bottom:10px}' +
-    '.t1{font-family:Cinzel,serif;font-size:22pt;letter-spacing:3px;color:#14110b;text-transform:uppercase}' +
-    '.t2{font-size:9pt;letter-spacing:3px;color:#D97706;font-weight:600}.t3{font-size:11pt;font-weight:700;margin-top:4px}' +
-    '.d{font-size:8pt;color:#64748b}h3{background:#fff3d1;border-left:4px solid #D97706;padding:4px 10px;margin:12px 0 5px;font-size:11pt;color:#14110b}h3 small{font-weight:400;color:#475569;font-size:8.5pt}' +
+    '.hdr{text-align:center;border-bottom:2px solid #2B7CD3;padding-bottom:6px;margin-bottom:10px}' +
+    '.t1{font-family:Cinzel,serif;font-size:22pt;letter-spacing:3px;color:#103F91;text-transform:uppercase}' +
+    '.t2{font-size:9pt;letter-spacing:3px;color:#185ABD;font-weight:600}.t3{font-size:11pt;font-weight:700;margin-top:4px}' +
+    '.d{font-size:8pt;color:#64748b}h3{background:#EAF2FF;border-left:4px solid #185ABD;padding:4px 10px;margin:12px 0 5px;font-size:11pt;color:#103F91}h3 small{font-weight:400;color:#475569;font-size:8.5pt}' +
     'table{width:100%;border-collapse:collapse;margin:3px 0 8px}th,td{border:1px solid #94a3b8;padding:3px 6px;font-size:9pt;text-align:left}' +
-    'th{background:#14110b;color:#ffe9a8;font-size:8.5pt}tr{page-break-inside:avoid}.pb{page-break-before:always}.c{text-align:center}.blk{page-break-inside:avoid}</style></head><body>' +
+    'th{background:#103F91;color:#EAF2FF;font-size:8.5pt}tr{page-break-inside:avoid}.pb{page-break-before:always}.c{text-align:center}.blk{page-break-inside:avoid}</style></head><body>' +
     '<div class="hdr">' + festTitleHtml(22, 10) + '<div class="t3">' + title + '</div>' +
     '<div class="d">Printed: ' + new Date().toLocaleString() + '</div></div>' + body +
     '<script>window.onload=function(){setTimeout(function(){window.print()},600)}<\/script></body></html>');
@@ -3122,7 +3330,7 @@ function printProgramList() {
 
 </script>
 <script>
-/* MMO Arts Fest — Program Schedule (public view + admin editing + print) */
+/* KADHARVA — Program Schedule (public view + admin editing + print) */
 var SCHED_CATS = [['ALL', 'All Categories'], ['SENIOR', 'Senior'], ['JUNIOR', 'Junior'], ['SUB-JUNIOR', 'Sub-Junior'], ['GENERAL', 'General']];
 
 function fmtTime(t) {
@@ -3231,27 +3439,27 @@ renderProgramListView();
 
 </script>
 <script>
-/* MMO Arts Fest — pop-up notifications (toasts), bell icon and Notifications page.
+/* KADHARVA — pop-up notifications (toasts), bell icon and Notifications page.
    Notices are created when results are announced, the schedule/programs change, or an admin sends a message. */
 
 (function injectNotifyStyles() {
   var st = document.createElement('style');
   st.textContent =
     '#toastBox{position:fixed;top:14px;right:14px;z-index:6000;width:360px;max-width:calc(100vw - 28px);display:flex;flex-direction:column;gap:10px;pointer-events:none}' +
-    '.toast{pointer-events:auto;background:#fff;border-radius:14px;box-shadow:0 14px 34px rgba(20,17,11,.28);border-left:6px solid #0284c7;padding:12px 38px 12px 14px;position:relative;animation:toastIn .35s ease;cursor:pointer}' +
-    '.toast.result{border-left-color:#FDB827;background:linear-gradient(135deg,#fffdf5,#fff3c4)}.toast.schedule{border-left-color:#D97706}.toast.program{border-left-color:#7c3aed}.toast.warn{border-left-color:#f59e0b}' +
-    '.toast b{display:block;font-size:13.5px;color:#14110b}.toast span{display:block;font-size:12.5px;color:#334155;margin-top:2px;line-height:1.4}' +
+    '.toast{pointer-events:auto;background:#fff;border-radius:14px;box-shadow:0 14px 34px rgba(16,63,145,.28);border-left:6px solid #0284c7;padding:12px 38px 12px 14px;position:relative;animation:toastIn .35s ease;cursor:pointer}' +
+    '.toast.result{border-left-color:#2B7CD3;background:linear-gradient(135deg,#fffdf5,#EAF2FF)}.toast.schedule{border-left-color:#185ABD}.toast.program{border-left-color:#7c3aed}.toast.warn{border-left-color:#f59e0b}' +
+    '.toast b{display:block;font-size:13.5px;color:#103F91}.toast span{display:block;font-size:12.5px;color:#334155;margin-top:2px;line-height:1.4}' +
     '.toast i.x{position:absolute;top:8px;right:12px;font-style:normal;font-size:18px;color:#94a3b8}' +
     '@keyframes toastIn{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:none}}' +
     '.notif-badge{background:#ef4444;color:#fff;border-radius:999px;font-size:10px;font-weight:800;padding:1px 6px;margin-left:6px}' +
     '.notice-item{display:flex;gap:14px;padding:14px 16px;border:1px solid #f3e5b8;border-radius:14px;margin-bottom:10px;background:#fff}' +
-    '.notice-item.unread{background:#fff8e1;border-color:#FDB827}.notice-ic{font-size:24px;line-height:1}' +
-    '.notice-item b{display:block;color:#14110b}.notice-item small{color:#64748b}' +
+    '.notice-item.unread{background:#fff8e1;border-color:#2B7CD3}.notice-ic{font-size:24px;line-height:1}' +
+    '.notice-item b{display:block;color:#103F91}.notice-item small{color:#64748b}' +
     '.ana-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:16px}' +
     '.ana-card{background:#fff;border:1px solid #f3e5b8;border-radius:14px;padding:14px 16px}.ana-card.dark{background:#111827;color:#fff;border:0}' +
     '.ana-card small{font-size:11px;letter-spacing:1px;text-transform:uppercase;opacity:.75}.ana-card h4{font-size:24px;margin:6px 0 0}.ana-card span{font-size:12px;opacity:.7}' +
     '.ana-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}' +
-    '.ana-panel{background:#fff;border:1px solid #f3e5b8;border-radius:14px;padding:14px 16px}.ana-panel h5{font-size:13.5px;color:#14110b;margin-bottom:10px}' +
+    '.ana-panel{background:#fff;border:1px solid #f3e5b8;border-radius:14px;padding:14px 16px}.ana-panel h5{font-size:13.5px;color:#103F91;margin-bottom:10px}' +
     '.ana-row{display:flex;align-items:center;gap:10px;margin-bottom:7px;font-size:12.5px}.ana-l{width:110px;flex:none;color:#475569;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}' +
     '.ana-bar{flex:1;background:#eef2f1;border-radius:6px;height:12px;overflow:hidden}.ana-bar i{display:block;height:100%;border-radius:6px}.ana-empty{color:#94a3b8;font-size:12.5px;text-align:center;padding:14px}' +
     '.top-card{background:#fff;border:1px solid #f3e5b8;border-radius:14px;padding:14px 16px;margin-bottom:16px}' +
@@ -3385,7 +3593,7 @@ updateBadges();
 
 </script>
 <script>
-/* MMO Arts Fest — Announce results (batches), Result Analytics, Toppers */
+/* KADHARVA — Announce results (batches), Result Analytics, Toppers */
 
 function isPub(r) { return r.published === 'YES' || r.published === undefined; }
 function realResults() { return festResults.filter(function (r) { return r.regNo !== '-'; }); }
@@ -3414,6 +3622,7 @@ function renderAnnounceTab() {
 function publishGroups(keys) {
   var g = draftGroups(), picked = keys.filter(function (k) { return g[k]; });
   if (!picked.length) { alert('Please select at least one item to announce.'); return; }
+  if (!confirm('Announce ' + picked.length + ' item' + (picked.length > 1 ? 's' : '') + ' now? Everyone will get a notification.')) return;
   var batch = Date.now(), iso = new Date().toISOString(), names = [];
   picked.forEach(function (k) {
     g[k].forEach(function (r) { r.published = 'YES'; r.batch = batch; r.pubAt = iso; });
@@ -3442,7 +3651,7 @@ function anaBars(items, color) {
   if (!items.length) return '<div class="ana-empty">No data yet</div>';
   var max = Math.max.apply(null, items.map(function (i) { return i.v; }).concat([1]));
   return items.map(function (i) {
-    return '<div class="ana-row"><span class="ana-l" title="' + esc(i.l) + '">' + esc(i.l) + '</span><div class="ana-bar"><i style="width:' + (i.v / max * 100) + '%;background:' + (i.c || color || '#D97706') + '"></i></div><b>' + i.v + '</b></div>';
+    return '<div class="ana-row"><span class="ana-l" title="' + esc(i.l) + '">' + esc(i.l) + '</span><div class="ana-bar"><i style="width:' + (i.v / max * 100) + '%;background:' + (i.c || color || '#185ABD') + '"></i></div><b>' + i.v + '</b></div>';
   }).join('');
 }
 
@@ -3474,7 +3683,7 @@ function renderAnalytics() {
   });
   var batchKeys = Object.keys(batches).sort(function (a, b) { return String(batches[a].t).localeCompare(String(batches[b].t)); });
 
-  var pos = ['1st', '2nd', '3rd'].map(function (p, i) { return { l: p + ' place', v: pub.filter(function (r) { return r.place === p; }).length, c: ['#FDB827', '#94a3b8', '#b45309'][i] }; });
+  var pos = ['1st', '2nd', '3rd'].map(function (p, i) { return { l: p + ' place', v: pub.filter(function (r) { return r.place === p; }).length, c: ['#2B7CD3', '#94a3b8', '#b45309'][i] }; });
   var grd = ['A', 'B', 'C'].map(function (g, i) { return { l: 'Grade ' + g, v: pub.filter(function (r) { return r.grade === g; }).length, c: ['#059669', '#0284c7', '#f59e0b'][i] }; });
   var cats = ['SENIOR', 'JUNIOR', 'SUB-JUNIOR', 'GENERAL'];
 
@@ -3491,8 +3700,8 @@ function renderAnalytics() {
     '<div class="ana-panel"><h5>🏅 Candidates by Awarded Position</h5>' + anaBars(pos, '') + '</div>' +
     '<div class="ana-panel"><h5>🎖️ Candidates by Awarded Grade</h5>' + anaBars(grd, '') + '</div>' +
     '<div class="ana-panel"><h5>🧮 Total Points Contributed per Category</h5>' + anaBars(cats.filter(function (c) { return ptsByCat[c]; }).map(function (c) { return { l: c, v: ptsByCat[c] }; }), '#7c3aed') + '</div>' +
-    '<div class="ana-panel"><h5>📚 Published Programs per Category</h5>' + anaBars(cats.filter(function (c) { return pubByCat[c]; }).map(function (c) { return { l: c, v: pubByCat[c] }; }), '#D97706') + '</div>' +
-    '<div class="ana-panel"><h5>📢 Programmes Published per Announcement Batch</h5>' + anaBars(batchKeys.map(function (b, i) { return { l: batches[b].t ? 'Batch ' + (i + 1) + ' · ' + new Date(batches[b].t).toLocaleDateString() : 'Earlier', v: Object.keys(batches[b].progs).length }; }), '#FDB827') + '</div>' +
+    '<div class="ana-panel"><h5>📚 Published Programs per Category</h5>' + anaBars(cats.filter(function (c) { return pubByCat[c]; }).map(function (c) { return { l: c, v: pubByCat[c] }; }), '#185ABD') + '</div>' +
+    '<div class="ana-panel"><h5>📢 Programmes Published per Announcement Batch</h5>' + anaBars(batchKeys.map(function (b, i) { return { l: batches[b].t ? 'Batch ' + (i + 1) + ' · ' + new Date(batches[b].t).toLocaleDateString() : 'Earlier', v: Object.keys(batches[b].progs).length }; }), '#2B7CD3') + '</div>' +
     '</div>';
 }
 
@@ -3511,7 +3720,7 @@ function toppersHtml(filterCat) {
     var list = Object.keys(m).map(function (k) { return m[k]; }).sort(function (a, b) { return b.total - a.total || b.p1 - a.p1; }).slice(0, 10);
     out += '<div class="top-card"><h3 style="margin-bottom:6px;">' + cat + ' TOPPERS</h3>' +
       (list.length ? list.map(function (o, i) {
-        return '<div class="top-row"><div class="m">' + (medals[i] || (i + 1)) + '</div><div style="flex:1;"><b>' + esc(o.name) + '</b> <small style="color:#64748b;">' + esc(o.reg) + '</small><br><span class="badge team-badge-' + String(o.team).toLowerCase() + '">' + esc(o.team) + '</span> <small style="color:#64748b;">🥇' + o.p1 + ' 🥈' + o.p2 + ' 🥉' + o.p3 + ' • ' + o.gr + ' grades</small></div><div style="font-size:22px;font-weight:800;color:#D97706;">' + o.total + '</div></div>';
+        return '<div class="top-row"><div class="m">' + (medals[i] || (i + 1)) + '</div><div style="flex:1;"><b>' + esc(o.name) + '</b> <small style="color:#64748b;">' + esc(o.reg) + '</small><br><span class="badge team-badge-' + String(o.team).toLowerCase() + '">' + esc(o.team) + '</span> <small style="color:#64748b;">🥇' + o.p1 + ' 🥈' + o.p2 + ' 🥉' + o.p3 + ' • ' + o.gr + ' grades</small></div><div style="font-size:22px;font-weight:800;color:#185ABD;">' + o.total + '</div></div>';
       }).join('') : '<div class="ana-empty">No published results yet</div>') + '</div>';
   });
   return out;
@@ -3528,59 +3737,589 @@ function printToppers() {
 }
 
 </script>
-<!-- ===== Welcome wall (shown when the site opens) ===== -->
-<div id="welcome">
-  <div class="w-rays"></div>
-  <div class="w-wall" id="wWall"></div>
-  <div id="wSparks"></div>
-  <div class="w-center">
-    <img class="w-name" src="fest-name.png" alt="MMO Arts Fest" onerror="this.style.display='none';document.getElementById('wNameT').style.display='block'">
-    <div class="w-name-t" id="wNameT" style="display:none">MMO Arts Fest</div>
-    <img class="w-sub" src="campus-arts-fest.png" alt="Campus Arts Fest" onerror="this.style.display='none';document.getElementById('wSubT').style.display='block'">
-    <div class="w-sub-t" id="wSubT" style="display:none">CAMPUS ARTS FESTIVAL 2K26</div>
-    <div class="w-hello">Welcome to <b>MMO Arts Fest</b></div>
-    <button id="wEnter" type="button">ENTER</button>
-    <div class="w-bar"><i></i></div>
-  </div>
-</div>
 <script>
-(function () {
-  var w = document.getElementById('welcome'); if (!w) return;
-  /* moving wall of the Campus Arts Fest image */
-  var wall = document.getElementById('wWall'), strip = '';
-  for (var k = 0; k < 14; k++) strip += '<img src="campus-arts-fest.png" alt="" onerror="this.outerHTML=\'<span>MMO ARTS FEST \u2726</span>\'">';
-  for (var r = 0; r < 6; r++) wall.insertAdjacentHTML('beforeend', '<div class="w-row" style="animation-duration:' + (30 + r * 5) + 's">' + strip + strip + '</div>');
-  /* rising sparkles */
-  var sp = document.getElementById('wSparks');
-  for (var i = 0; i < 34; i++) {
-    var d = document.createElement('i'), sz = 4 + Math.random() * 9;
-    d.className = 'w-spark';
-    d.style.cssText = 'left:' + (Math.random() * 100) + '%;width:' + sz + 'px;height:' + sz + 'px;animation-duration:' + (6 + Math.random() * 8) + 's;animation-delay:' + (Math.random() * 6) + 's';
-    sp.appendChild(d);
+/* KADHARVA — premium dashboard: Festival Overview, FEST CONTROL, quick navigation, global search,
+   live leaderboard, countdown, winner banner, recent activity, export centre, section identities */
+
+var ovPrev = {};
+var TEAM_HEX = { Qahira: '#0284c7', Qudsiya: '#059669', Qurthuba: '#ef4444' };
+function $(id) { return document.getElementById(id); }
+
+/* ---------- small helpers ---------- */
+function agoText(ts) {
+  var s = Math.floor((Date.now() - ts) / 1000);
+  if (s < 5) return 'just now';
+  if (s < 60) return s + 's ago';
+  var m = Math.floor(s / 60); if (m < 60) return m + ' min ago';
+  var h = Math.floor(m / 60); if (h < 24) return h + ' h ago';
+  return Math.floor(h / 24) + ' d ago';
+}
+function animateNumber(el, from, to, suffix) {
+  suffix = suffix || '';
+  if (!el) return;
+  if (from === to) { el.textContent = to + suffix; return; }
+  var t0 = performance.now(), d = 900;
+  (function step(t) {
+    var k = Math.min(1, (t - t0) / d), e = 1 - Math.pow(1 - k, 3);
+    el.textContent = Math.round(from + (to - from) * e) + suffix;
+    if (k < 1) requestAnimationFrame(step);
+  })(t0);
+}
+function countTo(key, el, to, suffix) {
+  var from = ovPrev[key] === undefined ? 0 : ovPrev[key];
+  ovPrev[key] = to;
+  animateNumber(el, from, to, suffix);
+}
+
+/* ---------- activity log ---------- */
+function addLog(text) {
+  festLog.push({ t: new Date().toISOString(), text: text });
+  if (festLog.length > 80) festLog = festLog.slice(-80);
+  localStorage.setItem('MEELAD_LOG', JSON.stringify(festLog));
+}
+(function wrapForLog() {
+  function wrap(name, before, after) {
+    var orig = window[name];
+    if (typeof orig !== 'function') return;
+    window[name] = function () {
+      var b = before ? before() : null, r = orig.apply(this, arguments);
+      try { after(b); } catch (e) { }
+      return r;
+    };
   }
-  document.body.style.overflow = 'hidden';
-  var closed = false;
-  function close() {
-    if (closed) return; closed = true;
-    w.classList.add('hide'); document.body.style.overflow = '';
-    setTimeout(function () { if (w.parentNode) w.parentNode.removeChild(w); }, 1000);
-  }
-  w.addEventListener('click', close);
-  document.getElementById('wEnter').addEventListener('click', close);
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' || e.key === 'Enter') close(); });
-  setTimeout(close, 6500);
+  wrap('saveBatchCandidates', function () { return festCandidates.length; }, function (b) { if (festCandidates.length > b) addLog('Registered ' + (festCandidates.length - b) + ' candidate(s)'); });
+  wrap('savePrograms', function () { return festPrograms.length; }, function (b) { if (festPrograms.length > b) addLog('Added ' + (festPrograms.length - b) + ' program(s)'); });
+  wrap('saveResultBatch', function () { return { r: festResults, c: $('resCategory').value, i: $('resItemSelect').value }; }, function (b) { if (festResults !== b.r) addLog('Saved result: ' + b.i + ' (' + b.c + ')'); });
+  wrap('saveEntries', function () { return $('entTeam').value + ' ' + $('entCat').value; }, function (b) { addLog('Saved entries: ' + b); });
+  wrap('addScheduleItem', function () { return festSchedule.length; }, function (b) { if (festSchedule.length > b) addLog('Added a schedule item'); });
+  wrap('publishGroups', function () { return realResults().filter(isPub).length; }, function (b) { if (realResults().filter(isPub).length > b) addLog('Announced results'); });
+  wrap('deleteProgramByKey', function () { return festPrograms.length; }, function (b) { if (festPrograms.length < b) addLog('Deleted a program'); });
+  wrap('deleteCandidate', function () { return festCandidates.length; }, function (b) { if (festCandidates.length < b) addLog('Deleted a candidate'); });
 })();
 
-/* highlight the current page in the top menu */
-(function () {
-  var base = showView;
-  showView = function (id) {
-    base.apply(this, arguments);
-    Array.prototype.forEach.call(document.querySelectorAll('#mainNav a'), function (a) { a.classList.toggle('on', a.getAttribute('data-v') === id); });
-    window.scrollTo(0, 0);
-  };
-  var first = document.querySelector('#mainNav a[data-v="dashboardView"]'); if (first) first.classList.add('on');
+/* ---------- numbers ---------- */
+function ovNumbers() {
+  var entries = 0;
+  festCandidates.forEach(function (c) { entries += candProgCount(c).length; });
+  var groups = {};
+  realResults().forEach(function (r) { (groups[groupKey(r)] = groups[groupKey(r)] || []).push(r); });
+  var pub = 0, draft = 0;
+  Object.keys(groups).forEach(function (k) { if (groups[k].some(isPub)) pub++; else draft++; });
+  var pendList = [];
+  festPrograms.forEach(function (p) {
+    var n = totalEntered(progKey(p));
+    if (n > 0 && !festResults.some(function (r) { return r.program === p.name && r.category === p.category && isPub(r) && r.regNo !== '-'; })) pendList.push({ p: p, n: n });
+  });
+  return { programs: festPrograms.length, candidates: festCandidates.length, entries: entries, published: pub, drafts: draft, pending: pendList.length, pendList: pendList };
+}
+
+function statsHtml(n, big) {
+  var blocks = [['Total Programs', n.programs], ['Registered Candidates', n.candidates], ['Total Entries', n.entries], ['Published Results', n.published]];
+  if (!big) blocks = blocks.concat([['Pending Results', n.pending], ['Draft Results', n.drafts]]);
+  return blocks.map(function (b) { return '<div class="ov-stat"><b data-k="st-' + b[0] + '" data-v="' + b[1] + '">0</b><span>' + b[0] + '</span></div>'; }).join('');
+}
+function fillStats(box) {
+  Array.prototype.forEach.call(box.querySelectorAll('b[data-k]'), function (b) { countTo(box.id + b.getAttribute('data-k'), b, Number(b.getAttribute('data-v'))); });
+}
+
+/* ---------- live leaderboard ---------- */
+function leaderboardData() {
+  return REP_TEAMS.map(function (t) {
+    return { t: t, tot: REP_CATS.reduce(function (s, c) { return s + rotTotal(t, c); }, 0) };
+  }).sort(function (a, b) { return b.tot - a.tot; });
+}
+function renderLeaderboard(id) {
+  var box = $(id); if (!box) return;
+  var d = leaderboardData(), max = Math.max.apply(null, d.map(function (x) { return x.tot; }).concat([1]));
+  box.innerHTML = '<div class="ov-h">LIVE TEAM LEADERBOARD</div>' + d.map(function (x, i) {
+    var first = i === 0 && x.tot > 0;
+    return '<div class="lb-row' + (first ? ' first' : '') + '"><span class="lb-rank">' + (first ? '👑' : '#' + (i + 1)) + '</span><span class="badge team-badge-' + x.t.toLowerCase() + '">' + x.t + '</span>' +
+      '<div class="lb-bar"><i style="width:' + (x.tot / max * 100) + '%"></i></div><b class="lb-pts" data-t="' + x.t + '" data-v="' + x.tot + '">0</b></div>';
+  }).join('');
+  Array.prototype.forEach.call(box.querySelectorAll('.lb-pts'), function (b) { countTo(id + b.getAttribute('data-t'), b, Number(b.getAttribute('data-v')), ' pts'); });
+}
+
+/* ---------- upcoming + countdown ---------- */
+function upcomingList(n) {
+  var now = new Date();
+  var arr = festSchedule.map(function (s) {
+    var d = s.date ? new Date(s.date + 'T' + (s.time || '00:00')) : null;
+    return { s: s, d: d && !isNaN(d) ? d : null };
+  }).filter(function (x) { return x.d && x.d >= now; }).sort(function (a, b) { return a.d - b.d; });
+  return arr.slice(0, n);
+}
+function renderUpcoming(id) {
+  var box = $(id); if (!box) return;
+  var up = upcomingList(5), nx = up[0];
+  var cd = nx ? '<div class="cd-label">NEXT: ' + esc(nx.s.program) + ' <small>(' + catLabel(nx.s.category) + ')</small></div><div class="cd-time" data-t="' + nx.d.getTime() + '">--:--:--</div>' : '<div class="cd-label" style="opacity:.7;">No upcoming programs scheduled</div>';
+  box.innerHTML = '<div class="ov-h">UPCOMING PROGRAMS</div><div class="cd-box">' + cd + '</div>' +
+    (up.length ? up.map(function (x) { return '<div class="up-row"><b>' + fmtTime(x.s.time) + '</b><span>' + esc(x.s.program) + '</span><small>' + catLabel(x.s.category) + (x.s.venue ? ' · ' + esc(x.s.venue) : '') + '</small></div>'; }).join('') : '');
+  tickCountdown();
+}
+function tickCountdown() {
+  var any = false;
+  Array.prototype.forEach.call(document.querySelectorAll('.cd-time'), function (el) {
+    var ms = Number(el.getAttribute('data-t')) - Date.now();
+    if (ms <= 0) { any = true; return; }
+    var s = Math.floor(ms / 1000), d = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600), m = Math.floor(s % 3600 / 60), sec = s % 60;
+    var p = function (n) { return String(n).padStart(2, '0'); };
+    el.textContent = (d ? d + 'd ' : '') + p(h) + ':' + p(m) + ':' + p(sec);
+  });
+  if (any) { renderUpcoming('ovUpcoming'); renderUpcoming('fcUpcoming'); }
+}
+setInterval(tickCountdown, 1000);
+
+/* ---------- winner banner ---------- */
+function renderBanner() {
+  var box = $('ovBanner'); if (!box) return;
+  var pub = realResults().filter(isPub).filter(function (r) { return r.place && r.place !== '-'; });
+  if (!pub.length) { box.innerHTML = ''; return; }
+  pub.sort(function (a, b) { return String(b.pubAt || '').localeCompare(String(a.pubAt || '')) || (b.id - a.id); });
+  var top = pub[0], med = { '1st': '🥇', '2nd': '🥈', '3rd': '🥉' };
+  var g = pub.filter(function (r) { return r.program === top.program && r.category === top.category; }).sort(function (a, b) { return a.place.localeCompare(b.place); });
+  box.innerHTML = '<div class="win-banner"><div class="wb-t">🏆 LATEST RESULT</div><div class="wb-p">' + esc(top.program) + ' <small>(' + esc(top.category) + ')</small></div><div class="wb-w">' +
+    g.map(function (r) { return '<span>' + (med[r.place] || '') + ' <b>' + esc(r.name) + '</b> <em>' + esc(r.team) + '</em></span>'; }).join('') + '</div></div>';
+}
+
+/* ---------- recent activity / pending ---------- */
+function renderActivity() {
+  var box = $('fcActivity'); if (!box) return;
+  var list = festLog.slice().reverse().slice(0, 8);
+  box.innerHTML = '<div class="ov-h">RECENT ACTIVITY</div>' + (list.length ? list.map(function (l) { return '<div class="act-row"><span>' + esc(l.text) + '</span><small>' + agoText(new Date(l.t).getTime()) + '</small></div>'; }).join('') : '<div class="ana-empty">Nothing yet — actions you take will be listed here.</div>');
+}
+function renderPending(n) {
+  var box = $('fcPending'); if (!box) return;
+  box.innerHTML = '<div class="ov-h">PENDING RESULTS <small>' + n.pending + ' program' + (n.pending === 1 ? '' : 's') + ' with entries but no published result</small></div>' +
+    (n.pendList.length ? n.pendList.slice(0, 7).map(function (x) { return '<div class="act-row"><span>' + esc(x.p.name) + ' <small>(' + esc(x.p.category) + ')</small></span><small>' + x.n + ' entered</small></div>'; }).join('') + (n.pendList.length > 7 ? '<div class="act-row"><small>… and ' + (n.pendList.length - 7) + ' more</small></div>' : '') : '<div class="ana-empty">All programs with entries have published results 🎉</div>');
+}
+
+/* ---------- main render ---------- */
+function syncText() {
+  return lastSyncAt ? 'Last cloud sync: ' + new Date(lastSyncAt).toLocaleTimeString() + ' (' + agoText(lastSyncAt) + ')' : 'Waiting for cloud…';
+}
+function renderLive() {
+  ['ovLive', 'fcLive'].forEach(function (id) { var e = $(id); if (e) e.innerHTML = cloudLoaded ? '<span class="live-dot"></span> LIVE' : '<span class="live-dot off"></span> CONNECTING'; });
+  ['ovSync', 'fcSync'].forEach(function (id) { var e = $(id); if (e) e.textContent = syncText(); });
+}
+function renderOverview() {
+  var n = ovNumbers();
+  var s = $('ovStats'); if (s) { s.innerHTML = statsHtml(n, true); fillStats(s); }
+  renderLeaderboard('ovLeader'); renderUpcoming('ovUpcoming'); renderBanner(); renderLive();
+}
+function renderFestControl() {
+  var n = ovNumbers();
+  var s = $('fcStats'); if (s) { s.innerHTML = statsHtml(n, false); fillStats(s); }
+  renderLeaderboard('fcLeader'); renderUpcoming('fcUpcoming'); renderPending(n); renderActivity(); renderLive();
+}
+setInterval(renderLive, 5000);
+
+/* ---------- animated points in the point tables ---------- */
+function animatePointCells() {
+  ['teamPointsTable', 'adminPointTablePreview'].forEach(function (id) {
+    var box = $(id); if (!box) return;
+    Array.prototype.forEach.call(box.querySelectorAll('td'), function (td, i) {
+      var m = /^(\d+) pts$/.exec(td.textContent.trim()); if (!m) return;
+      countTo('pt-' + id + i, td, Number(m[1]), ' pts');
+    });
+  });
+}
+
+/* ---------- section identities (admin) ---------- */
+var SEC = {
+  tabPrograms: { t: 'Programs Management', d: 'Program categories, competition types, registration status and program counts.', c: '#2B7CD3', i: 'fa-list-check', s: function () { return festPrograms.length + ' programs'; } },
+  tabCandidates: { t: 'Candidate Management', d: 'Search, filter, register, edit and manage candidates.', c: '#38bdf8', i: 'fa-users', s: function () { return festCandidates.length + ' candidates'; } },
+  tabEntries: { t: 'Entries', d: 'Tick the programs every candidate takes part in. Team limits are enforced.', c: '#34d399', i: 'fa-square-check', s: function () { return ovNumbers().entries + ' entries'; } },
+  tabSchedule: { t: 'Schedule', d: 'Program timings, venues and categories for the whole fest.', c: '#a78bfa', i: 'fa-calendar-days', s: function () { return festSchedule.length + ' items'; } },
+  tabJudges: { t: 'Judges Slips', d: 'Code slips and candidate-name slips, 4 per A4 page.', c: '#fb7185', i: 'fa-scale-balanced', s: function () { return ''; } },
+  tabResult: { t: 'Results Management', d: 'Result entry, rank assignment, grade, points and publishing.', c: '#2B7CD3', i: 'fa-award', s: function () { var n = ovNumbers(); return n.published + ' published · ' + n.drafts + ' draft'; } },
+  tabAnnounce: { t: 'Announcements', d: 'Publish results in batches and send messages to everyone.', c: '#2B7CD3', i: 'fa-bullhorn', s: function () { return ovNumbers().drafts + ' waiting'; } },
+  tabAnalytics: { t: 'Result Analytics', d: 'Publishing timeline, ranks, grades and points at a glance.', c: '#2dd4bf', i: 'fa-chart-pie', s: function () { return ''; } },
+  tabPointTable: { t: 'Team Points', d: 'Qurthuba, Qudsiya and Qahira standings with animated score changes.', c: '#2B7CD3', i: 'fa-trophy', s: function () { var d = leaderboardData(); return d[0] && d[0].tot ? '👑 ' + d[0].t : ''; } }
+};
+function decorateAdminSections() {
+  Object.keys(SEC).forEach(function (id) {
+    var el = $(id), c = SEC[id];
+    if (!el || el.querySelector('.sec-head')) return;
+    el.style.setProperty('--sec', c.c);
+    var h = document.createElement('div');
+    h.className = 'sec-head';
+    h.innerHTML = '<div class="sec-ic"><i class="fa-solid ' + c.i + '"></i></div><div class="sec-tx"><h3>' + c.t + '</h3><p>' + c.d + '</p></div><div class="sec-stat" id="ss-' + id + '"></div>';
+    el.insertBefore(h, el.firstChild);
+  });
+}
+function updateSectionStats() {
+  Object.keys(SEC).forEach(function (id) { var e = $('ss-' + id); if (e) e.textContent = SEC[id].s(); });
+}
+
+/* ---------- quick navigation ---------- */
+function adminLoggedIn() { var oc = $('officialContent'); return oc && oc.style.display !== 'none'; }
+function adminGo(id) {
+  showView('officialView');
+  setTimeout(function () {
+    if (!adminLoggedIn()) { alert('Please log in as admin first.'); return; }
+    var el = $(id); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 80);
+}
+var QN_IDS = ['festControl', 'tabPrograms', 'tabCandidates', 'tabEntries', 'tabSchedule', 'tabJudges', 'tabResult', 'tabAnnounce', 'tabAnalytics', 'tabPointTable'];
+var qnTick = false;
+window.addEventListener('scroll', function () {
+  if (qnTick || !adminLoggedIn()) return; qnTick = true;
+  requestAnimationFrame(function () {
+    qnTick = false;
+    var cur = QN_IDS[0];
+    QN_IDS.forEach(function (id) { var e = $(id); if (e && e.getBoundingClientRect().top < 170) cur = id; });
+    Array.prototype.forEach.call(document.querySelectorAll('#quickNav button'), function (b) { b.classList.toggle('on', b.getAttribute('data-go') === cur); });
+  });
+}, { passive: true });
+
+function adminInitAll() {
+  [decorateAdminSections, initCandidateRows, updateJudgeProgramDropdown, updateResultProgramDropdown, renderEntriesTab, renderAnnounceTab, renderAnalytics, renderScheduleViews, jcRender, renderFestControl, updateSectionStats]
+    .forEach(function (fn) { try { fn(); } catch (e) { console.error(e); } });
+}
+var _authDash = authOfficial;
+authOfficial = function () {
+  _authDash.apply(this, arguments);
+  if (adminLoggedIn()) { adminInitAll(); addLog('Admin signed in'); }
+};
+
+/* ---------- global search ---------- */
+function searchHits(q) {
+  q = q.toLowerCase().trim(); if (q.length < 2) return [];
+  var out = [];
+  festCandidates.forEach(function (c) { if ((c.name + ' ' + c.regNo + ' ' + c.team + ' ' + c.category).toLowerCase().indexOf(q) >= 0) out.push({ k: 'cand', l: c.name, s: c.regNo + ' · ' + c.team + ' · ' + c.category, id: c.regNo }); });
+  festPrograms.forEach(function (p) { if ((p.name + ' ' + p.category + ' ' + p.type).toLowerCase().indexOf(q) >= 0) out.push({ k: 'prog', l: p.name, s: p.type + ' · ' + p.category, id: progKey(p) }); });
+  festSchedule.forEach(function (s) { if ((s.program + ' ' + (s.venue || '') + ' ' + s.category).toLowerCase().indexOf(q) >= 0) out.push({ k: 'sched', l: s.program, s: fmtDate(s.date) + ' ' + fmtTime(s.time), id: s.id }); });
+  return out.slice(0, 10);
+}
+function onGlobalSearch(inp) {
+  var box = $('gRes'); if (!box) return;
+  var hits = searchHits(inp.value);
+  if (!hits.length) { box.innerHTML = inp.value.trim().length >= 2 ? '<div class="g-empty">No match</div>' : ''; box.style.display = inp.value.trim().length >= 2 ? 'block' : 'none'; return; }
+  var ic = { cand: '👤', prog: '📋', sched: '🗓️' };
+  box.innerHTML = hits.map(function (h) { return '<div class="g-hit" onmousedown="openHit(\'' + h.k + '\',\'' + enc(String(h.id)) + '\')"><span>' + ic[h.k] + '</span><div><b>' + esc(h.l) + '</b><small>' + esc(h.s) + '</small></div></div>'; }).join('');
+  box.style.display = 'block';
+}
+document.addEventListener('click', function (e) { var b = $('gRes'); if (b && !e.target.closest('.gsearch')) b.style.display = 'none'; });
+
+function infoModal(title, html) {
+  miniModal(title, html, function () { }, 'Close');
+  var c = $('mmCancel'); if (c) c.style.display = 'none';
+}
+function openHit(k, id) {
+  id = decodeURIComponent(id);
+  if ($('gRes')) $('gRes').style.display = 'none';
+  if (k === 'cand') {
+    var c = festCandidates.filter(function (x) { return String(x.regNo) === id; })[0]; if (!c) return;
+    var rs = festResults.filter(function (r) { return String(r.regNo) === String(c.regNo) && isPub(r); }), tot = rs.reduce(function (s, r) { return s + Number(r.mark || 0); }, 0);
+    infoModal(esc(c.name),
+      '<p><span class="badge team-badge-' + c.team.toLowerCase() + '">' + esc(c.team) + '</span> &nbsp; <b>' + esc(c.regNo) + '</b> · ' + esc(c.category) + '</p>' +
+      '<h4 style="margin:12px 0 4px;">Programs (' + candProgCount(c).length + ')</h4><p style="font-size:13px;">' + (candProgCount(c).map(function (k) { return esc(findProgByKey(k).name); }).join(', ') || '—') + '</p>' +
+      '<h4 style="margin:12px 0 4px;">Results · ' + tot + ' pts</h4>' + (rs.length ? rs.map(function (r) { return '<div class="act-row"><span>' + esc(r.program) + '</span><small>' + (r.place && r.place !== '-' ? r.place + ' · ' : '') + (r.grade ? 'Grade ' + esc(r.grade) + ' · ' : '') + r.mark + ' pts</small></div>'; }).join('') : '<p style="font-size:13px;">No published results yet.</p>'));
+  } else if (k === 'prog') {
+    var p = findProgByKey(id); if (!p) return;
+    var rs2 = festResults.filter(function (r) { return r.program === p.name && r.category === p.category && r.regNo !== '-' && isPub(r) && r.place && r.place !== '-'; }).sort(function (a, b) { return a.place.localeCompare(b.place); });
+    infoModal(esc(p.name),
+      '<p>' + esc(p.type) + ' · ' + esc(p.category) + ' · max ' + maxText(p) + ' per team · status: ' + progResultStatus(p) + '</p>' +
+      '<h4 style="margin:12px 0 4px;">Entered</h4>' + REP_TEAMS.map(function (t) { return '<div class="act-row"><span><span class="badge team-badge-' + t.toLowerCase() + '">' + t + '</span></span><small>' + teamCount(t, id) + ' / ' + maxText(p) + '</small></div>'; }).join('') +
+      '<h4 style="margin:12px 0 4px;">Winners</h4>' + (rs2.length ? rs2.map(function (r) { return '<div class="act-row"><span>' + r.place + ' — <b>' + esc(r.name) + '</b></span><small>' + esc(r.team) + '</small></div>'; }).join('') : '<p style="font-size:13px;">No published winners yet.</p>'));
+  } else {
+    var s = festSchedule.filter(function (x) { return String(x.id) === id; })[0]; if (!s) return;
+    infoModal(esc(s.program), '<p><b>' + fmtDate(s.date) + '</b><br>' + fmtTime(s.time) + (s.endTime ? ' – ' + fmtTime(s.endTime) : '') + '</p><p>' + catLabel(s.category) + (s.venue ? ' · ' + esc(s.venue) : '') + '</p>' + (s.note ? '<p style="font-size:13px;">' + esc(s.note) + '</p>' : ''));
+  }
+}
+function focusSearch() { showView('dashboardView'); setTimeout(function () { var i = $('gSearch'); if (i) { i.scrollIntoView({ behavior: 'smooth', block: 'center' }); i.focus(); } }, 120); }
+
+/* ---------- export centre ---------- */
+function csvText(rows) { return rows.map(function (r) { return r.map(function (c) { return '"' + String(c == null ? '' : c).replace(/"/g, '""') + '"'; }).join(','); }).join('\r\n'); }
+function saveFile(name, text, mime) {
+  var b = new Blob([(mime ? '' : '\uFEFF') + text], { type: mime || 'text/csv;charset=utf-8' });
+  var a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = name; document.body.appendChild(a); a.click();
+  setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 600);
+}
+function exportData(kind) {
+  var rows = [], f = 'mmo-arts-fest-' + kind + '.csv';
+  if (kind === 'programs') { rows.push(['Category', 'Type', 'Program', 'Max per team', 'Entered']); festPrograms.forEach(function (p) { rows.push([p.category, p.type, p.name, maxText(p), totalEntered(progKey(p))]); }); }
+  else if (kind === 'candidates') { rows.push(['Reg No', 'Name', 'Team', 'Category', 'Programs', 'Program names']); festCandidates.forEach(function (c) { var k = candProgCount(c); rows.push([c.regNo, c.name, c.team, c.category, k.length, k.map(function (x) { return findProgByKey(x).name; }).join('; ')]); }); }
+  else if (kind === 'entries') { rows.push(['Category', 'Program', 'Type', 'Team', 'Reg No', 'Name']); festPrograms.forEach(function (p) { festCandidates.forEach(function (c) { if ((c.entries || []).indexOf(progKey(p)) >= 0) rows.push([p.category, p.name, p.type, c.team, c.regNo, c.name]); }); }); }
+  else if (kind === 'results') { rows.push(['Category', 'Program', 'Reg No', 'Name', 'Team', 'Rank', 'Grade', 'Mark', 'Published']); festResults.forEach(function (r) { rows.push([r.category, r.program, r.regNo, r.name, r.team, r.place || '', r.grade || '', r.mark, r.published || 'YES']); }); }
+  else if (kind === 'schedule') { rows.push(['Date', 'Start', 'End', 'Program', 'Category', 'Venue', 'Note']); schedSorted('').forEach(function (s) { rows.push([s.date, s.time, s.endTime || '', s.program, s.category, s.venue || '', s.note || '']); }); }
+  else if (kind === 'backup') { saveFile('mmo-arts-fest-backup.json', JSON.stringify({ programs: festPrograms, candidates: festCandidates, results: festResults, schedule: festSchedule, notices: festNotices, log: festLog }, null, 1), 'application/json'); alert('Full backup downloaded.'); return; }
+  saveFile(f, csvText(rows)); alert('Downloaded ' + f);
+}
+
+/* ---------- festival atmosphere ---------- */
+(function heroParticles() {
+  var h = document.querySelector('.top-header'); if (!h || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  for (var i = 0; i < 22; i++) {
+    var d = document.createElement('i'), s = 3 + Math.random() * 6;
+    d.className = 'gp';
+    d.style.cssText = 'left:' + (Math.random() * 100) + '%;top:' + (30 + Math.random() * 70) + '%;width:' + s + 'px;height:' + s + 'px;animation-duration:' + (7 + Math.random() * 7) + 's;animation-delay:' + (Math.random() * 8) + 's';
+    h.appendChild(d);
+  }
 })();
+
+/* ---------- hook into the existing refresh ---------- */
+var _refreshAllDash = refreshAll;
+refreshAll = function () {
+  _refreshAllDash.apply(this, arguments);
+  [renderOverview, renderFestControl, updateSectionStats, animatePointCells, decorateAdminSections].forEach(function (fn) { try { fn(); } catch (e) { console.error(e); } });
+};
+decorateAdminSections();
+renderOverview();
+renderFestControl();
+
+</script>
+<script>
+/* KADHARVA Campus Arts Fest 2K26 — site shell
+   Rail navigation, top bar, page titles, admin privacy, public Live Results, and the extra admin sections
+   (Toppers review, Poster Studio, Settings & Backup). Does not touch login credentials or stored data. */
+
+var PAGE_TITLES = { dashboardView: 'Festival Dashboard', programListView: 'Programs', scheduleView: 'Schedule', resultsView: 'Live Results', pointTableView: 'Point Table',
+  toppersView: 'Toppers', teamView: 'Candidates', notificationsView: 'Notifications', officialView: 'Official Portal' };
+
+/* ---------- rail / drawer ---------- */
+openNav = function () { var s = document.getElementById('sideNav'), o = document.getElementById('drawerOverlay'); if (s) s.classList.add('open'); if (o) o.style.display = 'block'; };
+closeNav = function () { var s = document.getElementById('sideNav'), o = document.getElementById('drawerOverlay'); if (s) s.classList.remove('open'); if (o) o.style.display = 'none'; };
+
+var _showViewShell = showView;
+showView = function (id) {
+  _showViewShell.apply(this, arguments);
+  closeNav();
+  Array.prototype.forEach.call(document.querySelectorAll('#sideNav a[data-v]'), function (a) { a.classList.toggle('on', a.getAttribute('data-v') === id); });
+  var t = document.getElementById('tbTitle'); if (t) t.textContent = PAGE_TITLES[id] || '';
+  window.scrollTo(0, 0);
+};
+
+/* ---------- admin privacy: official tools only show after the existing admin login ---------- */
+function syncAdminUI() {
+  var on = typeof adminLoggedIn === 'function' && adminLoggedIn();
+  document.body.classList.toggle('is-admin', !!on);
+  var b = document.getElementById('tbAdmin'); if (b) b.innerHTML = on ? '<i class="fa-solid fa-user-shield"></i> Admin Dashboard' : '<i class="fa-solid fa-user-shield"></i> Official Portal';
+  var lo = document.getElementById('tbLogout'); if (lo) lo.style.display = on ? 'inline-flex' : 'none';
+}
+var _authShell = authOfficial;
+authOfficial = function () { _authShell.apply(this, arguments); syncAdminUI(); };
+var _logoutShell = logoutOfficial;
+logoutOfficial = function () { _logoutShell.apply(this, arguments); syncAdminUI(); showView('dashboardView'); };
+
+/* official actions refuse to run for visitors who are not logged in */
+['openPosterStudioWithData', 'printEntryFormPDF', 'printTeamListPDF', 'openPrintCenter', 'printAllData'].forEach(function (n) {
+  var f = window[n]; if (typeof f !== 'function') return;
+  window[n] = function () {
+    if (!(typeof adminLoggedIn === 'function' && adminLoggedIn())) { alert('This is an official tool. Please log in to the Official Portal first.'); return; }
+    return f.apply(this, arguments);
+  };
+});
+
+/* ---------- logos (trim transparent margins so any PNG size works) ---------- */
+(function brandLogos() {
+  var set = function (cls, file) {
+    kdTrimSafe(file, function (u) {
+      Array.prototype.forEach.call(document.querySelectorAll(cls), function (img) {
+        if (u) img.src = u; else { img.style.display = 'none'; var fb = img.nextElementSibling; if (fb && fb.classList.contains('logo-fb')) fb.style.display = 'block'; }
+      });
+    });
+  };
+  set('.js-logo-name', FEST_NAME_IMG); set('.js-logo-sub', FEST_SUB_IMG);
+})();
+function kdTrimSafe(f, cb) { if (typeof kdTrim === 'function') kdTrim(f, cb); else cb(f); }
+
+/* ---------- public Live Results ---------- */
+function renderPublicResults() {
+  var box = document.getElementById('liveResultsBox'); if (!box) return;
+  var cat = (document.getElementById('lrCat') || {}).value || '', team = (document.getElementById('lrTeam') || {}).value || '';
+  var rk = { '1st': 1, '2nd': 2, '3rd': 3 }, med = { '1st': '🥇', '2nd': '🥈', '3rd': '🥉' };
+  var list = realResults().filter(function (r) { return isPub(r) && ((r.place && r.place !== '-') || r.grade) && (!cat || r.category === cat) && (!team || r.team === team); });
+  var groups = {}; list.forEach(function (r) { (groups[groupKey(r)] = groups[groupKey(r)] || []).push(r); });
+  var keys = Object.keys(groups).sort();
+  box.innerHTML = !keys.length ? '<div class="rot-empty">No results have been published yet. Results appear here as soon as they are announced.</div>' :
+    keys.map(function (k) {
+      var g = groups[k].sort(function (a, b) { return (rk[a.place] || 9) - (rk[b.place] || 9) || Number(b.mark) - Number(a.mark); });
+      return '<div class="lr-card"><h4>' + esc(g[0].program) + ' <small>' + esc(g[0].category) + '</small></h4>' + g.map(function (r) {
+        return '<div class="lr-row"><span class="rk">' + (med[r.place] || '•') + '</span><span class="nm">' + esc(r.name) + ' <span class="badge team-badge-' + String(r.team).toLowerCase() + '">' + esc(r.team) + '</span></span>' +
+          (r.grade ? '<span class="gr-chip">Grade ' + esc(r.grade) + '</span>' : '') + '<span class="mk">' + r.mark + '</span></div>';
+      }).join('') + '</div>';
+    }).join('');
+}
+
+/* ---------- extra admin sections ---------- */
+function renderAdminToppers() {
+  var box = document.getElementById('adminToppersBox'); if (!box) return;
+  var f = (document.getElementById('adminTopFilter') || {}).value || '';
+  box.innerHTML = toppersHtml(f);
+}
+function renderPosterWinners() {
+  var box = document.getElementById('posterWinners'); if (!box) return;
+  var list = realResults().filter(function (r) { return isPub(r) && r.place && r.place !== '-'; })
+    .sort(function (a, b) { return String(b.pubAt || '').localeCompare(String(a.pubAt || '')) || (b.id - a.id); }).slice(0, 10);
+  box.innerHTML = !list.length ? '<div class="rot-empty">Published winners will be listed here so you can make their posters quickly.</div>' :
+    '<table><thead><tr><th>Winner</th><th>Item</th><th>Rank</th><th></th></tr></thead><tbody>' + list.map(function (r) {
+      return '<tr><td><b>' + esc(r.name) + '</b> <span class="badge team-badge-' + String(r.team).toLowerCase() + '">' + esc(r.team) + '</span></td><td>' + esc(r.program) + ' <small>(' + esc(r.category) + ')</small></td><td>' + esc(r.place) + '</td>' +
+        '<td><button class="btn" style="width:auto;padding:6px 14px;margin:0;" onclick="openPosterStudioWithData(\'' + enc(r.name) + '\',\'' + enc(r.team) + '\',\'' + enc(r.category) + '\',\'' + enc(r.program) + '\',\'' + enc(r.place) + '\')"><i class="fa-solid fa-wand-magic-sparkles"></i> Poster</button></td></tr>';
+    }).join('') + '</tbody></table>';
+}
+function renderSettingsInfo() {
+  var e = document.getElementById('settingsInfo'); if (!e) return;
+  var n = ovNumbers();
+  e.innerHTML = '<div class="ov-stats"><div class="ov-stat"><b>' + n.programs + '</b><span>Programs</span></div><div class="ov-stat"><b>' + n.candidates + '</b><span>Candidates</span></div><div class="ov-stat"><b>' + n.entries + '</b><span>Entries</span></div><div class="ov-stat"><b>' + festResults.length + '</b><span>Result records</span></div><div class="ov-stat"><b>' + festSchedule.length + '</b><span>Schedule items</span></div></div>' +
+    '<div class="tab-note">' + syncText() + '</div>';
+}
+function reloadFromCloud() {
+  if (typeof entriesDirty !== 'undefined' && entriesDirty && !confirm('You have unsaved entry changes. Reloading from the cloud will discard them. Continue?')) return;
+  entriesDirty = false; fetchCloudData(); alert('Reloading the latest data from the cloud…');
+}
+function openPosterBlank() { openPosterStudioWithData('', 'Qahira', 'Senior', '', '1st'); }
+
+/* ---------- section headings for the new admin sections + quick navigation ---------- */
+SEC.tabToppers = { t: 'Toppers', d: 'Top scorers per category, taken from published results.', c: '', i: 'fa-crown', s: function () { return ''; } };
+SEC.tabPoster = { t: 'Poster Studio', d: 'Winner posters with your own PNG design, photo, item and rank.', c: '', i: 'fa-wand-magic-sparkles', s: function () { return ''; } };
+SEC.tabSettings = { t: 'Settings & Backup', d: 'Cloud sync, data counts, export and backup tools.', c: '', i: 'fa-gear', s: function () { return ''; } };
+QN_IDS = ['festControl', 'tabPrograms', 'tabCandidates', 'tabEntries', 'tabSchedule', 'tabJudges', 'tabResult', 'tabAnnounce', 'tabAnalytics', 'tabPointTable', 'tabToppers', 'tabPoster', 'tabSettings'];
+
+/* collapse / expand an admin section by clicking its heading */
+document.addEventListener('click', function (e) {
+  var h = e.target.closest && e.target.closest('.sec-head'); if (!h) return;
+  var p = h.parentElement; if (p && p.classList.contains('official-tab-content')) p.classList.toggle('collapsed');
+});
+
+/* Ctrl+K focuses the search box */
+focusSearch = function () { var i = document.getElementById('gSearch'); if (i) { i.focus(); i.select(); } };
+document.addEventListener('keydown', function (e) { if ((e.ctrlKey || e.metaKey) && (e.key === 'k' || e.key === 'K')) { e.preventDefault(); focusSearch(); } });
+
+/* ---------- refresh hook ---------- */
+var _refreshAllShell = refreshAll;
+refreshAll = function () {
+  _refreshAllShell.apply(this, arguments);
+  [renderPublicResults, renderAdminToppers, renderPosterWinners, renderSettingsInfo, decorateAdminSections, syncAdminUI].forEach(function (fn) { try { fn(); } catch (err) { console.error(err); } });
+};
+try { decorateAdminSections(); renderPublicResults(); syncAdminUI(); } catch (err) { console.error(err); }
+
+</script>
+<script>
+/* KADHARVA welcome intro (independent component).
+   Scene 1 walk in · Scene 2 meet · Scene 3 hug · Scene 4 colour explosion · Scene 5 welcome.
+   Uses the two original PNG files exactly as supplied (only empty transparent margins are trimmed in memory).
+   Plays once per browser session, can be skipped, and respects "reduce motion". Call kdIntroPlay(true) to replay. */
+(function () {
+  'use strict';
+  var KEY = 'kdIntroSeen';
+  var NAME_IMG = window.FEST_NAME_IMG || 'fest-name.png';
+  var SUB_IMG = window.FEST_SUB_IMG || 'campus-arts-fest.png';
+  var root = null, timers = [], running = false;
+
+  function T(fn, ms) { timers.push(setTimeout(fn, ms)); }
+  function seen() { try { return sessionStorage.getItem(KEY) === '1'; } catch (e) { return false; } }
+  function mark() { try { sessionStorage.setItem(KEY, '1'); } catch (e) { } }
+  function trim(f, cb) { if (typeof window.kdTrim === 'function') window.kdTrim(f, cb); else cb(f); }
+  function rand(a, b) { return a + Math.random() * (b - a); }
+
+  function starPoly(n, r1, r2) {
+    var pts = [];
+    for (var i = 0; i < n * 2; i++) {
+      var a = Math.PI / n * i - Math.PI / 2, r = i % 2 ? r2 : r1;
+      pts.push((50 + Math.cos(a) * r).toFixed(1) + '% ' + (50 + Math.sin(a) * r).toFixed(1) + '%');
+    }
+    return 'polygon(' + pts.join(',') + ')';
+  }
+
+  function charHtml(cls, url, fbText) {
+    var img = url ? '<img class="kd-logo" alt="' + fbText + '" src="' + url + '" draggable="false">' : '<div class="kd-fb">' + fbText + '</div>';
+    return '<div class="kd-char ' + cls + '"><div class="kd-mv"><div class="kd-bounce">' +
+      '<div class="kd-body"><i class="kd-arm arm-out"><i class="glove"></i></i>' + img + '<i class="kd-arm arm-in"><i class="glove"></i></i></div>' +
+      '<div class="kd-legs"><i class="leg l"><i class="shoe"></i></i><i class="leg r"><i class="shoe"></i></i></div>' +
+      '</div></div></div>';
+  }
+
+  function build(aUrl, bUrl) {
+    var el = document.createElement('div');
+    el.id = 'kdIntro'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-label', 'Welcome to KADHARVA');
+    el.innerHTML = '<div class="kd-bg"></div><div class="kd-rays"></div><div class="kd-floor"></div>' +
+      '<div class="kd-stage" id="kdStage">' + charHtml('kd-a', aUrl, 'KADHARVA') + charHtml('kd-b', bUrl, 'CAMPUS ARTS FEST 2K26') + '<div class="kd-fx" id="kdFx"></div>' +
+      '<div class="kd-title"><h1 class="kd-h">WELCOME TO KADHARVA!</h1><div class="kd-sub">CAMPUS ARTS FEST 2K26</div></div></div>' +
+      '<button class="kd-skip" type="button">Skip &#9656;</button>';
+    return el;
+  }
+
+  /* ---------- Scene 4: colour explosion ---------- */
+  function boom() {
+    var fx = document.getElementById('kdFx'), stage = document.getElementById('kdStage');
+    if (!fx || !root) return;
+    var rr = root.getBoundingClientRect(), fs = parseFloat(getComputedStyle(root).fontSize) || 16;
+    function center(sel) { var r = root.querySelector(sel + ' .kd-body').getBoundingClientRect(); return { x: r.left + r.width / 2 - rr.left, y: r.top + r.height / 2 - rr.top }; }
+    var A = center('.kd-a'), B = center('.kd-b'), M = { x: (A.x + B.x) / 2, y: (A.y + B.y) / 2 };
+    var star = starPoly(11, 50, 33), star2 = starPoly(14, 50, 30);
+    function add(html) { fx.insertAdjacentHTML('beforeend', html); }
+    function burst(cls, p, delay, poly) {
+      add('<div class="kd-burst o ' + (cls === 'mix' ? 'mix' : '') + '" style="left:' + p.x + 'px;top:' + p.y + 'px;clip-path:' + poly + ';animation-delay:' + delay + 'ms"></div>' +
+          '<div class="kd-burst ' + cls + '" style="left:' + p.x + 'px;top:' + p.y + 'px;clip-path:' + poly + ';animation-delay:' + delay + 'ms"></div>');
+    }
+    add('<div class="kd-flash"></div>');
+    burst('gold', { x: A.x - fs * 3, y: A.y }, 0, star);            /* KADHARVA: gold / yellow */
+    burst('orange', { x: B.x + fs * 3, y: B.y }, 60, star2);        /* Campus Arts Fest: orange */
+    burst('mix', M, 420, starPoly(9, 50, 36));                       /* both combine in the centre */
+    ['#FDB827', '#FF7A00'].forEach(function (c, i) { add('<div class="kd-ring" style="left:' + M.x + 'px;top:' + M.y + 'px;border-color:' + c + ';animation-delay:' + (i * 140) + 'ms"></div>'); });
+    for (var i = 0; i < 16; i++) add('<div class="kd-line" style="left:' + M.x + 'px;top:' + M.y + 'px;--a:' + (i * 22.5) + 'deg;animation-delay:' + (i % 2 ? 80 : 0) + 'ms"></div>');
+
+    var goldC = ['#FDB827', '#FFD54A', '#FFF3B0', '#ffffff', '#F59E0B'], orgC = ['#FF7A00', '#FF9A33', '#FFD2A1', '#ffffff', '#E8590C'], mixC = ['#FDB827', '#FF7A00', '#2B7CD3', '#185ABD', '#ffffff', '#FFE08A'];
+    function particles(origin, colors, n, spread) {
+      for (var k = 0; k < n; k++) {
+        var ang = rand(0, Math.PI * 2), dist = rand(6, spread), kind = Math.random();
+        var col = colors[Math.floor(Math.random() * colors.length)];
+        var cls = kind < .55 ? '' : kind < .8 ? ' c' : ' s';
+        add('<i class="kd-p' + cls + '" style="left:' + origin.x + 'px;top:' + origin.y + 'px;background:' + col + ';color:' + col + ';--dx:' + (Math.cos(ang) * dist).toFixed(1) + 'em;--dy:' + (Math.sin(ang) * dist - 3).toFixed(1) + 'em;--r:' + rand(-540, 540).toFixed(0) + 'deg;animation-delay:' + rand(0, 260).toFixed(0) + 'ms">' + (cls === ' s' ? (Math.random() < .5 ? '&#10022;' : '&#9733;') : '') + '</i>');
+      }
+    }
+    particles({ x: A.x - fs * 2, y: A.y }, goldC, 36, 22);
+    particles({ x: B.x + fs * 2, y: B.y }, orgC, 36, 22);
+    particles(M, mixC, 46, 30);
+    stage.classList.add('kd-shake'); root.classList.add('kd-boom');
+  }
+
+  /* ---------- timeline ---------- */
+  function run() {
+    var stage = document.getElementById('kdStage');
+    stage.classList.add('kd-in', 'kd-walk');                    // Scene 1: enter from the sides, walking
+    T(function () { stage.classList.remove('kd-walk'); stage.classList.add('kd-meet'); }, 2300);   // Scene 2: stop, face each other
+    T(function () { stage.classList.add('kd-hug'); }, 3000);                                        // Scene 3: raise arms and hug
+    T(function () { stage.classList.add('kd-squeeze'); }, 3500);
+    T(function () { boom(); }, 4150);                                                               // Scene 4: colour explosion
+    T(function () { stage.classList.add('kd-show', 'kd-joy'); }, 4900);                              // Scene 5: welcome message
+    T(function () { close(); }, 7100);
+  }
+
+  function close() {
+    if (!root) return;
+    timers.forEach(clearTimeout); timers = [];
+    var r = root; root = null; running = false;
+    mark(); document.documentElement.style.overflow = ''; document.body.style.overflow = '';
+    r.classList.add('kd-out');
+    setTimeout(function () { if (r.parentNode) r.parentNode.removeChild(r); }, 900);
+  }
+
+  function play(force) {
+    if (running) return;
+    if (!force && (seen() || /[?&]intro=0/.test(location.search))) return;
+    running = true;
+    var pending = 2, a = null, b = null;
+    function ready() {
+      if (--pending) return;
+      root = build(a, b);
+      document.body.appendChild(root);
+      document.documentElement.style.overflow = 'hidden'; document.body.style.overflow = 'hidden';
+      root.querySelector('.kd-skip').addEventListener('click', close);
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce) { root.querySelector('#kdStage').classList.add('kd-static', 'kd-hug', 'kd-meet'); T(close, 2800); }
+      else requestAnimationFrame(function () { requestAnimationFrame(run); });
+    }
+    trim(NAME_IMG, function (u) { a = u; ready(); });
+    trim(SUB_IMG, function (u) { b = u; ready(); });
+  }
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && root) close(); });
+  window.kdIntroPlay = play;
+  window.kdIntroClose = close;
+  play(false);
+})();
+
 </script>
 </body>
 </html>

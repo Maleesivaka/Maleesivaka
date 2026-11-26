@@ -1,4 +1,4 @@
-/* MMO Arts Fest — rotating Team x Category score view.
+/* KADHARVA — rotating Team x Category score view.
    Order: Team 1 (Senior, Junior, Sub-Junior, General) -> Team 2 (...) -> Team 3 (...) -> repeat */
 var ROT_TEAMS = ["Qahira", "Qudsiya", "Qurthuba"];
 var ROT_CATS = ["SENIOR", "JUNIOR", "SUB-JUNIOR", "GENERAL"];
@@ -26,7 +26,7 @@ function rotRank(team, cat) {
 function rotBanner(team, cat) {
   var col = ROT_COL[team];
   var nice = cat === 'GENERAL' ? 'GENERAL / GROUP ITEMS' : cat;
-  return '<div style="background:linear-gradient(135deg,' + col + ',#062a24);color:#fff;border-radius:16px;padding:18px 22px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;box-shadow:0 10px 24px rgba(6,42,36,.2);">' +
+  return '<div style="background:linear-gradient(135deg,' + col + ',#103F91);color:#fff;border-radius:16px;padding:18px 22px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;box-shadow:0 10px 24px rgba(16,63,145,.2);">' +
     '<div><div style="font-size:12px;letter-spacing:3px;opacity:.85;">TEAM</div>' +
     '<div style="font-family:Marcellus,serif;font-size:clamp(26px,4vw,40px);letter-spacing:2px;text-transform:uppercase;line-height:1.1;">' + team + '</div>' +
     '<div style="display:inline-block;margin-top:6px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.4);padding:3px 14px;border-radius:999px;font-size:13px;font-weight:700;letter-spacing:1.5px;">' + nice + '</div></div>' +
@@ -78,7 +78,7 @@ function rotBuild(s) {
   festResults.forEach(function (r) { if (r.team === team && r.category === cat && (!r.regNo || r.regNo === '-')) other += Number(r.mark || 0); });
 
   var html = '<div class="table-responsive rot-wrap"><table class="matrix-table"><thead><tr><th>#</th><th class="sticky-col">Student</th><th>Reg No</th>' +
-    progs.map(function (p) { return '<th class="vt" style="width:44px;min-width:0;height:150px;padding:8px 4px;vertical-align:bottom;background:#062a24;color:#f4e8c8;"><div style="writing-mode:vertical-rl;transform:rotate(180deg);margin:0 auto;max-height:150px;overflow:hidden;font-size:12px;font-weight:700;white-space:nowrap;text-transform:none;">' + p + '</div></th>'; }).join('') + '<th style="background:#0b5d4b;">Total</th></tr></thead><tbody>';
+    progs.map(function (p) { return '<th class="vt" style="width:44px;min-width:0;height:150px;padding:8px 4px;vertical-align:bottom;background:#103F91;color:#EAF2FF;"><div style="writing-mode:vertical-rl;transform:rotate(180deg);margin:0 auto;max-height:150px;overflow:hidden;font-size:12px;font-weight:700;white-space:nowrap;text-transform:none;">' + p + '</div></th>'; }).join('') + '<th style="background:#185ABD;">Total</th></tr></thead><tbody>';
   data.forEach(function (d, i) {
     html += '<tr><td>' + (i + 1) + '</td><td class="sticky-col"><b>' + d.c.name + '</b></td><td><code style="font-weight:700;font-size:12px;">' + d.c.regNo + '</code></td>' +
       d.cells + '<td style="font-weight:800;color:var(--emerald-main);background:#f0fdf4;">' + d.total + '</td></tr>';

@@ -1,4 +1,4 @@
-/* MMO Arts Fest — Judges slips, 4 per A4 page (2 x 2).
+/* KADHARVA — Judges slips, 4 per A4 page (2 x 2).
    Slip 1 can be the "candidate-name slip": code column blank, candidate names listed, then mark / grade / rank.
    The other 3 slips are the normal code slips (A to L). Blank mode prints 4 empty slips. */
 
@@ -54,7 +54,7 @@ function openSlipDoc(slips) {
     body += '<div class="page">' + chunk.join('') + '</div>';
   }
   var win = window.open('', '_blank');
-  win.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Judges Slips - MMO Arts Fest 2k26</title>' +
+  win.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Judges Slips - KADHARVA Campus Arts Fest 2K26</title>' +
     '<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">' +
     '<style>' +
     '@page{size:A4 portrait;margin:0}' +
@@ -63,20 +63,20 @@ function openSlipDoc(slips) {
     '.page{width:210mm;height:297mm;display:grid;grid-template-columns:105mm 105mm;grid-template-rows:148.5mm 148.5mm;page-break-after:always;overflow:hidden}' +
     '.page:last-child{page-break-after:auto}' +
     '.slip{padding:5mm;border:.25mm dashed #94a3b8;overflow:hidden}.slip:empty{border:none}' +
-    '.in{height:100%;border:.5mm solid #0b5d4b;outline:.2mm solid #c9a24b;outline-offset:-1.4mm;padding:3.5mm 4mm 3mm;display:flex;flex-direction:column}' +
-    '.hdr{text-align:center;border-bottom:.4mm solid #c9a24b;padding-bottom:1.5mm}' +
-    '.t1{font-family:Cinzel,serif;font-size:13pt;letter-spacing:1.5px;color:#062a24;text-transform:uppercase}' +
-    '.t2{font-size:6.2pt;letter-spacing:1.4px;color:#0b5d4b;font-weight:700;margin-top:.5mm}' +
+    '.in{height:100%;border:.5mm solid #185ABD;outline:.2mm solid #2B7CD3;outline-offset:-1.4mm;padding:3.5mm 4mm 3mm;display:flex;flex-direction:column}' +
+    '.hdr{text-align:center;border-bottom:.4mm solid #2B7CD3;padding-bottom:1.5mm}' +
+    '.t1{font-family:Cinzel,serif;font-size:13pt;letter-spacing:1.5px;color:#103F91;text-transform:uppercase}' +
+    '.t2{font-size:6.2pt;letter-spacing:1.4px;color:#185ABD;font-weight:700;margin-top:.5mm}' +
     '.meta{display:flex;gap:2mm;margin:2.5mm 0}' +
-    '.meta div{flex:1;border:.3mm solid #0b5d4b;border-radius:1mm;padding:1.2mm 1.8mm;font-size:8pt;min-height:9mm}' +
+    '.meta div{flex:1;border:.3mm solid #185ABD;border-radius:1mm;padding:1.2mm 1.8mm;font-size:8pt;min-height:9mm}' +
     '.meta span{display:block;font-size:5.5pt;color:#64748b;letter-spacing:.8px}' +
     '.line{display:block;border-bottom:.25mm solid #64748b;height:4mm}' +
     'table{width:100%;border-collapse:collapse;flex:1}' +
-    'th,td{border:.3mm solid #0b5d4b;text-align:center}' +
-    'th{background:#062a24;color:#f4e8c8;font-size:6.5pt;height:5.5mm;letter-spacing:.5px}' +
-    'td.code{font-size:10pt;font-weight:700;background:#f6f3ea;color:#062a24}' +
+    'th,td{border:.3mm solid #185ABD;text-align:center}' +
+    'th{background:#103F91;color:#EAF2FF;font-size:6.5pt;height:5.5mm;letter-spacing:.5px}' +
+    'td.code{font-size:10pt;font-weight:700;background:#fff8e6;color:#103F91}' +
     'td.nm{text-align:left;font-size:7.5pt;padding:0 1.5mm;font-weight:600}td.nm small{font-weight:400;color:#64748b;font-size:6pt}' +
-    '.sign{display:flex;justify-content:space-between;margin-top:2.5mm;font-size:6.8pt;font-weight:600;color:#0b5d4b}' +
+    '.sign{display:flex;justify-content:space-between;margin-top:2.5mm;font-size:6.8pt;font-weight:600;color:#185ABD}' +
     '</style></head><body>' + body +
     '<script>window.onload=function(){setTimeout(function(){window.print()},600)}<\/script></body></html>');
   win.document.close();
@@ -153,7 +153,7 @@ function jcRender() {
   if (!jcRows.length) jcRows.push({ cat: 'SENIOR', item: '', count: 4, named: true });
   var cats = [['SENIOR', 'Senior'], ['JUNIOR', 'Junior'], ['SUB-JUNIOR', 'Sub-Junior'], ['GENERAL', 'General']];
   box.innerHTML = jcRows.map(function (r, i) {
-    return '<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px;background:#fff;border:1px solid #e6dfcc;border-radius:10px;padding:8px;">' +
+    return '<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px;background:#fff;border:1px solid #f3e5b8;border-radius:10px;padding:8px;">' +
       '<select style="width:auto;margin:0;" onchange="jcSet(' + i + ',\'cat\',this.value)">' + cats.map(function (c) { return '<option value="' + c[0] + '"' + (r.cat === c[0] ? ' selected' : '') + '>' + c[1] + '</option>'; }).join('') + '</select>' +
       '<select style="flex:1;min-width:150px;margin:0;" onchange="jcSet(' + i + ',\'item\',this.value)"><option value="">— blank (write by hand) —</option>' +
       jcItems(r.cat).map(function (n) { return '<option value="' + esc(n) + '"' + (r.item === n ? ' selected' : '') + '>' + esc(n) + '</option>'; }).join('') + '</select>' +
@@ -176,10 +176,10 @@ function jcPreview() {
   for (var i = 0; i < rep; i++) all = all.concat(labels);
   var pages = Math.max(1, Math.ceil(all.length / 4)), html = '';
   for (var p = 0; p < pages; p++) {
-    html += '<div style="display:inline-block;margin:0 10px 10px 0;"><div style="font-size:11px;color:#64748b;">Page ' + (p + 1) + '</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;width:230px;height:160px;background:#e6dfcc;padding:3px;border-radius:6px;">';
+    html += '<div style="display:inline-block;margin:0 10px 10px 0;"><div style="font-size:11px;color:#64748b;">Page ' + (p + 1) + '</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;width:230px;height:160px;background:#f3e5b8;padding:3px;border-radius:6px;">';
     for (var s = 0; s < 4; s++) {
       var t = all[p * 4 + s];
-      html += '<div style="background:' + (t ? '#fff' : '#f6f3ea') + ';border:1px dashed #94a3b8;font-size:9.5px;padding:4px;overflow:hidden;line-height:1.25;">' + (t ? esc(t) : '<span style="color:#cbd5e1;">empty</span>') + '</div>';
+      html += '<div style="background:' + (t ? '#fff' : '#fff8e6') + ';border:1px dashed #94a3b8;font-size:9.5px;padding:4px;overflow:hidden;line-height:1.25;">' + (t ? esc(t) : '<span style="color:#cbd5e1;">empty</span>') + '</div>';
     }
     html += '</div></div>';
   }

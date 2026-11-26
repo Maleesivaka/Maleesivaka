@@ -5,13 +5,9 @@
     '.team-badge-qahira{background:#0284c7!important;color:#fff!important;border:0!important}' +
     '.team-badge-qudsiya,.team-badge-qusdiya{background:#059669!important;color:#fff!important;border:0!important}' +
     '.team-badge-qurthuba{background:#ef4444!important;color:#fff!important;border:0!important}' +
-    /* full-width layout for computers (always applied) */
-    'html,body{width:100%!important;max-width:none!important}' +
-    '.app-wrapper{max-width:none!important;width:100%!important}' +
-    '.view-panel{max-width:none!important;width:100%!important}' +
-    '.mini-modal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(6,42,36,.6);z-index:4000;display:none;align-items:center;justify-content:center;padding:14px}' +
-    '.mini-card{background:#fff;border-radius:16px;padding:22px;width:100%;max-width:460px;max-height:90vh;overflow:auto;border:2px solid #c9a24b;box-shadow:0 25px 50px rgba(0,0,0,.35)}' +
-    '@media(min-width:1024px){.top-header{min-height:260px}.view-panel{padding:30px 34px}th,td{font-size:14.5px}.dashboard-card{min-height:150px}}';
+    '.mini-modal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(16,63,145,.6);z-index:4000;display:none;align-items:center;justify-content:center;padding:14px}' +
+    '.mini-card{background:#fff;border-radius:16px;padding:22px;width:100%;max-width:460px;max-height:90vh;overflow:auto;border:2px solid #2B7CD3;box-shadow:0 25px 50px rgba(0,0,0,.35)}' +
+    '';
   document.head.appendChild(st);
 })();
 
@@ -22,6 +18,8 @@ var festCandidates = JSON.parse(localStorage.getItem('MEELAD_CANDIDATES')) || []
 var festResults = JSON.parse(localStorage.getItem('MEELAD_RESULTS')) || [];
 var festSchedule = JSON.parse(localStorage.getItem('MEELAD_SCHEDULE')) || [];
 var festNotices = JSON.parse(localStorage.getItem('MEELAD_NOTICES')) || [];
+var festLog = JSON.parse(localStorage.getItem('MEELAD_LOG')) || [];
+var lastSyncAt = 0;
 var cloudLoaded = false, cloudHasNotices = false;
 
 /* old spelling of team name -> corrected spelling */
@@ -110,8 +108,10 @@ function fetchCloudData() {
         festResults = data.results || [];
         if (data.schedule) festSchedule = data.schedule;
         if (data.notices) { festNotices = data.notices; cloudHasNotices = true; }
+        if (data.log) festLog = data.log;
         localStorage.setItem('MEELAD_NOTICES', JSON.stringify(festNotices));
         cloudLoaded = true;
+        lastSyncAt = Date.now();
         migrateTeams();
         localStorage.setItem('MEELAD_SCHEDULE', JSON.stringify(festSchedule));
         localStorage.setItem('MEELAD_PROGRAMS', JSON.stringify(festPrograms));
@@ -130,14 +130,14 @@ function syncToCloud() {
   localStorage.setItem('MEELAD_SCHEDULE', JSON.stringify(festSchedule));
   localStorage.setItem('MEELAD_NOTICES', JSON.stringify(festNotices));
   refreshAll();
-  var payload = { programs: festPrograms, candidates: festCandidates, results: festResults, schedule: festSchedule, notices: festNotices };
+  var payload = { programs: festPrograms, candidates: festCandidates, results: festResults, schedule: festSchedule, notices: festNotices, log: festLog };
   fetch(CLOUD_API_URL, {
     method: "POST",
     headers: { "Content-Type": "text/plain;charset=utf-8" },
     body: JSON.stringify(payload)
   })
     .then(res => res.json())
-    .then(res => alert(res.message || "Synchronized across all devices!"))
+    .then(res => { lastSyncAt = Date.now(); alert(res.message || "Synchronized across all devices!"); })
     .catch(err => alert("Saved locally. Background network sync will retry."));
 }
 
@@ -354,7 +354,7 @@ function printTeamListPDF() {
       </div>`;
   });
 
-  var html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Official Team Lists - MMO Arts Fest 2k26</title>
+  var html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Official Team Lists - KADHARVA Campus Arts Fest 2K26</title>
     <style>
       @page { size: A4 portrait; margin: 12mm; }
       * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
@@ -379,7 +379,7 @@ function printJudgesSlip() {
   var item = document.getElementById('judgeItemSelect').value || "________________";
   var letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
   var win = window.open('', '_blank');
-  var html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Judges Evaluation Slip - MMO Arts Fest 2k26</title>
+  var html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Judges Evaluation Slip - KADHARVA Campus Arts Fest 2K26</title>
     <link href="https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@700&family=Cinzel:wght@700&family=Gayathri:wght@700&display=swap" rel="stylesheet">
     <style>
       @font-face { font-family: 'CustomFestFont'; src: url('custom-font.ttf') format('truetype'), url('ML-TTRavivarma.ttf') format('truetype'); font-weight: bold; font-style: normal; }
@@ -402,7 +402,7 @@ function printJudgesSlip() {
       <div class="slip-card">
         <div>
           <div class="header-banner">
-            <div class="title-malayalam">MMO Arts Fest</div>
+            <div class="title-malayalam">KADHARVA</div>
             <div class="title-sub">Campus Arts Festival 2k26</div>
             <div class="title-desc">OFFICIAL JUDGES EVALUATION SLIP</div>
           </div>
@@ -577,7 +577,7 @@ function renderPosterTypography(ctx, canvas, name, team, cat, prog, pos, subHead
 
   ctx.fillStyle = '#ffffff';
   ctx.font = "700 72px 'Cinzel', serif";
-  ctx.fillText("MMO ARTS FEST", w / 2, 190);
+  ctx.fillText("KADHARVA", w / 2, 190);
 
   ctx.fillStyle = '#38bdf8';
   ctx.font = "700 24px 'Cinzel', serif";
@@ -632,7 +632,7 @@ function downloadPosterImage() {
   var name = document.getElementById('pmCandidateName').value.trim() || 'Winner';
   var prog = document.getElementById('pmProgram').value.trim() || 'Result';
   var link = document.createElement('a');
-  link.download = `MMOArtsFest_${name.replace(/\s+/g, '_')}_${prog.replace(/\s+/g, '_')}_Poster.png`;
+  link.download = `KADHARVA_${name.replace(/\s+/g, '_')}_${prog.replace(/\s+/g, '_')}_Poster.png`;
   link.href = canvas.toDataURL('image/png', 1.0);
   link.click();
 }

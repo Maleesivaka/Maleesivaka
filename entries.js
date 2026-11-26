@@ -1,4 +1,4 @@
-/* MMO Arts Fest — Entries module
+/* KADHARVA — Entries module
    - Programs: edit + "max participants per team"
    - Candidates: edit name + number of programs
    - Entries tab: tick which programs each candidate takes part in (limits enforced)
@@ -77,18 +77,29 @@ function savePrograms() {
   }
 }
 
+function progResultStatus(p) {
+  var rs = festResults.filter(function (r) { return r.program === p.name && r.category === p.category && r.regNo !== '-'; });
+  if (!rs.length) return '<span style="color:#7d7a6e;">—</span>';
+  return rs.some(function (r) { return r.published === 'YES' || r.published === undefined; })
+    ? '<span class="chip-ok">● Published</span>' : '<span class="chip-draft">● Draft</span>';
+}
+
 function renderProgramsTable() {
   var box = document.getElementById('programsListTable');
   if (!box) return;
   if (festPrograms.length === 0) { box.innerHTML = "<p style='font-size:13px; padding:12px; color:var(--text-muted);'>No competition programs registered yet.</p>"; return; }
-  var h = '<table><thead><tr><th>Type</th><th>Category</th><th>Program Name</th><th>Max / Team</th><th>Entered</th><th>Action</th></tr></thead><tbody>';
-  festPrograms.forEach(function (p) {
+  var q = ((document.getElementById('pfSearch') || {}).value || '').toLowerCase().trim();
+  var fc = (document.getElementById('pfCat') || {}).value || '', ft = (document.getElementById('pfType') || {}).value || '';
+  var list = festPrograms.filter(function (p) { return (!q || p.name.toLowerCase().indexOf(q) >= 0) && (!fc || p.category === fc) && (!ft || p.type === ft); });
+  if (!list.length) { box.innerHTML = "<p style='font-size:13px; padding:12px; color:var(--text-muted);'>No programs match the filter.</p>"; return; }
+  var h = '<table><thead><tr><th>Type</th><th>Category</th><th>Program Name</th><th>Max / Team</th><th>Entered</th><th>Result</th><th>Action</th></tr></thead><tbody>';
+  list.forEach(function (p) {
     var k = progKey(p);
     h += '<tr><td><b>' + esc(p.type) + '</b></td>' +
       '<td><span class="badge" style="background:#e0f2fe; color:var(--navy-dark);">' + esc(p.category) + '</span></td>' +
       '<td style="color:var(--navy-main); font-weight:600;">' + esc(p.name) + '</td>' +
       '<td style="font-weight:800;">' + maxText(p) + '</td>' +
-      '<td>' + totalEntered(k) + '</td>' +
+      '<td>' + totalEntered(k) + '</td><td>' + progResultStatus(p) + '</td>' +
       '<td style="white-space:nowrap;"><button onclick="editProgram(\'' + enc(k) + '\')" style="padding:4px 10px; background:#0284c7; color:#fff; border:none; border-radius:4px; cursor:pointer; margin-right:4px;"><i class="fa-solid fa-pen"></i> Edit</button>' +
       '<button onclick="deleteProgramByKey(\'' + enc(k) + '\')" style="padding:4px 8px; background:#ef4444; color:#fff; border:none; border-radius:4px; cursor:pointer;"><i class="fa-solid fa-trash"></i></button></td></tr>';
   });
@@ -145,8 +156,12 @@ function renderCandidatesTable() {
   var box = document.getElementById('candidatesListTable');
   if (!box) return;
   if (festCandidates.length === 0) { box.innerHTML = "<p style='font-size:13px; padding:12px; color:var(--text-muted);'>No candidates registered yet.</p>"; return; }
+  var cq = ((document.getElementById('cfSearch') || {}).value || '').toLowerCase().trim();
+  var ct = (document.getElementById('cfTeam') || {}).value || '', cc = (document.getElementById('cfCat') || {}).value || '';
+  var shown = festCandidates.filter(function (c) { return (!cq || (String(c.name) + ' ' + String(c.regNo)).toLowerCase().indexOf(cq) >= 0) && (!ct || c.team === ct) && (!cc || c.category === cc); });
+  if (!shown.length) { box.innerHTML = "<p style='font-size:13px; padding:12px; color:var(--text-muted);'>No candidates match the filter.</p>"; return; }
   var h = '<table><thead><tr><th>Reg No</th><th>Candidate Name</th><th>Category</th><th>Team</th><th>Programs</th><th>Action</th></tr></thead><tbody>';
-  festCandidates.forEach(function (c) {
+  shown.forEach(function (c) {
     var keys = candProgCount(c);
     var names = keys.map(function (k) { return findProgByKey(k).name; }).join(', ');
     h += '<tr><td><b style="color:var(--navy-main);">' + esc(c.regNo) + '</b></td><td>' + esc(c.name) + '</td>' +
@@ -200,7 +215,7 @@ function renderEntriesTab() {
     var k = progKey(p), m = progMax(p), n = teamCount(team, k);
     var full = m > 0 && n >= m;
     h += '<th style="min-width:92px;white-space:normal;font-size:11px;">' + esc(p.name) + '<br><span style="font-weight:500;opacity:.85;">' + esc(p.type) + '</span><br>' +
-      '<span style="display:inline-block;margin-top:3px;padding:1px 8px;border-radius:10px;background:' + (full ? '#fee2e2;color:#b91c1c' : '#e3f3ec;color:#0b5d4b') + ';">' + n + ' / ' + maxText(p) + '</span></th>';
+      '<span style="display:inline-block;margin-top:3px;padding:1px 8px;border-radius:10px;background:' + (full ? '#fee2e2;color:#b91c1c' : '#EAF2FF;color:#185ABD') + ';">' + n + ' / ' + maxText(p) + '</span></th>';
   });
   h += '<th>Total</th></tr></thead><tbody>';
   cands.forEach(function (c, i) {

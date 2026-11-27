@@ -259,3 +259,57 @@ img, canvas, video { max-width: 100%; }
 @media (min-width: 1700px) { .view-panel { padding-left: clamp(40px, 5vw, 110px) !important; padding-right: clamp(40px, 5vw, 110px) !important; } }
 
 @media (max-width: 700px) { .cand-row-reg { width: 92px !important; font-size: 12px; } .cand-multi-row { gap: 6px !important; } }
+
+/* ============ ADMIN: LOGIN CARD ============ */
+.login-card { max-width: 400px; margin: 22px auto 0; padding: 26px 28px 22px; background: #fff; border: 1px solid var(--line); border-radius: 20px; box-shadow: 0 18px 44px rgba(24,90,189,.1); text-align: left; }
+.login-card .lc-ic { width: 52px; height: 52px; border-radius: 16px; background: var(--tint); color: var(--g); display: grid; place-items: center; font-size: 21px; margin: 0 auto 10px; }
+.login-card h4 { text-align: center; font-size: 19px; margin: 0; color: var(--ink); }
+.login-card .lc-sub { text-align: center; font-size: 12.5px; color: var(--slate); margin: 4px 0 16px; }
+.login-card label { display: block; font-size: 12px; font-weight: 700; color: var(--slate); margin: 0 0 5px; }
+.login-card input { margin-bottom: 12px; }
+.lc-pw { position: relative; } .lc-pw input { padding-right: 44px !important; }
+.lc-eye { position: absolute; right: 6px; top: 4px; width: 36px; height: 36px; border: 0; background: transparent; color: var(--slate); cursor: pointer; border-radius: 8px; }
+.lc-eye:hover { background: var(--grey); }
+.login-card .btn { margin: 4px 0 0; padding: 12px; }
+.lc-err { color: #D93025; font-size: 12.5px; text-align: center; min-height: 18px; margin-top: 10px; font-weight: 600; }
+
+/* ============ ADMIN: MAIN MENU ============ */
+.admin-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 18px; }
+.admin-badge { background: #E8F4EC; color: #217346; font-size: 12px; font-weight: 700; padding: 6px 14px; border-radius: 999px; }
+.admin-top-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+.admin-top-btns button { padding: 8px 14px; border-radius: 10px; border: 1px solid var(--line); background: #fff; color: var(--ink); font-size: 12.5px; font-weight: 600; cursor: pointer; }
+.admin-top-btns button:hover { background: var(--tint); border-color: #C9DCF7; } .admin-top-btns button.out { color: #D93025; } .admin-top-btns button.out:hover { background: #FEE2E2; border-color: #fca5a5; }
+.admin-menu { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+.am-tile { position: relative; display: flex; align-items: center; gap: 14px; text-align: left; padding: 16px 18px; background: #fff; border: 1px solid var(--line); border-radius: 16px; cursor: pointer; transition: transform .2s, box-shadow .2s, border-color .2s; box-shadow: 0 4px 14px rgba(32,33,36,.04); font-family: inherit; }
+.am-tile:hover { transform: translateY(-2px); border-color: #C9DCF7; box-shadow: 0 12px 28px rgba(24,90,189,.12); }
+.am-ic { flex: none; width: 46px; height: 46px; border-radius: 14px; background: var(--tint); color: var(--g); display: grid; place-items: center; font-size: 19px; }
+.am-tile:hover .am-ic { background: var(--g); color: #fff; }
+.am-tx { flex: 1; min-width: 0; } .am-tx b { display: block; font-size: 14.5px; color: var(--ink); } .am-tx small { display: block; font-size: 12px; color: var(--slate); line-height: 1.35; margin-top: 2px; }
+.am-st { position: absolute; top: 10px; right: 14px; font-size: 10.5px; font-weight: 700; color: var(--g); background: var(--tint); padding: 2px 9px; border-radius: 999px; }
+.am-go { color: #b6bcc6; font-size: 12px; } .am-tile:hover .am-go { color: var(--g); }
+.admin-bar { align-items: center; gap: 12px; margin: 0 0 18px; padding: 10px 14px; background: var(--grey); border-radius: 14px; }
+.admin-bar .back { border: 1px solid var(--line); background: #fff; color: var(--ink); border-radius: 10px; padding: 8px 14px; font-weight: 700; font-size: 13px; cursor: pointer; }
+.admin-bar .back:hover { background: var(--g); color: #fff; border-color: var(--g); }
+#adminCrumb { font-weight: 800; color: var(--ink); font-size: 14.5px; } #adminCrumb i { color: var(--g); margin-right: 6px; }
+
+/* only the opened feature is shown; the menu is the first thing visible after login */
+#officialContent .official-tab-content:not(.mod-open), #officialContent #festControl:not(.mod-open) { display: none !important; }
+#officialContent .official-tab-content.mod-open, #officialContent #festControl.mod-open { display: block !important; padding: 22px; margin: 0; }
+#officialContent .official-tab-content .sec-head { cursor: default; } .sec-head::after { display: none !important; }
+#quickNav, .admin-hint { display: none !important; }
+.mod-tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); margin: 0 0 18px; overflow-x: auto; }
+.mod-tab { border: 0; background: transparent; padding: 11px 18px; font-weight: 700; font-size: 13.5px; color: var(--slate); cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -1px; white-space: nowrap; font-family: inherit; }
+.mod-tab:hover { color: var(--g); } .mod-tab.on { color: var(--g); border-bottom-color: var(--g); }
+.mod-pane { display: none; } .mod-pane.on { display: block; }
+#adminHead .pg-head h3 { font-size: 22px; }
+@media (max-width: 700px) { .login-card { margin-top: 8px; padding: 20px 18px; } .admin-menu { grid-template-columns: 1fr; } .admin-top-btns button { flex: 1 1 calc(50% - 8px); } }
+
+/* ============ SCORECARD DISPLAY MODE ============ */
+#rotDisplay { position: fixed; inset: 0; z-index: 2600; background: #fff; display: flex; flex-direction: column; padding: 14px clamp(14px, 2.5vw, 40px) 12px; }
+.rd-top { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--line); margin-bottom: 12px; }
+.rd-logos { display: flex; align-items: center; gap: 14px; } .rd-logos img { display: block; height: 46px; width: auto; max-width: 28vw; } .rd-logos img + img { height: 40px; }
+.rd-title { font-weight: 800; letter-spacing: 3px; color: var(--g); font-size: 14px; }
+.rd-ctl { display: flex; gap: 8px; } .rd-ctl button { width: 40px; height: 40px; border-radius: 12px; border: 1px solid var(--line); background: #fff; color: var(--ink); cursor: pointer; font-size: 14px; } .rd-ctl button:hover { background: var(--g); color: #fff; } .rd-ctl button.x:hover { background: #D93025; border-color: #D93025; }
+#rotDispBody { flex: 1; min-height: 0; overflow: hidden; } #rotDispBody .rot-wrap { border-radius: 12px; }
+.rd-prog { height: 4px; background: #E9EAED; border-radius: 3px; overflow: hidden; margin-top: 10px; } .rd-prog i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--g2), var(--g)); transition: width 1s linear; }
+@media (max-width: 700px) { .rd-title { display: none; } .rd-logos img { height: 34px; } .rd-logos img + img { height: 30px; } }

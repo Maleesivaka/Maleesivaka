@@ -16,6 +16,10 @@ showView = function (id) {
   Array.prototype.forEach.call(document.querySelectorAll('#sideNav a[data-v]'), function (a) { a.classList.toggle('on', a.getAttribute('data-v') === id); });
   var t = document.getElementById('tbTitle'); if (t) t.textContent = PAGE_TITLES[id] || '';
   window.scrollTo(0, 0);
+  if (id === 'officialView' && !(typeof adminLoggedIn === 'function' && adminLoggedIn())) {
+    showToast('Official Portal', 'Please enter your login credentials to continue.', 'warn');
+    setTimeout(function () { var u = document.getElementById('officialUser'); if (u) u.focus(); }, 300);
+  }
 };
 
 /* ---------- admin privacy: official tools only show after the existing admin login ---------- */
@@ -102,32 +106,82 @@ function openPosterBlank() { openPosterStudioWithData('', 'Qahira', 'Senior', ''
 SEC.tabToppers = { t: 'Toppers', d: 'Top scorers per category, taken from published results.', c: '', i: 'fa-crown', s: function () { return ''; } };
 SEC.tabPoster = { t: 'Poster Studio', d: 'Winner posters with your own PNG design, photo, item and rank.', c: '', i: 'fa-wand-magic-sparkles', s: function () { return ''; } };
 SEC.tabSettings = { t: 'Settings & Backup', d: 'Cloud sync, data counts, export and backup tools.', c: '', i: 'fa-gear', s: function () { return ''; } };
-QN_IDS = ['festControl', 'tabPrograms', 'tabCandidates', 'tabEntries', 'tabSchedule', 'tabJudges', 'tabResult', 'tabAnnounce', 'tabAnalytics', 'tabPointTable', 'tabToppers', 'tabPoster', 'tabSettings'];
 
-/* ---------- admin accordion: sections stay closed until you click them (one open at a time) ---------- */
-function adminSections() { return Array.prototype.slice.call(document.querySelectorAll('#officialContent .official-tab-content')); }
-function markQuick(id) { Array.prototype.forEach.call(document.querySelectorAll('#quickNav button'), function (b) { b.classList.toggle('on', b.getAttribute('data-go') === id); }); }
-function collapseAdminSections() { adminSections().forEach(function (s) { s.classList.add('collapsed'); }); markQuick(''); }
-function scrollToEl(el) { if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - 84, behavior: 'smooth' }); }
-function openAdminSection(id) {
-  adminSections().forEach(function (s) { s.classList.toggle('collapsed', s.id !== id); });
-  markQuick(id);
-  var el = document.getElementById(id); if (el) setTimeout(function () { scrollToEl(el); }, 80);
+
+/* ---------- admin: main menu first, each feature opens on its own ---------- */
+var ADMIN_TILES = [
+  ['festControl', 'fa-gauge-high', 'Fest Control', 'Overview, leaderboard, pending work and quick actions', function () { return ovNumbers().programs + ' programs'; }],
+  ['tabPrograms', 'fa-list-check', 'Programs', 'Add, edit and organise competition items', function () { return festPrograms.length + ' programs'; }],
+  ['tabCandidates', 'fa-users', 'Candidates', 'Register, edit and search candidates', function () { return festCandidates.length + ' candidates'; }],
+  ['tabEntries', 'fa-square-check', 'Entries', 'Tick the programs each candidate takes part in', function () { return ovNumbers().entries + ' entries'; }],
+  ['tabSchedule', 'fa-calendar-days', 'Schedule', 'Program timetable, time and venue', function () { return festSchedule.length + ' items'; }],
+  ['tabJudges', 'fa-scale-balanced', 'Judges & Print', 'Judges slips, custom sheets and printing', function () { return ''; }],
+  ['tabResult', 'fa-award', 'Results', 'Enter ranks and grades for every item', function () { return realResults().length + ' records'; }],
+  ['tabAnnounce', 'fa-bullhorn', 'Announcements', 'Publish results and send messages', function () { return Object.keys(draftGroups()).length + ' drafts'; }],
+  ['tabAnalytics', 'fa-chart-pie', 'Analytics', 'Result statistics and charts', function () { return ''; }],
+  ['tabPointTable', 'fa-ranking-star', 'Team Points', 'Standings and manual score adjustment', function () { return ''; }],
+  ['tabToppers', 'fa-crown', 'Toppers', 'Top scorers by category', function () { return ''; }],
+  ['tabPoster', 'fa-wand-magic-sparkles', 'Poster Studio', 'Winner posters with photos and designs', function () { return ''; }],
+  ['tabSettings', 'fa-gear', 'Settings & Backup', 'Cloud sync, exports and backup', function () { return ''; }]
+];
+var ADMIN_MODULES = ADMIN_TILES.map(function (t) { return t[0]; });
+function adminEls() { return ADMIN_MODULES.map(function (id) { return document.getElementById(id); }).filter(Boolean); }
+function renderAdminMenu() {
+  var box = document.getElementById('adminMenu'); if (!box) return;
+  box.innerHTML = ADMIN_TILES.map(function (t) {
+    var st = ''; try { st = t[4](); } catch (e) { }
+    return '<button type="button" class="am-tile" onclick="adminOpen(\'' + t[0] + '\')"><span class="am-ic"><i class="fa-solid ' + t[1] + '"></i></span><span class="am-tx"><b>' + t[2] + '</b><small>' + t[3] + '</small></span>' + (st ? '<span class="am-st">' + st + '</span>' : '') + '<i class="fa-solid fa-chevron-right am-go"></i></button>';
+  }).join('');
+}
+function adminMenuShow() {
+  adminEls().forEach(function (e) { e.classList.remove('mod-open'); });
+  var m = document.getElementById('adminMenu'), b = document.getElementById('adminBar'); if (m) m.style.display = ''; if (b) b.style.display = 'none';
+  var sub = document.getElementById('adminSub'); if (sub) sub.textContent = 'Choose what you want to manage.';
+  renderAdminMenu(); window.scrollTo(0, 0);
+}
+function adminOpen(id) {
+  var t = ADMIN_TILES.filter(function (x) { return x[0] === id; })[0]; if (!t) return;
+  adminEls().forEach(function (e) { e.classList.toggle('mod-open', e.id === id); });
+  var m = document.getElementById('adminMenu'), b = document.getElementById('adminBar'); if (m) m.style.display = 'none'; if (b) b.style.display = 'flex';
+  var c = document.getElementById('adminCrumb'); if (c) c.innerHTML = '<i class="fa-solid ' + t[1] + '"></i> ' + t[2];
+  var sub = document.getElementById('adminSub'); if (sub) sub.textContent = t[3];
+  window.scrollTo(0, 0);
 }
 adminGo = function (id) {
   showView('officialView');
-  setTimeout(function () {
-    if (!adminLoggedIn()) { alert('Please log in as admin first.'); return; }
-    if (id === 'festControl') { collapseAdminSections(); scrollToEl(document.getElementById('festControl')); } else openAdminSection(id);
-  }, 80);
+  setTimeout(function () { if (!adminLoggedIn()) return; if (ADMIN_MODULES.indexOf(id) >= 0) adminOpen(id); else adminMenuShow(); }, 80);
 };
-document.addEventListener('click', function (e) {
-  var h = e.target.closest && e.target.closest('.sec-head'); if (!h) return;
-  var p = h.parentElement; if (!p || !p.classList.contains('official-tab-content')) return;
-  if (p.classList.contains('collapsed')) openAdminSection(p.id); else { p.classList.add('collapsed'); markQuick(''); }
-});
+/* inside a feature, long pages are split into short tabs (for example: Add / List) */
+var MOD_TABS = {
+  tabPrograms: { n: ['Add Program', 'Program List'], at: 'H4' }, tabCandidates: { n: ['Register Candidates', 'Candidate Directory'], at: 'H4' },
+  tabSchedule: { n: ['Add Schedule Item', 'Schedule List'], at: 1 }, tabJudges: { n: ['Judges Slips', 'Custom Slip Sheet'], at: 1 },
+  tabResult: { n: ['Enter Result', 'Evaluated Results'], at: 'H4' }, tabAnnounce: { n: ['Announce Results', 'Send a Message'], at: 1 },
+  tabPointTable: { n: ['Manual Adjustment', 'Standings'], at: 'H4' }
+};
+function setupModuleTabs() {
+  Object.keys(MOD_TABS).forEach(function (id) {
+    var m = document.getElementById(id); if (!m || m.querySelector('.mod-tabs')) return;
+    var cfg = MOD_TABS[id], kids = Array.prototype.filter.call(m.children, function (k) { return !k.classList.contains('sec-head'); }), cut = -1;
+    if (cfg.at === 'H4') { for (var i = 0; i < kids.length; i++) if (kids[i].tagName === 'H4') { cut = i; break; } } else cut = cfg.at;
+    if (cut <= 0 || cut >= kids.length) return;
+    var p0 = document.createElement('div'), p1 = document.createElement('div'); p0.className = 'mod-pane on'; p1.className = 'mod-pane';
+    kids.forEach(function (k, i) { (i < cut ? p0 : p1).appendChild(k); });
+    var bar = document.createElement('div'); bar.className = 'mod-tabs';
+    bar.innerHTML = cfg.n.map(function (t, i) { return '<button type="button" class="mod-tab' + (i ? '' : ' on') + '" data-i="' + i + '">' + t + '</button>'; }).join('');
+    var head = m.querySelector('.sec-head'); if (head) head.after(bar); else m.prepend(bar);
+    bar.after(p0); p0.after(p1);
+    bar.addEventListener('click', function (e) {
+      var b = e.target.closest('.mod-tab'); if (!b) return; var n = +b.getAttribute('data-i');
+      bar.querySelectorAll('.mod-tab').forEach(function (x, j) { x.classList.toggle('on', j === n); }); p0.classList.toggle('on', n === 0); p1.classList.toggle('on', n === 1);
+    });
+  });
+}
 var _authAcc = authOfficial;
-authOfficial = function () { _authAcc.apply(this, arguments); if (adminLoggedIn()) { collapseAdminSections(); window.scrollTo(0, 0); } };
+authOfficial = function () { _authAcc.apply(this, arguments); if (adminLoggedIn()) adminMenuShow(); };
+
+/* login screen: Enter key submits, eye icon shows / hides the password */
+document.addEventListener('keydown', function (e) { if (e.key === 'Enter' && e.target && (e.target.id === 'officialUser' || e.target.id === 'officialPass')) authOfficial(); });
+function togglePw() { var i = document.getElementById('officialPass'), e = document.getElementById('pwEye'); if (!i) return; var show = i.type === 'password'; i.type = show ? 'text' : 'password'; if (e) e.className = show ? 'fa-regular fa-eye-slash' : 'fa-regular fa-eye'; }
 
 /* Ctrl+K focuses the search box */
 focusSearch = function () { var i = document.getElementById('gSearch'); if (i) { i.focus(); i.select(); } };
@@ -139,4 +193,4 @@ refreshAll = function () {
   _refreshAllShell.apply(this, arguments);
   [renderPublicResults, renderAdminToppers, renderPosterWinners, renderSettingsInfo, decorateAdminSections, syncAdminUI].forEach(function (fn) { try { fn(); } catch (err) { console.error(err); } });
 };
-try { decorateAdminSections(); collapseAdminSections(); renderPublicResults(); syncAdminUI(); } catch (err) { console.error(err); }
+try { decorateAdminSections(); setupModuleTabs(); renderPublicResults(); syncAdminUI(); } catch (err) { console.error(err); }

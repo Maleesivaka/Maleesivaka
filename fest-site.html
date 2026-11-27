@@ -344,14 +344,68 @@ img, canvas, video { max-width: 100%; }
 
 @media (max-width: 700px) { .cand-row-reg { width: 92px !important; font-size: 12px; } .cand-multi-row { gap: 6px !important; } }
 
+/* ============ ADMIN: LOGIN CARD ============ */
+.login-card { max-width: 400px; margin: 22px auto 0; padding: 26px 28px 22px; background: #fff; border: 1px solid var(--line); border-radius: 20px; box-shadow: 0 18px 44px rgba(24,90,189,.1); text-align: left; }
+.login-card .lc-ic { width: 52px; height: 52px; border-radius: 16px; background: var(--tint); color: var(--g); display: grid; place-items: center; font-size: 21px; margin: 0 auto 10px; }
+.login-card h4 { text-align: center; font-size: 19px; margin: 0; color: var(--ink); }
+.login-card .lc-sub { text-align: center; font-size: 12.5px; color: var(--slate); margin: 4px 0 16px; }
+.login-card label { display: block; font-size: 12px; font-weight: 700; color: var(--slate); margin: 0 0 5px; }
+.login-card input { margin-bottom: 12px; }
+.lc-pw { position: relative; } .lc-pw input { padding-right: 44px !important; }
+.lc-eye { position: absolute; right: 6px; top: 4px; width: 36px; height: 36px; border: 0; background: transparent; color: var(--slate); cursor: pointer; border-radius: 8px; }
+.lc-eye:hover { background: var(--grey); }
+.login-card .btn { margin: 4px 0 0; padding: 12px; }
+.lc-err { color: #D93025; font-size: 12.5px; text-align: center; min-height: 18px; margin-top: 10px; font-weight: 600; }
+
+/* ============ ADMIN: MAIN MENU ============ */
+.admin-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 18px; }
+.admin-badge { background: #E8F4EC; color: #217346; font-size: 12px; font-weight: 700; padding: 6px 14px; border-radius: 999px; }
+.admin-top-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+.admin-top-btns button { padding: 8px 14px; border-radius: 10px; border: 1px solid var(--line); background: #fff; color: var(--ink); font-size: 12.5px; font-weight: 600; cursor: pointer; }
+.admin-top-btns button:hover { background: var(--tint); border-color: #C9DCF7; } .admin-top-btns button.out { color: #D93025; } .admin-top-btns button.out:hover { background: #FEE2E2; border-color: #fca5a5; }
+.admin-menu { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+.am-tile { position: relative; display: flex; align-items: center; gap: 14px; text-align: left; padding: 16px 18px; background: #fff; border: 1px solid var(--line); border-radius: 16px; cursor: pointer; transition: transform .2s, box-shadow .2s, border-color .2s; box-shadow: 0 4px 14px rgba(32,33,36,.04); font-family: inherit; }
+.am-tile:hover { transform: translateY(-2px); border-color: #C9DCF7; box-shadow: 0 12px 28px rgba(24,90,189,.12); }
+.am-ic { flex: none; width: 46px; height: 46px; border-radius: 14px; background: var(--tint); color: var(--g); display: grid; place-items: center; font-size: 19px; }
+.am-tile:hover .am-ic { background: var(--g); color: #fff; }
+.am-tx { flex: 1; min-width: 0; } .am-tx b { display: block; font-size: 14.5px; color: var(--ink); } .am-tx small { display: block; font-size: 12px; color: var(--slate); line-height: 1.35; margin-top: 2px; }
+.am-st { position: absolute; top: 10px; right: 14px; font-size: 10.5px; font-weight: 700; color: var(--g); background: var(--tint); padding: 2px 9px; border-radius: 999px; }
+.am-go { color: #b6bcc6; font-size: 12px; } .am-tile:hover .am-go { color: var(--g); }
+.admin-bar { align-items: center; gap: 12px; margin: 0 0 18px; padding: 10px 14px; background: var(--grey); border-radius: 14px; }
+.admin-bar .back { border: 1px solid var(--line); background: #fff; color: var(--ink); border-radius: 10px; padding: 8px 14px; font-weight: 700; font-size: 13px; cursor: pointer; }
+.admin-bar .back:hover { background: var(--g); color: #fff; border-color: var(--g); }
+#adminCrumb { font-weight: 800; color: var(--ink); font-size: 14.5px; } #adminCrumb i { color: var(--g); margin-right: 6px; }
+
+/* only the opened feature is shown; the menu is the first thing visible after login */
+#officialContent .official-tab-content:not(.mod-open), #officialContent #festControl:not(.mod-open) { display: none !important; }
+#officialContent .official-tab-content.mod-open, #officialContent #festControl.mod-open { display: block !important; padding: 22px; margin: 0; }
+#officialContent .official-tab-content .sec-head { cursor: default; } .sec-head::after { display: none !important; }
+#quickNav, .admin-hint { display: none !important; }
+.mod-tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); margin: 0 0 18px; overflow-x: auto; }
+.mod-tab { border: 0; background: transparent; padding: 11px 18px; font-weight: 700; font-size: 13.5px; color: var(--slate); cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -1px; white-space: nowrap; font-family: inherit; }
+.mod-tab:hover { color: var(--g); } .mod-tab.on { color: var(--g); border-bottom-color: var(--g); }
+.mod-pane { display: none; } .mod-pane.on { display: block; }
+#adminHead .pg-head h3 { font-size: 22px; }
+@media (max-width: 700px) { .login-card { margin-top: 8px; padding: 20px 18px; } .admin-menu { grid-template-columns: 1fr; } .admin-top-btns button { flex: 1 1 calc(50% - 8px); } }
+
+/* ============ SCORECARD DISPLAY MODE ============ */
+#rotDisplay { position: fixed; inset: 0; z-index: 2600; background: #fff; display: flex; flex-direction: column; padding: 14px clamp(14px, 2.5vw, 40px) 12px; }
+.rd-top { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--line); margin-bottom: 12px; }
+.rd-logos { display: flex; align-items: center; gap: 14px; } .rd-logos img { display: block; height: 46px; width: auto; max-width: 28vw; } .rd-logos img + img { height: 40px; }
+.rd-title { font-weight: 800; letter-spacing: 3px; color: var(--g); font-size: 14px; }
+.rd-ctl { display: flex; gap: 8px; } .rd-ctl button { width: 40px; height: 40px; border-radius: 12px; border: 1px solid var(--line); background: #fff; color: var(--ink); cursor: pointer; font-size: 14px; } .rd-ctl button:hover { background: var(--g); color: #fff; } .rd-ctl button.x:hover { background: #D93025; border-color: #D93025; }
+#rotDispBody { flex: 1; min-height: 0; overflow: hidden; } #rotDispBody .rot-wrap { border-radius: 12px; }
+.rd-prog { height: 4px; background: #E9EAED; border-radius: 3px; overflow: hidden; margin-top: 10px; } .rd-prog i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--g2), var(--g)); transition: width 1s linear; }
+@media (max-width: 700px) { .rd-title { display: none; } .rd-logos img { height: 34px; } .rd-logos img + img { height: 30px; } }
+
 </style>
   <style>
 /* KADHARVA welcome intro — two PNG logos walk in along the bottom of the page, open their arms, hug,
    burst into colour, then give a thumbs-up and welcome the visitor. Independent component. */
 #kdIntro { position: fixed; inset: 0; z-index: 10000; overflow: hidden; background: #fff; font-family: 'Poppins', sans-serif;
-  font-size: min(1.65vw, 2.9vh, 19px); --wa: 20em; --wb: 17em; --ink: #222; transition: opacity .8s ease, transform .8s ease; }
-@media (max-aspect-ratio: 3/4) { #kdIntro { font-size: min(2.2vw, 2.6vh); --wa: 17em; --wb: 14.5em; }
-  .kd-arm { width: 3.8em !important; } .kd-title { top: 16% !important; } .kd-h { font-size: 3.5em !important; } .kd-char { bottom: 9vh !important; } .kd-floor { bottom: calc(9vh - .9em) !important; } }
+  font-size: min(1.3vw, 2.4vh, 15px); --wa: 18em; --wb: 15.5em; --skin: #F1B27E; --skin-d: #C9824F; --ink2: #5a3a22; --ink: #222; transition: opacity .8s ease, transform .8s ease; }
+@media (max-aspect-ratio: 3/4) { #kdIntro { font-size: min(2vw, 2.4vh); --wa: 15em; --wb: 13em; }
+  .kd-arm { width: 3.2em !important; } .kd-title { top: 16% !important; } .kd-h { font-size: 3.5em !important; } .kd-char { bottom: 9vh !important; } .kd-floor { bottom: calc(9vh - .9em) !important; } }
 #kdIntro.kd-out { opacity: 0; transform: scale(1.05); pointer-events: none; }
 #kdIntro *, #kdIntro *::before, #kdIntro *::after { box-sizing: border-box; }
 
@@ -385,39 +439,38 @@ img, canvas, video { max-width: 100%; }
 .kd-logo { display: block; width: 100%; height: auto; user-select: none; -webkit-user-drag: none; }
 .kd-fb { text-align: center; font: 800 4em 'Bangers', 'Poppins', sans-serif; color: #103F91; padding: .3em 0; letter-spacing: .05em; }
 
-/* ---------- arms: thin black sleeves + big white cartoon gloves ---------- */
-.kd-arm { position: absolute; width: 5em; height: .6em; background: var(--ink); border-radius: 1em; transform-origin: 0 50%; transition: transform .7s cubic-bezier(.3,1.3,.5,1), width .7s ease; }
-.kd-arm .glove { position: absolute; right: -1.5em; top: 50%; width: 2.5em; height: 2.3em; margin-top: -1.15em; border-radius: 48% 48% 52% 52%; background: #fff; border: .2em solid var(--ink); }
-.kd-arm .glove::after { content: ""; position: absolute; left: 18%; right: 18%; top: 38%; height: .14em; border-radius: .1em; background: #bfc5cc; box-shadow: 0 .5em 0 #bfc5cc; }
-.kd-arm .th { display: none; position: absolute; width: .9em; height: 1.35em; left: 50%; top: -1.15em; margin-left: -.45em; background: #fff; border: .2em solid var(--ink); border-radius: .6em; }
+/* ---------- arms: chubby child arms with small round hands ---------- */
+.kd-arm { position: absolute; width: 4em; height: 1.35em; background: var(--skin); border: .2em solid var(--ink2); border-radius: 1em; transform-origin: 0 50%; transition: transform .7s cubic-bezier(.3,1.3,.5,1), width .7s ease; }
+.kd-arm .glove { position: absolute; right: -1.7em; top: 50%; width: 2.3em; height: 2.3em; margin-top: -1.15em; border-radius: 50%; background: var(--skin); border: .2em solid var(--ink2); }
+.kd-arm .glove::after { content: ""; position: absolute; left: 22%; right: 12%; top: 30%; height: .14em; border-radius: .1em; background: var(--skin-d); box-shadow: 0 .42em 0 var(--skin-d), 0 .84em 0 var(--skin-d); }
+.kd-arm .th { display: none; position: absolute; width: 1em; height: 1.4em; left: 50%; top: -1.2em; margin-left: -.5em; background: var(--skin); border: .2em solid var(--ink2); border-radius: .6em; }
 .arm-in  { left: 100%; top: 58%; margin-left: -.5em; z-index: 4; transform: rotate(calc(var(--s) * 84deg)); }
 .arm-out { left: 0; top: 58%; margin-left: .5em; z-index: 0; transform: rotate(calc(var(--s) * 100deg)); }
 .kd-b .kd-arm { transform-origin: 100% 50%; }
-.kd-b .kd-arm .glove { right: auto; left: -1.5em; }
+.kd-b .kd-arm .glove { right: auto; left: -1.7em; }
+.kd-b .kd-arm .glove::after { left: 12%; right: 22%; }
 .kd-b .arm-in  { left: auto; right: 100%; margin: 0 -.5em 0 0; }
 .kd-b .arm-out { left: auto; right: 0; margin: 0 .5em 0 0; }
-/* arms spread wide to welcome each other */
 .kd-open .arm-in  { transform: rotate(calc(var(--s) * -14deg)); }
 .kd-open .arm-out { transform: rotate(calc(var(--s) * 190deg)); }
-/* hug: arms sweep towards each other and around */
-.kd-hug .arm-in  { transform: rotate(calc(var(--s) * -24deg)); width: 6.8em; }
-.kd-hug .arm-out { transform: rotate(calc(var(--s) * 150deg)); width: 5.6em; }
-/* finale: outer arm up with a thumbs-up */
+.kd-hug .arm-in  { transform: rotate(calc(var(--s) * -24deg)); width: 5.4em; }
+.kd-hug .arm-out { transform: rotate(calc(var(--s) * 150deg)); width: 4.6em; }
 .kd-thumbs .arm-in  { transform: rotate(calc(var(--s) * 70deg)); }
-.kd-thumbs .arm-out { transform: rotate(calc(var(--s) * -78deg)); width: 5em; }
+.kd-thumbs .arm-out { transform: rotate(calc(var(--s) * -78deg)); width: 4.2em; }
 .kd-thumbs .arm-out .th { display: block; }
 
-/* ---------- legs: short black stick legs, big sneakers ---------- */
-.kd-legs { position: relative; z-index: 1; width: 6em; height: 3.7em; margin: -.5em auto 0; }
-.leg { position: absolute; top: 0; width: .8em; height: 100%; background: var(--ink); border-radius: .5em; transform-origin: 50% 0; }
+/* ---------- legs: chubby child legs, white socks and small sneakers ---------- */
+.kd-legs { position: relative; z-index: 1; width: 6.4em; height: 3.3em; margin: -.5em auto 0; }
+.leg { position: absolute; top: 0; width: 1.75em; height: 100%; background: var(--skin); border: .2em solid var(--ink2); border-radius: .95em; transform-origin: 50% 0; }
+.leg::after { content: ""; position: absolute; left: -.2em; right: -.2em; bottom: -.2em; height: 1.35em; border: .2em solid var(--ink2); border-radius: .35em .35em .9em .9em; background: linear-gradient(#2B7CD3 0 .38em, #fff .38em); }
 .leg.l { left: 0; } .leg.r { right: 0; }
-.shoe { position: absolute; bottom: -1.1em; left: -.6em; width: 3.6em; height: 2.1em; background: var(--sh); border: .22em solid var(--ink); border-radius: 1.8em 2.2em .5em .5em;
-  box-shadow: inset 0 -.6em 0 #fff, inset 0 -.75em 0 var(--ink); }
-.shoe::before { content: ""; position: absolute; left: 26%; top: 18%; width: 44%; height: .22em; border-radius: .1em; background: #fff; box-shadow: 0 .5em 0 #fff; }
+.shoe { position: absolute; z-index: 2; bottom: -1.15em; left: -.6em; width: 3.2em; height: 1.85em; background: var(--sh); border: .2em solid var(--ink2); border-radius: 1.6em 2em .5em .5em;
+  box-shadow: inset 0 -.55em 0 #fff, inset 0 -.7em 0 var(--ink2); }
+.shoe::before { content: ""; position: absolute; left: 28%; top: 20%; width: 40%; height: .2em; border-radius: .1em; background: #fff; box-shadow: 0 .45em 0 #fff; }
 .kd-b .kd-legs { transform: scaleX(-1); }
 /* little motion strokes behind the feet while walking */
 .kd-legs::before, .kd-legs::after { content: ""; position: absolute; bottom: .2em; width: .9em; height: 1.6em; border: .22em solid #9aa4b2; border-right: 0; border-top-color: transparent; border-bottom-color: transparent; border-radius: 50%; opacity: 0; }
-.kd-legs::before { left: -2.4em; } .kd-legs::after { left: -3.7em; bottom: .9em; height: 1.2em; }
+.kd-legs::before { left: -2.2em; } .kd-legs::after { left: -3.4em; bottom: .9em; height: 1.2em; }
 .kd-walk .kd-legs::before, .kd-walk .kd-legs::after { animation: kdStroke .36s ease-in-out infinite alternate; }
 @keyframes kdStroke { from { opacity: 0; } to { opacity: .85; } }
 
@@ -597,6 +650,7 @@ img, canvas, video { max-width: 100%; }
         <button class="rot-btn" onclick="rotPrev()" title="Previous"><i class="fa-solid fa-backward-step"></i></button>
         <button class="rot-btn" id="rotPauseBtn" onclick="rotTogglePause()" title="Pause / Play"><i class="fa-solid fa-pause"></i></button>
         <button class="rot-btn" onclick="rotNext()" title="Next"><i class="fa-solid fa-forward-step"></i></button>
+        <button class="rot-btn" onclick="rotDisplayOpen()" title="Display mode — full screen scorecard"><i class="fa-solid fa-expand"></i></button>
         <select id="rotSpeed" onchange="rotSetSpeed(this.value)" style="margin:0;padding:7px 10px;width:auto;font-size:12px;font-weight:600;">
           <option value="10">10 sec</option><option value="15" selected>15 sec</option><option value="20">20 sec</option><option value="30">30 sec</option><option value="45">45 sec</option>
         </select>
@@ -623,43 +677,32 @@ img, canvas, video { max-width: 100%; }
 
   <!-- 3. ADMIN PORTAL -->
   <div id="officialView" class="view-panel">
-    <h3 style="margin-bottom:4px;color:var(--navy-dark);font-size:1.3rem;"><i class="fa-solid fa-user-shield"></i> Official Management Portal</h3>
-    <p style="font-size:12px;color:var(--text-muted);margin-bottom:18px;">Admin access to enter and manage programs, candidates, and live scores across all devices.</p>
+    <div class="pg-head" id="adminHead"><div><h3><i class="fa-solid fa-user-shield"></i> Official Management Portal</h3><p id="adminSub">Private area for the fest organisers.</p></div></div>
 
-    <div id="officialAuth">
-      <input type="text" id="officialUser" placeholder="Admin Username">
-      <input type="password" id="officialPass" placeholder="Admin Password">
-      <button class="btn" onclick="authOfficial()"><i class="fa-solid fa-right-to-bracket"></i> Login as Admin</button>
-      <div id="officialLoginErr" style="color:#ef4444;font-size:12px;margin-top:8px;"></div>
+    <div id="officialAuth" class="login-card">
+      <div class="lc-ic"><i class="fa-solid fa-lock"></i></div>
+      <h4>Official Portal Login</h4>
+      <p class="lc-sub">Enter your admin credentials to continue.</p>
+      <label for="officialUser">Username</label>
+      <input type="text" id="officialUser" placeholder="Admin username" autocomplete="username">
+      <label for="officialPass">Password</label>
+      <div class="lc-pw"><input type="password" id="officialPass" placeholder="Admin password" autocomplete="current-password"><button type="button" class="lc-eye" onclick="togglePw()" aria-label="Show or hide password"><i class="fa-regular fa-eye" id="pwEye"></i></button></div>
+      <button class="btn" onclick="authOfficial()"><i class="fa-solid fa-right-to-bracket"></i> Login</button>
+      <div id="officialLoginErr" class="lc-err"></div>
     </div>
 
     <div id="officialContent" style="display:none;">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:8px;">
-        <span class="badge" style="background:#059669;color:#fff;">🔑 Admin Mode Active</span>
-        <div style="display:flex;gap:8px;">
-          <button onclick="openPrintCenter()" style="padding:7px 14px;font-size:12px;background:#FDB827;color:#1d1500;border:none;border-radius:8px;cursor:pointer;font-weight:700;"><i class="fa-solid fa-print"></i> Print Center</button>
-          <button onclick="printAllData()" style="padding:7px 14px;font-size:12px;background:#D97706;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:600;"><i class="fa-solid fa-print"></i> Print All Data</button>
-          <button onclick="syncToCloud()" style="padding:7px 14px;font-size:12px;background:var(--emerald-main);color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:600;"><i class="fa-solid fa-cloud-arrow-up"></i> Save to Cloud</button>
-          <button onclick="logoutOfficial()" style="padding:7px 14px;font-size:12px;background:#ef4444;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:600;">Logout</button>
+      <div class="admin-top">
+        <span class="admin-badge"><i class="fa-solid fa-circle-check"></i> Admin mode active</span>
+        <div class="admin-top-btns">
+          <button onclick="openPrintCenter()"><i class="fa-solid fa-print"></i> Print Center</button>
+          <button onclick="printAllData()"><i class="fa-solid fa-file-lines"></i> Print All Data</button>
+          <button onclick="syncToCloud()"><i class="fa-solid fa-cloud-arrow-up"></i> Save to Cloud</button>
+          <button class="out" onclick="logoutOfficial()"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
         </div>
       </div>
-
-      <div id="quickNav" class="quick-nav"><span class="qn-t">QUICK NAVIGATION</span>
-        <button data-go="festControl" class="on" onclick="adminGo('festControl')">Overview</button>
-        <button data-go="tabPrograms" onclick="adminGo('tabPrograms')">Programs</button>
-        <button data-go="tabCandidates" onclick="adminGo('tabCandidates')">Candidates</button>
-        <button data-go="tabEntries" onclick="adminGo('tabEntries')">Entries</button>
-        <button data-go="tabSchedule" onclick="adminGo('tabSchedule')">Schedule</button>
-        <button data-go="tabJudges" onclick="adminGo('tabJudges')">Judges</button>
-        <button data-go="tabResult" onclick="adminGo('tabResult')">Results</button>
-        <button data-go="tabAnnounce" onclick="adminGo('tabAnnounce')">Announce</button>
-        <button data-go="tabAnalytics" onclick="adminGo('tabAnalytics')">Analytics</button>
-        <button data-go="tabPointTable" onclick="adminGo('tabPointTable')">Team Points</button>
-        <button data-go="tabToppers" onclick="adminGo('tabToppers')">Toppers</button>
-        <button data-go="tabPoster" onclick="adminGo('tabPoster')">Poster Studio</button>
-        <button data-go="tabSettings" onclick="adminGo('tabSettings')">Settings</button>
-      </div>
-      <p class="admin-hint"><i class="fa-solid fa-hand-pointer"></i> Sections are closed to keep this page tidy. Click a section name (or use the bar above) to open it.</p>
+      <div id="adminMenu" class="admin-menu"></div>
+      <div id="adminBar" class="admin-bar" style="display:none;"><button type="button" class="back" onclick="adminMenuShow()"><i class="fa-solid fa-arrow-left"></i> Admin Menu</button><span id="adminCrumb"></span></div>
 
       <div id="festControl">
         <div class="ov-head"><div class="ov-title">FEST CONTROL <span class="ov-live" id="fcLive"></span></div><div class="ov-sync" id="fcSync"></div></div>
@@ -1074,11 +1117,11 @@ img, canvas, video { max-width: 100%; }
       <div>
         <label style="font-size:12px;font-weight:700;color:var(--navy-main);margin-bottom:6px;display:block;">Select Design Model:</label>
         <div class="model-selector-bar">
-          <button class="model-btn active" onclick="setPosterModel(1)">Model 1<br><small>Royal Blue</small></button>
-          <button class="model-btn" onclick="setPosterModel(2)">Model 2<br><small>Emerald</small></button>
-          <button class="model-btn" onclick="setPosterModel(3)">Model 3<br><small>Burgundy</small></button>
-          <button class="model-btn" onclick="setPosterModel(4)">Model 4<br><small>Midnight</small></button>
-          <button class="model-btn" onclick="setPosterModel(5)">Model 5<br><small>Golden Fest</small></button>
+          <button class="model-btn active" onclick="setPosterModel(1)">Royal Blue<br><small>Brand blue</small></button>
+          <button class="model-btn" onclick="setPosterModel(2)">Midnight Gold<br><small>Elegant dark</small></button>
+          <button class="model-btn" onclick="setPosterModel(3)">Sunrise<br><small>Orange warm</small></button>
+          <button class="model-btn" onclick="setPosterModel(4)">Clean White<br><small>Minimal</small></button>
+          <button class="model-btn" onclick="setPosterModel(5)">Team Colour<br><small>Auto from team</small></button>
         </div>
         <div class="pm-box">
           <b style="font-size:12.5px;color:var(--navy-main);"><i class="fa-solid fa-image"></i> Your own poster design (PNG)</b>
@@ -1123,8 +1166,8 @@ img, canvas, video { max-width: 100%; }
           <input type="file" id="pmPhotoFile" accept="image/*" style="margin-top:6px;">
           <div class="pm-grid">
             <label>Left–Right<input type="range" id="pmPhotoX" min="0" max="100" value="50" oninput="drawPosterPreview()"></label>
-            <label>Up–Down<input type="range" id="pmPhotoY" min="0" max="100" value="40" oninput="drawPosterPreview()"></label>
-            <label>Size<input type="range" id="pmPhotoSize" min="80" max="460" value="190" oninput="drawPosterPreview()"></label>
+            <label>Up–Down<input type="range" id="pmPhotoY" min="0" max="100" value="44" oninput="drawPosterPreview()"></label>
+            <label>Size<input type="range" id="pmPhotoSize" min="80" max="460" value="210" oninput="drawPosterPreview()"></label>
             <label>Shape<select id="pmShape" onchange="drawPosterPreview()"><option value="circle">Circle</option><option value="rounded">Rounded</option><option value="square">Square</option></select></label>
           </div>
           <p style="font-size:11px;color:var(--text-muted);">Tip: drag the photo directly on the preview to move it.</p>
@@ -2389,28 +2432,8 @@ var posterLogo = { name: null, sub: null };
     });
   });
 })();
-function drawLogoHeader(ctx, w, greet, acc) {
-  var n = posterLogo.name, s = posterLogo.sub, y = 62;
-  var k = Math.min(560 / n.width, 140 / n.height), nw = n.width * k, nh = n.height * k;
-  ctx.save(); ctx.shadowColor = 'rgba(0,0,0,.5)'; ctx.shadowBlur = 18; ctx.drawImage(n, (w - nw) / 2, y, nw, nh); ctx.restore();
-  y += nh + 8;
-  if (s) { var k2 = Math.min(380 / s.width, 62 / s.height), sw = s.width * k2, sh = s.height * k2; ctx.drawImage(s, (w - sw) / 2, y, sw, sh); y += sh + 12; }
-  ctx.strokeStyle = acc; ctx.lineWidth = 2;
-  ctx.beginPath(); ctx.moveTo(w / 2 - 300, y); ctx.lineTo(w / 2 - 24, y); ctx.moveTo(w / 2 + 24, y); ctx.lineTo(w / 2 + 300, y); ctx.stroke();
-  ctx.save(); ctx.translate(w / 2, y); ctx.rotate(Math.PI / 4); ctx.fillStyle = acc; ctx.fillRect(-8, -8, 16, 16); ctx.restore();
-  ctx.textAlign = 'center'; ctx.fillStyle = '#fff'; spaced(ctx, 3);
-  fitFont(ctx, greet, 880, 27, '700', "'Poppins', sans-serif", 16);
-  ctx.fillText(greet, w / 2, Math.min(322, Math.max(300, y + 46)));
-  spaced(ctx, 0);
-}
 var P_TEAM = { Qahira: '#0284c7', Qudsiya: '#059669', Qurthuba: '#ef4444' };
-var P_THEMES = {
-  1: { bg: ['#0b0b0f', '#1f1f29', '#050507'], acc: '#FDB827', glow: '#ff7a00' },
-  2: { bg: ['#2a0f00', '#8a3300', '#140700'], acc: '#ffd24d', glow: '#ff7a00' },
-  3: { bg: ['#1a0a2e', '#4a1d7a', '#0d0518'], acc: '#FDB827', glow: '#a855f7' },
-  4: { bg: ['#021b2a', '#075985', '#01131d'], acc: '#FDB827', glow: '#38bdf8' },
-  5: { bg: ['#0f0f0f', '#3a2a00', '#050505'], acc: '#ffe08a', glow: '#FDB827' }
-};
+
 
 function pv(id, def) { var e = document.getElementById(id); return (e && e.value !== '') ? e.value : def; }
 
@@ -2492,177 +2515,168 @@ function star(ctx, cx, cy, r) {
 }
 function spaced(ctx, px) { try { ctx.letterSpacing = px + 'px'; } catch (e) { } }
 
-function drawPhoto(ctx, w, h, th, name) {
-  var cx = w * pv('pmPhotoX', 50) / 100, cy = h * pv('pmPhotoY', 40) / 100, r = Number(pv('pmPhotoSize', 190));
-  var shape = pv('pmShape', 'circle'), acc = th ? th.acc : '#f5c451';
-  var path = function (g) {
-    g.beginPath();
-    if (shape === 'circle') g.arc(cx, cy, g === ctx ? r : r, 0, Math.PI * 2);
-    else g.roundRect(cx - r, cy - r, r * 2, r * 2, shape === 'rounded' ? r * 0.28 : 6);
-  };
-  ctx.save();
-  ctx.shadowColor = 'rgba(0,0,0,.45)'; ctx.shadowBlur = 40; ctx.shadowOffsetY = 12;
-  path(ctx); ctx.fillStyle = '#0b1220'; ctx.fill();
-  ctx.restore();
-  ctx.save();
-  path(ctx); ctx.clip();
-  if (posterPhoto) {
-    var s = Math.max(2 * r / posterPhoto.width, 2 * r / posterPhoto.height);
-    var iw = posterPhoto.width * s, ih = posterPhoto.height * s;
-    ctx.drawImage(posterPhoto, cx - iw / 2, cy - ih / 2, iw, ih);
-  } else {
-    var g = ctx.createLinearGradient(cx, cy - r, cx, cy + r);
-    g.addColorStop(0, 'rgba(255,255,255,.22)'); g.addColorStop(1, 'rgba(255,255,255,.05)');
-    ctx.fillStyle = g; ctx.fillRect(cx - r, cy - r, 2 * r, 2 * r);
-    var ini = name.split(/\s+/).filter(Boolean).slice(0, 2).map(function (x) { return x[0]; }).join('').toUpperCase() || '★';
-    ctx.fillStyle = acc; ctx.textAlign = 'center'; ctx.font = '700 ' + Math.round(r * 0.8) + "px 'Cinzel', serif";
-    ctx.fillText(ini, cx, cy + r * 0.28);
-  }
-  ctx.restore();
-  ctx.save();
-  path(ctx); ctx.lineWidth = 12; ctx.strokeStyle = acc; ctx.stroke();
-  ctx.restore();
-  if (shape === 'circle') {
-    ctx.beginPath(); ctx.arc(cx, cy, r + 20, 0, Math.PI * 2);
-    ctx.lineWidth = 3; ctx.strokeStyle = 'rgba(255,255,255,.55)'; ctx.stroke();
-  }
+/* =====================================================================
+   Professional poster designs (1080 x 1350)
+   header with both logos -> photo with medal -> name -> team / category -> item card -> footer
+   ===================================================================== */
+var POSTER_THEMES = {
+  1: { label: 'Royal Blue',     dark: true,  bg: ['#0D2C69', '#185ABD', '#0A2455'], acc: '#FDB827', text: '#FFFFFF', muted: 'rgba(255,255,255,.74)', card: 'rgba(255,255,255,.12)', line: 'rgba(255,255,255,.24)' },
+  2: { label: 'Midnight Gold',  dark: true,  bg: ['#080B13', '#151B2D', '#05070C'], acc: '#D9B45A', text: '#FFFFFF', muted: 'rgba(255,255,255,.7)',  card: 'rgba(255,255,255,.07)', line: 'rgba(217,180,90,.45)' },
+  3: { label: 'Sunrise Orange', dark: true,  bg: ['#D9480F', '#F97316', '#FDB827'], acc: '#FFFFFF', text: '#FFFFFF', muted: 'rgba(255,255,255,.86)', card: 'rgba(20,16,10,.22)',    line: 'rgba(255,255,255,.4)' },
+  4: { label: 'Clean White',    dark: false, bg: ['#FFFFFF', '#F4F7FC', '#E7EEF9'], acc: '#185ABD', text: '#14213D', muted: '#5B6678',                 card: '#FFFFFF',               line: '#D9E2F0' },
+  5: { label: 'Team Colour',    dark: true,  team: true,                           acc: '#FDB827', text: '#FFFFFF', muted: 'rgba(255,255,255,.78)', card: 'rgba(255,255,255,.14)', line: 'rgba(255,255,255,.3)' }
+};
+function shade(hex, f) {
+  var n = parseInt(hex.replace('#', ''), 16), r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
+  var t = f < 0 ? 0 : 255, p = Math.abs(f);
+  return 'rgb(' + Math.round((t - r) * p + r) + ',' + Math.round((t - g) * p + g) + ',' + Math.round((t - b) * p + b) + ')';
 }
-
-function drawRibbon(ctx, w, y, text, acc) {
-  var bw = 700, bh = 82, x0 = (w - bw) / 2, x1 = x0 + bw, n = 34;
-  var g = ctx.createLinearGradient(0, y, 0, y + bh);
-  g.addColorStop(0, '#fff2b8'); g.addColorStop(0.5, acc); g.addColorStop(1, '#b8860b');
-  ctx.save();
-  ctx.shadowColor = 'rgba(0,0,0,.4)'; ctx.shadowBlur = 20; ctx.shadowOffsetY = 8;
-  ctx.beginPath();
-  ctx.moveTo(x0, y); ctx.lineTo(x1, y); ctx.lineTo(x1 - n, y + bh / 2); ctx.lineTo(x1, y + bh);
-  ctx.lineTo(x0, y + bh); ctx.lineTo(x0 + n, y + bh / 2); ctx.closePath();
-  ctx.fillStyle = g; ctx.fill();
-  ctx.restore();
-  ctx.fillStyle = '#2a1a00'; ctx.textAlign = 'center';
-  spaced(ctx, 3);
-  var t = '★  ' + text.toUpperCase() + '  ★';
-  fitFont(ctx, t, bw - 120, 38, '800', "'Poppins', sans-serif", 22);
-  ctx.fillText(t, w / 2, y + bh / 2 + 13);
-  spaced(ctx, 0);
+function themeFor(d) {
+  var t = POSTER_THEMES[selectedPosterModel] || POSTER_THEMES[1];
+  if (t.team) { var c = P_TEAM[d.team] || '#185ABD'; t = Object.assign({}, t, { bg: [shade(c, -0.45), c, shade(c, -0.6)] }); }
+  return t;
 }
-
-function drawHeader(ctx, w, sub, greet, acc, light) {
-  if (posterLogo.name) { drawLogoHeader(ctx, w, greet, acc); return; }
-  ctx.textAlign = 'center';
-  ctx.save();
-  ctx.shadowColor = 'rgba(0,0,0,.5)'; ctx.shadowBlur = 16;
-  ctx.fillStyle = light ? '#fff3c4' : acc;
-  spaced(ctx, 6);
-  fitFont(ctx, 'KADHARVA', 860, 80, '700', "'Cinzel', serif", 40);
-  ctx.fillText('KADHARVA', w / 2, 168);
-  ctx.restore();
-  spaced(ctx, 5);
-  ctx.fillStyle = 'rgba(255,255,255,.85)'; ctx.font = "600 23px 'Poppins', sans-serif";
-  ctx.fillText(sub.toUpperCase(), w / 2, 214);
-  spaced(ctx, 0);
-  ctx.strokeStyle = acc; ctx.lineWidth = 2;
-  ctx.beginPath(); ctx.moveTo(w / 2 - 300, 246); ctx.lineTo(w / 2 - 24, 246); ctx.moveTo(w / 2 + 24, 246); ctx.lineTo(w / 2 + 300, 246); ctx.stroke();
-  ctx.save(); ctx.translate(w / 2, 246); ctx.rotate(Math.PI / 4); ctx.fillStyle = acc; ctx.fillRect(-8, -8, 16, 16); ctx.restore();
-  spaced(ctx, 3);
-  ctx.fillStyle = '#fff'; ctx.font = "700 27px 'Poppins', sans-serif";
-  fitFont(ctx, greet, 880, 27, '700', "'Poppins', sans-serif", 16);
-  ctx.fillText(greet, w / 2, 300);
-  spaced(ctx, 0);
+function rankInfo(pos) {
+  var s = String(pos || '').toLowerCase();
+  if (/(^|\b)1(st)?(\b|$)|first|winner|champion/.test(s)) return { n: '1', suf: 'ST', c1: '#FFE9A0', c2: '#E0A100', edge: '#9A6B00' };
+  if (/(^|\b)2(nd)?(\b|$)|second|runner/.test(s)) return { n: '2', suf: 'ND', c1: '#F6F8FA', c2: '#9AA5B1', edge: '#5F6B78' };
+  if (/(^|\b)3(rd)?(\b|$)|third/.test(s)) return { n: '3', suf: 'RD', c1: '#F7C79A', c2: '#B8651F', edge: '#7A3E0E' };
+  return null;
 }
+function rr(ctx, x, y, w, h, r) { ctx.beginPath(); ctx.roundRect(x, y, w, h, r); }
+function ctext(ctx, str, x, y, font, color, align, sp) { ctx.font = font; ctx.fillStyle = color; ctx.textAlign = align || 'center'; spaced(ctx, sp || 0); ctx.fillText(str, x, y); spaced(ctx, 0); }
 
-/* ---------- built-in themed models ---------- */
-function drawTheme(ctx, c, d) {
-  var w = c.width, h = c.height, th = P_THEMES[selectedPosterModel] || P_THEMES[1], acc = th.acc;
-  var g = ctx.createLinearGradient(0, 0, 0, h);
+function drawBackdrop(ctx, w, h, th, cy) {
+  var g = ctx.createLinearGradient(0, 0, w * 0.35, h);
   g.addColorStop(0, th.bg[0]); g.addColorStop(0.5, th.bg[1]); g.addColorStop(1, th.bg[2]);
   ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
-
-  ctx.save();
-  ctx.beginPath(); ctx.rect(34, 34, w - 68, h - 68); ctx.clip();
-  var cy = h * pv('pmPhotoY', 40) / 100;
-  var rg = ctx.createRadialGradient(w / 2, cy, 40, w / 2, cy, 680);
-  rg.addColorStop(0, th.glow + '88'); rg.addColorStop(1, 'transparent');
+  var rg = ctx.createRadialGradient(w / 2, cy, 40, w / 2, cy, 520);
+  rg.addColorStop(0, th.dark ? 'rgba(255,255,255,.2)' : 'rgba(24,90,189,.14)'); rg.addColorStop(1, 'rgba(255,255,255,0)');
   ctx.fillStyle = rg; ctx.fillRect(0, 0, w, h);
-  ctx.translate(w / 2, cy);
-  for (var i = 0; i < 24; i++) {
-    ctx.rotate(Math.PI * 2 / 24);
-    ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(-45, -1000); ctx.lineTo(45, -1000); ctx.closePath();
-    ctx.fillStyle = 'rgba(255,255,255,.035)'; ctx.fill();
+  ctx.save();
+  ctx.strokeStyle = th.dark ? 'rgba(255,255,255,.08)' : 'rgba(24,90,189,.09)'; ctx.lineWidth = 2;
+  [[w + 40, -30, 360], [w + 40, -30, 270], [-70, h - 150, 320], [-70, h - 150, 230]].forEach(function (c) { ctx.beginPath(); ctx.arc(c[0], c[1], c[2], 0, Math.PI * 2); ctx.stroke(); });
+  ctx.fillStyle = th.dark ? 'rgba(255,255,255,.13)' : 'rgba(24,90,189,.16)';
+  for (var i = 0; i < 6; i++) for (var j = 0; j < 4; j++) { ctx.beginPath(); ctx.arc(w - 210 + i * 26, 250 + j * 26, 3, 0, Math.PI * 2); ctx.fill(); }
+  ctx.fillStyle = th.dark ? 'rgba(255,255,255,.05)' : 'rgba(24,90,189,.06)';
+  for (var k = 0; k < 3; k++) { ctx.beginPath(); ctx.moveTo(0, h - 90 - k * 46); ctx.lineTo(220 + k * 40, h - 90 - k * 46 - 120); ctx.lineTo(260 + k * 40, h - 90 - k * 46 - 120); ctx.lineTo(0, h - 40 - k * 46); ctx.closePath(); ctx.fill(); }
+  ctx.restore();
+  if (!th.dark) { ctx.fillStyle = th.acc; ctx.fillRect(0, 0, w, 14); ctx.fillRect(0, h - 14, w, 14); }
+  ctx.strokeStyle = th.dark ? 'rgba(255,255,255,.2)' : 'rgba(24,90,189,.2)'; ctx.lineWidth = 2; rr(ctx, 30, 30, w - 60, h - 60, 26); ctx.stroke();
+}
+
+function drawLogos(ctx, w, th, greet) {
+  var n = posterLogo.name, s = posterLogo.sub, m = 78, top = 70;
+  if (n) { var k = Math.min(300 / n.width, 118 / n.height); ctx.save(); ctx.shadowColor = 'rgba(0,0,0,.25)'; ctx.shadowBlur = 14; ctx.drawImage(n, m, top, n.width * k, n.height * k); ctx.restore(); }
+  else ctext(ctx, 'KADHARVA', m, top + 70, "800 52px 'Poppins', sans-serif", th.text, 'left', 3);
+  if (s) { var k2 = Math.min(280 / s.width, 100 / s.height), sw = s.width * k2, sh = s.height * k2; ctx.save(); ctx.shadowColor = 'rgba(0,0,0,.25)'; ctx.shadowBlur = 14; ctx.drawImage(s, w - m - sw, top + 10, sw, sh); ctx.restore(); }
+  else ctext(ctx, 'CAMPUS ARTS FEST 2K26', w - m, top + 70, "700 22px 'Poppins', sans-serif", th.acc, 'right', 3);
+  ctx.strokeStyle = th.dark ? 'rgba(255,255,255,.28)' : th.line; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(m, 222); ctx.lineTo(w - m, 222); ctx.stroke();
+  ctx.fillStyle = th.acc; ctx.fillRect(m, 219, 110, 6);
+  if (greet) { ctx.font = "700 26px 'Poppins', sans-serif"; var fs = fitFont(ctx, greet.toUpperCase(), w - 2 * m, 26, '700', "'Poppins', sans-serif", 16); ctext(ctx, greet.toUpperCase(), w / 2, 280, '700 ' + fs + "px 'Poppins', sans-serif", th.acc, 'center', 6); }
+}
+
+function drawPhoto(ctx, w, h, th, name) {
+  var cx = w * pv('pmPhotoX', 50) / 100, cy = h * pv('pmPhotoY', 44) / 100, r = Number(pv('pmPhotoSize', 210));
+  var shape = pv('pmShape', 'circle'), acc = th ? th.acc : '#FDB827';
+  var path = function (rad) { ctx.beginPath(); if (shape === 'circle') ctx.arc(cx, cy, rad, 0, Math.PI * 2); else ctx.roundRect(cx - rad, cy - rad, rad * 2, rad * 2, shape === 'rounded' ? rad * 0.26 : 8); };
+  ctx.save(); ctx.shadowColor = 'rgba(0,0,0,.35)'; ctx.shadowBlur = 44; ctx.shadowOffsetY = 16; path(r + 12); ctx.fillStyle = '#fff'; ctx.fill(); ctx.restore();
+  ctx.save(); path(r); ctx.clip();
+  if (posterPhoto) {
+    var s = Math.max(2 * r / posterPhoto.width, 2 * r / posterPhoto.height), iw = posterPhoto.width * s, ih = posterPhoto.height * s;
+    ctx.drawImage(posterPhoto, cx - iw / 2, cy - ih / 2, iw, ih);
+  } else {
+    var g = ctx.createLinearGradient(cx, cy - r, cx, cy + r); g.addColorStop(0, '#EAF1FC'); g.addColorStop(1, '#C9DAF3');
+    ctx.fillStyle = g; ctx.fillRect(cx - r, cy - r, 2 * r, 2 * r);
+    var ini = String(name).split(/\s+/).filter(Boolean).slice(0, 2).map(function (x) { return x[0]; }).join('').toUpperCase() || '★';
+    ctext(ctx, ini, cx, cy + r * 0.27, '800 ' + Math.round(r * 0.78) + "px 'Poppins', sans-serif", '#185ABD', 'center', 2);
   }
   ctx.restore();
-
-  ctx.save();
-  ctx.beginPath(); ctx.rect(34, 34, w - 68, h - 68); ctx.clip();
-  ctx.strokeStyle = acc; ctx.globalAlpha = 0.09; ctx.lineWidth = 1.5;
-  for (var y = 0, row = 0; y < h + 120; y += 110, row++)
-    for (var x = (row % 2) * 60; x < w + 120; x += 120) { star(ctx, x, y, 36); ctx.stroke(); }
-  ctx.restore();
-
-  var fg = ctx.createLinearGradient(0, 0, w, h);
-  fg.addColorStop(0, '#fff2b8'); fg.addColorStop(0.5, acc); fg.addColorStop(1, '#b8860b');
-  ctx.strokeStyle = fg; ctx.lineWidth = 9; ctx.strokeRect(34, 34, w - 68, h - 68);
-  ctx.strokeStyle = 'rgba(255,255,255,.35)'; ctx.lineWidth = 2; ctx.strokeRect(58, 58, w - 116, h - 116);
-  [[58, 58], [w - 58, 58], [58, h - 58], [w - 58, h - 58]].forEach(function (p) {
-    ctx.save(); ctx.translate(p[0], p[1]); ctx.rotate(Math.PI / 4); ctx.fillStyle = acc; ctx.fillRect(-13, -13, 26, 26); ctx.restore();
-  });
-
-  drawHeader(ctx, w, d.sub, d.greet, acc, false);
-  drawPhoto(ctx, w, h, th, d.name);
-  drawRibbon(ctx, w, 765, d.pos, acc);
-
-  ctx.textAlign = 'center'; ctx.fillStyle = '#fff';
-  ctx.save(); ctx.shadowColor = 'rgba(0,0,0,.5)'; ctx.shadowBlur = 14;
-  fitFont(ctx, d.name, 900, 80, '800', "'Poppins', sans-serif", 34);
-  ctx.fillText(d.name, w / 2, 925);
-  ctx.restore();
-
-  var chip = 'TEAM ' + d.team.toUpperCase() + '  •  ' + d.cat.toUpperCase();
-  spaced(ctx, 2); ctx.font = "700 28px 'Poppins', sans-serif";
-  var cw = Math.min(860, ctx.measureText(chip).width + 70);
-  ctx.fillStyle = P_TEAM[d.team] || acc;
-  ctx.beginPath(); ctx.roundRect((w - cw) / 2, 954, cw, 62, 31); ctx.fill();
-  ctx.strokeStyle = 'rgba(255,255,255,.7)'; ctx.lineWidth = 2; ctx.stroke();
-  ctx.fillStyle = '#fff'; ctx.fillText(chip, w / 2, 995); spaced(ctx, 0);
-
-  ctx.fillStyle = 'rgba(255,255,255,.09)'; ctx.strokeStyle = acc; ctx.lineWidth = 2;
-  ctx.beginPath(); ctx.roundRect(110, 1050, w - 220, 128, 18); ctx.fill(); ctx.stroke();
-  spaced(ctx, 4); ctx.fillStyle = acc; ctx.font = "600 20px 'Poppins', sans-serif";
-  ctx.fillText('COMPETITION ITEM', w / 2, 1088); spaced(ctx, 0);
-  ctx.fillStyle = '#fff';
-  fitFont(ctx, d.prog, w - 300, 50, '800', "'Poppins', sans-serif", 24);
-  ctx.fillText(d.prog, w / 2, 1150);
-
-  ctx.fillStyle = 'rgba(255,255,255,.85)'; ctx.font = "500 21px 'Poppins', sans-serif";
-  ctx.fillText('MMO Orphanage  •  Fest Organizing Committee', w / 2, 1232);
-  ctx.fillStyle = acc; ctx.font = "600 17px 'Poppins', sans-serif"; spaced(ctx, 3);
-  ctx.fillText('OFFICIAL RESULT PUBLICATION', w / 2, 1262); spaced(ctx, 0);
+  path(r + 12); ctx.lineWidth = 3; ctx.strokeStyle = acc; ctx.stroke();
+  path(r + 30); ctx.lineWidth = 2; ctx.strokeStyle = th && !th.dark ? 'rgba(24,90,189,.3)' : 'rgba(255,255,255,.4)'; ctx.stroke();
+  return { cx: cx, cy: cy, r: r };
 }
 
-/* ---------- user-uploaded PNG poster ---------- */
-function drawCustom(ctx, c, d) {
-  var w = c.width, h = c.height, light = pv('pmTextColor', 'light') === 'light';
-  ctx.drawImage(posterBg, 0, 0, w, h);
-  var col = light ? '#ffffff' : '#111827', off = Number(pv('pmTextY', 0));
-  if (document.getElementById('pmShowHeader').checked) drawHeader(ctx, w, d.sub, d.greet, '#f5c451', light);
-  drawPhoto(ctx, w, h, null, d.name);
-  drawRibbon(ctx, w, 765 + off, d.pos, '#f5c451');
-  ctx.textAlign = 'center';
-  ctx.save();
-  if (light) { ctx.shadowColor = 'rgba(0,0,0,.6)'; ctx.shadowBlur = 14; }
-  ctx.fillStyle = col;
-  fitFont(ctx, d.name, 900, 80, '800', "'Poppins', sans-serif", 34);
-  ctx.fillText(d.name, w / 2, 925 + off);
-  spaced(ctx, 2);
-  fitFont(ctx, 'TEAM ' + d.team.toUpperCase() + ' • ' + d.cat.toUpperCase(), 880, 30, '700', "'Poppins', sans-serif", 18);
-  ctx.fillText('TEAM ' + d.team.toUpperCase() + ' • ' + d.cat.toUpperCase(), w / 2, 985 + off);
+function drawMedal(ctx, ph, info, th) {
+  var shape = pv('pmShape', 'circle'), k = shape === 'circle' ? 0.74 : 0.9;
+  var x = ph.cx + ph.r * k, y = ph.cy + ph.r * k, R = 76;
+  if (info) {
+    ctx.save(); ctx.shadowColor = 'rgba(0,0,0,.3)'; ctx.shadowBlur = 16; ctx.shadowOffsetY = 6;
+    [[-34, '#C8102E'], [10, '#185ABD']].forEach(function (t, i) {
+      ctx.beginPath(); ctx.moveTo(x + t[0] - 8, y + R - 16); ctx.lineTo(x + t[0] + 36, y + R - 16); ctx.lineTo(x + t[0] + 36, y + R + 48); ctx.lineTo(x + t[0] + 14, y + R + 34); ctx.lineTo(x + t[0] - 8, y + R + 48); ctx.closePath(); ctx.fillStyle = t[1]; ctx.fill();
+    });
+    ctx.restore();
+  }
+  ctx.save(); ctx.shadowColor = 'rgba(0,0,0,.35)'; ctx.shadowBlur = 20; ctx.shadowOffsetY = 8;
+  ctx.beginPath(); ctx.arc(x, y, R, 0, Math.PI * 2); var g = ctx.createLinearGradient(x - R, y - R, x + R, y + R);
+  if (info) { g.addColorStop(0, info.c1); g.addColorStop(1, info.c2); } else { g.addColorStop(0, '#5C9BEA'); g.addColorStop(1, '#185ABD'); }
+  ctx.fillStyle = g; ctx.fill(); ctx.restore();
+  ctx.lineWidth = 6; ctx.strokeStyle = info ? info.edge : '#0F3F8F'; ctx.beginPath(); ctx.arc(x, y, R, 0, Math.PI * 2); ctx.stroke();
+  ctx.lineWidth = 2; ctx.strokeStyle = 'rgba(255,255,255,.7)'; ctx.beginPath(); ctx.arc(x, y, R - 12, 0, Math.PI * 2); ctx.stroke();
+  if (info) {
+    ctext(ctx, info.n, x - 8, y + 20, "800 74px 'Poppins', sans-serif", info.edge, 'center');
+    ctext(ctx, info.suf, x + 34, y - 14, "800 24px 'Poppins', sans-serif", info.edge, 'center');
+    ctext(ctx, 'PLACE', x, y + 46, "700 14px 'Poppins', sans-serif", info.edge, 'center', 3);
+  } else {
+    ctext(ctx, '★', x, y + 20, "800 62px 'Poppins', sans-serif", '#FFFFFF', 'center');
+  }
+}
+
+function drawIdentity(ctx, w, th, d, off, panel) {
+  var name = d.name, y = 924 + off;
+  ctx.save(); if (th.dark) { ctx.shadowColor = 'rgba(0,0,0,.35)'; ctx.shadowBlur = 12; ctx.shadowOffsetY = 3; }
+  var fs = fitFont(ctx, name, w - 150, 84, '800', "'Poppins', sans-serif", 36);
+  ctext(ctx, name, w / 2, y, '800 ' + fs + "px 'Poppins', sans-serif", th.text, 'center');
+  ctx.restore();
+  var chips = [['TEAM ' + d.team.toUpperCase(), P_TEAM[d.team] || th.acc, '#FFFFFF'], [String(d.cat).toUpperCase(), th.dark ? 'rgba(255,255,255,.2)' : '#E7EEF9', th.dark ? '#FFFFFF' : '#185ABD']];
+  ctx.font = "700 24px 'Poppins', sans-serif"; spaced(ctx, 2);
+  var ws = chips.map(function (c) { return ctx.measureText(c[0]).width + 56; }), total = ws[0] + ws[1] + 16, x = (w - total) / 2, cy = y + 40;
+  chips.forEach(function (c, i) { rr(ctx, x, cy, ws[i], 54, 27); ctx.fillStyle = c[1]; ctx.fill(); ctext(ctx, c[0], x + ws[i] / 2, cy + 36, "700 24px 'Poppins', sans-serif", c[2], 'center', 2); x += ws[i] + 16; });
   spaced(ctx, 0);
-  fitFont(ctx, d.prog, 900, 48, '800', "'Poppins', sans-serif", 22);
-  ctx.fillText(d.prog, w / 2, 1060 + off);
-  ctx.restore();
+
+  var cardY = 1046 + off, cardH = 150, cx = 78, cw = w - 156;
+  if (panel === false) return;
+  ctx.save(); if (!th.dark) { ctx.shadowColor = 'rgba(24,90,189,.16)'; ctx.shadowBlur = 26; ctx.shadowOffsetY = 8; }
+  rr(ctx, cx, cardY, cw, cardH, 22); ctx.fillStyle = th.card; ctx.fill(); ctx.restore();
+  ctx.lineWidth = 2; ctx.strokeStyle = th.line; rr(ctx, cx, cardY, cw, cardH, 22); ctx.stroke();
+  ctx.strokeStyle = th.line; ctx.beginPath(); ctx.moveTo(w * 0.62, cardY + 28); ctx.lineTo(w * 0.62, cardY + cardH - 28); ctx.stroke();
+  ctext(ctx, 'COMPETITION ITEM', cx + 34, cardY + 46, "700 18px 'Poppins', sans-serif", th.acc, 'left', 4);
+  var iw = w * 0.62 - cx - 60, ifs = fitFont(ctx, d.prog, iw, 46, '800', "'Poppins', sans-serif", 22);
+  ctext(ctx, d.prog, cx + 34, cardY + 106, '800 ' + ifs + "px 'Poppins', sans-serif", th.text, 'left');
+  ctext(ctx, 'RESULT', w * 0.62 + 32, cardY + 46, "700 18px 'Poppins', sans-serif", th.acc, 'left', 4);
+  var res = String(d.pos).toUpperCase(), rw = w - 78 - (w * 0.62 + 32) - 30, rfs = fitFont(ctx, res, rw, 36, '800', "'Poppins', sans-serif", 18);
+  ctext(ctx, res, w * 0.62 + 32, cardY + 104, '800 ' + rfs + "px 'Poppins', sans-serif", th.text, 'left');
 }
 
-/* ---------- entry point (replaces the old one) ---------- */
+function drawFooter(ctx, w, h, th) {
+  ctx.strokeStyle = th.dark ? 'rgba(255,255,255,.25)' : th.line; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(78, 1246); ctx.lineTo(w - 78, 1246); ctx.stroke();
+  ctext(ctx, 'KADHARVA  ·  CAMPUS ARTS FEST 2K26', 78, 1290, "700 19px 'Poppins', sans-serif", th.text, 'left', 2);
+  ctext(ctx, 'OFFICIAL RESULT PUBLICATION', w - 78, 1290, "600 16px 'Poppins', sans-serif", th.muted, 'right', 3);
+}
+
+/* built-in designs */
+function drawTheme(ctx, c, d) {
+  var w = c.width, h = c.height, th = themeFor(d), cy = h * pv('pmPhotoY', 44) / 100;
+  drawBackdrop(ctx, w, h, th, cy);
+  drawLogos(ctx, w, th, d.greet);
+  var ph = drawPhoto(ctx, w, h, th, d.name);
+  drawMedal(ctx, ph, rankInfo(d.pos), th);
+  drawIdentity(ctx, w, th, d, 0, true);
+  drawFooter(ctx, w, h, th);
+}
+
+/* your own uploaded PNG poster: logos / header are optional, the rest is placed on top */
+function drawCustom(ctx, c, d) {
+  var w = c.width, h = c.height, light = pv('pmTextColor', 'light') === 'light', off = Number(pv('pmTextY', 0));
+  var th = { dark: light, text: light ? '#FFFFFF' : '#111827', muted: light ? 'rgba(255,255,255,.8)' : '#334155', acc: '#FDB827', card: light ? 'rgba(10,20,40,.55)' : 'rgba(255,255,255,.78)', line: light ? 'rgba(255,255,255,.3)' : 'rgba(0,0,0,.15)' };
+  ctx.drawImage(posterBg, 0, 0, w, h);
+  if (document.getElementById('pmShowHeader').checked) drawLogos(ctx, w, th, d.greet);
+  var ph = drawPhoto(ctx, w, h, th, d.name);
+  drawMedal(ctx, ph, rankInfo(d.pos), th);
+  drawIdentity(ctx, w, th, d, off, true);
+}
+
+/* ---------- entry point ---------- */
 function drawPosterPreview() {
   var c = document.getElementById('posterCanvas'), ctx = c.getContext('2d');
   var posSel = pv('pmPosition', 'FIRST PLACE'), rank = pv('pmRankText', '');
@@ -2771,21 +2785,83 @@ function rotBuild(s) {
   return out + html + '</tbody></table></div>';
 }
 
+/* Shrinks row height, font size and column widths so every student fits on one screen (no scrolling). */
+function rotFit(box, availH) {
+  if (!box) return;
+  var wrap = box.querySelector('.rot-wrap'), tbl = wrap && wrap.querySelector('table');
+  if (!tbl || !tbl.tBodies[0] || !tbl.tBodies[0].rows.length) return;
+  var rows = tbl.tBodies[0].rows.length, vts = tbl.querySelectorAll('th.vt'), longest = 0;
+  Array.prototype.forEach.call(vts, function (t) { longest = Math.max(longest, (t.textContent || '').trim().length); });
+  var headH = vts.length ? Math.min(128, Math.max(58, longest * 6.8 + 16)) : 34;
+  var rh = Math.max(19, Math.min(46, Math.floor((availH - headH - 6) / rows)));
+  var fs = Math.max(10, Math.min(15, Math.round(rh * 0.46)));
+  wrap.style.maxHeight = 'none';
+  /* column widths: small # and reg columns, wider program columns, the rest goes to the student name */
+  var n = vts.length, rest = wrap.clientWidth - 36 - 110 - 76, colW = n ? Math.max(40, Math.min(104, Math.floor((rest - 210) / n))) : 0;
+  tbl.style.tableLayout = 'fixed'; tbl.style.width = '100%';
+  var hc = tbl.tHead.rows[0].cells; hc[0].style.width = '36px'; hc[1].style.width = 'auto'; hc[2].style.width = '110px'; hc[hc.length - 1].style.width = '76px';
+  var apply = function (f) {
+    tbl.style.fontSize = f + 'px';
+    Array.prototype.forEach.call(tbl.tBodies[0].rows, function (tr) {
+      tr.style.height = rh + 'px';
+      Array.prototype.forEach.call(tr.cells, function (td) { td.style.padding = '0 7px'; td.style.fontSize = f + 'px'; td.style.lineHeight = '1.1'; });
+    });
+    Array.prototype.forEach.call(vts, function (t) {
+      t.style.height = headH + 'px'; t.style.width = colW + 'px'; t.style.padding = '6px 2px';
+      var d = t.firstElementChild; if (d) { d.style.maxHeight = (headH - 10) + 'px'; d.style.fontSize = Math.max(10, Math.min(13, f - 1)) + 'px'; d.style.color = '#111'; }
+    });
+  };
+  apply(fs);
+  var guard = 0;
+  while (wrap.scrollWidth > wrap.clientWidth + 2 && fs > 9 && guard++ < 6) { fs--; apply(fs); }
+}
+function rotAvail() { return Math.max(260, window.innerHeight - 66 - 185); }
+
 function renderStudentProgramMatrix() {
   var box = document.getElementById('studentProgramMatrixContainer');
-  if (!box) return;
   var slides = rotSlides();
-  box.innerHTML = rotBuild(slides[rotIndex]);
+  if (box) { box.innerHTML = rotBuild(slides[rotIndex]); rotFit(box, rotAvail()); }
   var cnt = document.getElementById('rotCount');
   if (cnt) cnt.textContent = (rotIndex + 1) + ' / ' + slides.length;
+  rotRenderDisplay();
   if (!rotTimer) rotTimer = setInterval(rotTick, 1000);
 }
+window.addEventListener('resize', function () { var b = document.getElementById('studentProgramMatrixContainer'); if (b) rotFit(b, rotAvail()); rotRenderDisplay(); });
+
+/* ---------- full-screen display mode (for a TV / projector) ---------- */
+function rotDisplayOpen() {
+  if (document.getElementById('rotDisplay')) return;
+  var d = document.createElement('div'); d.id = 'rotDisplay';
+  d.innerHTML = '<div class="rd-top"><div class="rd-logos"><img class="js-logo-name" src="' + festImgUrl(FEST_NAME_IMG) + '" alt=""><img class="js-logo-sub" src="' + festImgUrl(FEST_SUB_IMG) + '" alt=""></div>' +
+    '<div class="rd-title">LIVE SCORECARD</div><div class="rd-ctl"><button onclick="rotPrev()" title="Previous"><i class="fa-solid fa-backward-step"></i></button><button id="rdPause" onclick="rotTogglePause()" title="Pause / play"><i class="fa-solid fa-pause"></i></button><button onclick="rotNext()" title="Next"><i class="fa-solid fa-forward-step"></i></button><button class="x" onclick="rotDisplayClose()" title="Close (Esc)"><i class="fa-solid fa-xmark"></i></button></div></div>' +
+    '<div id="rotDispBody"></div><div class="rd-prog"><i id="rdBar"></i></div>';
+  document.body.appendChild(d);
+  document.documentElement.style.overflow = 'hidden';
+  try { if (d.requestFullscreen) d.requestFullscreen(); } catch (e) { }
+  rotRenderDisplay();
+}
+function rotDisplayClose() {
+  var d = document.getElementById('rotDisplay'); if (!d) return;
+  d.parentNode.removeChild(d); document.documentElement.style.overflow = '';
+  try { if (document.fullscreenElement) document.exitFullscreen(); } catch (e) { }
+}
+function rotRenderDisplay() {
+  var d = document.getElementById('rotDisplay'); if (!d) return;
+  var body = document.getElementById('rotDispBody');
+  body.innerHTML = rotBuild(rotSlides()[rotIndex]);
+  var top = d.querySelector('.rd-top').offsetHeight, banner = body.firstElementChild ? body.firstElementChild.offsetHeight + 14 : 0;
+  rotFit(body, body.clientHeight - banner - 8);
+  var p = document.getElementById('rdPause'); if (p) p.innerHTML = rotPaused ? '<i class="fa-solid fa-play"></i>' : '<i class="fa-solid fa-pause"></i>';
+}
+document.addEventListener('keydown', function (e) { if (e.key === 'Escape') rotDisplayClose(); });
+document.addEventListener('fullscreenchange', function () { if (!document.fullscreenElement) rotDisplayClose(); });
 
 function rotTick() {
   if (rotPaused) return;
   rotLeft--;
-  var bar = document.getElementById('rotBar');
-  if (bar) bar.style.width = (100 - (rotLeft / rotSeconds) * 100) + '%';
+  var pct = (100 - (rotLeft / rotSeconds) * 100) + '%';
+  var bar = document.getElementById('rotBar'); if (bar) bar.style.width = pct;
+  var rb = document.getElementById('rdBar'); if (rb) rb.style.width = pct;
   if (rotLeft <= 0) rotNext();
 }
 
@@ -2793,8 +2869,8 @@ function rotGo(i) {
   var n = rotSlides().length;
   rotIndex = (i + n) % n;
   rotLeft = rotSeconds;
-  var bar = document.getElementById('rotBar');
-  if (bar) bar.style.width = '0%';
+  var bar = document.getElementById('rotBar'); if (bar) bar.style.width = '0%';
+  var rb = document.getElementById('rdBar'); if (rb) rb.style.width = '0%';
   renderStudentProgramMatrix();
 }
 function rotNext() { rotGo(rotIndex + 1); }
@@ -4140,6 +4216,10 @@ showView = function (id) {
   Array.prototype.forEach.call(document.querySelectorAll('#sideNav a[data-v]'), function (a) { a.classList.toggle('on', a.getAttribute('data-v') === id); });
   var t = document.getElementById('tbTitle'); if (t) t.textContent = PAGE_TITLES[id] || '';
   window.scrollTo(0, 0);
+  if (id === 'officialView' && !(typeof adminLoggedIn === 'function' && adminLoggedIn())) {
+    showToast('Official Portal', 'Please enter your login credentials to continue.', 'warn');
+    setTimeout(function () { var u = document.getElementById('officialUser'); if (u) u.focus(); }, 300);
+  }
 };
 
 /* ---------- admin privacy: official tools only show after the existing admin login ---------- */
@@ -4226,32 +4306,82 @@ function openPosterBlank() { openPosterStudioWithData('', 'Qahira', 'Senior', ''
 SEC.tabToppers = { t: 'Toppers', d: 'Top scorers per category, taken from published results.', c: '', i: 'fa-crown', s: function () { return ''; } };
 SEC.tabPoster = { t: 'Poster Studio', d: 'Winner posters with your own PNG design, photo, item and rank.', c: '', i: 'fa-wand-magic-sparkles', s: function () { return ''; } };
 SEC.tabSettings = { t: 'Settings & Backup', d: 'Cloud sync, data counts, export and backup tools.', c: '', i: 'fa-gear', s: function () { return ''; } };
-QN_IDS = ['festControl', 'tabPrograms', 'tabCandidates', 'tabEntries', 'tabSchedule', 'tabJudges', 'tabResult', 'tabAnnounce', 'tabAnalytics', 'tabPointTable', 'tabToppers', 'tabPoster', 'tabSettings'];
 
-/* ---------- admin accordion: sections stay closed until you click them (one open at a time) ---------- */
-function adminSections() { return Array.prototype.slice.call(document.querySelectorAll('#officialContent .official-tab-content')); }
-function markQuick(id) { Array.prototype.forEach.call(document.querySelectorAll('#quickNav button'), function (b) { b.classList.toggle('on', b.getAttribute('data-go') === id); }); }
-function collapseAdminSections() { adminSections().forEach(function (s) { s.classList.add('collapsed'); }); markQuick(''); }
-function scrollToEl(el) { if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - 84, behavior: 'smooth' }); }
-function openAdminSection(id) {
-  adminSections().forEach(function (s) { s.classList.toggle('collapsed', s.id !== id); });
-  markQuick(id);
-  var el = document.getElementById(id); if (el) setTimeout(function () { scrollToEl(el); }, 80);
+
+/* ---------- admin: main menu first, each feature opens on its own ---------- */
+var ADMIN_TILES = [
+  ['festControl', 'fa-gauge-high', 'Fest Control', 'Overview, leaderboard, pending work and quick actions', function () { return ovNumbers().programs + ' programs'; }],
+  ['tabPrograms', 'fa-list-check', 'Programs', 'Add, edit and organise competition items', function () { return festPrograms.length + ' programs'; }],
+  ['tabCandidates', 'fa-users', 'Candidates', 'Register, edit and search candidates', function () { return festCandidates.length + ' candidates'; }],
+  ['tabEntries', 'fa-square-check', 'Entries', 'Tick the programs each candidate takes part in', function () { return ovNumbers().entries + ' entries'; }],
+  ['tabSchedule', 'fa-calendar-days', 'Schedule', 'Program timetable, time and venue', function () { return festSchedule.length + ' items'; }],
+  ['tabJudges', 'fa-scale-balanced', 'Judges & Print', 'Judges slips, custom sheets and printing', function () { return ''; }],
+  ['tabResult', 'fa-award', 'Results', 'Enter ranks and grades for every item', function () { return realResults().length + ' records'; }],
+  ['tabAnnounce', 'fa-bullhorn', 'Announcements', 'Publish results and send messages', function () { return Object.keys(draftGroups()).length + ' drafts'; }],
+  ['tabAnalytics', 'fa-chart-pie', 'Analytics', 'Result statistics and charts', function () { return ''; }],
+  ['tabPointTable', 'fa-ranking-star', 'Team Points', 'Standings and manual score adjustment', function () { return ''; }],
+  ['tabToppers', 'fa-crown', 'Toppers', 'Top scorers by category', function () { return ''; }],
+  ['tabPoster', 'fa-wand-magic-sparkles', 'Poster Studio', 'Winner posters with photos and designs', function () { return ''; }],
+  ['tabSettings', 'fa-gear', 'Settings & Backup', 'Cloud sync, exports and backup', function () { return ''; }]
+];
+var ADMIN_MODULES = ADMIN_TILES.map(function (t) { return t[0]; });
+function adminEls() { return ADMIN_MODULES.map(function (id) { return document.getElementById(id); }).filter(Boolean); }
+function renderAdminMenu() {
+  var box = document.getElementById('adminMenu'); if (!box) return;
+  box.innerHTML = ADMIN_TILES.map(function (t) {
+    var st = ''; try { st = t[4](); } catch (e) { }
+    return '<button type="button" class="am-tile" onclick="adminOpen(\'' + t[0] + '\')"><span class="am-ic"><i class="fa-solid ' + t[1] + '"></i></span><span class="am-tx"><b>' + t[2] + '</b><small>' + t[3] + '</small></span>' + (st ? '<span class="am-st">' + st + '</span>' : '') + '<i class="fa-solid fa-chevron-right am-go"></i></button>';
+  }).join('');
+}
+function adminMenuShow() {
+  adminEls().forEach(function (e) { e.classList.remove('mod-open'); });
+  var m = document.getElementById('adminMenu'), b = document.getElementById('adminBar'); if (m) m.style.display = ''; if (b) b.style.display = 'none';
+  var sub = document.getElementById('adminSub'); if (sub) sub.textContent = 'Choose what you want to manage.';
+  renderAdminMenu(); window.scrollTo(0, 0);
+}
+function adminOpen(id) {
+  var t = ADMIN_TILES.filter(function (x) { return x[0] === id; })[0]; if (!t) return;
+  adminEls().forEach(function (e) { e.classList.toggle('mod-open', e.id === id); });
+  var m = document.getElementById('adminMenu'), b = document.getElementById('adminBar'); if (m) m.style.display = 'none'; if (b) b.style.display = 'flex';
+  var c = document.getElementById('adminCrumb'); if (c) c.innerHTML = '<i class="fa-solid ' + t[1] + '"></i> ' + t[2];
+  var sub = document.getElementById('adminSub'); if (sub) sub.textContent = t[3];
+  window.scrollTo(0, 0);
 }
 adminGo = function (id) {
   showView('officialView');
-  setTimeout(function () {
-    if (!adminLoggedIn()) { alert('Please log in as admin first.'); return; }
-    if (id === 'festControl') { collapseAdminSections(); scrollToEl(document.getElementById('festControl')); } else openAdminSection(id);
-  }, 80);
+  setTimeout(function () { if (!adminLoggedIn()) return; if (ADMIN_MODULES.indexOf(id) >= 0) adminOpen(id); else adminMenuShow(); }, 80);
 };
-document.addEventListener('click', function (e) {
-  var h = e.target.closest && e.target.closest('.sec-head'); if (!h) return;
-  var p = h.parentElement; if (!p || !p.classList.contains('official-tab-content')) return;
-  if (p.classList.contains('collapsed')) openAdminSection(p.id); else { p.classList.add('collapsed'); markQuick(''); }
-});
+/* inside a feature, long pages are split into short tabs (for example: Add / List) */
+var MOD_TABS = {
+  tabPrograms: { n: ['Add Program', 'Program List'], at: 'H4' }, tabCandidates: { n: ['Register Candidates', 'Candidate Directory'], at: 'H4' },
+  tabSchedule: { n: ['Add Schedule Item', 'Schedule List'], at: 1 }, tabJudges: { n: ['Judges Slips', 'Custom Slip Sheet'], at: 1 },
+  tabResult: { n: ['Enter Result', 'Evaluated Results'], at: 'H4' }, tabAnnounce: { n: ['Announce Results', 'Send a Message'], at: 1 },
+  tabPointTable: { n: ['Manual Adjustment', 'Standings'], at: 'H4' }
+};
+function setupModuleTabs() {
+  Object.keys(MOD_TABS).forEach(function (id) {
+    var m = document.getElementById(id); if (!m || m.querySelector('.mod-tabs')) return;
+    var cfg = MOD_TABS[id], kids = Array.prototype.filter.call(m.children, function (k) { return !k.classList.contains('sec-head'); }), cut = -1;
+    if (cfg.at === 'H4') { for (var i = 0; i < kids.length; i++) if (kids[i].tagName === 'H4') { cut = i; break; } } else cut = cfg.at;
+    if (cut <= 0 || cut >= kids.length) return;
+    var p0 = document.createElement('div'), p1 = document.createElement('div'); p0.className = 'mod-pane on'; p1.className = 'mod-pane';
+    kids.forEach(function (k, i) { (i < cut ? p0 : p1).appendChild(k); });
+    var bar = document.createElement('div'); bar.className = 'mod-tabs';
+    bar.innerHTML = cfg.n.map(function (t, i) { return '<button type="button" class="mod-tab' + (i ? '' : ' on') + '" data-i="' + i + '">' + t + '</button>'; }).join('');
+    var head = m.querySelector('.sec-head'); if (head) head.after(bar); else m.prepend(bar);
+    bar.after(p0); p0.after(p1);
+    bar.addEventListener('click', function (e) {
+      var b = e.target.closest('.mod-tab'); if (!b) return; var n = +b.getAttribute('data-i');
+      bar.querySelectorAll('.mod-tab').forEach(function (x, j) { x.classList.toggle('on', j === n); }); p0.classList.toggle('on', n === 0); p1.classList.toggle('on', n === 1);
+    });
+  });
+}
 var _authAcc = authOfficial;
-authOfficial = function () { _authAcc.apply(this, arguments); if (adminLoggedIn()) { collapseAdminSections(); window.scrollTo(0, 0); } };
+authOfficial = function () { _authAcc.apply(this, arguments); if (adminLoggedIn()) adminMenuShow(); };
+
+/* login screen: Enter key submits, eye icon shows / hides the password */
+document.addEventListener('keydown', function (e) { if (e.key === 'Enter' && e.target && (e.target.id === 'officialUser' || e.target.id === 'officialPass')) authOfficial(); });
+function togglePw() { var i = document.getElementById('officialPass'), e = document.getElementById('pwEye'); if (!i) return; var show = i.type === 'password'; i.type = show ? 'text' : 'password'; if (e) e.className = show ? 'fa-regular fa-eye-slash' : 'fa-regular fa-eye'; }
 
 /* Ctrl+K focuses the search box */
 focusSearch = function () { var i = document.getElementById('gSearch'); if (i) { i.focus(); i.select(); } };
@@ -4263,7 +4393,7 @@ refreshAll = function () {
   _refreshAllShell.apply(this, arguments);
   [renderPublicResults, renderAdminToppers, renderPosterWinners, renderSettingsInfo, decorateAdminSections, syncAdminUI].forEach(function (fn) { try { fn(); } catch (err) { console.error(err); } });
 };
-try { decorateAdminSections(); collapseAdminSections(); renderPublicResults(); syncAdminUI(); } catch (err) { console.error(err); }
+try { decorateAdminSections(); setupModuleTabs(); renderPublicResults(); syncAdminUI(); } catch (err) { console.error(err); }
 
 </script>
 <script>

@@ -13,28 +13,8 @@ var posterLogo = { name: null, sub: null };
     });
   });
 })();
-function drawLogoHeader(ctx, w, greet, acc) {
-  var n = posterLogo.name, s = posterLogo.sub, y = 62;
-  var k = Math.min(560 / n.width, 140 / n.height), nw = n.width * k, nh = n.height * k;
-  ctx.save(); ctx.shadowColor = 'rgba(0,0,0,.5)'; ctx.shadowBlur = 18; ctx.drawImage(n, (w - nw) / 2, y, nw, nh); ctx.restore();
-  y += nh + 8;
-  if (s) { var k2 = Math.min(380 / s.width, 62 / s.height), sw = s.width * k2, sh = s.height * k2; ctx.drawImage(s, (w - sw) / 2, y, sw, sh); y += sh + 12; }
-  ctx.strokeStyle = acc; ctx.lineWidth = 2;
-  ctx.beginPath(); ctx.moveTo(w / 2 - 300, y); ctx.lineTo(w / 2 - 24, y); ctx.moveTo(w / 2 + 24, y); ctx.lineTo(w / 2 + 300, y); ctx.stroke();
-  ctx.save(); ctx.translate(w / 2, y); ctx.rotate(Math.PI / 4); ctx.fillStyle = acc; ctx.fillRect(-8, -8, 16, 16); ctx.restore();
-  ctx.textAlign = 'center'; ctx.fillStyle = '#fff'; spaced(ctx, 3);
-  fitFont(ctx, greet, 880, 27, '700', "'Poppins', sans-serif", 16);
-  ctx.fillText(greet, w / 2, Math.min(322, Math.max(300, y + 46)));
-  spaced(ctx, 0);
-}
 var P_TEAM = { Qahira: '#0284c7', Qudsiya: '#059669', Qurthuba: '#ef4444' };
-var P_THEMES = {
-  1: { bg: ['#0b0b0f', '#1f1f29', '#050507'], acc: '#FDB827', glow: '#ff7a00' },
-  2: { bg: ['#2a0f00', '#8a3300', '#140700'], acc: '#ffd24d', glow: '#ff7a00' },
-  3: { bg: ['#1a0a2e', '#4a1d7a', '#0d0518'], acc: '#FDB827', glow: '#a855f7' },
-  4: { bg: ['#021b2a', '#075985', '#01131d'], acc: '#FDB827', glow: '#38bdf8' },
-  5: { bg: ['#0f0f0f', '#3a2a00', '#050505'], acc: '#ffe08a', glow: '#FDB827' }
-};
+
 
 function pv(id, def) { var e = document.getElementById(id); return (e && e.value !== '') ? e.value : def; }
 
@@ -116,177 +96,168 @@ function star(ctx, cx, cy, r) {
 }
 function spaced(ctx, px) { try { ctx.letterSpacing = px + 'px'; } catch (e) { } }
 
-function drawPhoto(ctx, w, h, th, name) {
-  var cx = w * pv('pmPhotoX', 50) / 100, cy = h * pv('pmPhotoY', 40) / 100, r = Number(pv('pmPhotoSize', 190));
-  var shape = pv('pmShape', 'circle'), acc = th ? th.acc : '#f5c451';
-  var path = function (g) {
-    g.beginPath();
-    if (shape === 'circle') g.arc(cx, cy, g === ctx ? r : r, 0, Math.PI * 2);
-    else g.roundRect(cx - r, cy - r, r * 2, r * 2, shape === 'rounded' ? r * 0.28 : 6);
-  };
-  ctx.save();
-  ctx.shadowColor = 'rgba(0,0,0,.45)'; ctx.shadowBlur = 40; ctx.shadowOffsetY = 12;
-  path(ctx); ctx.fillStyle = '#0b1220'; ctx.fill();
-  ctx.restore();
-  ctx.save();
-  path(ctx); ctx.clip();
-  if (posterPhoto) {
-    var s = Math.max(2 * r / posterPhoto.width, 2 * r / posterPhoto.height);
-    var iw = posterPhoto.width * s, ih = posterPhoto.height * s;
-    ctx.drawImage(posterPhoto, cx - iw / 2, cy - ih / 2, iw, ih);
-  } else {
-    var g = ctx.createLinearGradient(cx, cy - r, cx, cy + r);
-    g.addColorStop(0, 'rgba(255,255,255,.22)'); g.addColorStop(1, 'rgba(255,255,255,.05)');
-    ctx.fillStyle = g; ctx.fillRect(cx - r, cy - r, 2 * r, 2 * r);
-    var ini = name.split(/\s+/).filter(Boolean).slice(0, 2).map(function (x) { return x[0]; }).join('').toUpperCase() || '★';
-    ctx.fillStyle = acc; ctx.textAlign = 'center'; ctx.font = '700 ' + Math.round(r * 0.8) + "px 'Cinzel', serif";
-    ctx.fillText(ini, cx, cy + r * 0.28);
-  }
-  ctx.restore();
-  ctx.save();
-  path(ctx); ctx.lineWidth = 12; ctx.strokeStyle = acc; ctx.stroke();
-  ctx.restore();
-  if (shape === 'circle') {
-    ctx.beginPath(); ctx.arc(cx, cy, r + 20, 0, Math.PI * 2);
-    ctx.lineWidth = 3; ctx.strokeStyle = 'rgba(255,255,255,.55)'; ctx.stroke();
-  }
+/* =====================================================================
+   Professional poster designs (1080 x 1350)
+   header with both logos -> photo with medal -> name -> team / category -> item card -> footer
+   ===================================================================== */
+var POSTER_THEMES = {
+  1: { label: 'Royal Blue',     dark: true,  bg: ['#0D2C69', '#185ABD', '#0A2455'], acc: '#FDB827', text: '#FFFFFF', muted: 'rgba(255,255,255,.74)', card: 'rgba(255,255,255,.12)', line: 'rgba(255,255,255,.24)' },
+  2: { label: 'Midnight Gold',  dark: true,  bg: ['#080B13', '#151B2D', '#05070C'], acc: '#D9B45A', text: '#FFFFFF', muted: 'rgba(255,255,255,.7)',  card: 'rgba(255,255,255,.07)', line: 'rgba(217,180,90,.45)' },
+  3: { label: 'Sunrise Orange', dark: true,  bg: ['#D9480F', '#F97316', '#FDB827'], acc: '#FFFFFF', text: '#FFFFFF', muted: 'rgba(255,255,255,.86)', card: 'rgba(20,16,10,.22)',    line: 'rgba(255,255,255,.4)' },
+  4: { label: 'Clean White',    dark: false, bg: ['#FFFFFF', '#F4F7FC', '#E7EEF9'], acc: '#185ABD', text: '#14213D', muted: '#5B6678',                 card: '#FFFFFF',               line: '#D9E2F0' },
+  5: { label: 'Team Colour',    dark: true,  team: true,                           acc: '#FDB827', text: '#FFFFFF', muted: 'rgba(255,255,255,.78)', card: 'rgba(255,255,255,.14)', line: 'rgba(255,255,255,.3)' }
+};
+function shade(hex, f) {
+  var n = parseInt(hex.replace('#', ''), 16), r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
+  var t = f < 0 ? 0 : 255, p = Math.abs(f);
+  return 'rgb(' + Math.round((t - r) * p + r) + ',' + Math.round((t - g) * p + g) + ',' + Math.round((t - b) * p + b) + ')';
 }
-
-function drawRibbon(ctx, w, y, text, acc) {
-  var bw = 700, bh = 82, x0 = (w - bw) / 2, x1 = x0 + bw, n = 34;
-  var g = ctx.createLinearGradient(0, y, 0, y + bh);
-  g.addColorStop(0, '#fff2b8'); g.addColorStop(0.5, acc); g.addColorStop(1, '#b8860b');
-  ctx.save();
-  ctx.shadowColor = 'rgba(0,0,0,.4)'; ctx.shadowBlur = 20; ctx.shadowOffsetY = 8;
-  ctx.beginPath();
-  ctx.moveTo(x0, y); ctx.lineTo(x1, y); ctx.lineTo(x1 - n, y + bh / 2); ctx.lineTo(x1, y + bh);
-  ctx.lineTo(x0, y + bh); ctx.lineTo(x0 + n, y + bh / 2); ctx.closePath();
-  ctx.fillStyle = g; ctx.fill();
-  ctx.restore();
-  ctx.fillStyle = '#2a1a00'; ctx.textAlign = 'center';
-  spaced(ctx, 3);
-  var t = '★  ' + text.toUpperCase() + '  ★';
-  fitFont(ctx, t, bw - 120, 38, '800', "'Poppins', sans-serif", 22);
-  ctx.fillText(t, w / 2, y + bh / 2 + 13);
-  spaced(ctx, 0);
+function themeFor(d) {
+  var t = POSTER_THEMES[selectedPosterModel] || POSTER_THEMES[1];
+  if (t.team) { var c = P_TEAM[d.team] || '#185ABD'; t = Object.assign({}, t, { bg: [shade(c, -0.45), c, shade(c, -0.6)] }); }
+  return t;
 }
-
-function drawHeader(ctx, w, sub, greet, acc, light) {
-  if (posterLogo.name) { drawLogoHeader(ctx, w, greet, acc); return; }
-  ctx.textAlign = 'center';
-  ctx.save();
-  ctx.shadowColor = 'rgba(0,0,0,.5)'; ctx.shadowBlur = 16;
-  ctx.fillStyle = light ? '#fff3c4' : acc;
-  spaced(ctx, 6);
-  fitFont(ctx, 'KADHARVA', 860, 80, '700', "'Cinzel', serif", 40);
-  ctx.fillText('KADHARVA', w / 2, 168);
-  ctx.restore();
-  spaced(ctx, 5);
-  ctx.fillStyle = 'rgba(255,255,255,.85)'; ctx.font = "600 23px 'Poppins', sans-serif";
-  ctx.fillText(sub.toUpperCase(), w / 2, 214);
-  spaced(ctx, 0);
-  ctx.strokeStyle = acc; ctx.lineWidth = 2;
-  ctx.beginPath(); ctx.moveTo(w / 2 - 300, 246); ctx.lineTo(w / 2 - 24, 246); ctx.moveTo(w / 2 + 24, 246); ctx.lineTo(w / 2 + 300, 246); ctx.stroke();
-  ctx.save(); ctx.translate(w / 2, 246); ctx.rotate(Math.PI / 4); ctx.fillStyle = acc; ctx.fillRect(-8, -8, 16, 16); ctx.restore();
-  spaced(ctx, 3);
-  ctx.fillStyle = '#fff'; ctx.font = "700 27px 'Poppins', sans-serif";
-  fitFont(ctx, greet, 880, 27, '700', "'Poppins', sans-serif", 16);
-  ctx.fillText(greet, w / 2, 300);
-  spaced(ctx, 0);
+function rankInfo(pos) {
+  var s = String(pos || '').toLowerCase();
+  if (/(^|\b)1(st)?(\b|$)|first|winner|champion/.test(s)) return { n: '1', suf: 'ST', c1: '#FFE9A0', c2: '#E0A100', edge: '#9A6B00' };
+  if (/(^|\b)2(nd)?(\b|$)|second|runner/.test(s)) return { n: '2', suf: 'ND', c1: '#F6F8FA', c2: '#9AA5B1', edge: '#5F6B78' };
+  if (/(^|\b)3(rd)?(\b|$)|third/.test(s)) return { n: '3', suf: 'RD', c1: '#F7C79A', c2: '#B8651F', edge: '#7A3E0E' };
+  return null;
 }
+function rr(ctx, x, y, w, h, r) { ctx.beginPath(); ctx.roundRect(x, y, w, h, r); }
+function ctext(ctx, str, x, y, font, color, align, sp) { ctx.font = font; ctx.fillStyle = color; ctx.textAlign = align || 'center'; spaced(ctx, sp || 0); ctx.fillText(str, x, y); spaced(ctx, 0); }
 
-/* ---------- built-in themed models ---------- */
-function drawTheme(ctx, c, d) {
-  var w = c.width, h = c.height, th = P_THEMES[selectedPosterModel] || P_THEMES[1], acc = th.acc;
-  var g = ctx.createLinearGradient(0, 0, 0, h);
+function drawBackdrop(ctx, w, h, th, cy) {
+  var g = ctx.createLinearGradient(0, 0, w * 0.35, h);
   g.addColorStop(0, th.bg[0]); g.addColorStop(0.5, th.bg[1]); g.addColorStop(1, th.bg[2]);
   ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
-
-  ctx.save();
-  ctx.beginPath(); ctx.rect(34, 34, w - 68, h - 68); ctx.clip();
-  var cy = h * pv('pmPhotoY', 40) / 100;
-  var rg = ctx.createRadialGradient(w / 2, cy, 40, w / 2, cy, 680);
-  rg.addColorStop(0, th.glow + '88'); rg.addColorStop(1, 'transparent');
+  var rg = ctx.createRadialGradient(w / 2, cy, 40, w / 2, cy, 520);
+  rg.addColorStop(0, th.dark ? 'rgba(255,255,255,.2)' : 'rgba(24,90,189,.14)'); rg.addColorStop(1, 'rgba(255,255,255,0)');
   ctx.fillStyle = rg; ctx.fillRect(0, 0, w, h);
-  ctx.translate(w / 2, cy);
-  for (var i = 0; i < 24; i++) {
-    ctx.rotate(Math.PI * 2 / 24);
-    ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(-45, -1000); ctx.lineTo(45, -1000); ctx.closePath();
-    ctx.fillStyle = 'rgba(255,255,255,.035)'; ctx.fill();
+  ctx.save();
+  ctx.strokeStyle = th.dark ? 'rgba(255,255,255,.08)' : 'rgba(24,90,189,.09)'; ctx.lineWidth = 2;
+  [[w + 40, -30, 360], [w + 40, -30, 270], [-70, h - 150, 320], [-70, h - 150, 230]].forEach(function (c) { ctx.beginPath(); ctx.arc(c[0], c[1], c[2], 0, Math.PI * 2); ctx.stroke(); });
+  ctx.fillStyle = th.dark ? 'rgba(255,255,255,.13)' : 'rgba(24,90,189,.16)';
+  for (var i = 0; i < 6; i++) for (var j = 0; j < 4; j++) { ctx.beginPath(); ctx.arc(w - 210 + i * 26, 250 + j * 26, 3, 0, Math.PI * 2); ctx.fill(); }
+  ctx.fillStyle = th.dark ? 'rgba(255,255,255,.05)' : 'rgba(24,90,189,.06)';
+  for (var k = 0; k < 3; k++) { ctx.beginPath(); ctx.moveTo(0, h - 90 - k * 46); ctx.lineTo(220 + k * 40, h - 90 - k * 46 - 120); ctx.lineTo(260 + k * 40, h - 90 - k * 46 - 120); ctx.lineTo(0, h - 40 - k * 46); ctx.closePath(); ctx.fill(); }
+  ctx.restore();
+  if (!th.dark) { ctx.fillStyle = th.acc; ctx.fillRect(0, 0, w, 14); ctx.fillRect(0, h - 14, w, 14); }
+  ctx.strokeStyle = th.dark ? 'rgba(255,255,255,.2)' : 'rgba(24,90,189,.2)'; ctx.lineWidth = 2; rr(ctx, 30, 30, w - 60, h - 60, 26); ctx.stroke();
+}
+
+function drawLogos(ctx, w, th, greet) {
+  var n = posterLogo.name, s = posterLogo.sub, m = 78, top = 70;
+  if (n) { var k = Math.min(300 / n.width, 118 / n.height); ctx.save(); ctx.shadowColor = 'rgba(0,0,0,.25)'; ctx.shadowBlur = 14; ctx.drawImage(n, m, top, n.width * k, n.height * k); ctx.restore(); }
+  else ctext(ctx, 'KADHARVA', m, top + 70, "800 52px 'Poppins', sans-serif", th.text, 'left', 3);
+  if (s) { var k2 = Math.min(280 / s.width, 100 / s.height), sw = s.width * k2, sh = s.height * k2; ctx.save(); ctx.shadowColor = 'rgba(0,0,0,.25)'; ctx.shadowBlur = 14; ctx.drawImage(s, w - m - sw, top + 10, sw, sh); ctx.restore(); }
+  else ctext(ctx, 'CAMPUS ARTS FEST 2K26', w - m, top + 70, "700 22px 'Poppins', sans-serif", th.acc, 'right', 3);
+  ctx.strokeStyle = th.dark ? 'rgba(255,255,255,.28)' : th.line; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(m, 222); ctx.lineTo(w - m, 222); ctx.stroke();
+  ctx.fillStyle = th.acc; ctx.fillRect(m, 219, 110, 6);
+  if (greet) { ctx.font = "700 26px 'Poppins', sans-serif"; var fs = fitFont(ctx, greet.toUpperCase(), w - 2 * m, 26, '700', "'Poppins', sans-serif", 16); ctext(ctx, greet.toUpperCase(), w / 2, 280, '700 ' + fs + "px 'Poppins', sans-serif", th.acc, 'center', 6); }
+}
+
+function drawPhoto(ctx, w, h, th, name) {
+  var cx = w * pv('pmPhotoX', 50) / 100, cy = h * pv('pmPhotoY', 44) / 100, r = Number(pv('pmPhotoSize', 210));
+  var shape = pv('pmShape', 'circle'), acc = th ? th.acc : '#FDB827';
+  var path = function (rad) { ctx.beginPath(); if (shape === 'circle') ctx.arc(cx, cy, rad, 0, Math.PI * 2); else ctx.roundRect(cx - rad, cy - rad, rad * 2, rad * 2, shape === 'rounded' ? rad * 0.26 : 8); };
+  ctx.save(); ctx.shadowColor = 'rgba(0,0,0,.35)'; ctx.shadowBlur = 44; ctx.shadowOffsetY = 16; path(r + 12); ctx.fillStyle = '#fff'; ctx.fill(); ctx.restore();
+  ctx.save(); path(r); ctx.clip();
+  if (posterPhoto) {
+    var s = Math.max(2 * r / posterPhoto.width, 2 * r / posterPhoto.height), iw = posterPhoto.width * s, ih = posterPhoto.height * s;
+    ctx.drawImage(posterPhoto, cx - iw / 2, cy - ih / 2, iw, ih);
+  } else {
+    var g = ctx.createLinearGradient(cx, cy - r, cx, cy + r); g.addColorStop(0, '#EAF1FC'); g.addColorStop(1, '#C9DAF3');
+    ctx.fillStyle = g; ctx.fillRect(cx - r, cy - r, 2 * r, 2 * r);
+    var ini = String(name).split(/\s+/).filter(Boolean).slice(0, 2).map(function (x) { return x[0]; }).join('').toUpperCase() || '★';
+    ctext(ctx, ini, cx, cy + r * 0.27, '800 ' + Math.round(r * 0.78) + "px 'Poppins', sans-serif", '#185ABD', 'center', 2);
   }
   ctx.restore();
-
-  ctx.save();
-  ctx.beginPath(); ctx.rect(34, 34, w - 68, h - 68); ctx.clip();
-  ctx.strokeStyle = acc; ctx.globalAlpha = 0.09; ctx.lineWidth = 1.5;
-  for (var y = 0, row = 0; y < h + 120; y += 110, row++)
-    for (var x = (row % 2) * 60; x < w + 120; x += 120) { star(ctx, x, y, 36); ctx.stroke(); }
-  ctx.restore();
-
-  var fg = ctx.createLinearGradient(0, 0, w, h);
-  fg.addColorStop(0, '#fff2b8'); fg.addColorStop(0.5, acc); fg.addColorStop(1, '#b8860b');
-  ctx.strokeStyle = fg; ctx.lineWidth = 9; ctx.strokeRect(34, 34, w - 68, h - 68);
-  ctx.strokeStyle = 'rgba(255,255,255,.35)'; ctx.lineWidth = 2; ctx.strokeRect(58, 58, w - 116, h - 116);
-  [[58, 58], [w - 58, 58], [58, h - 58], [w - 58, h - 58]].forEach(function (p) {
-    ctx.save(); ctx.translate(p[0], p[1]); ctx.rotate(Math.PI / 4); ctx.fillStyle = acc; ctx.fillRect(-13, -13, 26, 26); ctx.restore();
-  });
-
-  drawHeader(ctx, w, d.sub, d.greet, acc, false);
-  drawPhoto(ctx, w, h, th, d.name);
-  drawRibbon(ctx, w, 765, d.pos, acc);
-
-  ctx.textAlign = 'center'; ctx.fillStyle = '#fff';
-  ctx.save(); ctx.shadowColor = 'rgba(0,0,0,.5)'; ctx.shadowBlur = 14;
-  fitFont(ctx, d.name, 900, 80, '800', "'Poppins', sans-serif", 34);
-  ctx.fillText(d.name, w / 2, 925);
-  ctx.restore();
-
-  var chip = 'TEAM ' + d.team.toUpperCase() + '  •  ' + d.cat.toUpperCase();
-  spaced(ctx, 2); ctx.font = "700 28px 'Poppins', sans-serif";
-  var cw = Math.min(860, ctx.measureText(chip).width + 70);
-  ctx.fillStyle = P_TEAM[d.team] || acc;
-  ctx.beginPath(); ctx.roundRect((w - cw) / 2, 954, cw, 62, 31); ctx.fill();
-  ctx.strokeStyle = 'rgba(255,255,255,.7)'; ctx.lineWidth = 2; ctx.stroke();
-  ctx.fillStyle = '#fff'; ctx.fillText(chip, w / 2, 995); spaced(ctx, 0);
-
-  ctx.fillStyle = 'rgba(255,255,255,.09)'; ctx.strokeStyle = acc; ctx.lineWidth = 2;
-  ctx.beginPath(); ctx.roundRect(110, 1050, w - 220, 128, 18); ctx.fill(); ctx.stroke();
-  spaced(ctx, 4); ctx.fillStyle = acc; ctx.font = "600 20px 'Poppins', sans-serif";
-  ctx.fillText('COMPETITION ITEM', w / 2, 1088); spaced(ctx, 0);
-  ctx.fillStyle = '#fff';
-  fitFont(ctx, d.prog, w - 300, 50, '800', "'Poppins', sans-serif", 24);
-  ctx.fillText(d.prog, w / 2, 1150);
-
-  ctx.fillStyle = 'rgba(255,255,255,.85)'; ctx.font = "500 21px 'Poppins', sans-serif";
-  ctx.fillText('MMO Orphanage  •  Fest Organizing Committee', w / 2, 1232);
-  ctx.fillStyle = acc; ctx.font = "600 17px 'Poppins', sans-serif"; spaced(ctx, 3);
-  ctx.fillText('OFFICIAL RESULT PUBLICATION', w / 2, 1262); spaced(ctx, 0);
+  path(r + 12); ctx.lineWidth = 3; ctx.strokeStyle = acc; ctx.stroke();
+  path(r + 30); ctx.lineWidth = 2; ctx.strokeStyle = th && !th.dark ? 'rgba(24,90,189,.3)' : 'rgba(255,255,255,.4)'; ctx.stroke();
+  return { cx: cx, cy: cy, r: r };
 }
 
-/* ---------- user-uploaded PNG poster ---------- */
-function drawCustom(ctx, c, d) {
-  var w = c.width, h = c.height, light = pv('pmTextColor', 'light') === 'light';
-  ctx.drawImage(posterBg, 0, 0, w, h);
-  var col = light ? '#ffffff' : '#111827', off = Number(pv('pmTextY', 0));
-  if (document.getElementById('pmShowHeader').checked) drawHeader(ctx, w, d.sub, d.greet, '#f5c451', light);
-  drawPhoto(ctx, w, h, null, d.name);
-  drawRibbon(ctx, w, 765 + off, d.pos, '#f5c451');
-  ctx.textAlign = 'center';
-  ctx.save();
-  if (light) { ctx.shadowColor = 'rgba(0,0,0,.6)'; ctx.shadowBlur = 14; }
-  ctx.fillStyle = col;
-  fitFont(ctx, d.name, 900, 80, '800', "'Poppins', sans-serif", 34);
-  ctx.fillText(d.name, w / 2, 925 + off);
-  spaced(ctx, 2);
-  fitFont(ctx, 'TEAM ' + d.team.toUpperCase() + ' • ' + d.cat.toUpperCase(), 880, 30, '700', "'Poppins', sans-serif", 18);
-  ctx.fillText('TEAM ' + d.team.toUpperCase() + ' • ' + d.cat.toUpperCase(), w / 2, 985 + off);
+function drawMedal(ctx, ph, info, th) {
+  var shape = pv('pmShape', 'circle'), k = shape === 'circle' ? 0.74 : 0.9;
+  var x = ph.cx + ph.r * k, y = ph.cy + ph.r * k, R = 76;
+  if (info) {
+    ctx.save(); ctx.shadowColor = 'rgba(0,0,0,.3)'; ctx.shadowBlur = 16; ctx.shadowOffsetY = 6;
+    [[-34, '#C8102E'], [10, '#185ABD']].forEach(function (t, i) {
+      ctx.beginPath(); ctx.moveTo(x + t[0] - 8, y + R - 16); ctx.lineTo(x + t[0] + 36, y + R - 16); ctx.lineTo(x + t[0] + 36, y + R + 48); ctx.lineTo(x + t[0] + 14, y + R + 34); ctx.lineTo(x + t[0] - 8, y + R + 48); ctx.closePath(); ctx.fillStyle = t[1]; ctx.fill();
+    });
+    ctx.restore();
+  }
+  ctx.save(); ctx.shadowColor = 'rgba(0,0,0,.35)'; ctx.shadowBlur = 20; ctx.shadowOffsetY = 8;
+  ctx.beginPath(); ctx.arc(x, y, R, 0, Math.PI * 2); var g = ctx.createLinearGradient(x - R, y - R, x + R, y + R);
+  if (info) { g.addColorStop(0, info.c1); g.addColorStop(1, info.c2); } else { g.addColorStop(0, '#5C9BEA'); g.addColorStop(1, '#185ABD'); }
+  ctx.fillStyle = g; ctx.fill(); ctx.restore();
+  ctx.lineWidth = 6; ctx.strokeStyle = info ? info.edge : '#0F3F8F'; ctx.beginPath(); ctx.arc(x, y, R, 0, Math.PI * 2); ctx.stroke();
+  ctx.lineWidth = 2; ctx.strokeStyle = 'rgba(255,255,255,.7)'; ctx.beginPath(); ctx.arc(x, y, R - 12, 0, Math.PI * 2); ctx.stroke();
+  if (info) {
+    ctext(ctx, info.n, x - 8, y + 20, "800 74px 'Poppins', sans-serif", info.edge, 'center');
+    ctext(ctx, info.suf, x + 34, y - 14, "800 24px 'Poppins', sans-serif", info.edge, 'center');
+    ctext(ctx, 'PLACE', x, y + 46, "700 14px 'Poppins', sans-serif", info.edge, 'center', 3);
+  } else {
+    ctext(ctx, '★', x, y + 20, "800 62px 'Poppins', sans-serif", '#FFFFFF', 'center');
+  }
+}
+
+function drawIdentity(ctx, w, th, d, off, panel) {
+  var name = d.name, y = 924 + off;
+  ctx.save(); if (th.dark) { ctx.shadowColor = 'rgba(0,0,0,.35)'; ctx.shadowBlur = 12; ctx.shadowOffsetY = 3; }
+  var fs = fitFont(ctx, name, w - 150, 84, '800', "'Poppins', sans-serif", 36);
+  ctext(ctx, name, w / 2, y, '800 ' + fs + "px 'Poppins', sans-serif", th.text, 'center');
+  ctx.restore();
+  var chips = [['TEAM ' + d.team.toUpperCase(), P_TEAM[d.team] || th.acc, '#FFFFFF'], [String(d.cat).toUpperCase(), th.dark ? 'rgba(255,255,255,.2)' : '#E7EEF9', th.dark ? '#FFFFFF' : '#185ABD']];
+  ctx.font = "700 24px 'Poppins', sans-serif"; spaced(ctx, 2);
+  var ws = chips.map(function (c) { return ctx.measureText(c[0]).width + 56; }), total = ws[0] + ws[1] + 16, x = (w - total) / 2, cy = y + 40;
+  chips.forEach(function (c, i) { rr(ctx, x, cy, ws[i], 54, 27); ctx.fillStyle = c[1]; ctx.fill(); ctext(ctx, c[0], x + ws[i] / 2, cy + 36, "700 24px 'Poppins', sans-serif", c[2], 'center', 2); x += ws[i] + 16; });
   spaced(ctx, 0);
-  fitFont(ctx, d.prog, 900, 48, '800', "'Poppins', sans-serif", 22);
-  ctx.fillText(d.prog, w / 2, 1060 + off);
-  ctx.restore();
+
+  var cardY = 1046 + off, cardH = 150, cx = 78, cw = w - 156;
+  if (panel === false) return;
+  ctx.save(); if (!th.dark) { ctx.shadowColor = 'rgba(24,90,189,.16)'; ctx.shadowBlur = 26; ctx.shadowOffsetY = 8; }
+  rr(ctx, cx, cardY, cw, cardH, 22); ctx.fillStyle = th.card; ctx.fill(); ctx.restore();
+  ctx.lineWidth = 2; ctx.strokeStyle = th.line; rr(ctx, cx, cardY, cw, cardH, 22); ctx.stroke();
+  ctx.strokeStyle = th.line; ctx.beginPath(); ctx.moveTo(w * 0.62, cardY + 28); ctx.lineTo(w * 0.62, cardY + cardH - 28); ctx.stroke();
+  ctext(ctx, 'COMPETITION ITEM', cx + 34, cardY + 46, "700 18px 'Poppins', sans-serif", th.acc, 'left', 4);
+  var iw = w * 0.62 - cx - 60, ifs = fitFont(ctx, d.prog, iw, 46, '800', "'Poppins', sans-serif", 22);
+  ctext(ctx, d.prog, cx + 34, cardY + 106, '800 ' + ifs + "px 'Poppins', sans-serif", th.text, 'left');
+  ctext(ctx, 'RESULT', w * 0.62 + 32, cardY + 46, "700 18px 'Poppins', sans-serif", th.acc, 'left', 4);
+  var res = String(d.pos).toUpperCase(), rw = w - 78 - (w * 0.62 + 32) - 30, rfs = fitFont(ctx, res, rw, 36, '800', "'Poppins', sans-serif", 18);
+  ctext(ctx, res, w * 0.62 + 32, cardY + 104, '800 ' + rfs + "px 'Poppins', sans-serif", th.text, 'left');
 }
 
-/* ---------- entry point (replaces the old one) ---------- */
+function drawFooter(ctx, w, h, th) {
+  ctx.strokeStyle = th.dark ? 'rgba(255,255,255,.25)' : th.line; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(78, 1246); ctx.lineTo(w - 78, 1246); ctx.stroke();
+  ctext(ctx, 'KADHARVA  ·  CAMPUS ARTS FEST 2K26', 78, 1290, "700 19px 'Poppins', sans-serif", th.text, 'left', 2);
+  ctext(ctx, 'OFFICIAL RESULT PUBLICATION', w - 78, 1290, "600 16px 'Poppins', sans-serif", th.muted, 'right', 3);
+}
+
+/* built-in designs */
+function drawTheme(ctx, c, d) {
+  var w = c.width, h = c.height, th = themeFor(d), cy = h * pv('pmPhotoY', 44) / 100;
+  drawBackdrop(ctx, w, h, th, cy);
+  drawLogos(ctx, w, th, d.greet);
+  var ph = drawPhoto(ctx, w, h, th, d.name);
+  drawMedal(ctx, ph, rankInfo(d.pos), th);
+  drawIdentity(ctx, w, th, d, 0, true);
+  drawFooter(ctx, w, h, th);
+}
+
+/* your own uploaded PNG poster: logos / header are optional, the rest is placed on top */
+function drawCustom(ctx, c, d) {
+  var w = c.width, h = c.height, light = pv('pmTextColor', 'light') === 'light', off = Number(pv('pmTextY', 0));
+  var th = { dark: light, text: light ? '#FFFFFF' : '#111827', muted: light ? 'rgba(255,255,255,.8)' : '#334155', acc: '#FDB827', card: light ? 'rgba(10,20,40,.55)' : 'rgba(255,255,255,.78)', line: light ? 'rgba(255,255,255,.3)' : 'rgba(0,0,0,.15)' };
+  ctx.drawImage(posterBg, 0, 0, w, h);
+  if (document.getElementById('pmShowHeader').checked) drawLogos(ctx, w, th, d.greet);
+  var ph = drawPhoto(ctx, w, h, th, d.name);
+  drawMedal(ctx, ph, rankInfo(d.pos), th);
+  drawIdentity(ctx, w, th, d, off, true);
+}
+
+/* ---------- entry point ---------- */
 function drawPosterPreview() {
   var c = document.getElementById('posterCanvas'), ctx = c.getContext('2d');
   var posSel = pv('pmPosition', 'FIRST PLACE'), rank = pv('pmRankText', '');

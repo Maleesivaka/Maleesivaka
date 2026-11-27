@@ -1,9 +1,9 @@
 /* KADHARVA welcome intro — two PNG logos walk in along the bottom of the page, open their arms, hug,
    burst into colour, then give a thumbs-up and welcome the visitor. Independent component. */
 #kdIntro { position: fixed; inset: 0; z-index: 10000; overflow: hidden; background: #fff; font-family: 'Poppins', sans-serif;
-  font-size: min(1.65vw, 2.9vh, 19px); --wa: 20em; --wb: 17em; --ink: #222; transition: opacity .8s ease, transform .8s ease; }
-@media (max-aspect-ratio: 3/4) { #kdIntro { font-size: min(2.2vw, 2.6vh); --wa: 17em; --wb: 14.5em; }
-  .kd-arm { width: 3.8em !important; } .kd-title { top: 16% !important; } .kd-h { font-size: 3.5em !important; } .kd-char { bottom: 9vh !important; } .kd-floor { bottom: calc(9vh - .9em) !important; } }
+  font-size: min(1.3vw, 2.4vh, 15px); --wa: 18em; --wb: 15.5em; --skin: #F1B27E; --skin-d: #C9824F; --ink2: #5a3a22; --ink: #222; transition: opacity .8s ease, transform .8s ease; }
+@media (max-aspect-ratio: 3/4) { #kdIntro { font-size: min(2vw, 2.4vh); --wa: 15em; --wb: 13em; }
+  .kd-arm { width: 3.2em !important; } .kd-title { top: 16% !important; } .kd-h { font-size: 3.5em !important; } .kd-char { bottom: 9vh !important; } .kd-floor { bottom: calc(9vh - .9em) !important; } }
 #kdIntro.kd-out { opacity: 0; transform: scale(1.05); pointer-events: none; }
 #kdIntro *, #kdIntro *::before, #kdIntro *::after { box-sizing: border-box; }
 
@@ -37,39 +37,38 @@
 .kd-logo { display: block; width: 100%; height: auto; user-select: none; -webkit-user-drag: none; }
 .kd-fb { text-align: center; font: 800 4em 'Bangers', 'Poppins', sans-serif; color: #103F91; padding: .3em 0; letter-spacing: .05em; }
 
-/* ---------- arms: thin black sleeves + big white cartoon gloves ---------- */
-.kd-arm { position: absolute; width: 5em; height: .6em; background: var(--ink); border-radius: 1em; transform-origin: 0 50%; transition: transform .7s cubic-bezier(.3,1.3,.5,1), width .7s ease; }
-.kd-arm .glove { position: absolute; right: -1.5em; top: 50%; width: 2.5em; height: 2.3em; margin-top: -1.15em; border-radius: 48% 48% 52% 52%; background: #fff; border: .2em solid var(--ink); }
-.kd-arm .glove::after { content: ""; position: absolute; left: 18%; right: 18%; top: 38%; height: .14em; border-radius: .1em; background: #bfc5cc; box-shadow: 0 .5em 0 #bfc5cc; }
-.kd-arm .th { display: none; position: absolute; width: .9em; height: 1.35em; left: 50%; top: -1.15em; margin-left: -.45em; background: #fff; border: .2em solid var(--ink); border-radius: .6em; }
+/* ---------- arms: chubby child arms with small round hands ---------- */
+.kd-arm { position: absolute; width: 4em; height: 1.35em; background: var(--skin); border: .2em solid var(--ink2); border-radius: 1em; transform-origin: 0 50%; transition: transform .7s cubic-bezier(.3,1.3,.5,1), width .7s ease; }
+.kd-arm .glove { position: absolute; right: -1.7em; top: 50%; width: 2.3em; height: 2.3em; margin-top: -1.15em; border-radius: 50%; background: var(--skin); border: .2em solid var(--ink2); }
+.kd-arm .glove::after { content: ""; position: absolute; left: 22%; right: 12%; top: 30%; height: .14em; border-radius: .1em; background: var(--skin-d); box-shadow: 0 .42em 0 var(--skin-d), 0 .84em 0 var(--skin-d); }
+.kd-arm .th { display: none; position: absolute; width: 1em; height: 1.4em; left: 50%; top: -1.2em; margin-left: -.5em; background: var(--skin); border: .2em solid var(--ink2); border-radius: .6em; }
 .arm-in  { left: 100%; top: 58%; margin-left: -.5em; z-index: 4; transform: rotate(calc(var(--s) * 84deg)); }
 .arm-out { left: 0; top: 58%; margin-left: .5em; z-index: 0; transform: rotate(calc(var(--s) * 100deg)); }
 .kd-b .kd-arm { transform-origin: 100% 50%; }
-.kd-b .kd-arm .glove { right: auto; left: -1.5em; }
+.kd-b .kd-arm .glove { right: auto; left: -1.7em; }
+.kd-b .kd-arm .glove::after { left: 12%; right: 22%; }
 .kd-b .arm-in  { left: auto; right: 100%; margin: 0 -.5em 0 0; }
 .kd-b .arm-out { left: auto; right: 0; margin: 0 .5em 0 0; }
-/* arms spread wide to welcome each other */
 .kd-open .arm-in  { transform: rotate(calc(var(--s) * -14deg)); }
 .kd-open .arm-out { transform: rotate(calc(var(--s) * 190deg)); }
-/* hug: arms sweep towards each other and around */
-.kd-hug .arm-in  { transform: rotate(calc(var(--s) * -24deg)); width: 6.8em; }
-.kd-hug .arm-out { transform: rotate(calc(var(--s) * 150deg)); width: 5.6em; }
-/* finale: outer arm up with a thumbs-up */
+.kd-hug .arm-in  { transform: rotate(calc(var(--s) * -24deg)); width: 5.4em; }
+.kd-hug .arm-out { transform: rotate(calc(var(--s) * 150deg)); width: 4.6em; }
 .kd-thumbs .arm-in  { transform: rotate(calc(var(--s) * 70deg)); }
-.kd-thumbs .arm-out { transform: rotate(calc(var(--s) * -78deg)); width: 5em; }
+.kd-thumbs .arm-out { transform: rotate(calc(var(--s) * -78deg)); width: 4.2em; }
 .kd-thumbs .arm-out .th { display: block; }
 
-/* ---------- legs: short black stick legs, big sneakers ---------- */
-.kd-legs { position: relative; z-index: 1; width: 6em; height: 3.7em; margin: -.5em auto 0; }
-.leg { position: absolute; top: 0; width: .8em; height: 100%; background: var(--ink); border-radius: .5em; transform-origin: 50% 0; }
+/* ---------- legs: chubby child legs, white socks and small sneakers ---------- */
+.kd-legs { position: relative; z-index: 1; width: 6.4em; height: 3.3em; margin: -.5em auto 0; }
+.leg { position: absolute; top: 0; width: 1.75em; height: 100%; background: var(--skin); border: .2em solid var(--ink2); border-radius: .95em; transform-origin: 50% 0; }
+.leg::after { content: ""; position: absolute; left: -.2em; right: -.2em; bottom: -.2em; height: 1.35em; border: .2em solid var(--ink2); border-radius: .35em .35em .9em .9em; background: linear-gradient(#2B7CD3 0 .38em, #fff .38em); }
 .leg.l { left: 0; } .leg.r { right: 0; }
-.shoe { position: absolute; bottom: -1.1em; left: -.6em; width: 3.6em; height: 2.1em; background: var(--sh); border: .22em solid var(--ink); border-radius: 1.8em 2.2em .5em .5em;
-  box-shadow: inset 0 -.6em 0 #fff, inset 0 -.75em 0 var(--ink); }
-.shoe::before { content: ""; position: absolute; left: 26%; top: 18%; width: 44%; height: .22em; border-radius: .1em; background: #fff; box-shadow: 0 .5em 0 #fff; }
+.shoe { position: absolute; z-index: 2; bottom: -1.15em; left: -.6em; width: 3.2em; height: 1.85em; background: var(--sh); border: .2em solid var(--ink2); border-radius: 1.6em 2em .5em .5em;
+  box-shadow: inset 0 -.55em 0 #fff, inset 0 -.7em 0 var(--ink2); }
+.shoe::before { content: ""; position: absolute; left: 28%; top: 20%; width: 40%; height: .2em; border-radius: .1em; background: #fff; box-shadow: 0 .45em 0 #fff; }
 .kd-b .kd-legs { transform: scaleX(-1); }
 /* little motion strokes behind the feet while walking */
 .kd-legs::before, .kd-legs::after { content: ""; position: absolute; bottom: .2em; width: .9em; height: 1.6em; border: .22em solid #9aa4b2; border-right: 0; border-top-color: transparent; border-bottom-color: transparent; border-radius: 50%; opacity: 0; }
-.kd-legs::before { left: -2.4em; } .kd-legs::after { left: -3.7em; bottom: .9em; height: 1.2em; }
+.kd-legs::before { left: -2.2em; } .kd-legs::after { left: -3.4em; bottom: .9em; height: 1.2em; }
 .kd-walk .kd-legs::before, .kd-walk .kd-legs::after { animation: kdStroke .36s ease-in-out infinite alternate; }
 @keyframes kdStroke { from { opacity: 0; } to { opacity: .85; } }
 

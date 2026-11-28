@@ -792,6 +792,8 @@ function renderStudentProgramMatrix() {
   var resultMap = {};
   festResults.forEach(r => {
     if (r.published === 'YES' || r.published === undefined) {
+      var program = festPrograms.filter(p => p.name === r.program && p.category === r.category)[0];
+      if (program && (program.type === 'Group' || program.type === 'General' || program.category === 'GENERAL')) return;
       var key = (r.regNo || '').trim().toUpperCase() + '___' + (r.program || '').trim().toUpperCase();
       resultMap[key] = { mark: r.mark, place: r.place, grade: r.grade };
     }
@@ -856,7 +858,11 @@ function lookupResult() {
   let reg = document.getElementById('studentRegNo').value.trim();
   let box = document.getElementById('studentResultBox');
   if (!reg) return;
-  let res = festResults.filter(r => String(r.regNo).toLowerCase() === reg.toLowerCase());
+  let res = festResults.filter(r => {
+    if (String(r.regNo).toLowerCase() !== reg.toLowerCase()) return false;
+    var program = festPrograms.filter(p => p.name === r.program && p.category === r.category)[0];
+    return !(program && (program.type === 'Group' || program.type === 'General' || program.category === 'GENERAL'));
+  });
   if (res.length > 0) {
     box.innerHTML = res.map(r => `
       <div style="padding:14px; border:1px solid var(--border-color); background:#f8fafc; border-radius:10px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">

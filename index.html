@@ -89,6 +89,16 @@
         <div class="hero-chips"><span>Programs</span><span>Live Results</span><span>Schedule</span><span>Point Table</span></div></div>
       <img class="h-sub js-logo-sub" src="campus-arts-fest.png" alt="Campus Arts Fest 2K26"><div class="logo-fb hero-fb" style="display:none">Campus Arts Fest 2K26</div>
     </div>
+    <section id="quizLiveDashboard" hidden style="margin:18px 0 22px;">
+      <div class="dashboard-card" style="padding:16px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
+          <div><h3 style="margin:0;color:var(--navy-dark);"><i class="fa-solid fa-circle-play" style="color:#dc2626;"></i> Live Quiz Scoreboard</h3>
+          <p style="margin:5px 0 0;color:var(--text-muted);font-size:12px;">Live group quiz standings · updates automatically</p></div>
+          <span class="badge-timer"><span class="live-pulse"></span> QUIZ LIVE</span>
+        </div>
+        <iframe id="quizLiveFrame" title="Live Quiz Scoreboard" loading="lazy" style="display:block;width:100%;height:820px;border:0;border-radius:10px;background:#fff;" allowfullscreen></iframe>
+      </div>
+    </section>
     <div id="festOverview">
       <div class="ov-head"><div class="ov-title">FESTIVAL OVERVIEW <span class="ov-live" id="ovLive"></span></div><div class="ov-sync" id="ovSync"></div></div>
       
@@ -681,5 +691,7 @@
 <script src="dashboard.js?v=19"></script>
 <script src="shell.js?v=19"></script>
 <script src="welcome-intro.js?v=19"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="quiz-dashboard.js?v=1"></script>
 </body>
 </html>

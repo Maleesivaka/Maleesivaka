@@ -29,7 +29,14 @@ function rbMark(rank, grade) {
   return m;
 }
 
-/* replaces the old candidate dropdown: builds the table of participants */
+/* Group and General programs receive team-level marks; other types remain participant-level. */
+function rbIsTeamProgram(cat, item) {
+  if (cat === 'GENERAL') return true;
+  var prog = festPrograms.filter(function (p) { return p.name === item && p.category === cat; })[0];
+  return !!(prog && (prog.type === 'Group' || prog.type === 'General' || prog.category === 'GENERAL'));
+}
+
+/* Build either a team-only table or the existing individual participant table. */
 updateResultCandidateDropdown = function () {
   var box = document.getElementById('resBatchTable');
   if (!box) return;
@@ -39,8 +46,9 @@ updateResultCandidateDropdown = function () {
   rbRows = [];
   if (!item) { box.innerHTML = "<p style='padding:14px;color:var(--text-muted);'>Choose a category and a competition item.</p>"; return; }
 
+  var teamMode = rbIsTeamProgram(cat, item);
   var note = '';
-  if (cat === 'GENERAL') {
+  if (teamMode) {
     ['Qahira', 'Qudsiya', 'Qurthuba'].forEach(function (t) { rbRows.push({ regNo: 'TEAM', name: t, team: t }); });
   } else {
     var cands = festCandidates.filter(function (c) { return c.category === cat; });
@@ -53,14 +61,17 @@ updateResultCandidateDropdown = function () {
 
   var opts = function (list, cur) { return list.map(function (v) { return '<option value="' + v + '"' + (cur === v ? ' selected' : '') + '>' + (v === '-' ? '—' : v) + '</option>'; }).join(''); };
   var h = (note ? '<p style="font-size:12px;color:#b45309;padding:8px 4px;">' + note + '</p>' : '') +
-    '<table><thead><tr><th>#</th><th>Reg No</th><th>Participant</th><th>Team</th><th>Rank</th><th>Grade</th><th>Mark</th></tr></thead><tbody>';
+    (teamMode
+      ? '<p style="font-size:12px;color:#047857;padding:8px 4px;">Team result: marks are assigned to each team, not to individual students.</p><table><thead><tr><th>#</th><th>Team</th><th>Rank</th><th>Grade</th><th>Mark</th></tr></thead><tbody>'
+      : '<table><thead><tr><th>#</th><th>Reg No</th><th>Participant</th><th>Team</th><th>Rank</th><th>Grade</th><th>Mark</th></tr></thead><tbody>');
   rbRows.forEach(function (r, i) {
     var ex = festResults.filter(function (x) {
-      return x.program === item && x.category === cat && (cat === 'GENERAL' ? x.team === r.team : String(x.regNo) === String(r.regNo));
+      return x.program === item && x.category === cat && (teamMode ? x.team === r.team : String(x.regNo) === String(r.regNo));
     })[0] || {};
     var rank = (ex.place && ex.place !== '-') ? ex.place : '-', grade = (ex.grade && ex.grade !== '-') ? ex.grade : '-';
-    h += '<tr><td>' + (i + 1) + '</td><td><b style="color:var(--navy-main);">' + (r.regNo === 'TEAM' ? '–' : esc(r.regNo)) + '</b></td><td>' + esc(r.name) + '</td>' +
-      '<td><span class="badge team-badge-' + r.team.toLowerCase() + '">' + r.team + '</span></td>' +
+    h += '<tr><td>' + (i + 1) + '</td>' +
+      (teamMode ? '<td><span class="badge team-badge-' + r.team.toLowerCase() + '">' + r.team + '</span></td>' :
+        '<td><b style="color:var(--navy-main);">' + esc(r.regNo) + '</b></td><td>' + esc(r.name) + '</td><td><span class="badge team-badge-' + r.team.toLowerCase() + '">' + r.team + '</span></td>') +
       '<td><select id="rbRank' + i + '" onchange="rbRecalc(' + i + ')" style="margin:0;padding:6px 8px;">' + opts(['-', '1st', '2nd', '3rd'], rank) + '</select></td>' +
       '<td><select id="rbGrade' + i + '" onchange="rbRecalc(' + i + ')" style="margin:0;padding:6px 8px;">' + opts(['-', 'A', 'B', 'C'], grade) + '</select></td>' +
       '<td id="rbMark' + i + '" style="font-weight:800;color:var(--emerald-main);font-size:16px;">' + rbMark(rank, grade) + '</td></tr>';
@@ -98,15 +109,19 @@ function saveResultBatch() {
   var dup = ['1st', '2nd', '3rd'].filter(function (k) { return count[k] > 1; });
   if (dup.length && !confirm('More than one participant has the same rank (' + dup.join(', ') + '). Save as a tie?')) return;
 
+  var teamMode = rbIsTeamProgram(cat, item);
   var isRow = function (x) {
-    return rbRows.some(function (r) { return cat === 'GENERAL' ? x.team === r.team : String(x.regNo) === String(r.regNo); });
+    if (teamMode) return true;
+    return rbRows.some(function (r) { return String(x.regNo) === String(r.regNo); });
   };
+  /* Replace all old entries for this team-level item/category so earlier individual
+     marks cannot remain attached to students after switching the item to team scoring. */
   festResults = festResults.filter(function (x) { return !(x.program === item && x.category === cat && isRow(x)); });
   if (pub === 'YES' && out.length && !confirm('Publish this result now? Everyone will be notified.')) return;
   var batchId = Date.now(), nowIso = new Date().toISOString();
   out.forEach(function (o, n) {
     festResults.push({
-      id: Date.now() + n, regNo: o.r.regNo, name: cat === 'GENERAL' ? o.r.name + ' (Team)' : o.r.name, team: o.r.team,
+      id: Date.now() + n, regNo: teamMode ? 'TEAM' : o.r.regNo, name: teamMode ? o.r.name + ' (Team)' : o.r.name, team: o.r.team,
       category: cat, program: item, mark: rbMark(o.rank, o.grade),
       grade: o.grade === '-' ? '' : o.grade, place: o.rank, published: pub,
       batch: pub === 'YES' ? batchId : '', pubAt: pub === 'YES' ? nowIso : ''
@@ -120,7 +135,7 @@ function saveResultBatch() {
     markResultsKnown();
   }
   saveAllData();
-  alert('Result saved for "' + item + '" (' + out.length + ' participant' + (out.length === 1 ? '' : 's') + ').');
+  alert('Result saved for "' + item + '" (' + out.length + (teamMode ? ' team' : ' participant') + (out.length === 1 ? '' : 's') + ').');
 }
 
 rbLoadPointInputs();

@@ -1,6 +1,6 @@
 /* Configure with Supabase Project URL and publishable/anon key. Never use service_role here. */
 (()=>{'use strict';
-const SUPABASE_URL='PASTE_SUPABASE_PROJECT_URL',SUPABASE_KEY='PASTE_SUPABASE_PUBLISHABLE_OR_ANON_KEY';
+const SUPABASE_URL='https://pnmjrwiyyfjmztmqfiel.supabase.co',SUPABASE_KEY='sb_publishable_EuTJPCN9I-hoITVwidSu1w_KPdSNyFf';
 const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let db,teams=[],rounds=[],scores=[],settings={title:'Group Quiz Competition',status:'upcoming'},busy=false;
 const say=(id,t,bad=false)=>{if($(id)){$(id).textContent=t;$(id).style.color=bad?'#b42318':''}};
